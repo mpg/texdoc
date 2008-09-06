@@ -1,0 +1,38 @@
+/* 
+ * Copyright 2008 TeX Users Group.
+ * You may freely use, modify and/or distribute this file.  
+ * (So did I... mpg.)
+ */
+
+BODY {
+  margin-top: 8pt;
+  margin-left: 8pt;
+  color: black; background: white;
+  font-family: sans-serif;
+}
+
+H1, H2, H3, H4 { color: navy; }
+
+a:link      { color: navy; }
+a:visited   { color: green; }
+a:active    { color: red; }
+
+.negskippt  { margin-top: -1pt; margin-bottom: -1pt; } /*tug07/register.html*/
+.negskip    { margin-top: -.6em; }
+.bnegskip   { margin-top: -3%; }
+.tinyskip   { margin-top: 2pt; }
+.smallskip  { margin-top: 8pt; }
+.indent     { text-indent: 2em; }
+
+.hang       { padding-left: 2em; text-indent: -2em; }
+.narrow     { margin-left: 5%; margin-right: 10%; }
+.center     { text-align: center; }
+.navy       { color: navy; }
+
+#footer {
+    color: #808080;
+    font-size: 75%;
+    margin-top : 10px;
+    border-top : 1px solid #808080;
+}
+
