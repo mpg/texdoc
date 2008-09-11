@@ -1,0 +1,707 @@
+% this is texdoc's user manual
+% written by Manuel Pégourié-Gonnard in 2008
+% licensed under the WTFPL version 2 
+
+\documentclass[a4paper, oneside]{scrartcl}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fixltx2e}
+\usepackage{lmodern}
+
+\usepackage{xargs, xspace, fancyvrb, xcolor, pifont, calc, ifmtarg, mathstyle}
+
+\usepackage[rm, bf]{titlesec}
+\titlelabel{\makebox[0pt][r]{\thetitle\kern1pc}}
+\titleformat{\subsubsection}[runin]{\itshape}{%
+  \makebox[0pt][r]{\thetitle\kern1pc}}{%
+  0pt}{}[\maybedot\space --- ]
+
+\usepackage{enumitem}
+\newlength\lssep \setlength\lssep{\smallskipamount}
+\setlist{noitemsep,topsep=\lssep,partopsep=\lssep}
+
+\usepackage[british]{babel}
+\usepackage[babel=true, expansion=false]{microtype}
+\usepackage[bookmarks=true]{hyperref}
+\hypersetup{%
+  bookmarksnumbered=true, bookmarksopen=true, bookmarksopenlevel=2,
+  pdftitle=texdoc: finding and viewing TeX documentation,
+  pdfauthor=Manuel Pégourié-Gonnard,
+  pdfsubject=texdoc's user manual,
+  pdfkeywords={texdoc, TeX Live, manual}}
+
+\newcommand\CTAN[1]{%
+  \href{http://mirror.ctan.org/tex-archive/#1}{CTAN:#1}}
+\newcommand\mailto[1]{%
+  \href{mailto:#1}{#1}}
+\newcommand\package[1]{%
+  \href{http://ctan.org/pkg/#1}{#1}}
+\newcommand\http[1]{%
+  \href{http://#1}{#1}}
+
+\newcommand\texlive{%
+  \TeX{}\thinspace Live\xspace}
+
+\setlength\parindent{\baselineskip}
+
+\let\TeXori\TeX \def\TeX{\TeXori\xspace} % breaks the l2e logo
+\lastlinefit=500 % e-TeX powered
+
+\definecolor{links}{named}{violet}
+\definecolor{special}{rgb}{0,0.5,0}
+\definecolor{code}{rgb}{0,0,0.6}
+\definecolor{input}{rgb}{1.0,0,0}
+\newcommand\inputcolorname{red}
+\hypersetup{colorlinks=true, linkcolor=links, urlcolor=links, citecolor=links}
+\newcommand\textpa[1]{% % noms d'extensions (package)
+  {\normalfont\color{special}\sffamily #1}}
+\newcommand\cofont{% % code
+  \color{code}\normalfont\ttfamily}
+\newcommand\textco[1]{{\cofont#1}}
+\newcommand\textme[1]{% % éléments meta
+  {\normalfont\color{special}\itshape #1\/}}
+\newcommand\epfont{% % épigraphes
+  \normalcolor\usefont{T1}{pzc}{m}{it}}
+\newcommand\textlmi[1]{% passage en lmodern italique pour voir
+  {\usefont{T1}{lmr}{m}{it}#1}}
+\newcommand\textcm[1]{% % passage en cm pour voir
+  {\fontencoding{T1}\fontfamily{cmr}\selectfont#1}}
+\newcommand\file{\nolinkurl}
+
+% take care of nbsp
+\catcode`\ 10\relax
+
+\newcommand\meta[1]{% % variantes à remplacer
+  {\color{special}\textlangle\textme{#1}\textrangle}}
+\newcommand\commandline[1]{%
+  \prompt\space \textcolor{input}{#1}}
+\newcommand\prompt{\ding{229}}
+
+\fvset{formatcom=\cofont, defineactive={\makeallfancy}}%
+\newcommand\makefancyog{%
+  \def«##1»{\meta{##1}}}
+{\catcode32\active
+\gdef\makefancythorn{%
+\defþ ##1 þ{\commandline{##1}}}%
+}
+\newcommand\makefancypar{%
+  \def¶##1¶{\textcolor{input}{##1}}}
+\newcommand\makeallfancy{%
+  \makefancyog\makefancythorn\makefancypar}
+
+\newif\ifframed
+\newlength\dec
+\setlength\dec{\heightof{\cofont{texdoc \meta{name}}}}
+
+\makeatletter
+\newenvironment{commandes}[3]{%
+  \def\thecmd{\noexpand#1}%
+  \def\bmtext{#2}%
+  \def\thelabel{#3}%
+  \SaveVerbatim[samepage, gobble=2]{verbmat}%
+  }{%
+  \endSaveVerbatim
+  \xdef\sectioncmd{\noexpand\nodotthistime
+    \thecmd[\bmtext]{%
+      \ifframed
+        \unexpanded{\normalsize
+          \fbox{\raisebox{\dec}{\BUseVerbatim[baseline=t]{verbmat}}}}%
+      \else
+        \unexpanded{\normalsize
+          \BUseVerbatim{verbmat}}%
+      \fi
+      \noexpand\label{\thelabel}}}%
+  \aftergroup\sectioncmd}
+\makeatother
+
+\newcommand\maybedot{.}
+\newcommand\nodotthistime{%
+  \renewcommand\maybedot{%
+    \global\def\maybedot{.}}}
+
+\newenvironment{cmdsubsec}[2]{%
+  \framedtrue \commandes\subsection{#1}{#2}%
+  }{%
+  \endcommandes}
+
+\newenvironment{cmdsubsub}[2]{%
+  \framedfalse \commandes\subsubsection{#1}{#2}%
+  }{%
+  \endcommandes}
+
+\newenvironment{htcode}{% % code en hors-texte
+  \SaveVerbatim[samepage, gobble=2]{verbmat}%
+  }{%
+  \endSaveVerbatim
+  \par\medskip\noindent\hspace*{\parindent}%
+  \BUseVerbatim{verbmat}%
+  \par\medskip}
+\DefineShortVerb{\©}
+
+\setkomafont{title}{}
+\setkomafont{subtitle}{\Large}
+\deffootnote[1.5em]{1.5em}{1em}{\textsuperscript{\thefootnotemark}\thinspace}
+
+\newcommand\texdoc{\textpa{texdoc}\xspace}
+
+\title{\texdoc}
+\subtitle{Finding \& viewing \TeX documentation}
+\author{\href{mailto:mpg@elzevir.fr}{Manuel Pégourié-Gonnard}\thanks{%
+    for the documentation.  The script itself was last updated and revised by
+    Manuel Pégourié-Gonnard with contributions from Reinhard Kotucha, based on
+    the previous texlua versions by Frank Küster.  Original (bash) shell
+    script by Thomas Esser, David Aspinall, and Simon Wilkinson.  Please sent
+    comments, bug reports, and feature requests to \mailto{texlive@tug.org}.}}
+\date{v0.4---2008/08/01}
+
+\begin{document}
+\VerbatimFootnotes
+
+\maketitle
+
+\section{Basic Usage, Modes}\label{s-basics}
+
+\begin{cmdsubsec}{Normal (view) mode}{ss-view}
+  texdoc «name»
+\end{cmdsubsec}
+
+The simplest way to use \texdoc is just to type\footnote{In a command line.  If
+  you don't know how to open one, look for Start$\to$Execute and type ©cmd© on
+  Windows, or use the ``terminal'' icon on Mac OS X.  If you are using another
+  flavour of Unix, you probably know what to do.} ©texdoc© followed by the
+name of the package whose documentation you want to read.  It usually finds
+the documentation for you and opens it in the appropriate reader.  That's it:
+easy and usually fast.  The rest of this manual describes what to do if
+this doesn't work exactly as you like and you want to customise things, and
+how to do more extensive searchs.
+
+Before the description of \texdoc's different modes, just a word words about
+the typographic conventions in this manual.  Things like ©«name»© in the above
+title mean that they should be replaced by what you actually want.  For
+example, if you want to read \package{hyperref}'s manual, type
+©texdoc hyperref©.  Sometimes there will be complete examples like this:
+
+\begin{htcode}
+  þ texdoc -s babelbib þ
+  1 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/babelbib.pdf
+  2 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/tugboat-babelbib.pdf
+  3 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/ChangeLog
+  4 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/README
+  Please enter the number of the file to view, anything else to skip: ¶2¶
+\end{htcode}
+
+In this case, what you actually type is in \textcolor{input}{\inputcolorname},
+and the funny symbol \textco{\prompt} represents your shell's prompt, which
+can actually be something like ©C:\>© or ©name@host:~%© or funnier.
+
+Now, let's talk about this ©-s© option you've just seen in the previous
+example. 
+
+\begin{cmdsubsec}{Search mode}{ss-search}
+  texdoc -s «name» 
+  texdoc --search «name»
+\end{cmdsubsec}
+
+With the two (equivalent) commands above, \texdoc also looks for documentation
+for ©«name»©, but using the \emph{search mode}, which differs from the
+normal mode (called \emph{view mode}) on two points:
+\begin{itemize}
+  \item It doesn't start a viewer and offers you a \emph{menu} instead.
+  \item It always do a \emph{full search}.
+\end{itemize}
+The first point is rather straightforward on the example.  The second deserves
+more explanation. 
+
+Usually, \texdoc looks for files named ©«name».pdf© or ©«name».html© etc. (see
+\ref{cf-ext_list}), where ©«name»© means what you asked for, in \texlive's
+documentation directories, and if cannot find such a file, it tries a full
+search: it finds all files which have ©«name»© in their name, or in the
+directory's name.  In search mode, \texdoc always performs a full search.
+
+Now look carefully at the previous example.  The purpose of search mode is to
+allow you to find related documentation, such as the
+\href{http://www.tug.org/TUGboat/}{TUGboat} article on \package{babelbib},
+which you might want to read, whereas in normal mode \texdoc offers you no
+choice and just displays the user manual ©babelbib.pdf©.  On the other hand,
+the view mode is much faster when you know exactly what you want to read.
+
+To try and make you happy, \texdoc offers three other modes, introduced below.
+
+\begin{cmdsubsec}{List mode}{ss-list}
+  texdoc -l «name»
+  texdoc --list «name»
+\end{cmdsubsec}
+
+The \emph{list mode} uses a normal search, but forces \texdoc to give you a
+menu instead of choosing itself the documentation to display.  It is usefull
+when there are many files with the same name but different contents, or many
+versions of the same file on your system. 
+
+\begin{htcode}
+  þ texdoc -l tex þ
+  1 /usr/local/texlive/2008/texmf/doc/man/man1/tex.pdf
+  2 /usr/local/texlive/2008/texmf-doc/doc/english/knuth/tex/tex.pdf
+  Please enter the number of the file to view, anything else to skip: 
+\end{htcode}
+
+Here the first file is the manual page\footnote{converted in pdf.  To allow
+  texdoc to find and display real man pages in man format,
+  see~\ref{cf-ext_list}.} of the ©tex© command, while the second is \TeX{}'s
+documented source code\dots
+
+\begin{cmdsubsec}{Mixed mode}{ss-mixed}
+  texdoc -m «name»
+  texdoc --mixed «name»
+\end{cmdsubsec}
+
+As the name says, \emph{mixed mode} is an attempt to provide you the best of
+the normal (view) and list modes, by mixing them in the following way:  If
+only one file is found, the \texdoc opens it, and if many are found, it
+displays a menu to let you choose.  You may want to make this mode the
+default, see~\ref{cf-mode}.
+
+\begin{cmdsubsec}{What's a <name>?}{ss-name}
+  texdoc «name1» «name2» «...»
+  texdoc «name.ext»
+\end{cmdsubsec}
+
+To conclude this section on basics, let us just mention two points concerning
+the ©«name»© in all previous sections.  Is is usually a single name without
+extension, but you can also use many names at once: then, depending on the
+mode, \texdoc will either open all the corresponding documentation or show you
+menus for each of the names you mentioned.  For each name, you can also
+specifiy the file exention\footnote{It should be an allowed extension,
+  see~\ref{cf-ext_list}, and preferably have a associated viewer defined,
+  see~\ref{cf-viewer_*}.} if you want, eg ©texdoc texlive-en.html© lets you
+read the \texlive manual in html rather than in pdf format.
+
+\bigskip
+
+You can now stop reading this manual unless you have special needs.  If you
+want to understand the curious ©aliased too© messages that you will sometimes
+see, and control them, read section~\ref{s-alias}.  If you have problems
+viewing certain type of files or want to choose you preferred reader, look at
+section~\ref{s-viewer}.  Finally, section~\ref{s-ref} is the full
+reference concerning \texdoc configuration: while you probably don't want to
+read it all at once, you can consult~\ref{cf-mode} if you want to select your
+preferred mode and make it the default.
+
+Finally, be aware of the ©-h© or ©--help© option which provides you a quick
+reminder of all available command-line options.
+
+\section{Aliases, or name substitution}\label{s-alias}
+
+\subsection{Basic concept}\label{ss-alias-basics}
+
+The usual search modes of \texdoc assume that the name of the documentation
+file is the name of the package, or contains it (at least in the directory
+name).  However, this is not always true, due either to the author choosing a
+fancy name, or packaging peculiarities.  To try helping the user to find the
+doc even in these cases, \texdoc provides an alias mechanism and comes with a
+list of circa 200 pre-defined aliases.
+
+\begin{htcode}
+  þ texdoc -l geometry þ
+  texdoc info: geometry aliased to geometry/manual.pdf
+  1 /usr/local/texlive/2008/texmf-dist/doc/latex/geometry/manual.pdf
+  Please enter the number of the file to view, anything else to skip: ¶0¶
+\end{htcode}
+
+The concept of alias is very\footnote{See~\ref{ss-alias-rem} for why it is
+  actually \emph{too} simple.} simple: as you can see of the above example,
+when you type and ©geometry© is aliased to ©geometry/manual.pdf©, then
+everything happens as if you actually typed ©texdoc geometry/manual.pdf©
+(without any further alias substitution), and \texdoc informs you that
+something happened so you can understand the results (see~\ref{cf-noise_level}
+to get rid of this message):
+
+\begin{cmdsubsec}{Command line options}{ss-alias-cl}
+  texdoc -a «options» «name»
+  texdoc --alias «options» «name»
+  texdoc -A «options» «name»
+  texdoc --noalias «options» «name»
+\end{cmdsubsec}
+
+By default, aliased are used in view, list and mixed modes, and disabled in
+search mode. But you may want to disable it, because the default alias doesn't
+do what you want\footnote{In this case, please report it to
+  \mailto{texlive@tug.org}.} or for another reason.  In this case, you just
+have to add ©-A© or ©--noalias© to the options, like:
+
+\begin{htcode}
+  þ texdoc -A -l geometry þ
+  1 /usr/local/texlive/2008/texmf-doc/doc/polish/tex-virtual-academy-pl/
+  latex2e/macro/geometry.html
+  Please enter the number of the file to view, anything else to skip: ¶0¶
+\end{htcode}
+
+On the contrary, you can force aliasing in search mode by using the ©-a© or
+©--alias© option, though it may not prove very useful.
+
+\subsection{Your own aliases}\label{ss-alias-own}
+
+You can define your own aliases, or override the default ones, in \texdoc's
+configuration files. You can get a list of those files by typing ©texdoc -f©.
+For personal aliases, it is recommended that you use the second file, marked
+by a star (see~\ref{ss-prec} for details). You'll probably need to
+create in and one or two of the directories containing it.
+
+Creating an alias is easy: you just insert a line like 
+\begin{htcode}
+  alias geometry = geometry/manual.pdf
+\end{htcode}
+in your configuration file, and it's all.  You can have a look at the
+configuration file provided (the last one showed by ©texdoc -f©) for examples.
+If you want to permanently unalias something, just insert a line
+©«name»=«name»©: it will overwrite the previous alias.
+
+\subsection{Remarks on aliases}\label{ss-alias-rem}
+
+Please be aware that this alias feature, or at least its intensive use to try
+to find the ``right'' documentation for a given package, should be temporary.
+Indeed, one problem is that currently aliases do \emph{hide} other files, while
+it is desirable that they just \emph{add} results in some case. However,
+defining a coherent behaviour (and how to maintain the needed database)
+requires work and time, and is therefore reported to future versions.
+
+In this vein, it would be desirable to have a notion of ``category'', like
+user documentation of a package, or man page of a program, or reference manual
+of a program, or documented source code of a package or program, or\dots If
+you have ideas about desirable categories and ways they should be handled,
+feel free to share them at the usual address.
+
+\section{Viewer selection}\label{s-viewer}
+
+A list of default viewers is defined in \texdoc, depending on your platform
+(Windows, MacOS X, other Unix). On Windows and MacOS, it uses your file
+associations like when you double-click files in the Explorer or the Finder.
+On Unix, it tries to find a viewer in the path from a list of ``known'
+viewers.
+
+If you want to use another viewer, you have two ways of telling this to
+\texdoc: in your configuration file or using environment variables.  If you
+hesitate, the configuration file is the recommended way.
+
+To find you configuration file, type ©texdoc -f© and pick the file mark with a
+star (unless you are a system administrator or your home is shred between many
+machines, see~\ref{ss-prec}); you may need to create the file and a few
+directories. Then you can add lines like:
+
+\begin{htcode}
+  viewer_pdf = (xpdf %s) &
+  viewer_txt = less
+\end{htcode}
+
+Here the ©%s© stands for the name of the file to view. The first line sets
+©xpdf© as the pdf viewer, and use a bit of shell syntax to force it to run in
+the background (the ©()© are here for compatibility with zip support,
+see~\ref{s-bugs}). The second line sets ©less© as the text viewer: it doesn't
+use ©%s©, which means the filename will be placed at the end of the command.
+
+The default extensions allowed are ©pdf©, ©html©, ©txt©, ©dvi©, ©ps©, and no
+extension.  The ©txt© viewer is used for files without extension.
+See~\ref{cf-ext_list} for how to allow for more extensions.
+
+The corresponding environment variables are ©PDFVIEWER©, ©BROWSER©, ©PAGER©,
+©DVIVIEWER©, ©PSVIEWER©. They follow the same convention as values from the
+configuration files, and override them if they are set. Since some of those
+variable are shared by other programs, you can override them by adding
+©_texdoc© at the end, like in ©BROWSER_texdoc©.
+
+\section{Full reference}\label{s-ref}
+
+The most useful command-line options, configuration values and all
+environment variables have been presented.  Here we complete our presentation
+and review all in a systematic way.
+
+\subsection{Precedence}\label{ss-prec}
+
+Values for a particular setting can come from several sources. They are treated
+in the following order, where first value found is always used:
+\begin{enumerate}
+  \item Command-line options.
+  \item Environment variables ending with ©_texdoc©.
+  \item Other environment variables.
+  \item Values from configuration files, read in the following order:
+    \begin{enumerate}
+      \item ©$TEXMFHOME/texdoc/texdoc-«platform».cnf©
+      \item ©$TEXMFHOME/texdoc/texdoc.cnf©
+      \item ©$TEXMFLOCAL/texdoc/texdoc-«platform».cnf©
+      \item ©$TEXMFLOCAL/texdoc/texdoc.cnf©
+      \item ©$TEXMFMAIN/texdoc/texdoc.cnf© %stopzone
+    \end{enumerate}
+  \item Hard-coded defaults that may depend on the current platform or the
+    current value of another setting.
+\end{enumerate}
+
+For the configuration files, ©«platform»© stand for the name of the current
+platform, with names matching those of the directories in ©TEXLIVEROOT/bin©,
+and ©TEXMFHOME© and others are the kpse's values, see the kpathsea and web2c
+manuals. The name with ©«platform»© can be used on installation shared between
+many machines where, for example, not the same viewers are available. However,
+their use is not recommended in other situations.
+
+\subsection{Command-line options}\label{ss-cl}
+
+Most of the command-line options correspond to an option that can be set from
+the config files. For them, we refer the reader to the description of the
+corresponding configuration option. 
+
+\begin{cmdsubsub}{-h, --help}{cl-h}
+  -h, --help
+\end{cmdsubsub}
+
+Shows a quick help message (namely a list of command-line options) and exits
+successfully.
+
+\begin{cmdsubsub}{-v, --version}{cl-v}
+  -v, --version
+\end{cmdsubsub}
+
+Show the current version of the program and exits successfully.
+
+\begin{cmdsubsub}{-f, --files}{cl-f}
+  -f, --files
+\end{cmdsubsub}
+
+Shows the list of the configuration files for the current installation and
+platform, with their status (active or not found) and a star marking the
+recommended file for user settings.
+
+\begin{cmdsubsub}{-w, -l, -m, -s, -r, --view, --list, --mixed, --search,
+    --regex}{cl-mode}
+  -w, --view, -l, --list, -m, --mixed, -s, --search, -r, --regex
+\end{cmdsubsub}
+
+\leavevmode\par\noindent See \ref{cf-mode}.
+
+\begin{cmdsubsub}{-a, -A, --alias, --noalias}{cl-a}
+  -a, --alias, -A, --noalias
+\end{cmdsubsub}
+
+See~\ref{s-alias}.
+
+\begin{cmdsubsub}{-i, -I, --interact, --nointeract}{cl-i}
+  -i, --interact, -I, --nointeract
+\end{cmdsubsub}
+
+See~\ref{cf-interact}.
+
+\begin{cmdsubsub}{-e, --extensions}{cl-e}
+  -e=«l», --extensions=«l»
+\end{cmdsubsub}
+
+See~\ref{cf-ext_list}.  \emph{But} be aware that on the command line there
+should be no space at all, neither in the list (unless quoted according to you
+shell's convention) not between the ©-e© or ©--extension© option, the equal
+sign, and the list.  Also take care to quote the special value ©*© if
+necessary.  The equal sign is optional.
+
+\begin{cmdsubsub}{-n, --noise-level}{cl-n}
+  -n=«n», --noise-level=«n»
+\end{cmdsubsub}
+
+See~\ref{cf-noise_level} and be aware that you must avoid spaces on the command
+line, and the ©=© sign is optional.
+
+\subsection{Environment variables}\label{ss-envvar}
+
+They all correspond to some ©viewer_«ext»© setting, and the reader is referred
+to~\ref{s-viewer} and~\ref{cf-viewer_*} for details. Here is the (obvious)
+correspondence:
+
+\begin{center}
+\begin{tabular}{lll}
+  ©PAGER_texdoc©        & ©PAGER©       & ©viewer_html© \\
+  ©BROWSER_texdoc©      & ©BROWSER©     & ©viewer_txt©  \\
+  ©DVIVIEWER_texdoc©    & ©DVIVIEWER©   & ©viewer_dvi©  \\
+  ©PSVIEWER_texdoc©     & ©PSVIEWER©    & ©viewer_ps©   \\
+  ©PDFVIEWER_texdoc©    & ©PDFVIEWER©   & ©viewer_pdf©  \\
+\end{tabular}
+\end{center}
+
+\subsection{Configuration files}\label{ss-conf}
+
+\subsubsection{General structure}\label{sss-sonf-struct}
+
+Configuration files are line-oriented text files. Comments begin with a ©#©
+and run to the end of line. Lines containing only space are ignored. Space at
+the beginning or end of a line, as well as around an ©=© sign, is ignored.
+Apart from comments and empty lines, each line must be of one of the following
+forms:
+
+\begin{htcode}
+  «config_param» = «value»
+  alias «name» = «target»
+\end{htcode}
+
+where ©«config_parameter»© consists of only letters, digits or ©-© signs,
+©«name»© of letters, digits, ©-© and ©_© signs. ©«value»© and ©«target»© are
+free strings (except that not every ©«value»© is valid for every
+©«config_param»©, see below) and nothing in it need not be quoted (actually,
+quotes will be interpreted as part of the value, not as quotation marks).
+
+Lines which do not obey these rules raise a warning. However, unrecognised
+values of ©«config_param»© raise no warning at the moment.
+
+The ©«value»© is usually interpreted as a string, except when ©«config_param»©
+ends with:
+\begin{enumerate}
+  \item ©_list©, then ©«value»© is a coma-separated list of strings. Space
+    around commas is ignored. Two consecutive comas or a coma at the beginning
+    or end of the list means the empty string at the corresponding place.
+  \item ©_switch©, then ©«value»© must be either ©true© or ©false©
+    (case-sensitive).
+  \item ©_level©, then ©«value»© is a non-negative integer.
+\end{enumerate}
+
+\begin{cmdsubsub}{mode}{cf-mode}
+  mode = «view, list, mixed, search, regex»
+\end{cmdsubsub}
+Set the  mode to the given value.  Default is ©view©.  The first three values
+©view©, ©list©, ©mixed© use the same searching method: first search a file
+whose name is the ©«name»© on the command line and whose extension is in
+©ext_list© (see~\ref{cf-ext_list}), and if nothing is found, then do a full
+search.  This means that a file matches if ©«name»© is a substring of its
+path+name (and its extension is in the list). Here path does not mean the full
+path, but only the part below ©TEXMF/doc©. The ©search© mode forces a full
+search.
+
+The last mode, ©regex©, looks for ©«name»© in the path+filename as a Lua
+regex.  If you don't know Lua regexes you should be aware that the escape
+character is ©%© and the ©-© sign is a special character (which means the same
+as ©*?© in Perl regexes).  For more details, see the Lua
+\href{http://www.lua.org/manual/}{reference manual} or the book
+\href{http://www.lua.org/pil/}{\emph{programming in Lua}}.  You might want to
+use\footnote{The quotes in the example are just to make the shell happy.}
+©-e='*'© if your regex uses the ©$© anchor.%stopzone
+
+\begin{cmdsubsub}{interact}{cf-interact}
+  interact_switch = «true, false»
+\end{cmdsubsub}
+
+Turn on or of interaction.  Default is on.  Turning interaction off prevents
+\texdoc to ask you to choose a file to view when there are multiple choices,
+and merely just print the list of files found.
+
+\begin{cmdsubsub}{ext_list}{cf-ext_list}
+  ext_list = «list»
+\end{cmdsubsub}
+
+Set the list of recognised extensions to ©«list»©.  Default is
+\begin{htcode}
+  pdf, html, txt, dvi, ps,
+\end{htcode}
+This list is used to filter and  sort the results (with the default value: pdf
+first, etc).  Two special values are recognised:
+\begin{itemize}
+  \item \emph{The empty element}. This means files without extensions, or more
+    precisely without a dot in their name.  This is meant for files like
+    ©README©, etc.  The file is assumed to be plain text for viewing purpose.
+  \item ©*© means any extension.  Of course if it is present in the list, it
+    can be the only element!
+\end{itemize}
+
+There is a very special case: if the searched ©«name»© has ©.sty© extension,
+\texdoc enters a special search mode for ©.sty© files (not located in the same
+place as real documentation files) for this ©«name»©, independantly of the
+current value of ©ext_list© and ©mode© (unless it is the ©regex© mode). In an
+ideal world, this wouldn't be necessary since every sty file would have a
+proper documentation in pdf, html or plain text, but\dots
+
+For each ©«ext»© in ©ext_list© there should be a corresponding
+©viewer_«ext»© value set.  Defaults are defined corresponding to the default
+©ext_list©, but you can add values if you want.  For example, if you want
+\texdoc to be able to find man pages and display them with the ©man© command,
+you can use
+\begin{htcode}
+  ext_list = 1, 5, pdf, html, txt, dvi, ps,
+  viewer_1 = man
+  viewer_5 = man
+\end{htcode}
+(This also makes man pages in man format take precedence over their pdf
+versions.)
+
+\begin{cmdsubsub}{viewer_*}{cf-viewer_*}
+  viewer_«ext» = «cmd»
+\end{cmdsubsub}
+
+Set the viewer command for files with extension ©«ext»© to ©«cmd»©. For files
+without extension, ©viewer_txt© is used, and there's not ©viewer_© variable.
+In ©«cmd»©, ©%s© can be used as a placeholder for the file name, which is
+otherwise inserted at the end of the command.  The command can be a arbitrary
+shell construct. 
+
+\begin{cmdsubsub}{alias}{cf-alias}
+  alias «name» = «othername»
+\end{cmdsubsub}
+
+Everything has already been said in section~\ref{s-alias}.
+
+\begin{cmdsubsub}{noise_level}{cf-noise_level}
+  noise_level = «n»
+\end{cmdsubsub}
+
+Set the verbosity level to ©«n»©.  This determines whether \texdoc will print
+or not errors or debug information (to stderr). Default level is 3. The
+numeric codes are as follow:
+\begin{enumerate}[start=0]
+  \item Print nothing (not recommended).
+  \item Print only error messages.
+  \item Also print warnings.
+  \item Also print information messages.
+  \item Also print debug1 information messages.
+\end{enumerate}
+
+Currently, the levels 5 and greater are not used, and the only ``debug''
+information at level 4 is to print the command used to view a file just before
+executing it.
+
+\subsection{Exit codes}\label{ss-exit}
+
+The current exit code are as follow:
+\begin{enumerate}[start=0]
+  \item Success.
+  \item Syntax error.
+  \item Documentation not found for at least one argument.
+\end{enumerate}
+
+\section{Bugs, warnings}\label{s-bugs}
+
+There is currently no known bug (fingers crossed).  But a few things you should
+be warned about.
+
+First of all, \texdoc doesn't always succeed in finding documentation (or
+finds so many results that it is not useful).  Moreover, it cannot handle very
+correctly packages with many relevant documentation files at the moment
+(see~\ref{ss-alias-rem}).  Ideas about how to improve this are most welcome at
+the usual address.
+
+Second, support for zipped documentation, which have been ``available'' in
+previous versions of \texdoc, is now disabled by default. The reasons are that
+this support wasn't portable (didn't work on windows for example), and
+moreover we won't ship compressed documentation in \texlive.  However, the
+code has not been totally removed and should be easy to activate again. If you
+want to use this feature, please:
+\begin{enumerate}
+  \item Look in \texdoc's code for instructions.
+  \item Be aware that the corresponding part of the code has not been well
+    tested, and that you are responsible of the unzipping command anyway.
+  \item Inform us either at the usual address or \mailto{tldistro@tug.org} if
+    you are a Linux, BSD, or whatever, distributor.
+\end{enumerate}
+
+Finally, \texdoc is also missing a GUI version (texdoctk has never been the
+GUI version of \texdoc, and is unmaintained and probably unmaintainable
+anyway).  This is on the list, but the time line is rather unclear at the
+moment.
+
+\bigskip
+\begin{center}\Large
+  Happy \TeX{}ing!
+\end{center}
+
+\end{document}
+
+
