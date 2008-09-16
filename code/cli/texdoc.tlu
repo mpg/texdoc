@@ -136,7 +136,7 @@ function process_file (file, pathfile, code, pattern)
     local base, ext = string.match(file, '^(.*)%.(.*)$')
     if string.find(pathfile, pattern, 1, no_regex) and is_good_ext (ext)
         then 
-        if base == pattern then 
+        if (base == pattern) or (file == pattern) then 
             table.insert(exact_docfiles, code_path (code, pathfile))
         else
             table.insert(rel_docfiles, code_path (code, pathfile))
