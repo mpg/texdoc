@@ -435,20 +435,6 @@ function setup_config_from_env ()
     }
 end
 
--- warn about old envvar being in use
-function complain_about_old_envvar ()
-    for ext in list {'pdf', 'pds', 'dvi', 'html', 'txt'} do
-        for var in list 
-            {"TEXDOCVIEW_"..ext, "TEXDOC_VIEWER_"..string.upper(ext) } do
-            if os.getenv (var) then
-                err_print ("Environment variable "..var..
-                " deprecated. See the manual\n\tsection ?.?, ?.? for details.", 
-                "warning")
-            end
-        end
-    end
-end
-
 -- set config+aliases from a particular config file assumed to exist
 function read_config_file(configfile)
     local cnf = assert(io.open(configfile, 'r')) 
