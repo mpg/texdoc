@@ -788,7 +788,6 @@ assert_arg_not_empty ()
 setup_config_from_cl ()
 assert_arg_not_empty ()
 setup_config_from_env ()
-complain_about_old_envvar ()
 setup_config_from_files ()
 setup_config_from_defaults ()
 
