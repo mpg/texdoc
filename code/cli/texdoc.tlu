@@ -398,7 +398,7 @@ function setup_config_from_cl ()
             set_config_element('ext_list', 
             string.gsub(curr_arg, '^%-%-extensions=?', ''))
         else
-            err_print ("unknow option: "..curr_arg, "error")
+            err_print ("unknown option: "..curr_arg, "error")
             print (usage_msg)
             os.exit(1)
         end
