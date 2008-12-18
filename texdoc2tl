@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# $Id $
+# Written in 2008 by Manuel Pégourié-Gonnard; placed under the WTFPL v2.
+#
+# Update from a texdoc working copy to the texlive repository (inc. commit).
+# Assumes you have both a texdoc and texlive working copy at hand,
+# 
+# Arguments: location of the texdoc trunks and the texlive trunk
+
+# the location of the working copies
+TEXDOC="$1"
+TEXLIVE="$2"
+
+# various locations in the tl tree
+TLTEXMF="$TEXLIVE/Master/texmf"
+DOC="doc/texdoc"
+MAN="doc/man/man1"
+SCRIPT="scripts/texlive"
+CONF="texdoc"
+
+# just make sure the generated doc is up-to-date first
+(cd "$TEXDOC/doc" && make )
+
+# the copy itself
+cp "$TEXDOC/doc/texdoc.tex" "$TEXDOC/doc/texdoc.pdf" "$TLTEXMF/$DOC"
+cp "$TEXDOC/doc/texdoc.1" "$TLTEXMF/$MAN"
+cp "$TEXDOC/doc/texdoc.1.pdf" "$TLTEXMF/$MAN/texdoc.pdf"
+cp "$TEXDOC/code/cli/texdoc.tlu" "$TLTEXMF/$SCRIPT"
+cp "$TEXDOC/data/texdoc.cnf" "$TLTEXMF/$CONF"
+
+# commit
+cd $TLTEXMF
+svn ci "$DOC" "$MAN/texdoc.1" "$MAN/texdoc.pdf" "$SCRIPT/texdoc.tlu" "$CONF"

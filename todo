@@ -1,0 +1,17 @@
+- add an extra level of personal texdoc.cnf (like ~/.texdoc.cnf) to allow
+  running from svn
+
+- find a solution to the man vs info with same filename dilemma:
+	- first find out how many files are concerned, then either
+	(a) use aliases to disambiguate
+	(b) rename the man pages as .1.pdf and make texdoc find them by either
+	adding aliases or making it search function smarter
+
+- choose an alias for xetex-ref
+
+- make texdoc case insensitive on all platforms?
+
+- make the search routine ignore the first (two) components of the path (eg
+  doc/xelatex)?
+
+- 
