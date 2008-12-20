@@ -88,6 +88,12 @@ alias pdftex-man = man1/pdftex
 #alias luatex-man = man1/luatex #???
 alias luatex-pkg = oberdiek/luatex.pdf
 
+# for the time being, let *TeX engine names point to the user manuals, not the
+# man pages
+alias etex = etex_man
+alias pdftex = pdftex_a
+alias luatex = luatexref-t
+
 # ams 
 alias amsmath = amsldoc
 alias amslatex = amshelp
