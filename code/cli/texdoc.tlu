@@ -6,18 +6,17 @@
     Original shell script by Thomas Esser, David Aspinall, and Simon Wilkinson.
     Public domain.]]
 
--------------------   general-use constants and functions   --------------------
+-----------------------------   global constants   -----------------------------
 
--- some constants 
+-- progname and version
 progname = 'texdoc'
 version = '0.4+'
 if string.sub(version, -1) == '+' then
-    local svnrev = string.gsub('$Revision: 16$',
-    '%$Revision:%s*(%d*)%s*%$', '%1');
+    local svnrev = string.match('$Revision: 16$', '%$Revision:%s*(%d*)%s*%$');
     version = version..' svn r'..svnrev
 end
 
--- make sure to update setup_config_from_cl() accordingly
+-- make sure to update setup_config_from_cl() accordingly 
 -- and set a default value in setup_config_from_defaults() if relevant
 usage_msg = [[
 Usage:  texdoc  -h, --help | -v, --version | -f, --files | [option(s)] name(s)
@@ -65,6 +64,8 @@ err_priority = {
 -- we'll drop it at some point.
 support_zipped = false
 
+--------------------------   general-use functions   ---------------------------
+
 -- Remark: we always assume our tables have no hole (that is, no nil value
 -- followed by a non-nil value). So we use the simple iterator below, and 
 -- the # operator sometimes (a bit faster than table.getn).
@@ -73,6 +74,24 @@ function list (t)
     return function ()
         i = i + 1
         return t[i]
+    end
+end
+
+-- remove the 'abc/../' components in a path
+function simplify_path (path)
+    local res = string.gsub (path, '/[^/]+/%.%./', '/')
+    return res -- get rid of gsub's 2nd return value
+end
+
+-- change '/' to '\' on windows, removine 'abc/../' components first
+if os.type == "windows" then
+    function win32_hook (path)
+        local res = string.gsub (simplify_path(path), '/', '\\')
+        return res -- get rid of gsub's 2nd return value
+    end
+else
+    function win32_hook (path)
+        return simplify_path(path)
     end
 end
 
@@ -120,18 +139,6 @@ function real_path (fake)
     local code, file = string.match (fake, '^(.-):(.*)$')
     code = tonumber (code)
     return win32_hook (texdocs[code]..'/'..file)
-end
-
--- now a special function that does nothing on Unix
-if os.type == "windows" then
-    function win32_hook (path)
-        local res = string.gsub (path, '/', '\\')
-        return res -- get rid of gsub's 2nd return value
-    end
-else
-    function win32_hook (path)
-        return path
-    end
 end
 
 -- merge two components of a path, taking care of empty components
@@ -380,6 +387,7 @@ function setup_config_from_cl ()
             os.exit(0)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
             print (progname .. ' version: ' .. version )
+            setup_config_from_files ()
             print_config_files ()
             os.exit(0)
         elseif (curr_arg == '-w') or (curr_arg == '--view') then
@@ -481,32 +489,45 @@ function get_config_files ()
     local TEXMFHOME  = kpse.var_value ('TEXMFHOME')
     local TEXMFLOCAL = kpse.var_value ('TEXMFLOCAL')
     local TEXMFMAIN  = kpse.var_value ('TEXMFMAIN')
-    local config_files = {}
     return {
         TEXMFHOME  .. '/texdoc/texdoc-'..platform..'.cnf',
         TEXMFHOME  .. '/texdoc/texdoc.cnf',
+        TEXMFHOME  .. '/texdoc/texdoc-dist.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc-'..platform..'.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc.cnf',
         TEXMFMAIN  .. '/texdoc/texdoc.cnf'
     } 
 end
 
+-- the config_files table is shared by the next two functions
+do
+local config_files = {}
+
 -- set config/aliases from all config files 
 function setup_config_from_files ()
-    for file in list (get_config_files ()) do
-        if lfs.isfile(file) then read_config_file (file) end
+    for i, file in ipairs (get_config_files ()) do
+        local found = lfs.isfile(file)
+        config_files[i] = {
+            path = file,
+            status = found and (config.lastfile_switch 
+            and 'disabled' or 'active') or 'not found',
+        }
+        if config_files[i].status == 'active' then
+            read_config_file (file) 
+        end
     end
 end
 
 -- now a special information function (see -f,--file option)
 function print_config_files ()
     print "Configuration files are:"
-    for i, file in ipairs (get_config_files ()) do
-        local found = lfs.isfile(file) and "(active)" or "(not found)"
-        local home = (i==2) and "* " or "" -- home conffile is the 2nd
-        print (home..found, win32_hook(file))
+    for i, file in ipairs (config_files) do
+        local home = (i==2) and "==> " or "    " -- home conffile is the 2nd
+        print (home..file.status, win32_hook(file.path))
     end
 end
+
+end -- scope of config_files
 
 ----------------------   options from built-in defaults   ----------------------
 
@@ -627,7 +648,6 @@ function alias_from_mode (mode)
         return 'false'
     end
 end
-
 
 --------------------------------------------------------------------------------
 ---------------   functions for viewing/displaying the results   ---------------

@@ -1,6 +1,3 @@
-- add an extra level of personal texdoc.cnf (like ~/.texdoc.cnf) to allow
-  running from svn
-
 - change the alias behaviour, alias should be like addalias
 
 - find a solution to the man vs info with same filename dilemma: rename the man

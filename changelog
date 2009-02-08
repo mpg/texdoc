@@ -3,6 +3,14 @@
 	* texdoc.tlu: 
 	- Display the svn rev if version ends with '+'. Display version more
 	often (-h, -f).
+	- Add a new level of config file and the new config option
+	'lastfile_switch', allowing to install a newer version of texdoc in
+	TEXMFHOME.
+	- Rework print_config_files() to allow for the new 'disabled' status.
+	- Remove 'abc/../' components from paths before using or displaying
+	them.
+
+	* texdoc.cnf: Use the new last_file_switch directive.
 
 2008-09 to 2009-01 Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 

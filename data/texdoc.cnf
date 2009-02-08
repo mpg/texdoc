@@ -449,4 +449,10 @@ alias vertbars = vertbars.sty
 alias vrbexin = vrbexin.sty
 alias vruler = vruler.sty
 
+# the next line has no effect when this file is installed as
+# TEXMFMAIN/texdoc/texdoc.cnf but is useful when it is installed as
+# TEXMFHOME/texdoc/texdoc-dist.cnf for the purpose of installing a newer
+# version of texdoc in one's home (eg, running texdoc from SVN)
+lastfile_switch = true
+
 # vim: ts=8 noexpandtab:
