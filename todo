@@ -5,12 +5,9 @@
 
 - choose an alias for xetex-ref
 
-- make the search routine ignore the first (two) components of the path (eg
-  doc/xelatex)?
+- make the search routine ignore the first components of the path (eg /latex/)?
 
 - add support for shell-style globs (standard regex is probably too hard)
-
-- change the -n option to -v (keep -V for --version)
 
 - include the output of --files in verbosity level 4
 

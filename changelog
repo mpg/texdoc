@@ -10,6 +10,9 @@
 	- Remove 'abc/../' components from paths before using or displaying
 	them.
 	- Make the search functions case-insensitive on all platforms.
+	- Include the output of -f, as well as the 'arg[0]' and version, in the
+	output of 'debug1'.
+	- rename noise_level to verbosity_level, -n to -v and -v to -V
 
 	* texdoc.cnf: Use the new last_file_switch directive.
 

@@ -19,9 +19,9 @@ end
 -- make sure to update setup_config_from_cl() accordingly 
 -- and set a default value in setup_config_from_defaults() if relevant
 usage_msg = [[
-Usage:  texdoc  -h, --help | -v, --version | -f, --files | [option(s)] name(s)
+Usage:  texdoc  -h, --help | -V, --version | -f, --files | [option(s)] name(s)
     -h, --help              Show this short help.
-    -v, --version           Print the version of the program.
+    -V, --version           Print the version of the program.
     -f, --files             Print the name of the config files being used.
     -e, --extensions=L      Require file extensions to be in the list L.
     -w, --view              Use view mode: start a viewer.
@@ -33,7 +33,7 @@ Usage:  texdoc  -h, --help | -v, --version | -f, --files | [option(s)] name(s)
     -A, --noalias           Don't use the alias table.
     -i, --interact          Use interactive menus.
     -I, --nointeract        Use plain lists, no interaction required.
-    -n, --noise-level=N     Set verbosity level to N.
+    -v, --verbosity=N     Set verbosity level to N.
 Environment: 
     PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: 
@@ -415,11 +415,11 @@ function setup_config_from_cl ()
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_element('alias_switch', 'true')
         elseif string.match(curr_arg, '^%-n') then 
-            set_config_element('noise_level', 
+            set_config_element('verbosity_level', 
             string.gsub(curr_arg, '^%-n=?', ''))
-        elseif string.match(curr_arg, '^%-%-noise%-level') then
-            set_config_element('noise_level', 
-            string.gsub(curr_arg, '^%-%-noise%-level=?', ''))
+        elseif string.match(curr_arg, '^%-%-verbosity%-level') then
+            set_config_element('verbosity_level', 
+            string.gsub(curr_arg, '^%-%-verbosity%-level=?', ''))
         elseif string.match(curr_arg, '^%-e') then 
             set_config_element('ext_list', 
             string.gsub(curr_arg, '^%-e=?', ''))
@@ -627,7 +627,7 @@ function setup_config_from_defaults()
     set_config_list {
         mode                = 'view',
         interact_switch     = 'true',
-        noise_level         = '3',
+        verbosity_level         = '3',
     }
     -- must be set after mode!
     set_config_element ('alias_switch', alias_from_mode(config.mode))
@@ -798,9 +798,9 @@ end
 
 -- generic error display function (see the error_priority constant)
 function err_print (msg, lvl)
-    -- be careful: maybe config.noise_level is not set yet
-    local noise_level = config.noise_level or 10000
-    if err_priority[lvl] <= noise_level then
+    -- be careful: maybe config.verbosity_level is not set yet
+    local verbosity_level = config.verbosity_level or 10000
+    if err_priority[lvl] <= verbosity_level then
         io.stderr:write ("texdoc "..lvl..": "..msg.."\n")
     end
 end
@@ -824,7 +824,7 @@ setup_config_from_env ()
 setup_config_from_files ()
 setup_config_from_defaults ()
 
--- now that noise_level is known...
+-- now that verbosity_level is known...
 err_print(arg[0]..' version '..version, 'debug1')
 show_config_files(function(s) err_print(s, 'debug1') end)
 

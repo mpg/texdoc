@@ -37,7 +37,7 @@
 # interact_switch = true
 # alias_switch = true			# but false if mode is 'regex'
 # ext_list = pdf, html, txt, ps , 	# note the empty string at end
-# noise_level = 3
+# verbosity_level = 3
 
 ### Aliases ###
 
