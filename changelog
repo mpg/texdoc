@@ -9,6 +9,7 @@
 	- Rework print_config_files() to allow for the new 'disabled' status.
 	- Remove 'abc/../' components from paths before using or displaying
 	them.
+	- Make the search functions case-insensitive on all platforms.
 
 	* texdoc.cnf: Use the new last_file_switch directive.
 

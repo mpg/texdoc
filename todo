@@ -5,8 +5,6 @@
 
 - choose an alias for xetex-ref
 
-- make texdoc case insensitive on all platforms?
-
 - make the search routine ignore the first (two) components of the path (eg
   doc/xelatex)?
 

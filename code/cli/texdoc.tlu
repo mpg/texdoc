@@ -216,6 +216,7 @@ end
 
 -- find docfiles "matching" pattern
 function populate_docfiles (pattern)
+    pattern = normalize_pattern(pattern)
     if not texdocs then get_texdocs() end
     rel_docfiles, exact_docfiles = {}, {} -- global
     is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
@@ -271,15 +272,20 @@ end
 
 -- include a file in the *_docfiles lists if it "matches"
 function process_file (file, pathfile, code, pattern)
-    local base, ext = string.match(file, '^(.*)%.(.*)$')
-    if string.find(pathfile, pattern, 1, no_regex) and is_good_ext (ext)
-        then 
+    local base, ext = string.match(string.lower(file), '^(.*)%.(.*)$')
+    if string.find(string.lower(pathfile), pattern, 1, no_regex) 
+        and is_good_ext (ext) then 
         if (base == pattern) or (file == pattern) then 
             table.insert(exact_docfiles, code_path (code, pathfile))
         else
             table.insert(rel_docfiles, code_path (code, pathfile))
         end
     end
+end
+
+-- for now, just make lowercase, but may do more later
+function normalize_pattern (pattern)
+    return string.lower(pattern)
 end
 
 -----------------------------   sorting results   ------------------------------
