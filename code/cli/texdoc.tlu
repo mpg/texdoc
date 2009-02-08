@@ -28,6 +28,8 @@
   - initial public release 
 ]]
 
+-------------------   general-use constants and functions   --------------------
+
 -- some constants 
 progname = 'texdoc'
 version = '0.4'
@@ -73,17 +75,15 @@ err_priority = {
 -- optionally, texdoc can support compressed documentation, but this is
 -- system-dependant (commands for unzipping, temporary files, etc).
 -- Since TeX Live doesn't ship compressed doc, downstream distributors who
--- want to ship zipped should change support_zipped to true *and* make sure
+-- want to ship zipped doc should change support_zipped to true *and* make sure
 -- everything  works for them (look for support_zipped in the code).
 -- If you use this feature, please let us know: if nobody uses it,
 -- we'll drop it at some point.
 support_zipped = false
 
-
--- BEGIN function definitions (till the 'END' mark)
----=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
--- a general-use function
+-- Remark: we always assume our tables have no hole (that is, no nil value
+-- followed by a non-nil value). So we use the simple iterator below, and 
+-- the # operator sometimes (a bit faster than table.getn).
 function list (t)
     local i = 0
     return function ()
@@ -92,16 +92,20 @@ function list (t)
     end
 end
 
--- Remark: we always assume our tables have no hole (that is, no nil value
--- followed by a non-nil value). So we use the simple iterator above, and 
--- the # operator sometimes (bit faster than table.getn).
+--------------------------------------------------------------------------------
+--------------------------   functions for searching   -------------------------
+--------------------------------------------------------------------------------
 
--- functions for the search options
------------------------------------
+------------------   exploring trees (kpse-style functions)   ------------------
 
--- BEGIN kpse-like
+-- global variables:
+-- texdocs: a Lua table version of $TEXDOCS
+-- do_recurse: do_recurse[i] = 1 iff texdocs[i] ends with // in $TEXDOCS
+-- must_have_lsr: must_have_lsr[i] = 1 iff texdocs[i] starts with !! in $TEXDOCS
+-- exact_docfiles: list of "exact matches"
+-- rel_docfiles: list of "non-exact matches"
 
--- get global texdocs, do_recurse and must_have_lsr lists from kpse's $TEXDOCS
+-- set texdocs, do_recurse and must_have_lsr lists from kpse's $TEXDOCS
 function get_texdocs ()
     local sep = (os.type == 'windows') and ';' or ':'
     texdocs = kpse.expand_var ("$TEXDOCS")
@@ -117,41 +121,41 @@ function get_texdocs ()
     end
 end
 
--- says if ext is 'good' according to ext_list
-function is_good_ext (ext)
-    for e in list (config.ext_list) do
-        if e == '*' then
-            return true 
-        elseif (e == '') and (not ext) then
-            return true
-        elseif ext == e then
-            return true
-        end
-    end
-    return false
-end
+-- once get_texdocs() is done, roots are represented by their index in texdocs
+-- usefull to avoid fake matches and also for the sort routine
+-- the next two functions do the conversions
 
--- include a file in the lists if it should be
-function process_file (file, pathfile, code, pattern)
-    local base, ext = string.match(file, '^(.*)%.(.*)$')
-    if string.find(pathfile, pattern, 1, no_regex) and is_good_ext (ext)
-        then 
-        if (base == pattern) or (file == pattern) then 
-            table.insert(exact_docfiles, code_path (code, pathfile))
-        else
-            table.insert(rel_docfiles, code_path (code, pathfile))
-        end
-    end
-end
-
--- encodes the base path on two digits and concatenate with filename
--- see real_path() for decoding
+-- encode the base path on two digits and concatenate with filename
 function code_path (code, file)
     local padding = (code > 9) and '' or '0'
     return padding..code..':'..file
 end
 
--- scan a tree
+-- decode a path as given in *_docfiles into a real path
+function real_path (fake)
+    local code, file = string.match (fake, '^(.-):(.*)$')
+    code = tonumber (code)
+    return win32_hook (texdocs[code]..'/'..file)
+end
+
+-- now a special function that does nothing on Unix
+if os.type == "windows" then
+    function win32_hook (path)
+        local res = string.gsub (path, '/', '\\')
+        return res -- get rid of gsub's 2nd return value
+    end
+else
+    function win32_hook (path)
+        return path
+    end
+end
+
+-- merge two components of a path, taking care of empty components
+function merge_path (a, b)
+    return ((a == '') or (b == '')) and a..b or a..'/'..b
+end
+
+-- scan a tree without ls-R file
 function scan_tree (code, path, pattern, recurse)
     for file in lfs.dir(path) do
         if file ~= '.' and file ~= '..' then
@@ -165,7 +169,7 @@ function scan_tree (code, path, pattern, recurse)
     end
 end
 
--- finds a root with ls-R above path and return it or nil
+-- finds a ls-R file in a parent directory an return it or nil
 function lsr_root (path)
     if not lfs.isdir (path) then return end
     local root, shift = path, ''
@@ -179,11 +183,6 @@ function lsr_root (path)
         root = string.sub(root, 1, - (#last_comp + 2))
         shift = last_comp..'/'..shift
     end
-end
-
--- merge two components of a path, taking care of empty components
-function merge_path (a, b)
-    return ((a == '') or (b == '')) and a..b or a..'/'..b
 end
 
 -- scan a ls-R file
@@ -215,7 +214,16 @@ function scan_lsr (code, shift, pattern)
     lsr:close()
 end
 
--- find dirfiles according to pattern
+-- remove directories from a list
+function rmdirs (files)
+    local res = {}
+    for f in list (files) do
+        if not is_dir[f] then table.insert(res, f) end
+    end
+    return res
+end
+
+-- find docfiles "matching" pattern
 function populate_docfiles (pattern)
     if not texdocs then get_texdocs() end
     rel_docfiles, exact_docfiles = {}, {} -- global
@@ -236,8 +244,6 @@ function populate_docfiles (pattern)
     rel_docfiles = rmdirs (rel_docfiles)
 end
 
--- END kpse-like
-
 -- like populate_docfiles, but rel replaces exact if exact is empty
 function mixed_populate_docfiles (pattern)
     populate_docfiles (pattern)
@@ -249,35 +255,6 @@ function mixed_populate_docfiles (pattern)
     end
 end
 
--- translate a path as given by populate_docfiles into a real path
--- should never be called before get_texdocs()
-function real_path (fake)
-    local code, file = string.match (fake, '^(.-):(.*)$')
-    code = tonumber (code)
-    return win32_hook (texdocs[code]..'/'..file)
-end
-
--- now a special function that does nothing on Unix
-if os.type == "windows" then
-    function win32_hook (path)
-        local res = string.gsub (path, '/', '\\')
-        return res -- get rid of gsub's 2nd arg
-    end
-else
-    function win32_hook (path)
-        return path
-    end
-end
-
--- remove directories from the files list
-function rmdirs (files)
-    local res = {}
-    for f in list (files) do
-        if not is_dir[f] then table.insert(res, f) end
-    end
-    return res
-end
-
 -- for sty files, we obviously don't want to look in TEXDOCS...
 -- and we don't need a list since those are not duplicated (ahem...)
 function populate_docfiles_sty (styname)
@@ -285,12 +262,62 @@ function populate_docfiles_sty (styname)
     rel_docfiles = {}
 end
 
+----------------------------   selecting results   -----------------------------
 
--- functions to set config values and aliases
----------------------------------------------
+-- says if ext is 'good' according to ext_list
+function is_good_ext (ext)
+    for e in list (config.ext_list) do
+        if e == '*' then
+            return true 
+        elseif (e == '') and (not ext) then
+            return true
+        elseif ext == e then
+            return true
+        end
+    end
+    return false
+end
 
--- set a value without overwriting if already set and
--- using to special types: *_list and *_switch
+-- include a file in the *_docfiles lists if it "matches"
+function process_file (file, pathfile, code, pattern)
+    local base, ext = string.match(file, '^(.*)%.(.*)$')
+    if string.find(pathfile, pattern, 1, no_regex) and is_good_ext (ext)
+        then 
+        if (base == pattern) or (file == pattern) then 
+            table.insert(exact_docfiles, code_path (code, pathfile))
+        else
+            table.insert(rel_docfiles, code_path (code, pathfile))
+        end
+    end
+end
+
+-----------------------------   sorting results   ------------------------------
+
+-- compare two filenames with the following rule:
+-- 1. extensions are ordered as in ext_list first,
+-- 2. then filenames lexicographically.
+function file_order (a, b)
+    local ext_a = string.match (a, '^.*%.(.*)$')
+    local ext_b = string.match (b, '^.*%.(.*)$')
+    ext_pos_a = config.ext_list_inv[ext_a] or (config.ext_list_max+1)
+    ext_pos_b = config.ext_list_inv[ext_b] or (config.ext_list_max+1)
+    if ext_pos_a < ext_pos_b then
+        return true
+    elseif ext_pos_a > ext_pos_b then
+        return false
+    else
+        return (a < b)
+    end
+end
+
+--------------------------------------------------------------------------------
+----------------   functions to set config values and aliases   ----------------
+--------------------------------------------------------------------------------
+
+----------------------------   general functions   -----------------------------
+
+-- set a config parameter, but don't overwrite it if already set
+-- three special types: *_list (list), *_switch (boolean), *_level (number)
 function set_config_element (key, value, file, line)
     if config[key] == nil then -- must explicitly test for nil, not false
         if string.match(key, '_list$') then
@@ -337,7 +364,6 @@ function config_warn (key, value, file, line)
     end
 end
 
-
 -- set a whole list, also whithout overwriting
 function set_config_list (conf)
     for key, value in pairs(conf) do
@@ -352,9 +378,12 @@ function set_alias (key, value)
     end
 end
 
+------------------------   options from command line   -------------------------
+
 -- set config from the command line
 -- Please make sure to update usage_msg accordingly
 -- and set a default value in setup_config_from_defaults() if relevant.
+-- TODO: should use some getopt_long()-like mechanism some day
 function setup_config_from_cl ()
     while arg[1] and string.match(arg[1],'^%-') do
         curr_arg = table.remove(arg,1)
@@ -405,14 +434,7 @@ function setup_config_from_cl ()
     end
 end
 
--- the default value af config.alias_switch depends on the mode as follows
-function alias_from_mode (mode)
-    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then 
-        return 'true'
-    else
-        return 'false'
-    end
-end
+-------------------------   config from environment   --------------------------
 
 -- set config from environment if available
 function setup_config_from_env ()
@@ -434,6 +456,8 @@ function setup_config_from_env ()
         or os.getenv ("PAGER"),
     }
 end
+
+----------------------   options and aliase from files   -----------------------
 
 -- set config+aliases from a particular config file assumed to exist
 function read_config_file(configfile)
@@ -497,6 +521,8 @@ function print_config_files ()
         print (home..found, win32_hook(file))
     end
 end
+
+----------------------   options from built-in defaults   ----------------------
 
 -- for default viewer on general Unix, we have a list; the following two
 -- functions are used to check in the path which program is available
@@ -585,7 +611,7 @@ function setup_config_from_defaults()
     -- then various stuff
     set_config_list {
         mode                = 'view',
-        interact_switch  = 'true',
+        interact_switch     = 'true',
         noise_level         = '3',
     }
     -- must be set after mode!
@@ -607,9 +633,19 @@ function setup_config_from_defaults()
     end
 end
 
+-- the default value of config.alias_switch depends on the mode as follows
+function alias_from_mode (mode)
+    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then 
+        return 'true'
+    else
+        return 'false'
+    end
+end
 
--- functions for viewing/displaying the results
------------------------------------------------
+
+--------------------------------------------------------------------------------
+---------------   functions for viewing/displaying the results   ---------------
+--------------------------------------------------------------------------------
 
 -- prepare for viewing: set viewer_replacement and viewer_ext
 -- may uncompress if support_zipped is set (giving the complete filename on the
@@ -674,23 +710,6 @@ function try_viewing (view_command, viewer_replacement)
     return view_result
 end
 
--- compare two filenames with the following rule:
--- 1. extensions are ordered as in ext_list first,
--- 2. then filenames lexicograhpicaly.
-function file_order (a, b)
-    local ext_a = string.match (a, '^.*%.(.*)$')
-    local ext_b = string.match (b, '^.*%.(.*)$')
-    ext_pos_a = config.ext_list_inv[ext_a] or (config.ext_list_max+1)
-    ext_pos_b = config.ext_list_inv[ext_b] or (config.ext_list_max+1)
-    if ext_pos_a < ext_pos_b then
-        return true
-    elseif ext_pos_a > ext_pos_b then
-        return false
-    else
-        return (a < b)
-    end
-end
-
 -- display a table, sorted, numbered with given offset (0 by default), 
 -- with real path
 function display_table (t, offset)
@@ -732,8 +751,9 @@ function print_menu (files, comp)
     end
 end
 
--- error handling
------------------
+--------------------------------------------------------------------------------
+-----------------------   functions for error handling   -----------------------
+--------------------------------------------------------------------------------
 
 -- exit codes (probably make sense only with a single argument)
 -- 0    OK
@@ -771,12 +791,11 @@ function err_print (msg, lvl)
     end
 end
 
+--------------------------------------------------------------------------------
+---------------------------   main code execution   ----------------------------
+--------------------------------------------------------------------------------
 
--- END of function definitions: here starts the execution
---=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
--- initialisations
-------------------
+-----------------------------   initialisations   ------------------------------
 
 -- initialize kpathsea
 kpse.set_program_name(arg[-1], "texdoc")
@@ -791,8 +810,7 @@ setup_config_from_env ()
 setup_config_from_files ()
 setup_config_from_defaults ()
 
--- the main loop over the args
-------------------------------
+------------------------   looping over the arguments   ------------------------
 
 -- initialising and saving a few values
 exit_code = 0
