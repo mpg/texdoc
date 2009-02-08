@@ -394,7 +394,7 @@ function setup_config_from_cl ()
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
             print (progname .. ' version: ' .. version )
             setup_config_from_files ()
-            print_config_files ()
+            show_config_files (print, true)
             os.exit(0)
         elseif (curr_arg == '-w') or (curr_arg == '--view') then
             set_config_element('mode', 'view')
@@ -516,7 +516,7 @@ function setup_config_from_files ()
         config_files[i] = {
             path = file,
             status = found and (config.lastfile_switch 
-            and 'disabled' or 'active') or 'not found',
+            and 'disabled' or 'active') or 'absent',
         }
         if config_files[i].status == 'active' then
             read_config_file (file) 
@@ -525,11 +525,13 @@ function setup_config_from_files ()
 end
 
 -- now a special information function (see -f,--file option)
-function print_config_files ()
-    print "Configuration files are:"
+function show_config_files (print_fun, prefix)
+    print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
-        local home = (i==2) and "==> " or "    " -- home conffile is the 2nd
-        print (home..file.status, win32_hook(file.path))
+        local home = prefix and 
+        ((i==2) and "==> " or "    ") -- home conffile is the 2nd
+        or ''
+        print_fun (home..file.status..'\t'..win32_hook(file.path))
     end
 end
 
@@ -821,6 +823,10 @@ assert_arg_not_empty ()
 setup_config_from_env ()
 setup_config_from_files ()
 setup_config_from_defaults ()
+
+-- now that noise_level is known...
+err_print(arg[0]..' version '..version, 'debug1')
+show_config_files(function(s) err_print(s, 'debug1') end)
 
 ------------------------   looping over the arguments   ------------------------
 
