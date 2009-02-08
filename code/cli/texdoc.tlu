@@ -1,5 +1,5 @@
 #!/usr/bin/env texlua
--- $Id: texdoc.tlu 10337 2008-08-14 11:40:50Z mpg $ -*-Lua-*-
+-- $Id$ -*-Lua-*-
 --[[Revised 2008 by Manuel Pégourié-Gonnard 
     with contributions from Reinhard Kotucha.
     First texlua versions by Frank Küster (2007). 
