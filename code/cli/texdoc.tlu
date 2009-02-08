@@ -12,7 +12,7 @@
 progname = 'texdoc'
 version = '0.4+'
 if string.sub(version, -1) == '+' then
-    local svnrev = string.match('$Revision: 16$', '%$Revision:%s*(%d*)%s*%$');
+    local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
     version = version..' svn r'..svnrev
 end
 
