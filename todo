@@ -1,11 +1,10 @@
 - add an extra level of personal texdoc.cnf (like ~/.texdoc.cnf) to allow
   running from svn
 
-- find a solution to the man vs info with same filename dilemma:
-	- first find out how many files are concerned, then either
-	(a) use aliases to disambiguate
-	(b) rename the man pages as .1.pdf and make texdoc find them by either
-	adding aliases or making it search function smarter
+- change the alias behaviour, alias should be like addalias
+
+- find a solution to the man vs info with same filename dilemma: rename the man
+  pages as .1.pdf and make texdoc find them (change the search routine for that)
 
 - choose an alias for xetex-ref
 
@@ -14,4 +13,15 @@
 - make the search routine ignore the first (two) components of the path (eg
   doc/xelatex)?
 
-- 
+- add support for shell-style globs (standard regex is probably too hard)
+
+- change the -n option to -v (keep -V for --version)
+
+- include the output of --files in verbosity level 4
+
+- detect unkown options in config files
+
+- write or use some GNU-like getopt_long
+
+- at some verbosity level, tell where does a particular setting come from 
+

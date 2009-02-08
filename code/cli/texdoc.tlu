@@ -3,36 +3,20 @@
 --[[Revised 2008 by Manuel Pégourié-Gonnard 
     with contributions from Reinhard Kotucha.
     First texlua versions by Frank Küster (2007). 
-    Origial shell script by Thomas Esser, David Aspinall, and Simon Wilkinson.
+    Original shell script by Thomas Esser, David Aspinall, and Simon Wilkinson.
     Public domain.]]
---[[ Changelog
-  0.4 2008-07
-  - moved configuration from texmf.cnf to texdoc.cnf
-  - added an 'alias' feature
-  - new modes 'mixed' and 'regex'
-  - file lists are now menus (select number to view results)
-  - changed the search modes to get only the more relevant results (hopefully)
-  - /!\ zip support disabled by default (not portable) (see comments below)
-
-  0.3 2007-06-28
-  - added changelog
-  - better OS detection for default viewer settings
-  - removed some debugging code
-  - -s now works in dirs without ls-R, too
-  
-  0.2 2007-06-28
-  - implemented reading of configuration from texmf.cnf
-  - fixed "-s" option
-  
-  0.1
-  - initial public release 
-]]
 
 -------------------   general-use constants and functions   --------------------
 
 -- some constants 
 progname = 'texdoc'
-version = '0.4'
+version = '0.4+'
+if string.sub(version, -1) == '+' then
+    local svnrev = string.gsub('$Revision: 16$',
+    '%$Revision:%s*(%d*)%s*%$', '%1');
+    version = version..' svn r'..svnrev
+end
+
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
 usage_msg = [[
@@ -388,12 +372,14 @@ function setup_config_from_cl ()
     while arg[1] and string.match(arg[1],'^%-') do
         curr_arg = table.remove(arg,1)
         if (curr_arg == '-h') or (curr_arg == '--help') then
+            print (progname .. ' version: ' .. version )
             print (usage_msg)
             os.exit(0)
         elseif (curr_arg == '-v') or (curr_arg == '--version') then
             print (progname .. ' version: ' .. version )
             os.exit(0)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
+            print (progname .. ' version: ' .. version )
             print_config_files ()
             os.exit(0)
         elseif (curr_arg == '-w') or (curr_arg == '--view') then

@@ -1,0 +1,49 @@
+2009-02-08  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* texdoc.tlu: 
+	- Display the svn rev if version ends with '+'. Display version more
+	often (-h, -f).
+
+2008-09 to 2009-01 Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* texdoc.tlu: 
+	- enhancing the help message
+	- stop complaining about deprecated environment variables
+
+	* texdoc.cnf: Various updates
+
+0.4 2008-08-14 Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* version released with TeX Live 2008
+
+2008-07 Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* texdoc.tlu: Various changes including:
+	- moved configuration from texmf.cnf to texdoc.cnf
+	- added an 'alias' feature 
+	- new modes 'mixed' and 'regex' 
+	- file lists are now menus (select number to view results) 
+	- changed the search modes to get only the more relevant results
+	- /!\ zip support disabled by default (not portable) (see comments in
+	source)
+
+	* texdoc.cnf: Creation, initial alias list, comments.
+	* texdoc.tex: First version.
+
+0.3 2007-06-28 Frank Küster
+
+	* texdoc.tlu: Various changes including:
+	- added changelog
+	- better OS detection for default viewer settings
+	- removed some debugging code
+	- -s now works in dirs without ls-R, too
+
+0.2 2007-06-28 Frank Küster
+
+	* texdoc.tlu: Various changes including:
+	- implemented reading of configuration from texmf.cnf
+	- fixed "-s" option
+
+0.1 Frank Küster
+
+	* texdoc.tlu: initial public release 
