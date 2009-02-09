@@ -33,7 +33,7 @@ Usage:  texdoc  -h, --help | -V, --version | -f, --files | [option(s)] name(s)
     -A, --noalias           Don't use the alias table.
     -i, --interact          Use interactive menus.
     -I, --nointeract        Use plain lists, no interaction required.
-    -v, --verbosity=N     Set verbosity level to N.
+    -v, --verbosity=N       Set verbosity level to N.
 Environment: 
     PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: 
@@ -45,12 +45,21 @@ notfound_msg = [[
 Sorry, no documentation found for PKGNAME.
 If you are unsure about the name, try searching CTAN's TeX catalogue at
 http://ctan.org/search.html#byDescription.]]
+known_options = {
+    'viewer_.*',
+    'mode',
+    'interact_switch', 'alias_switch',
+    'ext_list',
+    'verbosity_level',
+    'lastfile_switch',
+}
 place_holder = '%%s' -- used for viewer commands
 err_priority = {
     error   = 1,
     warning = 2,
     info    = 3,
     debug1  = 4,
+    debug2  = 5,
 }
 
 -- zip/gz support
@@ -315,56 +324,81 @@ end
 
 -- set a config parameter, but don't overwrite it if already set
 -- three special types: *_list (list), *_switch (boolean), *_level (number)
-function set_config_element (key, value, file, line)
-    if config[key] == nil then -- must explicitly test for nil, not false
-        if string.match(key, '_list$') then
-            -- this is actually a coma-separated list of values
-            local values = string.explode(value, ',')
-            local inverse = {}
-            for i, j in ipairs(values) do
-                values[i] = string.gsub(j, '%s*$', '')
-                values[i] = string.gsub(j, '^%s*', '')
-                inverse[j] = i
-            end
-            config[key] = values
-            config[key..'_inv'] = inverse
-            config[key..'_max'] = #values
-        elseif string.find (key, '_switch$') then
-            if value == 'true' then
-                config[key] = true
-            elseif value == 'false' then
-                config[key] = false
-            else
-                config_warn (key, value, file, line)
-            end
-        elseif string.find (key, '_level$') then
-            local val = tonumber (value)
-            if val then 
-                config[key] = val
-            else
-                config_warn (key, value, file, line)
-            end
-        else
-            config[key] = value
-        end
+function set_config_element (key, value, context)
+    local is_known = false -- is key a valid option?
+    for option in list(known_options) do
+        if string.match(key, option) then is_known = true break end
     end
+    -- warn and exit if key is not a known option
+    if not is_known then config_warn(key, nil, context) return end
+    -- exit if key is already set (/!\ must test for nil, not false)
+    if not (config[key] == nil) then return nil end
+    if string.match(key, '_list$') then -- coma-separated list
+        local values = string.explode(value, ',')
+        local inverse = {}
+        for i, j in ipairs(values) do -- sanitize values...
+            values[i] = string.gsub(j, '%s*$', '')
+            values[i] = string.gsub(j, '^%s*', '')
+            inverse[j] = i -- ... and build inverse mapping on the way
+        end
+        config[key] = values
+        config[key..'_inv'] = inverse
+        config[key..'_max'] = #values
+    elseif string.find (key, '_switch$') then -- boolean
+        if value == 'true' then
+            config[key] = true
+        elseif value == 'false' then
+            config[key] = false
+        else
+            config_warn (key, value, context)
+        end
+    elseif string.find (key, '_level$') then -- integer
+        local val = tonumber (value)
+        if val then 
+            config[key] = val
+        else
+            config_warn (key, value, context)
+        end
+    else -- string
+        config[key] = value
+    end
+    -- special case: if we just set verbosity_level, print version info now
+    if key == 'verbosity_level' then
+        err_print(arg[0]..' version '..version, 'debug1')
+    end
+    -- now tell what we have just done, for debugging
+    err_print('Setting "'..key..'='..value..'" '
+    ..context_to_string(context)..'.', 'debug2')
 end
 
 -- a helper  function for warning messages in the above
-function config_warn (key, value, file, line)
-    local begin = 'illegal value '..value..' for key '..key
+function config_warn (key, value, context)
+    local begin = value and 'Illegal value "'..value..'" for option "'..key..'"'
+    or 'Unkown option "'..key..'"'
     local ending = '.  Skipping.'
-    if file and line then
-        err_print (begin..'\nin '..file..' line '..line..ending, 'warning')
+    err_print (begin..'\n    '..context_to_string(context)..ending, 'warning')
+end
+
+-- interpreting 'context' for the previous functions
+function context_to_string(context)
+    if not context then return '(no context)' end
+    if      context.src == 'cl' then
+        return 'from command line option "'..context.name..'"'
+    elseif  context.src == 'env' then
+        return 'from environment variable "'..context.name..'"'
+    elseif  context.src == 'file' then
+        return 'in file "'..context.file..'" on line '..context.line
+    elseif  context.src == 'def' then
+        return 'from built-in defaults'
     else
-        err_print (begin..ending, 'warning')
+        return 'from unkown source (should not happen, please report)'
     end
 end
 
 -- set a whole list, also whithout overwriting
-function set_config_list (conf)
+function set_config_list (conf, context)
     for key, value in pairs(conf) do
-        set_config_element (key, value)
+        set_config_element (key, value, context)
     end
 end
 
@@ -382,6 +416,10 @@ end
 -- and set a default value in setup_config_from_defaults() if relevant.
 -- TODO: should use some getopt_long()-like mechanism some day
 function setup_config_from_cl ()
+    local curr_arg
+    local function set_config_elt(key, val) 
+        set_config_element(key, val, {src='cl', name=curr_arg})
+    end
     while arg[1] and string.match(arg[1],'^%-') do
         curr_arg = table.remove(arg,1)
         if (curr_arg == '-h') or (curr_arg == '--help') then
@@ -397,35 +435,35 @@ function setup_config_from_cl ()
             show_config_files (print, true)
             os.exit(0)
         elseif (curr_arg == '-w') or (curr_arg == '--view') then
-            set_config_element('mode', 'view')
+            set_config_elt('mode', 'view')
         elseif (curr_arg == '-m') or (curr_arg == '--mixed') then
-            set_config_element('mode', 'mixed')
+            set_config_elt('mode', 'mixed')
         elseif (curr_arg == '-l') or (curr_arg == '--list') then
-            set_config_element('mode', 'list')
+            set_config_elt('mode', 'list')
         elseif (curr_arg == '-s') or (curr_arg == '--search') then
-            set_config_element ('mode', 'search')
+            set_config_element ('mode', 'search', {src='cl', name=curr_arg})
         elseif (curr_arg == '-r') or (curr_arg == '--regex') then
-            set_config_element ('mode', 'regex')
+            set_config_element ('mode', 'regex', {src='cl', name=curr_arg})
         elseif (curr_arg == '-I') or (curr_arg == '--nointeract') then
-            set_config_element('interact_switch', 'false')
+            set_config_elt('interact_switch', 'false')
         elseif (curr_arg == '-i') or (curr_arg == '--interact') then
-            set_config_element('interact_switch', 'true')
+            set_config_elt('interact_switch', 'true')
         elseif (curr_arg == '-A') or (curr_arg == '--noalias') then
-            set_config_element('alias_switch', 'false')
+            set_config_elt('alias_switch', 'false')
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
-            set_config_element('alias_switch', 'true')
+            set_config_elt('alias_switch', 'true')
         elseif string.match(curr_arg, '^%-n') then 
-            set_config_element('verbosity_level', 
-            string.gsub(curr_arg, '^%-n=?', ''))
+            local value = string.gsub(curr_arg, '^%-n=?', '')
+            set_config_elt('verbosity_level', value)
         elseif string.match(curr_arg, '^%-%-verbosity%-level') then
-            set_config_element('verbosity_level', 
-            string.gsub(curr_arg, '^%-%-verbosity%-level=?', ''))
+            local value = string.gsub(curr_arg, '^%-%-verbosity%-level=?', '')
+            set_config_elt('verbosity_level', value)
         elseif string.match(curr_arg, '^%-e') then 
-            set_config_element('ext_list', 
-            string.gsub(curr_arg, '^%-e=?', ''))
+            local value = string.gsub(curr_arg, '^%-e=?', '')
+            set_config_elt('ext_list', value)
         elseif string.match(curr_arg, '^%-%-extensions') then
-            set_config_element('ext_list', 
-            string.gsub(curr_arg, '^%-%-extensions=?', ''))
+            local value = string.gsub(curr_arg, '^%-%-extensions=?', '')
+            set_config_elt('ext_list', value)
         else
             err_print ("unknown option: "..curr_arg, "error")
             print (usage_msg)
@@ -438,26 +476,27 @@ end
 
 -- set config from environment if available
 function setup_config_from_env ()
-    set_config_list {
-        viewer_pdf  = os.getenv ("PDFVIEWER_texdoc") 
-        or os.getenv ("TEXDOCVIEW_pdf") or os.getenv ("TEXDOC_VIEWER_PDF")
-        or os.getenv ("PDFVIEWER"),
-        viewer_ps   = os.getenv ("PSVIEWER_texdoc")
-        or os.getenv ("TEXDOCVIEW_ps") or os.getenv ("TEXDOC_VIEWER_PS")
-        or os.getenv ("PSVIEWER"),
-        viewer_dvi  = os.getenv ("DVIVIEWER_texdoc")
-        or os.getenv ("TEXDOCVIEW_dvi") or os.getenv ("TEXDOC_VIEWER_DVI")
-        or os.getenv ("DVIVIEWER"),
-        viewer_html = os.getenv ("BROWSER_texdoc")
-        or os.getenv ("TEXDOCVIEW_html") or os.getenv ("TEXDOC_VIEWER_HTML")
-        or os.getenv ("BROWSER"),
-        viewer_txt  = os.getenv ("PAGER_texdoc")
-        or os.getenv ("TEXDOCVIEW_txt") or os.getenv ("TEXDOC_VIEWER_TXT")
-        or os.getenv ("PAGER"),
-    }
+    local function set_config_elt_from_vars(key, vars)
+        for var in list(vars) do
+            local value = os.getenv(var)
+            if value then
+                set_config_element(key, value, {src='env', name=var})
+            end
+        end
+    end
+    set_config_elt_from_vars('viewer_pdf',
+    {"PDFVIEWER_texdoc", "TEXDOCVIEW_pdf", "TEXDOC_VIEWER_PDF", "PDFVIEWER"})
+    set_config_elt_from_vars('viewer_ps',
+    {"PSVIEWER_texdoc", "TEXDOCVIEW_ps", "TEXDOC_VIEWER_PS", "PSVIEWER"})
+    set_config_elt_from_vars('viewer_dvi',
+    {"DVIVIEWER_texdoc", "TEXDOCVIEW_dvi", "TEXDOC_VIEWER_DVI", "DVIVIEWER"})
+    set_config_elt_from_vars('viewer_html',
+    {"BROWSER_texdoc", "TEXDOCVIEW_html", "TEXDOC_VIEWER_HTML", "BROWSER"})
+    set_config_elt_from_vars('viewer_txt',
+    {"PAGER_texdoc", "TEXDOCVIEW_txt", "TEXDOC_VIEWER_TXT", "PAGER"})
 end
 
-----------------------   options and aliase from files   -----------------------
+----------------------   options and aliases from files   ----------------------
 
 -- set config+aliases from a particular config file assumed to exist
 function read_config_file(configfile)
@@ -473,7 +512,8 @@ function read_config_file(configfile)
         line = string.gsub(line, '^%s*', '')    -- remove leading spaces
         key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
         if key and val then 
-            set_config_element(key, val, configfile, lineno)
+            set_config_element(key, val, {
+                src='file', file=configfile, line=lineno})
         else
             key, val = string.match(line, '^alias%s+([%a%d_-]+)%s*=%s*(.+)')
             if key and val then
@@ -562,10 +602,14 @@ end
 
 -- set some fall-back default values if no previous value is set
 function setup_config_from_defaults()
+    local function set_config_ls(ls) set_config_list(ls, {src='def'}) end
+    local function set_config_elt(key, val) 
+        set_config_element(key, val, {src='def'}) 
+    end
     if (os.type == "windows") then
         -- probably Windows (or OS/2)
         -- which commands should we use for unzipping?
-        set_config_list {
+        set_config_ls {
             viewer_dvi    = 'start ""',
             viewer_html   = 'start ""',
             viewer_pdf    = 'start ""',
@@ -574,7 +618,7 @@ function setup_config_from_defaults()
         }
     else -- since we don't support msdos, if os.type is not windows, it's unix
         if (os.name == 'macosx') then
-            set_config_list {
+            set_config_ls {
                 viewer_dvi    = 'open',
                 viewer_html   = 'open',
                 viewer_pdf    = 'open',
@@ -582,7 +626,7 @@ function setup_config_from_defaults()
                 viewer_txt    = 'less',
             }
         else
-            set_config_list {
+            set_config_ls {
                 viewer_dvi      = first_in_path {
                     {'evince',  '(evince %s) &'},
                     {'okular',  '(okular %s) &'},
@@ -624,37 +668,38 @@ function setup_config_from_defaults()
         end
     end
     -- then various stuff
-    set_config_list {
+    set_config_ls {
         mode                = 'view',
         interact_switch     = 'true',
-        verbosity_level         = '3',
+        verbosity_level     = '3',
     }
     -- must be set after mode!
-    set_config_element ('alias_switch', alias_from_mode(config.mode))
+    set_config_elt ('alias_switch', alias_from_mode(config.mode))
     -- now a particular case for config.ext_list and zip-related stuff
     -- Note: removed texdoc_formats/zip_formats, gives simpler & generic code
     if support_zipped then
-        set_config_element('ext_list', 
+        set_config_elt('ext_list', 
         'pdf,pdf.gz,pdf.bz2, html,html.gz,html.bz2, txt,txt.gz,txt.bz2,'..
         'dvi,dvi.gz,dvi.bz2, ps,ps.gz,ps.bz2, ,gz,bz2')
-        set_config_list {
+        set_config_ls {
             unzip_gz    = 'gzip -d -c ',
             unzip_bz2   = 'bzip -d -c ',
             rm_file     = 'rm -f',
             rm_dir      = 'rmdir'
         }
     else
-        set_config_element('ext_list', 'pdf, html, txt, dvi, ps, ')
+        set_config_elt('ext_list', 'pdf, html, txt, dvi, ps, ')
     end
 end
 
 -- the default value of config.alias_switch depends on the mode as follows
-function alias_from_mode (mode)
-    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then 
+function alias_from_mode (mode) -- /!\ returns a string!
+    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then
         return 'true'
     else
         return 'false'
     end
+
 end
 
 --------------------------------------------------------------------------------
@@ -799,7 +844,7 @@ end
 -- generic error display function (see the error_priority constant)
 function err_print (msg, lvl)
     -- be careful: maybe config.verbosity_level is not set yet
-    local verbosity_level = config.verbosity_level or 10000
+    local verbosity_level = config.verbosity_level or 2
     if err_priority[lvl] <= verbosity_level then
         io.stderr:write ("texdoc "..lvl..": "..msg.."\n")
     end
@@ -825,7 +870,6 @@ setup_config_from_files ()
 setup_config_from_defaults ()
 
 -- now that verbosity_level is known...
-err_print(arg[0]..' version '..version, 'debug1')
 show_config_files(function(s) err_print(s, 'debug1') end)
 
 ------------------------   looping over the arguments   ------------------------

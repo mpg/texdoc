@@ -9,11 +9,5 @@
 
 - add support for shell-style globs (standard regex is probably too hard)
 
-- include the output of --files in verbosity level 4
-
-- detect unkown options in config files
-
 - write or use some GNU-like getopt_long
-
-- at some verbosity level, tell where does a particular setting come from 
 
