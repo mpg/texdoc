@@ -569,9 +569,13 @@ function show_config_files (print_fun, prefix)
     print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
         local home = prefix and 
-        ((i==2) and "==> " or "    ") -- home conffile is the 2nd
+        ((i==2) and "(*) " or "    ") -- home conffile is the 2nd
         or ''
         print_fun (home..file.status..'\t'..win32_hook(file.path))
+    end
+    if prefix then 
+        print("(*) This is the recommended configuration file "
+        .. "for your personal preferences.")
     end
 end
 
