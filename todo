@@ -1,4 +1,5 @@
-- change the alias behaviour, alias should be like addalias
+- change the alias behaviour, alias should be like addalias (add a priority
+  level?)
 
 - find a solution to the man vs info with same filename dilemma: rename the man
   pages as .1.pdf and make texdoc find them (change the search routine for that)
@@ -11,3 +12,10 @@
 
 - write or use some GNU-like getopt_long
 
+- display info from the tlpdb (see thread on tldev)
+
+- remove duplicates (understanbd why)
+
+- make the display of the list of files independant of interact_switch value
+
+- understand and slove the wrapfig weirdness
