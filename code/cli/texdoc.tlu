@@ -426,7 +426,7 @@ function setup_config_from_cl ()
             print (progname .. ' version: ' .. version )
             print (usage_msg)
             os.exit(0)
-        elseif (curr_arg == '-v') or (curr_arg == '--version') then
+        elseif (curr_arg == '-V') or (curr_arg == '--version') then
             print (progname .. ' version: ' .. version )
             os.exit(0)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
@@ -452,11 +452,11 @@ function setup_config_from_cl ()
             set_config_elt('alias_switch', 'false')
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
-        elseif string.match(curr_arg, '^%-n') then 
-            local value = string.gsub(curr_arg, '^%-n=?', '')
+        elseif string.match(curr_arg, '^%-v') then 
+            local value = string.gsub(curr_arg, '^%-v=?', '')
             set_config_elt('verbosity_level', value)
-        elseif string.match(curr_arg, '^%-%-verbosity%-level') then
-            local value = string.gsub(curr_arg, '^%-%-verbosity%-level=?', '')
+        elseif string.match(curr_arg, '^%-%-verbosity') then
+            local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
             set_config_elt('verbosity_level', value)
         elseif string.match(curr_arg, '^%-e') then 
             local value = string.gsub(curr_arg, '^%-e=?', '')
