@@ -38,6 +38,7 @@ Options:
   -i, --interact        Use interactive menus.
   -I, --nointeract      Use plain lists, no interaction required.
   -v, --verbosity=N     Set verbosity level to N.
+  -d, --debug           Set verbosity level to maximum.
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf files, see the -f option.
 Homepage: http://tug.org/texdoc/
@@ -64,6 +65,7 @@ err_priority = {
     debug1  = 4,
     debug2  = 5,
 }
+err_max = 5
 
 -- zip/gz support
 --
@@ -455,6 +457,8 @@ function setup_config_from_cl ()
             set_config_elt('alias_switch', 'false')
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
+        elseif (curr_arg == '-d') or (curr_arg == '--debug') then
+            set_config_elt('verbosity_level', err_max)
         elseif string.match(curr_arg, '^%-v') then 
             local value = string.gsub(curr_arg, '^%-v=?', '')
             set_config_elt('verbosity_level', value)

@@ -4,6 +4,7 @@
 	- BugFix: some options (-v, -V, --verbosity) didn't match the help
 	message.
 	- New help message; distinct error message.
+	- New --debug option (set maximum verbosity).
 
 2009-02-08  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 
