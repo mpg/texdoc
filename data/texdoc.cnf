@@ -50,10 +50,9 @@ alias texdoc = texdoc/texdoc # avoid the man page to be displayed first
 ## various stuff
 
 # a few useful general documents
-alias mathmode = Mathmode
-alias visualfaq = visualFAQ
 alias symbols = symbols-a4
 alias faq-en = newfaq
+alias faq = newfaq
 
 # various lshort translations (keep the obvious ones for the tests)
 alias lshort = lshort-english/lshort 	# original
@@ -82,16 +81,17 @@ alias lshort-vi	= lshort-vi		# vietnamese
 # *TeX engines reference manuals, man pages and related
 alias etex-ref = etex_man
 alias pdftex-ref = pdftex-a
+alias xetex-ref = XeTeX-reference
 alias luatex-ref = luatexref-t
 alias etex-man = man1/etex
 alias pdftex-man = man1/pdftex
 #alias luatex-man = man1/luatex #???
 alias luatex-pkg = oberdiek/luatex.pdf
 
-# for the time being, let *TeX engine names point to the user manuals, not the
-# man pages
+# by default, <engine> = <engine>-ref (duplicated: no alias cascading)
 alias etex = etex_man
-alias pdftex = pdftex_a
+alias pdftex = pdftex-a
+alias xetex = XeTeX-reference
 alias luatex = luatexref-t
 
 # ams 
@@ -141,6 +141,7 @@ alias shortvrb = base/doc.
 alias metapost = mpman
 alias iso = isoman
 alias pstricks = pstricks-doc
+alias extramarks = fancyhdr
 
 ## a few easy patterns 
 
@@ -448,6 +449,7 @@ alias version = version.sty
 alias vertbars = vertbars.sty
 alias vrbexin = vrbexin.sty
 alias vruler = vruler.sty
+alias wrapfig = wrapfig.sty
 
 # the next line has no effect when this file is installed as
 # TEXMFMAIN/texdoc/texdoc.cnf but is useful when it is installed as

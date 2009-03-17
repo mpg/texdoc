@@ -4,8 +4,6 @@
 - find a solution to the man vs info with same filename dilemma: rename the man
   pages as .1.pdf and make texdoc find them (change the search routine for that)
 
-- choose an alias for xetex-ref
-
 - make the search routine ignore the first components of the path (eg /latex/)?
 
 - add support for shell-style globs (standard regex is probably too hard)
@@ -18,4 +16,10 @@
 
 - make the display of the list of files independant of interact_switch value
 
-- understand and slove the wrapfig weirdness
+- maybe investigate the problem with AR 5.0.5 (Phil T., TL list, 2009/07/03)
+
+Notes for using the Catalogue (later)
+-------------------------------------
+
+Obsolescence information could be useful (Phil's suggestion).
+
