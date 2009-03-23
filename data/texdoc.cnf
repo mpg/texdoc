@@ -79,6 +79,7 @@ alias lshort-vi	= lshort-vi		# vietnamese
 
 
 # *TeX engines reference manuals, man pages and related
+alias e-tex-ref = etex_man
 alias etex-ref = etex_man
 alias pdftex-ref = pdftex-a
 alias xetex-ref = XeTeX-reference
@@ -89,6 +90,7 @@ alias pdftex-man = man1/pdftex
 alias luatex-pkg = oberdiek/luatex.pdf
 
 # by default, <engine> = <engine>-ref (duplicated: no alias cascading)
+alias e-tex = etex_man
 alias etex = etex_man
 alias pdftex = pdftex-a
 alias xetex = XeTeX-reference
@@ -142,6 +144,7 @@ alias metapost = mpman
 alias iso = isoman
 alias pstricks = pstricks-doc
 alias extramarks = fancyhdr
+alias fonttable = fonttable/fonttable
 
 ## a few easy patterns 
 

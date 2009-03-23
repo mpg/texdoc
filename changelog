@@ -1,3 +1,7 @@
+2009-03-23  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* texdoc.cnf: new alias as a quick fix for fonttable
+
 2009-03-17  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 
 	* texdoc.cnf: updating default aliases
