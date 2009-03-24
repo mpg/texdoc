@@ -6,6 +6,10 @@
     Original shell script by Thomas Esser, David Aspinall, and Simon Wilkinson.
     Public domain.]]
 
+--------------------------------------------------------------------------------
+------------------   global constants and general functions   ------------------
+--------------------------------------------------------------------------------
+
 -----------------------------   global constants   -----------------------------
 
 -- progname and version
@@ -43,12 +47,14 @@ Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf files, see the -f option.
 Homepage: http://tug.org/texdoc/
 User manual: accessed via `texdoc texdoc'.]]
+
 error_msg = [[
 Try `texdoc --help' for a short help, `texdoc texdoc' for the user manual.]]
 notfound_msg = [[
 Sorry, no documentation found for PKGNAME.
 If you are unsure about the name, try searching CTAN's TeX catalogue at
 http://ctan.org/search.html#byDescription.]]
+
 known_options = {
     'viewer_.*',
     'mode',
@@ -57,15 +63,18 @@ known_options = {
     'verbosity_level',
     'lastfile_switch',
 }
-place_holder = '%%s' -- used for viewer commands
+
 err_priority = {
     error   = 1,
     warning = 2,
     info    = 3,
     debug1  = 4,
     debug2  = 5,
+    debug3  = 6,
 }
-err_max = 5
+err_max = 6
+
+place_holder = '%%s' -- used for viewer commands
 
 -- zip/gz support
 --
@@ -129,12 +138,17 @@ function get_texdocs ()
     -- expand the path and turn it into a lua list
     texdocs = string.explode (kpse.expand_braces (texdocs), sep)
     do_recurse, must_have_lsr = {}, {} -- global
+    err_print('Search paths:', 'debug3')
     for i, dir in ipairs (texdocs) do
         local n
         dir, n = string.gsub (dir, '//$', '')
         do_recurse[i] = (n == 1)
         texdocs[i], n = string.gsub (dir, '^!!', '')
         must_have_lsr[i] = (n == 1)
+        err_print(string.format('%s (do_recurse=%s, must_have_lsr=%s)',
+            texdocs[i],
+            do_recurse[i] and 'true' or 'false',
+            must_have_lsr[i] and 'true' or 'false'), 'debug3')
     end
 end
 
@@ -717,6 +731,8 @@ end
 ---------------   functions for viewing/displaying the results   ---------------
 --------------------------------------------------------------------------------
 
+---------------------------------   viewing   ----------------------------------
+
 -- prepare for viewing: set viewer_replacement and viewer_ext
 -- may uncompress if support_zipped is set (giving the complete filename on the
 -- command line is unsupported for compressed files by the way)
@@ -779,6 +795,8 @@ function try_viewing (view_command, viewer_replacement)
     end
     return view_result
 end
+
+--------------------------------   displaying   --------------------------------
 
 -- display a table, sorted, numbered with given offset (0 by default), 
 -- with real path

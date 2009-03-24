@@ -1,3 +1,8 @@
+2009-03-24  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* texdoc.tlu: new debug level 3: search paths
+	* texmf.cnf: (from TeX Live) removed duplicates in the search path
+
 2009-03-23  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 
 	* texdoc.cnf: new alias as a quick fix for fonttable
