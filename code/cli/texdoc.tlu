@@ -804,11 +804,7 @@ function display_table (t, offset)
     offset = offset or 0
     table.sort(t, file_order)
     for i, val in ipairs (t) do
-        if config.interact_switch then 
-            print (i+offset, real_path(val))
-        else
-            print (real_path(val))
-        end
+        print(string.format('%2d %s', i+offset, real_path(val)))
     end
 end
 

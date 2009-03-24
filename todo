@@ -12,8 +12,6 @@
 
 - display info from the tlpdb (see thread on tldev)
 
-- make the display of the list of files independant of interact_switch value
-
 - maybe investigate the problem with AR 5.0.5 (Phil T., TL list, 2009/07/03)
 
 - make fonttable/fonttable.pdf win over anything/fonttable.pdf

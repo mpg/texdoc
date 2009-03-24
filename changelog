@@ -1,6 +1,7 @@
 2009-03-24  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 
-	* texdoc.tlu: new debug level 3: search paths
+	* texdoc.tlu: - new debug level 3: search paths
+	- the results list is now displayed with numbers even with -I
 	* texmf.cnf: (from TeX Live) removed duplicates in the search path
 
 2009-03-23  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
