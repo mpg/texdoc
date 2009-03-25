@@ -38,13 +38,10 @@ end
 -- make sure to update setup_config_from_cl() accordingly 
 -- and set a default value in setup_config_from_defaults() if relevant
 usage_msg = [[
-Usage:  texdoc [OPTIONS] [NAME]
 texdoc tries to find appropriate TeX documentation for the specified NAME(s).
 With no NAME, it can print configuration information (-f, --files);
 the usual --help and --version options are also accepted.
-Options:
-  -h, --help            Show this short help.
-  -V, --version         Print the version of the program.
+Usage: texdoc [OPTIONS]... [NAME]...
   -f, --files           Print the name of the config files being used.
   -e, --extensions=L    Require file extensions to be in the list L.
   -w, --view            Use view mode: start a viewer.
@@ -61,7 +58,7 @@ Options:
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf files, see the -f option.
 Homepage: http://tug.org/texdoc/
-User manual: accessed via `texdoc texdoc'.]]
+Manual: displayed by `texdoc texdoc'.]]
 
 error_msg = [[
 Try `texdoc --help' for a short help, `texdoc texdoc' for the user manual.]]
@@ -457,14 +454,13 @@ function setup_config_from_cl ()
     while arg[1] and string.match(arg[1],'^%-') do
         curr_arg = table.remove(arg,1)
         if (curr_arg == '-h') or (curr_arg == '--help') then
-            print (progname .. ' version: ' .. version )
             print (usage_msg)
             os.exit(0)
         elseif (curr_arg == '-V') or (curr_arg == '--version') then
-            print (progname .. ' version: ' .. version )
+            print (progname .. ' ' .. version )
             os.exit(0)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
-            print (progname .. ' version: ' .. version )
+            print (progname .. ' ' .. version )
             setup_config_from_files ()
             show_config_files (print, true)
             os.exit(0)

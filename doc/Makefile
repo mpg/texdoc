@@ -10,8 +10,8 @@ texdoc.pdf: texdoc.tex
 	pdflatex texdoc.tex
 	pdflatex texdoc.tex
 
-texdoc.1: ../code/cli/texdoc.tlu
-	help2man -N $< > $@
+texdoc.1: texdoc ../texdoc.tlu
+	help2man -N -n"finding and displaying TeX documentation"  ./$< > $@
 
 texdoc.1.html: texdoc.1
 	groff -man -Thtml $< > $@
