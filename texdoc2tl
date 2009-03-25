@@ -16,7 +16,7 @@ TEXLIVE="$2"
 TLTEXMF="$TEXLIVE/Master/texmf"
 DOC="doc/texdoc"
 MAN="doc/man/man1"
-SCRIPT="scripts/texlive"
+SCRIPT="scripts/texdoc"
 CONF="texdoc"
 
 # just make sure the generated doc is up-to-date first
