@@ -1,19 +1,27 @@
 % this is texdoc's user manual
-% written by Manuel Pégourié-Gonnard in 2008
-% licensed under the WTFPL version 2 
+% written by Manuel Pégourié-Gonnard in 2008, 2009
+% distributed under the terms of GPL v3 or later
 
 \documentclass[a4paper, oneside]{scrartcl}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{fixltx2e}
-\usepackage{lmodern}
+
+\usepackage{lmodern} \edef\ttmodern{\ttdefault}
+\usepackage[osf]{mathpazo}
+\renewcommand\sfdefault{uop} % optima
+\renewcommand\ttdefault{lmvtt} % lm tt proportional
+\renewcommand\familydefault{\sfdefault}
+\newcommand\otherfamily{\rmfamily}
+\newcommand\mylangle{\textlangle}
+\newcommand\myrangle{\textrangle}
 
 \usepackage{xargs, xspace, fancyvrb, xcolor, pifont, calc, ifmtarg, mathstyle}
 
 \usepackage[rm, bf]{titlesec}
 \titlelabel{\makebox[0pt][r]{\thetitle\kern1pc}}
-\titleformat{\subsubsection}[runin]{\itshape}{%
+\titleformat{\subsubsection}[runin]{\otherfamily\itshape}{%
   \makebox[0pt][r]{\thetitle\kern1pc}}{%
   0pt}{}[\maybedot\space --- ]
 
@@ -55,7 +63,7 @@
 \newcommand\inputcolorname{red}
 \hypersetup{colorlinks=true, linkcolor=links, urlcolor=links, citecolor=links}
 \newcommand\textpa[1]{% % noms d'extensions (package)
-  {\normalfont\color{special}\sffamily #1}}
+  {\normalfont\color{special}\otherfamily #1}}
 \newcommand\cofont{% % code
   \color{code}\normalfont\ttfamily}
 \newcommand\textco[1]{{\cofont#1}}
@@ -73,7 +81,7 @@
 \catcode`\ 10\relax
 
 \newcommand\meta[1]{% % variantes à remplacer
-  {\color{special}\textlangle\textme{#1}\textrangle}}
+  {\color{special}\mylangle\textme{#1}\myrangle}}
 \newcommand\commandline[1]{%
   \prompt\space \textcolor{input}{#1}}
 \newcommand\prompt{\ding{229}}
@@ -105,10 +113,10 @@
   \xdef\sectioncmd{\noexpand\nodotthistime
     \thecmd[\bmtext]{%
       \ifframed
-        \unexpanded{\normalsize
+        \unexpanded{\normalsize\normalfont
           \fbox{\raisebox{\dec}{\BUseVerbatim[baseline=t]{verbmat}}}}%
       \else
-        \unexpanded{\normalsize
+        \unexpanded{\normalsize\normalfont
           \BUseVerbatim{verbmat}}%
       \fi
       \noexpand\label{\thelabel}}}%
@@ -149,13 +157,8 @@
 \subtitle{Finding \& viewing \TeX documentation
   }
 \author{\url{http://tug.org/texdoc/}\\
-  Manuel Pégourié-Gonnard\thanks{%
-    for the documentation.  The script itself was last updated and revised by
-    Manuel Pégourié-Gonnard with contributions from Reinhard Kotucha, based on
-    the previous texlua versions by Frank Küster.  Original (bash) shell
-    script by Thomas Esser, David Aspinall, and Simon Wilkinson.}
-  }
-\date{v0.4---2008/08/01}
+  Manuel Pégourié-Gonnard}
+\date{v0.4---2009/03/25}
 
 \begin{document}
 \VerbatimFootnotes
@@ -197,8 +200,13 @@ In this case, what you actually type is in \textcolor{input}{\inputcolorname},
 and the funny symbol \textco{\prompt} represents your shell's prompt, which
 can actually be something like ©C:\>© or ©name@host:~%© or funnier.
 
-Now, let's talk about this ©-s© option you've just seen in the previous
-example. 
+\bigskip
+
+\texdoc's normal mode of operation is to find the more appropriate document
+for your request and open it. But sometimes it has a weird notion of
+``appropriate'', and you'd better look at the list of all results and choose
+to see oen or more of them. For this, \texdoc offers various modes, like the
+``search mode'' illustrated above.
 
 \begin{cmdsubsec}{Search mode}{ss-search}
   texdoc -s «name» 
@@ -228,7 +236,7 @@ which you might want to read, whereas in normal mode \texdoc offers you no
 choice and just displays the user manual ©babelbib.pdf©.  On the other hand,
 the view mode is much faster when you know exactly what you want to read.
 
-To try and make you happy, \texdoc offers three other modes, introduced below.
+To try and make you happy, \texdoc offers two other modes, introduced below.
 
 \begin{cmdsubsec}{List mode}{ss-list}
   texdoc -l «name»
@@ -259,7 +267,7 @@ documented source code\dots
 
 As the name says, \emph{mixed mode} is an attempt to provide you the best of
 the normal (view) and list modes, by mixing them in the following way:  If
-only one file is found, the \texdoc opens it, and if many are found, it
+only one file is found, then \texdoc opens it, and if many are found, it
 displays a menu to let you choose.  You may want to make this mode the
 default, see~\ref{cf-mode}.
 
@@ -315,8 +323,8 @@ The concept of alias is very\footnote{See~\ref{ss-alias-rem} for why it is
 when you type and ©geometry© is aliased to ©geometry/manual.pdf©, then
 everything happens as if you actually typed ©texdoc geometry/manual.pdf©
 (without any further alias substitution), and \texdoc informs you that
-something happened so you can understand the results (see~\ref{cf-noise_level}
-to get rid of this message):
+something happened so you can understand the results
+(see~\ref{cf-verbosity_level} to get rid of this message):
 
 \begin{cmdsubsec}{Command line options}{ss-alias-cl}
   texdoc -a «options» «name»
@@ -328,8 +336,9 @@ to get rid of this message):
 By default, aliased are used in view, list and mixed modes, and disabled in
 search mode. But you may want to disable it, because the default alias doesn't
 do what you want\footnote{In this case, please report it to
-  \mailto{texlive@tug.org}.} or for another reason.  In this case, you just
-have to add ©-A© or ©--noalias© to the options, like:
+  \mailto{texdoc@tug.org}, so that the faulty alias can be updated.} or for
+another reason.  In this case, you just have to add ©-A© or ©--noalias© to the
+options, like:
 
 \begin{htcode}
   þ texdoc -A -l geometry þ
@@ -385,10 +394,11 @@ If you want to use another viewer, you have two ways of telling this to
 \texdoc: in your configuration file or using environment variables.  If you
 hesitate, the configuration file is the recommended way.
 
-To find you configuration file, type ©texdoc -f© and pick the file mark with a
-star (unless you are a system administrator or your home is shred between many
-machines, see~\ref{ss-prec}); you may need to create the file and a few
-directories. Then you can add lines like:
+To find your configuration file, type ©texdoc -f© and pick the file marked
+with a star (unless you are a system administrator or your home is shared
+between many machines whith different architectures, see~\ref{ss-prec}); you
+may need to create the file and a few directories. Then you can add lines
+like:
 
 \begin{htcode}
   viewer_pdf = (xpdf %s) &
@@ -408,8 +418,8 @@ See~\ref{cf-ext_list} for how to allow for more extensions.
 The corresponding environment variables are ©PDFVIEWER©, ©BROWSER©, ©PAGER©,
 ©DVIVIEWER©, ©PSVIEWER©. They follow the same convention as values from the
 configuration files, and override them if they are set. Since some of those
-variable are shared by other programs, you can override them by adding
-©_texdoc© at the end, like in ©BROWSER_texdoc©.
+variable are shared by other programs, you can override them just for \texdoc
+by adding ©_texdoc© at the end, like in ©BROWSER_texdoc©.
 
 \section{Full reference}\label{s-ref}
 
@@ -427,22 +437,26 @@ in the following order, where first value found is always used:
   \item Other environment variables.
   \item Values from configuration files, read in the following order:
     \begin{enumerate}
-      \item ©$TEXMFHOME/texdoc/texdoc-«platform».cnf©
-      \item ©$TEXMFHOME/texdoc/texdoc.cnf©
-      \item ©$TEXMFLOCAL/texdoc/texdoc-«platform».cnf©
-      \item ©$TEXMFLOCAL/texdoc/texdoc.cnf©
-      \item ©$TEXMFMAIN/texdoc/texdoc.cnf© %stopzone
+      \item ©TEXMFHOME/texdoc/texdoc-«platform».cnf©
+      \item ©TEXMFHOME/texdoc/texdoc.cnf©
+      \item ©TEXMFHOME/texdoc/texdoc-dist.cnf©
+      \item ©TEXMFLOCAL/texdoc/texdoc-«platform».cnf©
+      \item ©TEXMFLOCAL/texdoc/texdoc.cnf©
+      \item ©TEXMFMAIN/texdoc/texdoc.cnf©
     \end{enumerate}
   \item Hard-coded defaults that may depend on the current platform or the
     current value of another setting.
 \end{enumerate}
 
-For the configuration files, ©«platform»© stand for the name of the current
+For the configuration files, ©«platform»© stands for the name of the current
 platform, with names matching those of the directories in ©TEXLIVEROOT/bin©,
 and ©TEXMFHOME© and others are the kpse's values, see the kpathsea and web2c
 manuals. The name with ©«platform»© can be used on installation shared between
 many machines where, for example, not the same viewers are available. However,
-their use is not recommended in other situations.
+their use is not recommended in other situations. Finally, the special file
+©texdoc-dist.cnf© allows you to install a newer version of \texdoc (including
+its default config file) in your home: see \href{http://tug.org/texdoc/}{the
+  web page} for instructions on running \texdoc from the SVN.
 
 \subsection{Command-line options}\label{ss-cl}
 
@@ -457,8 +471,8 @@ corresponding configuration option.
 Shows a quick help message (namely a list of command-line options) and exits
 successfully.
 
-\begin{cmdsubsub}{-v, --version}{cl-v}
-  -v, --version
+\begin{cmdsubsub}{-V, --version}{cl-v}
+  -V, --version
 \end{cmdsubsub}
 
 Show the current version of the program and exits successfully.
@@ -476,7 +490,7 @@ recommended file for user settings.
   -w, --view, -l, --list, -m, --mixed, -s, --search, -r, --regex
 \end{cmdsubsub}
 
-\leavevmode\par\noindent See \ref{cf-mode}.
+See~\ref{cf-mode}.
 
 \begin{cmdsubsub}{-a, -A, --alias, --noalias}{cl-a}
   -a, --alias, -A, --noalias
@@ -500,27 +514,30 @@ shell's convention) not between the ©-e© or ©--extension© option, the equal
 sign, and the list.  Also take care to quote the special value ©*© if
 necessary.  The equal sign is optional.
 
-\begin{cmdsubsub}{-n, --noise-level}{cl-n}
-  -n=«n», --noise-level=«n»
+\begin{cmdsubsub}{-v, --verbosity, -d, --debug}{cl-n}
+  -v=«n», --verbosity=«n», -d, --debug
 \end{cmdsubsub}
 
-See~\ref{cf-noise_level} and be aware that you must avoid spaces on the command
-line, and the ©=© sign is optional.
+See~\ref{cf-verbosity_level} and be aware that you must avoid spaces on the
+command line, and the ©=© sign is optional. The ©--debug© option sets
+verbosity at the maximum level.
 
 \subsection{Environment variables}\label{ss-envvar}
 
 They all correspond to some ©viewer_«ext»© setting, and the reader is referred
-to~\ref{s-viewer} and~\ref{cf-viewer_*} for details. Here is the (obvious)
-correspondence:
+to~\ref{s-viewer} and~\ref{cf-viewer_*} for details. Also, environment
+variables used by older versions of \texdoc are accepted. You can append
+©_texdoc© to every name in the first column: this wins over every other name.
 
 \begin{center}
-\begin{tabular}{lll}
-  ©PAGER_texdoc©        & ©PAGER©       & ©viewer_html© \\
-  ©BROWSER_texdoc©      & ©BROWSER©     & ©viewer_txt©  \\
-  ©DVIVIEWER_texdoc©    & ©DVIVIEWER©   & ©viewer_dvi©  \\
-  ©PSVIEWER_texdoc©     & ©PSVIEWER©    & ©viewer_ps©   \\
-  ©PDFVIEWER_texdoc©    & ©PDFVIEWER©   & ©viewer_pdf©  \\
-\end{tabular}
+  \begin{tabular}{@{}l*3{@{ }l}@{}}
+    New name    & Old name 1        & Old name 2           & Config. param.\\
+    ©PAGER©     & ©TEXDOCVIEW_txt©  & ©TEXDOC_VIEWER_TXT©  & ©viewer_txt©  \\
+    ©BROWSER©   & ©TEXDOCVIEW_html© & ©TEXDOC_VIEWER_HTML© & ©viewer_html© \\
+    ©DVIVIEWER© & ©TEXDOCVIEW_dvi©  & ©TEXDOC_VIEWER_DVI©  & ©viewer_dvi©  \\
+    ©PSVIEWER©  & ©TEXDOCVIEW_ps©   & ©TEXDOC_VIEWER_PS©   & ©viewer_ps©   \\
+    ©PDFVIEWER© & ©TEXDOCVIEW_pdf©  & ©TEXDOC_VIEWER_PDF©  & ©viewer_pdf©  \\
+  \end{tabular}
 \end{center}
 
 \subsection{Configuration files}\label{ss-conf}
@@ -583,7 +600,7 @@ use\footnote{The quotes in the example are just to make the shell happy.}
   interact_switch = «true, false»
 \end{cmdsubsub}
 
-Turn on or of interaction.  Default is on.  Turning interaction off prevents
+Turn on or off interaction.  Default is on.  Turning interaction off prevents
 \texdoc to ask you to choose a file to view when there are multiple choices,
 and merely just print the list of files found.
 
@@ -641,8 +658,8 @@ shell construct.
 
 Everything has already been said in section~\ref{s-alias}.
 
-\begin{cmdsubsub}{noise_level}{cf-noise_level}
-  noise_level = «n»
+\begin{cmdsubsub}{verbosity_level}{cf-verbosity_level}
+  verbosity_level = «n»
 \end{cmdsubsub}
 
 Set the verbosity level to ©«n»©.  This determines whether \texdoc will print
@@ -653,12 +670,20 @@ numeric codes are as follow:
   \item Print only error messages.
   \item Also print warnings.
   \item Also print information messages.
-  \item Also print debug1 information messages.
+  \item[n] Also print debug(n-3) information messages.
 \end{enumerate}
 
-Currently, the levels 5 and greater are not used, and the only ``debug''
-information at level 4 is to print the command used to view a file just before
-executing it.
+Currently, debug goes from 1 to 3 : ©debug1© prints the command used to view a
+file just before executing it, ©debug2© prints information about setting
+configuration paramters, and ©debug3© about the search paths used.
+
+\begin{cmdsubsub}{lastfile_switch}{cf-lastfile_switch}
+  lastfile_switch = «true, false»
+\end{cmdsubsub}
+
+Prevents \texdoc from reading any other configuration file after this one.
+Mainly useful for installing a newer version of \texdoc in your home (see the
+\href{http://tug.org/texdoc/}{web site} for instructions on how to do so).
 
 \subsection{Exit codes}\label{ss-exit}
 
@@ -699,8 +724,36 @@ GUI version of \texdoc, and is unmaintained and probably unmaintainable
 anyway).  This is on the list, but the time line is rather unclear at the
 moment.
 
+\section{Licence}\label{s-licence}
+
+The current \texdoc program and its documentation are copyright 2008, 2009
+Manuel Pégourié-Gonnard.
+
+They are free software: you can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but
+\emph{without any warranty}; without even the implied warranty of
+\emph{merchantability} or \emph{fitness for a particular purpose}.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see \url{http://www.gnu.org/licenses/}.
+
 \bigskip
-\begin{center}\Large
+
+Previous work (texdoc program) in the public domain:
+\begin{itemize}
+  \item Contributions from Reinhard Kotucha (2008).
+  \item First texlua versions by Frank Küster (2007).
+  \item Original shell script by Thomas Esser, David Aspinall, and Simon
+	Wilkinson.
+\end{itemize}
+
+\bigskip
+\begin{center}\Large\rmfamily
   Happy \TeX{}ing!
 \end{center}
 
