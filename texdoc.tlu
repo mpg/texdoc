@@ -650,7 +650,7 @@ function setup_config_from_defaults()
             viewer_html   = 'start ""',
             viewer_pdf    = 'start ""',
             viewer_ps     = 'start ""',
-            viewer_txt    = 'start ""',
+            viewer_txt    = 'more',
         }
     else -- since we don't support msdos, if os.type is not windows, it's unix
         if (os.name == 'macosx') then
@@ -773,7 +773,7 @@ function how_to_view (filename)
         -- files without extension are assumed to be text
         viewext = string.match(filename,'.*%.(.*)$') or 'txt'
         if not config['viewer_'..viewext] then
-            err_print (": cannot determine type of file\n\t"
+            err_print ("cannot determine type of file\n\t"
             ..filename.."Assuming text.  Set the `viewer_"..viewext..
             "' variable in texdoc.cnf to avoid this.", "warning")
             viewext = 'txt'

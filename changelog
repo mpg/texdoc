@@ -1,3 +1,8 @@
+2009-03-25  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* texdoc.tlu: Changing viewer_txt to 'more' on windows for the benefit
+	of files without extension, and coherence with other systems.
+
 2009-03-24  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 
 	* texdoc.tlu: - new debug level 3: search paths
