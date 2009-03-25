@@ -6,7 +6,7 @@
  <head>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
   <meta http-equiv="content-Language" content="en">
-  <link href="/texdoc/style.css" title="style" rel="stylesheet" type="text/css">
+  <link href="style.css" title="style" rel="stylesheet" type="text/css">
   <meta name="author" content="Manuel Pégourié-Gonnard">
 
   <title>Texdoc</title>
@@ -18,31 +18,83 @@
 
   <h1>Texdoc</h1>
 
-  <p>Welcome. This is the homepage of the texdoc project. At least, it will be,
-  as soon as I write it :-)</p>
+  <p>Texdoc is a tool aimed at making TeX related documentation easier to
+  consult. Its primary function is to locate relevant documentation for a given
+  keyword (typically, a package name) on your hard disk, and open it in an
+  appropriate viewer.</p>
 
-  <p>For now, a few bits of information. The relevant mailing list to report
-  bugs, request features, etc. is <a
-   href="m&#x0061;ilto:texdoc&#x0040;tug.org">texdoc&#x0040;tug.org</a>. You can
-  <a href="/mailman/listinfo/texdoc">subscribe</a> to the list to follow texdoc
-  news and development, but you don't need to be subscribed to
-  participate.</p>
+  <p>It is included in the <a href="../texlive/">TeX Live</a> distribution.</p>
 
-  <h3>Known bugs</h3>
+  <h2>Documentation</h2>
+
+  <p>The documentation for the current stable version is available online in the
+  following formats:</p>
+  <ul>
+   <li>User manual: <a href="doc/texdoc.pdf">pdf</a> only.</li>
+   <li>Unix man page: <a href="doc/texdoc.1.html">html</a> and <a
+    href="doc/texdoc.1.pdf">pdf</a> versions.
+  </ul>
+
+  <h2>Mailing list</h2>
+
+  <p>Any questions, features report and bug requests (wait... maybe it's the
+  other way round) are welcome on the dedicated <a
+   href="../mailman/listinfo/texdoc">mailing list</a>. Please note that you
+  don't need to subscribe to the list in order to post a question and receive
+  the answers.</p> 
+
+  <h2>Development version</h2>
+
+  <p>The latest version of texdoc is available via anonymous Subversion from
+  <code>svn://tug.org/texdoc/trunk</code>. It should not be too broken, since
+  I'm using it daily, but be warned that the documentation may be horribly out
+  of sync.</p>
+
+  <p>The recommended way of running texdoc from the svn (on Unix) is to symlink
+  <code>trunk/texdoc.tlu</code> to <code>~/bin/texdoc</code> and
+  <code>trunk/texdoc.cnf</code> to
+  <code>TEXMFHOME/texdoc/texdoc-dist.conf</code>. This last step is needed since
+  the name or meaning of some options used in the default configuration file
+  sometimes change.</p>
+
+  <p>If everything is installed correctly, running <code>texdoc -f</code> should
+  yield something similar to the following.</p>
+
+<pre><code>texdoc version: 0.4+ svn r33
+Configuration files are:
+    absent /home/mpg/texmf/texdoc/texdoc-linux-latest.cnf
+(*) active /home/mpg/texmf/texdoc/texdoc.cnf
+    active /home/mpg/texmf/texdoc/texdoc-dist.cnf
+    absent /usr/local/texlive/texmf-local/texdoc/texdoc-linux-latest.cnf
+    absent /usr/local/texlive/texmf-local/texdoc/texdoc.cnf
+    disabled /usr/local/texlive/2008/texmf/texdoc/texdoc.cnf
+(*) This is the recommended configuration file for your personal preferences.
+<code></pre>
+
+  <h2>Known problems</h2>
 
   <ul>
-   <li>Problems with recent versions of Adobe Reader and Adobe Acrobat have been
-   reported on Windows. Though the problem is not fully understood yet, a work
-   around is known. It will be available with the regular updates via tlmgr from
-   2008/09/12 (maybe 13 depending on the mirror's sync). You can also get it
-   from this <a href="fix-texdoc-w32-ar9.zip">zip file</a>, to be unzipped in
-   <code>TLROOT\bin\win32</code>.</li>
+   <li>Problems have been <a
+    href="http://tug.org/pipermail/tex-live/2009-March/020296.html"
+    >reported</a> when trying to open pdf files with Adobe Reader 5.0.5 under
+   windows when AR is already running.</li>
 
-   <li>The original documentation, help message and man page point to the TeX
-   Live mailing list, because the separate texdoc mailing list didn't exist when
-   TL2008 was published. Now it is better to use the texdoc mailing list
-   instead.</li>
+   <li>Using TeX Live 2008 (DVD release), there was problems with recent
+   versions of Adobe Reader on windows. They have been fixed in the
+   <code>tlnet</code> update of 2008/09/12, by some changes to the
+   TL wrapper scripts. Please upgrade <code>bin-texdoc</code> using <a
+    href="http://www.tug.org/texlive/tlmgr.html"><code>tlmgr</code></a> if you
+   run into this problem.</li>
   </ul>
+
+  <h2>Authors</h2>
+
+  <p>Texdoc is currently developed by Manuel Pégourié-Gonnard. Previous
+  versions used contributions form Reinhard Kotucha. The first
+  <code>texlua</code> versions were written by Frank Küster. Earlier shell
+  script versions by Thomas Esser, David Aspinall, and Simon Wilkinson.</p>
+
+  <p>Texdoc is free software.</p>
 
   <div id="footer">
    <p>
