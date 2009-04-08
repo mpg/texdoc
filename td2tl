@@ -8,9 +8,17 @@
 # 
 # Arguments: location of the texdoc trunks and the texlive trunk
 
+function usage() {
+    echo "Usage: $0 texdoc-trunk texlive-trunk" >&2
+    exit 1
+}
+
 # the location of the working copies
 TEXDOC="$1"
 TEXLIVE="$2"
+
+test -d "$TEXDOC" || usage
+test -d "$TEXLIVE" || usage
 
 # various locations in the tl tree
 TLTEXMF="$TEXLIVE/Master/texmf"
@@ -23,12 +31,11 @@ CONF="texdoc"
 (cd "$TEXDOC/doc" && make )
 
 # the copy itself
-cp "$TEXDOC/doc/texdoc.tex" "$TEXDOC/doc/texdoc.pdf" "$TLTEXMF/$DOC"
+cp "$TEXDOC/doc/texdoc.tex" "$TEXDOC/doc/texdoc.pdf" "$TLTEXMF/$DOC" 
 cp "$TEXDOC/doc/texdoc.1" "$TLTEXMF/$MAN"
 cp "$TEXDOC/doc/texdoc.1.pdf" "$TLTEXMF/$MAN/texdoc.pdf"
-cp "$TEXDOC/code/cli/texdoc.tlu" "$TLTEXMF/$SCRIPT"
-cp "$TEXDOC/data/texdoc.cnf" "$TLTEXMF/$CONF"
+cp "$TEXDOC/texdoc.tlu" "$TLTEXMF/$SCRIPT"
+cp "$TEXDOC/texdoc.cnf" "$TLTEXMF/$CONF"
 
-# commit
-cd $TLTEXMF
-svn ci "$DOC" "$MAN/texdoc.1" "$MAN/texdoc.pdf" "$SCRIPT/texdoc.tlu" "$CONF"
+# commit help
+echo "cd $TLTEXMF && svn ci $DOC $MAN/texdoc.* $SCRIPT $CONF"
