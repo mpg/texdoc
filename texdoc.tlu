@@ -29,7 +29,7 @@ Previous work in the public domain:
 
 -- progname and version
 progname = 'texdoc'
-version = '0.4+'
+version = '0.42'
 if string.sub(version, -1) == '+' then
     local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
     version = version..' svn r'..svnrev

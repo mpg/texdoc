@@ -1,3 +1,7 @@
+0.42 2009-04-09  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
+
+	* all: out in TL as 0.42.
+
 2009-04-08  Manuel Pégourié-Gonnard <mpg@elzevir.fr>
 
 	* texdoc.tlu: Fixing the txt command for windows again.
