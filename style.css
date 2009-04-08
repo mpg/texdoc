@@ -14,10 +14,6 @@ body {
 
 h1, h2, h3, h4 { color: navy; }
 
-h1 { font-size: 150%; }
-h2 { font-size: 120%; }
-h3 { font-size: 110%; }
-
 code, tt, pre { font-size: 105%; }
 
 a:link      { color: navy; }

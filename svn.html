@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html dir="ltr" lang="en">
+
+ <head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <meta http-equiv="content-Language" content="en">
+  <link href="style.css" title="style" rel="stylesheet" type="text/css">
+  <meta name="author" content="Manuel Pégourié-Gonnard">
+
+  <title>Texdoc - svn</title>
+  <meta name="description" content="texdoc svn page">
+  <meta name="keywords" content="texdoc, tex, documentation, texlive, svn">
+ </head>
+
+ <body>
+
+  <h1>Texdoc - svn version</h1>
+
+  <h2>Getting it</h2>
+
+  <p><code>svn co svn://tug.org/texdoc/trunk/</code></p>
+
+  <h2>Running it</h2>
+
+  <h3>The command - Unix</h3>
+
+  <p>Just symlink <code>trunk/texdoc.tlu</code> to <code>~/bin/texdoc</code>
+  (where <code>trunk/</code> is your local checkout, and <code>~/bin</code> is
+  assumed to be in your <code>PATH</code> before the TeX Live binaries).</p>
+
+  <h3>The command - Windows</h3>
+
+  <p>Here things are a bit different, since there are generally no symlinks, so
+  <code>texdoc.bat</code> is actually a script calling <code>texdoc.tlu</code>
+  after locating it in the texmf trees. So, just put a copy of
+  <code>trunk/texdoc.tlu</code> in <code>TEXMFHOME/scripts/texdoc</code> (you
+  may need to create this directory).</p>
+
+  <h3>Configuration file</h3>
+
+  <p>Since the name or meaning of some options used in the default configuration
+  file may change, you need to use the svn version of <code>texdoc.cnf</code>
+  too. Install a copy (or symlink) of it as
+  <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the <code>-dist</code>
+  part). It will completely override the configuration files in
+  <code>TEXMFDIST</code> and <code>TEXMFLOCAL</code>.</p>
+
+  <p>If everything is installed correctly, running <code>texdoc -f</code> should
+  yield something similar to the following.</p>
+
+<pre><code>texdoc version: 0.4+ svn r33
+Configuration files are:
+    absent /home/mpg/texmf/texdoc/texdoc-linux-latest.cnf
+(*) active /home/mpg/texmf/texdoc/texdoc.cnf
+    active /home/mpg/texmf/texdoc/texdoc-dist.cnf
+    absent /usr/local/texlive/texmf-local/texdoc/texdoc-linux-latest.cnf
+    absent /usr/local/texlive/texmf-local/texdoc/texdoc.cnf
+    disabled /usr/local/texlive/2008/texmf/texdoc/texdoc.cnf
+(*) This is the recommended configuration file for your personal preferences.
+<code></pre>
+
+  <div id="footer">
+   <p>
+   $Id: index.html 669 2009-04-08 19:46:25Z mpg $
+   </p>
+  </div> <!-- id="footer" -->
+
+ </body>
+</html>
+
