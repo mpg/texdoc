@@ -1,6 +1,9 @@
 - change the alias behaviour, alias should be like addalias (add a priority
   level?)
 
+- look for <name><suffix>. Include -doc in the default suffixes. Document it on
+  the web page for the benefit of package authors. Maybe tell CTAN-ers too.
+
 - find a solution to the man vs info with same filename dilemma: rename the man
   pages as .1.pdf and make texdoc find them (change the search routine for that)
 

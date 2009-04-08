@@ -650,7 +650,7 @@ function setup_config_from_defaults()
             viewer_html   = 'start ""',
             viewer_pdf    = 'start ""',
             viewer_ps     = 'start ""',
-            viewer_txt    = 'cmd /k more',
+            viewer_txt    = 'start cmd /k more',
         }
     else -- since we don't support msdos, if os.type is not windows, it's unix
         if (os.name == 'macosx') then

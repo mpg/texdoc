@@ -46,6 +46,7 @@
 alias live = texlive-en
 alias texlive = texlive-en
 alias texdoc = texdoc/texdoc # avoid the man page to be displayed first
+alias latex = latex-doc-ptr
 
 ## various stuff
 
