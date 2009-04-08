@@ -146,6 +146,8 @@ alias iso = isoman
 alias pstricks = pstricks-doc
 alias extramarks = fancyhdr
 alias fonttable = fonttable/fonttable
+alias makeindex = base/makeindex
+alias makeidx = makeindx
 
 ## a few easy patterns 
 
