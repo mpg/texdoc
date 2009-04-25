@@ -137,48 +137,81 @@ end
 ------------------   exploring trees (kpse-style functions)   ------------------
 
 -- global variables:
--- texdocs: a Lua table version of $TEXDOCS
--- do_recurse: do_recurse[i] = 1 iff texdocs[i] ends with // in $TEXDOCS
--- must_have_lsr: must_have_lsr[i] = 1 iff texdocs[i] starts with !! in $TEXDOCS
 -- exact_docfiles: list of "exact matches"
 -- rel_docfiles: list of "non-exact matches"
 
--- set texdocs, do_recurse and must_have_lsr lists from kpse's $TEXDOCS
+do -- begin scope of doc_roots, a lua version of kpse's TEXDOCS
+local doc_roots
+
+-- structure of the doc_roots variable:
+-- doc_roots[i] = {
+--     path                 = <path>,
+--     index_mandatory      = <does path begin with !! in TEXDOCS?>
+--     recursion_allowed    = <does path ends with // in TEXDOCS?>,
+-- }
+
+-- set the doc_roots list from kpse's $TEXDOCS
 function get_texdocs ()
+    doc_roots = {}
     local sep = (os.type == 'windows') and ';' or ':'
-    texdocs = kpse.expand_var ("$TEXDOCS")
+    local kpse_texdocs = kpse.expand_var("$TEXDOCS")
     -- expand the path and turn it into a lua list
-    texdocs = string.explode (kpse.expand_braces (texdocs), sep)
-    do_recurse, must_have_lsr = {}, {} -- global
+    local raw_doc_roots = string.explode(kpse.expand_braces(kpse_texdocs), sep)
     err_print('Search paths:', 'debug3')
-    for i, dir in ipairs (texdocs) do
+    for i, dir in ipairs(raw_doc_roots) do
+        doc_roots[i] = {}
         local n
         dir, n = string.gsub (dir, '//$', '')
-        do_recurse[i] = (n == 1)
-        texdocs[i], n = string.gsub (dir, '^!!', '')
-        must_have_lsr[i] = (n == 1)
-        err_print(string.format('%s (do_recurse=%s, must_have_lsr=%s)',
-            texdocs[i],
-            do_recurse[i] and 'true' or 'false',
-            must_have_lsr[i] and 'true' or 'false'), 'debug3')
+        doc_roots[i]['recursion_allowed'] = (n == 1)
+        doc_roots[i]['path'], n = string.gsub (dir, '^!!', '')
+        doc_roots[i]['index_mandatory'] = (n == 1)
+        err_print(string.format('%s (index_mandatory=%s, recursion_allowed=%s)',
+                doc_roots[i]['path'],
+                doc_roots[i]['index_mandatory']   and 'true' or 'false',
+                doc_roots[i]['recursion_allowed'] and 'true' or 'false'),
+            'debug3')
     end
 end
 
--- once get_texdocs() is done, roots are represented by their index in texdocs
--- usefull to avoid fake matches and also for the sort routine
--- the next two functions do the conversions
+-- once get_texdocs() is done, roots are represented by their index in doc_roots
+-- this is usefull to avoid fake matches and also for the sort routine
+-- conversions are done by real_path() below and code_path() later
+
+-- decode a path as given in *_docfiles into a real path
+function real_path(fake)
+    local code, file = string.match(fake, '^(.-):(.*)$')
+    code = tonumber(code)
+    return win32_hook(doc_roots[code]['path']..'/'..file)
+end
+
+-- find docfiles "matching" pattern
+function populate_docfiles (pattern)
+    pattern = normalize_pattern(pattern)
+    rel_docfiles, exact_docfiles = {}, {} -- global
+    is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
+    local curr_dir = lfs.currentdir()
+    for code, doc_root in ipairs (doc_roots) do
+        root, shift = lsr_root (doc_root['path'])
+        if root and shift and doc_root['recusion_allowed'] then  
+            assert(lfs.chdir(root))
+            scan_lsr(code, shift, pattern)
+        elseif (not doc_root['index_mandatory']) 
+            and lfs.isdir(doc_root['path']) then
+            assert(lfs.chdir(doc_root['path']))
+            scan_tree(code, '.', pattern, doc_root['recursion_allowed'])
+        end
+    end
+    assert(lfs.chdir(curr_dir))
+    exact_docfiles = rmdirs (exact_docfiles)
+    rel_docfiles = rmdirs (rel_docfiles)
+end
+
+end -- scope of doc_roots
 
 -- encode the base path on two digits and concatenate with filename
 function code_path (code, file)
     local padding = (code > 9) and '' or '0'
     return padding..code..':'..file
-end
-
--- decode a path as given in *_docfiles into a real path
-function real_path (fake)
-    local code, file = string.match (fake, '^(.-):(.*)$')
-    code = tonumber (code)
-    return win32_hook (texdocs[code]..'/'..file)
 end
 
 -- merge two components of a path, taking care of empty components
@@ -252,28 +285,6 @@ function rmdirs (files)
         if not is_dir[f] then table.insert(res, f) end
     end
     return res
-end
-
--- find docfiles "matching" pattern
-function populate_docfiles (pattern)
-    pattern = normalize_pattern(pattern)
-    if not texdocs then get_texdocs() end
-    rel_docfiles, exact_docfiles = {}, {} -- global
-    is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
-    local curr_dir = lfs.currentdir()
-    for code, docdir in ipairs (texdocs) do
-        root, shift = lsr_root (docdir)
-        if root and shift and do_recurse[code] then  
-            assert(lfs.chdir(root))
-            scan_lsr(code, shift, pattern)
-        elseif (not must_have_lsr[code]) and lfs.isdir(docdir) then
-            assert(lfs.chdir(docdir))
-            scan_tree(code, '.', pattern, do_recurse[code])
-        end
-    end
-    assert(lfs.chdir(curr_dir))
-    exact_docfiles = rmdirs (exact_docfiles)
-    rel_docfiles = rmdirs (rel_docfiles)
 end
 
 -- like populate_docfiles, but rel replaces exact if exact is empty
@@ -905,8 +916,9 @@ setup_config_from_env ()
 setup_config_from_files ()
 setup_config_from_defaults ()
 
--- now that verbosity_level is known...
+-- now that config.verbosity_level is known...
 show_config_files(function(s) err_print(s, 'debug1') end)
+get_texdocs()
 
 ------------------------   looping over the arguments   ------------------------
 
