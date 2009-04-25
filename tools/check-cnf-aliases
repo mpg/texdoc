@@ -11,18 +11,13 @@ use warnings;
 my $tlbin = shift;
 $tlbin and -d $tlbin and -x "$tlbin/texdoc" or die "$usage\n";
 
-# Set PATH in order to use tlbin first
+# Set PATH in order to use tlbin first and kill local trees
 $ENV{'PATH'} = "$tlbin:$ENV{PATH}";
-
-# Get various TL-path
-chomp(my $texmfhome = `kpsewhich -var-value TEXMFHOME`);
-chomp(my $texmflocal = `kpsewhich -var-value TEXMFLOCAL`);
-chomp(my $texmfmain = `kpsewhich -var-value TEXMFMAIN`);
-# Simplify path the same as texdoc does
-$texmflocal =~ s#../[^/]*/##;
+$ENV{'TEXMFLOCAL'} = '/no/such/directory';
+$ENV{'TEXMFHOME'} = '/no/such/directory';
 
 # Various constants
-my $local = qr/^(?:$texmfhome|$texmflocal)/o;
+chomp(my $texmfmain = `kpsewhich -var-value TEXMFMAIN`);
 my $alias_file = "$texmfmain/texdoc/texdoc.cnf";
 my $texdoc = 'texdoc -a -I -l -v2';
 
@@ -59,7 +54,6 @@ sub check_alias {
 
     # Are there many different results?
     my @results = sort map (noext($_), split ("\n", $result));
-    @results = grep(!/$local/o, @results);
     my $prev = 'nosuchfile';
     if (grep ($_ ne $prev && (($prev) = $_), @results) > 1) {
         problem("nonspecific", $name); }
