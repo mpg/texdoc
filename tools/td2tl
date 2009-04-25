@@ -1,21 +1,35 @@
 #!/bin/sh
 
-# $Id $
 # Written in 2008 by Manuel Pégourié-Gonnard; placed under the WTFPL v2.
 #
-# Update from a texdoc working copy to the texlive repository (inc. commit).
-# Assumes you have both a texdoc and texlive working copy at hand,
-# 
-# Arguments: location of the texdoc trunks and the texlive trunk
+# Update texdoc from a texdoc working copy to a texlive working copy.
 
 function usage() {
-    echo "Usage: $0 texdoc-trunk texlive-trunk" >&2
+echo "Usage: $0 [-all|-cnf|-doc] texdoc-trunk texlive-trunk" >&2
     exit 1
 }
 
+# check what to do
+case $1 in
+    -all)
+        updoc=x 
+        upcnf=x
+        uptlu=x
+        ;;
+    -cnf)
+        upcnf=x
+        ;;
+    -doc)
+        upcnf=x
+        ;;
+    *)
+        usage
+        ;;
+esac
+
 # the location of the working copies
-TEXDOC="$1"
-TEXLIVE="$2"
+TEXDOC="$2"
+TEXLIVE="$3"
 
 test -d "$TEXDOC" || usage
 test -d "$TEXLIVE" || usage
@@ -27,15 +41,20 @@ MAN="doc/man/man1"
 SCRIPT="scripts/texdoc"
 CONF="texdoc"
 
-# just make sure the generated doc is up-to-date first
-(cd "$TEXDOC/doc" && make )
-
 # the copy itself
-cp "$TEXDOC/doc/texdoc.tex" "$TEXDOC/doc/texdoc.pdf" "$TLTEXMF/$DOC" 
-cp "$TEXDOC/doc/texdoc.1" "$TLTEXMF/$MAN"
-cp "$TEXDOC/doc/texdoc.1.pdf" "$TLTEXMF/$MAN/texdoc.pdf"
-cp "$TEXDOC/texdoc.tlu" "$TLTEXMF/$SCRIPT"
-cp "$TEXDOC/texdoc.cnf" "$TLTEXMF/$CONF"
+if [ -n "$updoc" ]; then
+    # just make sure the generated doc is up-to-date first
+    (cd "$TEXDOC/doc" && make )
+    cp "$TEXDOC/doc/texdoc.tex" "$TEXDOC/doc/texdoc.pdf" "$TLTEXMF/$DOC" 
+    cp "$TEXDOC/doc/texdoc.1" "$TLTEXMF/$MAN"
+    cp "$TEXDOC/doc/texdoc.1.pdf" "$TLTEXMF/$MAN/texdoc.pdf"
+fi
+if [ -n "$upcnf" ]; then
+    cp "$TEXDOC/texdoc.cnf" "$TLTEXMF/$CONF"
+fi
+if [ -n "$uptlu" ]; then
+    cp "$TEXDOC/texdoc.tlu" "$TLTEXMF/$SCRIPT"
+fi
 
 # commit help
 echo "cd $TLTEXMF && svn ci $DOC $MAN/texdoc.* $SCRIPT $CONF"
