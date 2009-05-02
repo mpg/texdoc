@@ -192,7 +192,7 @@ function populate_docfiles (pattern)
     local curr_dir = lfs.currentdir()
     for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root['path'])
-        if root and shift and doc_root['recusion_allowed'] then  
+        if root and shift and doc_root['recursion_allowed'] then  
             assert(lfs.chdir(root))
             scan_lsr(code, shift, pattern)
         elseif (not doc_root['index_mandatory']) 
