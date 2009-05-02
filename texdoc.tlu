@@ -162,13 +162,13 @@ function get_texdocs ()
         doc_roots[i] = {}
         local n
         dir, n = string.gsub (dir, '//$', '')
-        doc_roots[i]['recursion_allowed'] = (n == 1)
-        doc_roots[i]['path'], n = string.gsub (dir, '^!!', '')
-        doc_roots[i]['index_mandatory'] = (n == 1)
+        doc_roots[i].recursion_allowed = (n == 1)
+        doc_roots[i].path, n = string.gsub (dir, '^!!', '')
+        doc_roots[i].index_mandatory = (n == 1)
         err_print(string.format('%s (index_mandatory=%s, recursion_allowed=%s)',
-                doc_roots[i]['path'],
-                doc_roots[i]['index_mandatory']   and 'true' or 'false',
-                doc_roots[i]['recursion_allowed'] and 'true' or 'false'),
+                doc_roots[i].path,
+                doc_roots[i].index_mandatory   and 'true' or 'false',
+                doc_roots[i].recursion_allowed and 'true' or 'false'),
             'debug3')
     end
 end
@@ -181,7 +181,7 @@ end
 function real_path(fake)
     local code, file = string.match(fake, '^(.-):(.*)$')
     code = tonumber(code)
-    return win32_hook(doc_roots[code]['path']..'/'..file)
+    return win32_hook(doc_roots[code].path..'/'..file)
 end
 
 -- find docfiles "matching" pattern
@@ -191,14 +191,14 @@ function populate_docfiles (pattern)
     is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
     local curr_dir = lfs.currentdir()
     for code, doc_root in ipairs (doc_roots) do
-        root, shift = lsr_root (doc_root['path'])
-        if root and shift and doc_root['recursion_allowed'] then  
+        root, shift = lsr_root (doc_root.path)
+        if root and shift and doc_root.recursion_allowed then  
             assert(lfs.chdir(root))
             scan_lsr(code, shift, pattern)
-        elseif (not doc_root['index_mandatory']) 
-            and lfs.isdir(doc_root['path']) then
-            assert(lfs.chdir(doc_root['path']))
-            scan_tree(code, '.', pattern, doc_root['recursion_allowed'])
+        elseif (not doc_root.index_mandatory) 
+            and lfs.isdir(doc_root.path) then
+            assert(lfs.chdir(doc_root.path))
+            scan_tree(code, '.', pattern, doc_root.recursion_allowed)
         end
     end
     assert(lfs.chdir(curr_dir))
