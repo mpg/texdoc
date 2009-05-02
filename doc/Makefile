@@ -4,8 +4,8 @@ AUX = texdoc.aux texdoc.log texdoc.out
 all: $(TARGETS)
 
 texdoc.pdf: texdoc.tex
-	pdflatex texdoc.tex
-	pdflatex texdoc.tex
+	pdflatex --interaction=batchmode $< >/dev/null
+	pdflatex --interaction=batchmode $< >/dev/null
 
 texdoc.1: texdoc ../texdoc.tlu Makefile
 	help2man -N -n"finding & viewing TeX documentation"  ./$< > $@
