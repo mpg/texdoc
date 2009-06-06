@@ -153,6 +153,7 @@ alias biocon = biocon/manual.
 alias makeindex = base/makeindex
 alias makeidx = makeindx
 alias ltablex = ltablex.sty
+alias comment = comment.sty
 
 ## a few easy patterns 
 
