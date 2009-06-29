@@ -26,10 +26,19 @@
 ### Viewer settings ###
 
 # Defaults are directly in texdoc.tlu.  Here are some examples.
-# %s stands for the filename.
+# %s is optional and stands for the filename.
 #  
 # viewer_pdf = xpdf		# works
 # viewer_pdf = xpdf %s &	# works even better
+
+# If you want to enable support for zipped documentation (see comments in
+# texdoc.tlu), you may want to adapt viewer_* so that it starts a subshell:
+# 
+# viewer_pdf = (xpdf %s )&
+#
+# Otherwise, the & will have no effect since the viewing command is followed by
+# some cleanup-commands for temporary files. For the same reason, %s must be the
+# last thing on you command line: (xpdf %s -option) will not work.
 
 ### Other settings ###
 
@@ -69,7 +78,6 @@ alias lshort-fr = flshort-3.20		# french
 alias lshort-de = l2kurz		# german
 alias lshort-it = itlshort		# italian
 alias lshort-ja = jlshort		# japanese
-alias lshort-mn = bogino.pdf		# mongolian
 alias lshort-pl = polish/lshort2e	# polish
 alias lshort-pt = ptlshort		# portuguese
 alias lshort-ru = lshortru		# russian
@@ -138,6 +146,14 @@ alias tugboat-plain = tubguide
 alias ltugboat = ltubguid
 alias ltugproc = ltubguid
 
+# easy* bundle
+alias easyeqn = easy/doceqn
+alias easymat = easy/docmat
+alias easybmat = easy/docbmat
+alias easyvector = easy/docvector
+alias easybib = easy/docbib
+alias easytable = easy/doctable
+
 # misc
 alias fontinst = fontinstallationguide
 alias psfrag = pfgguide
@@ -150,7 +166,7 @@ alias pstricks = pstricks-doc
 alias extramarks = fancyhdr/fancyhdr
 alias fonttable = fonttable/fonttable
 alias biocon = biocon/manual.
-alias makeindex = base/makeindex
+alias makeindex = makeindex/makeindex
 alias makeidx = makeindx
 alias ltablex = ltablex.sty
 alias comment = comment.sty
@@ -261,7 +277,6 @@ alias xyling = xyli-doc
 alias texguide = usrguide
 alias lehman = fontinstallationguide
 alias uktugfaq = newfaq
-alias ttf = ttf-tetex
 alias datenumber = datenumber/doc.
 alias datenumber-de = datenumber/docgerman
 alias index = ind
@@ -284,8 +299,7 @@ alias mfpic1 = mfpguide
 alias dutch = rapdoc
 alias montex = mlsquick
 alias MeX = base/mex.html
-alias gentlpl = gentl-pl
-alias lshortpl = lshort-polish/lshort2e
+# alias gentlpl = gentl-pl # temporarily rm'ed from TL (sources needed)
 alias akademia = tex-virtual-academy-pl/index.html
 alias cyrillic = cyrillic/00readme.txt
 alias otibet = otibet/unidoc
@@ -304,7 +318,6 @@ alias pgf = pgfmanual
 alias tikz = pgfmanual
 alias treetex = tree_doc
 alias PSfrag = pfgguide
-alias rst = rst-package
 alias xypic1 = xyguide
 alias xypic2 = xyrefer
 alias pbdiagram = pb-manual
@@ -314,22 +327,16 @@ alias prosper1 = prosper-tour
 alias beamer = beameruserguide
 alias ifmslide = ifmman
 alias arydshln = arydshln-man
-alias easytable = easy/doc.dvi/doctable
 alias multirow = multirow/README
 alias titletoc = titlesec
 alias custom-bib = custom-bib/makebst
 alias ascelike = ascexmpl
-alias easybib = easy/doc.dvi/docbib
 alias natbib2 = natnotes
 alias adrconv = adrguide
 alias AMSlatex = amsldoc
 alias amslatex2 = technote
-alias easyvector = easy/doc.dvi/docvector
 alias tangles = t-angles/t-manual
 alias mathenv = mdwtab
-alias easyeqn = easy/doc.dvi/doceqn
-alias easymat = easy/doc.dvi/docmat
-alias easybmat = easy/doc.dvi/docbmat
 alias nath = nathguide
 alias gauss = gauss-doc
 alias gnlogic = gn-logic14

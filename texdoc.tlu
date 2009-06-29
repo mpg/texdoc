@@ -74,6 +74,10 @@ known_options = {
     'ext_list',
     'verbosity_level',
     'lastfile_switch',
+    'rm_dir',
+    'rm_file',
+    'unzip_bz2',
+    'unzip_gz',
 }
 
 err_priority = {
@@ -416,7 +420,7 @@ end
 -- a helper  function for warning messages in the above
 function config_warn (key, value, context)
     local begin = value and 'Illegal value "'..value..'" for option "'..key..'"'
-    or 'Unkown option "'..key..'"'
+    or 'Unknown option "'..key..'"'
     local ending = '.  Skipping.'
     err_print (begin..'\n    '..context_to_string(context)..ending, 'warning')
 end
@@ -755,18 +759,19 @@ end
 
 ---------------------------------   viewing   ----------------------------------
 
--- prepare for viewing: set viewer_replacement and viewer_ext
--- may uncompress if support_zipped is set (giving the complete filename on the
--- command line is unsupported for compressed files by the way)
+-- prepare for viewing: returns <viewer command> and <viewer replacement>
+-- <viewer replacement> is either:
+-- 1. the filename, quoted with "
+-- 2. the filename, quoted with " followed by some rm commands
+-- The second case happens when the doc was zipped. In the case, this function
+-- unzips it in a tempdir so that the viewer command can use the unzipped file.
 function how_to_view (filename)
     filename = real_path(filename) -- TODO: if not filename then ...
     if support_zipped then
-        ext = string.match(filename,'.*%.(.*)$')
-        zipext = string.match(ext,'^.*%.(.*)')
-        if zipext then
+        viewext,zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
+        if viewext and zipext then
             unzip_command = config['unzip_'..zipext]
-            viewext = string.match(ext,'^(.*)%..*$')
-            basename_pattern = '.*/(.*%.' .. viewext .. ')'
+            local basename_pattern = '.*/(.*%.' .. viewext .. ')'
             basename = string.match(filename,basename_pattern)
             tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
             unzip_commandline = unzip_command .. filename .. " > " 
@@ -776,11 +781,14 @@ function how_to_view (filename)
             else
                 print("Error executing \n" .. unzip_commandline)
             end
-            viewer_replacement = filename .. ';' .. config.rm_file
-            .. filename .. ';' .. config.rm_dir .. tmpdir
+            viewer_replacement = '"' .. filename .. '"; ' 
+            .. config.rm_file .. ' ' .. filename .. '; '
+            .. config.rm_dir .. ' ' .. tmpdir
         end
-    else
-        viewer_replacement = filename
+    end
+    -- if viewext wasn't set zipped way, then try the normal way
+    if not viewext then
+        viewer_replacement = '"' .. filename .. '"'
         -- files without extension are assumed to be text
         viewext = string.match(filename,'.*%.(.*)$') or 'txt'
         if not config['viewer_'..viewext] then
@@ -804,9 +812,9 @@ function try_viewing (view_command, viewer_replacement)
     else
         if string.match (view_command, place_holder) then
             view_command = string.gsub(
-            view_command, place_holder, '"'..viewer_replacement..'"')
+            view_command, place_holder, viewer_replacement)
         else
-            view_command = view_command..' "'..viewer_replacement..'"'
+            view_command = view_command..' '..viewer_replacement
         end
         err_print(view_command, 'debug1')
         view_result = os.execute(view_command)
