@@ -158,7 +158,7 @@
   }
 \author{\url{http://tug.org/texdoc/}\\
   Manuel Pégourié-Gonnard}
-\date{v0.42+}
+\date{v0.43}
 
 \begin{document}
 \VerbatimFootnotes
@@ -712,11 +712,10 @@ moreover we won't ship compressed documentation in \texlive.  However, the
 code has not been totally removed and should be easy to activate again. If you
 want to use this feature, please:
 \begin{enumerate}
-  \item Look in \texdoc's code for instructions.
-  \item Be aware that the corresponding part of the code has not been well
-    tested, and that you are responsible of the unzipping command anyway.
-  \item Inform us either at the usual address or \mailto{tldistro@tug.org} if
-    you are a Linux, BSD, or whatever, distributor.
+  \item Look in \texdoc's code for instructions (look for the ©support_zipped©
+    variable and change it to true).
+  \item Check that the zip commands in texdoc's default match whatever command
+    is available on your system.
 \end{enumerate}
 
 Finally, \texdoc is also missing a GUI version (texdoctk has never been the
