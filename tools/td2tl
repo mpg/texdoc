@@ -5,7 +5,7 @@
 # Update texdoc from a texdoc working copy to a texlive working copy.
 
 function usage() {
-echo "Usage: $0 [-all|-cnf|-doc] texdoc-trunk texlive-trunk" >&2
+    echo "Usage: $0 [-all|-cnf|-doc] texdoc-trunk texlive-trunk" >&2
     exit 1
 }
 
@@ -53,7 +53,8 @@ if [ -n "$upcnf" ]; then
     cp "$TEXDOC/texdoc.cnf" "$TLTEXMF/$CONF"
 fi
 if [ -n "$uptlu" ]; then
-    cp "$TEXDOC/texdoc.tlu" "$TLTEXMF/$SCRIPT"
+    sed -e "s/^version = '\(.\..*\)+'$/version = '\1'/" "$TEXDOC/texdoc.tlu" \
+    > "$TLTEXMF/$SCRIPT/texdoc.tlu"
 fi
 
 # commit help
