@@ -1,5 +1,5 @@
 #!/usr/bin/env texlua
--- $Id: texdoc.tlu 14940 2009-08-29 15:17:18Z mpg $ -*-Lua-*-
+-- $Id: texdoc.tlu 15662 2009-10-06 21:59:25Z mpg $ -*-Lua-*-
 --[[
 Copyright 2008, 2009 Manuel Pégourié-Gonnard.
 
@@ -29,7 +29,7 @@ Previous work in the public domain:
 
 -- progname and version
 progname = 'texdoc'
-version = '0.45'
+version = '0.46'
 if string.sub(version, -1) == '+' then
     local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
     version = version..' svn r'..svnrev
@@ -193,19 +193,16 @@ function populate_docfiles (pattern)
     pattern = normalize_pattern(pattern)
     rel_docfiles, exact_docfiles = {}, {} -- global
     is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
-    local curr_dir = lfs.currentdir()
     for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root.path)
         if root and shift and doc_root.recursion_allowed then
-            assert(lfs.chdir(root))
-            scan_lsr(code, shift, pattern)
+            scan_lsr(root, code, shift, pattern)
         elseif (not doc_root.index_mandatory)
             and lfs.isdir(doc_root.path) then
-            assert(lfs.chdir(doc_root.path))
-            scan_tree(code, '.', pattern, doc_root.recursion_allowed)
+            scan_tree(code, doc_root.path, '',
+                pattern, doc_root.recursion_allowed)
         end
     end
-    assert(lfs.chdir(curr_dir))
     exact_docfiles = rmdirs (exact_docfiles)
     rel_docfiles = rmdirs (rel_docfiles)
 end
@@ -224,12 +221,12 @@ function merge_path (a, b)
 end
 
 -- scan a tree without ls-R file
-function scan_tree (code, path, pattern, recurse)
-    for file in lfs.dir(path) do
+function scan_tree (code, base, cwd, pattern, recurse)
+    for file in lfs.dir(base..'/'..cwd) do
         if file ~= '.' and file ~= '..' then
-            local f = (path == '.') and file or path..'/'..file
-            if lfs.isdir(f) then
-                if recurse then scan_tree(code, f, pattern, recurse) end
+            local f = (cwd == '') and file or cwd..'/'..file
+            if lfs.isdir(base..'/'..f) then
+                if recurse then scan_tree(code, base, f, pattern, recurse) end
             else
                 process_file(file, f, code, pattern, true)
             end
@@ -254,11 +251,11 @@ function lsr_root (path)
 end
 
 -- scan a ls-R file
-function scan_lsr (code, shift, pattern)
+function scan_lsr (cwd, code, shift, pattern)
     local isdoc = false
     local current_dir
     local l = #shift
-    local lsr = assert(io.open('ls-R', 'r'))
+    local lsr = assert(io.open(cwd..'/ls-R', 'r'))
     local _ = lsr:read('*line') -- throw away first line (comment)
     local maybe_dir = true -- next line may be a directory
     while true do
