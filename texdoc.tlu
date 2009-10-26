@@ -1,5 +1,5 @@
 #!/usr/bin/env texlua
--- $Id: texdoc.tlu 15662 2009-10-06 21:59:25Z mpg $ -*-Lua-*-
+-- $Id: texdoc.tlu 15829 2009-10-18 20:39:29Z mpg $ -*-Lua-*-
 --[[
 Copyright 2008, 2009 Manuel Pégourié-Gonnard.
 
@@ -29,10 +29,10 @@ Previous work in the public domain:
 
 -- progname and version
 progname = 'texdoc'
-version = '0.46'
+version = '0.47'
 if string.sub(version, -1) == '+' then
     local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
-    version = version..' svn r'..svnrev
+    version = svnrev and version..' svn r'..svnrev or version..' git'
 end
 
 -- make sure to update setup_config_from_cl() accordingly
@@ -308,29 +308,37 @@ end
 
 ----------------------------   selecting results   -----------------------------
 
--- says if ext is 'good' according to ext_list
-function is_good_ext (ext)
-    for e in list (config.ext_list) do
+-- says if file has a 'good' extenstion according to ext_list
+function check_ext(file, pattern)
+    local good_ext, exact_match = false, false
+    local l, pat = string.len(pattern) + 1, pattern..'.'
+    for e in list(config.ext_list) do
         if e == '*' then
-            return true
-        elseif (e == '') and (not ext) then
-            return true
-        elseif ext == e then
-            return true
+            good_ext = true
+            if string.sub(file, 1, l) == pat then exact_match = true end
+        elseif (e == '') then
+            if not string.find(file, '.', 1, true) then good_ext = true end
+            if file == pattern then exact_match = true end
+        else
+            if string.sub(file, -string.len(e)) == e then good_ext = true end
+            if file == pattern..'.'..e then exact_match = true end
         end
     end
-    return false
+    return good_ext, exact_match
 end
 
 -- include a file in the *_docfiles lists if it "matches"
 function process_file (file, pathfile, code, pattern)
-    local base, ext = string.match(string.lower(file), '^(.*)%.(.*)$')
-    if string.find(string.lower(pathfile), pattern, 1, no_regex)
-        and is_good_ext (ext) then
-        if (base == pattern) or (file == pattern) then
-            table.insert(exact_docfiles, code_path (code, pathfile))
-        else
-            table.insert(rel_docfiles, code_path (code, pathfile))
+    file = string.lower(file)
+    local base, ext = string.match(file, '^(.*)%.(.*)$')
+    if string.find(string.lower(pathfile), pattern, 1, no_regex) then
+        local good_ext, exact_match = check_ext(file, pattern)
+        if good_ext then
+            if exact_match then
+                table.insert(exact_docfiles, code_path (code, pathfile))
+            else
+                table.insert(rel_docfiles, code_path (code, pathfile))
+            end
         end
     end
 end
@@ -344,10 +352,10 @@ end
 
 -- compare two filenames with the following rule:
 -- 1. extensions are ordered as in ext_list first,
--- 2. then filenames lexicographically.
+-- 2. then filenames lexicographically (this include tree ordering).
 function file_order (a, b)
-    local ext_a = string.match (a, '^.*%.(.*)$')
-    local ext_b = string.match (b, '^.*%.(.*)$')
+    local ext_a = extension(a)
+    local ext_b = extension(b)
     ext_pos_a = config.ext_list_inv[ext_a] or (config.ext_list_max+1)
     ext_pos_b = config.ext_list_inv[ext_b] or (config.ext_list_max+1)
     if ext_pos_a < ext_pos_b then
@@ -357,6 +365,24 @@ function file_order (a, b)
     else
         return (a < b)
     end
+end
+
+-- returns the most specific extension of file in ext_list, or nil
+function extension(file)
+    local ext = nil
+    for e in list(config.ext_list) do
+        if (e == '*') and (ext == nil) then
+            ext = e
+        elseif (e == '') and not string.find(file, '.', 1, true) then
+            ext = e
+        elseif string.sub(file, -string.len(e)-1) == '.'..e then
+            if (ext == nil) or (ext == '*')
+                or (string.len(e) > string.len(ext)) then
+                ext = e
+            end
+        end
+    end
+    return ext
 end
 
 --------------------------------------------------------------------------------
@@ -380,8 +406,9 @@ function set_config_element (key, value, context)
         local values = string.explode(value, ',')
         local inverse = {}
         for i, j in ipairs(values) do -- sanitize values...
-            values[i] = string.gsub(j, '%s*$', '')
-            values[i] = string.gsub(j, '^%s*', '')
+            j = string.gsub(j, '%s*$', '')
+            j = string.gsub(j, '^%s*', '')
+            values[i] = j
             inverse[j] = i -- ... and build inverse mapping on the way
         end
         config[key] = values
@@ -761,7 +788,8 @@ function setup_config_from_defaults()
     if support_zipped then
         set_config_elt('ext_list',
         'pdf,pdf.gz,pdf.bz2, html,html.gz,html.bz2, txt,txt.gz,txt.bz2,'..
-        'dvi,dvi.gz,dvi.bz2, ps,ps.gz,ps.bz2, ,gz,bz2')
+        'man1.pdf, man5.pdf'..
+        'ps,ps.gz,ps.bz2, dvi,dvi.gz,dvi.bz2, ,gz,bz2')
         set_config_ls {
             unzip_gz    = 'gzip -d -c ',
             unzip_bz2   = 'bzip -d -c ',
@@ -769,7 +797,7 @@ function setup_config_from_defaults()
             rm_dir      = 'rmdir'
         }
     else
-        set_config_elt('ext_list', 'pdf, html, txt, dvi, ps, ')
+        set_config_elt('ext_list', 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ')
     end
 end
 
@@ -797,8 +825,9 @@ end
 -- unzips it in a tempdir so that the viewer command can use the unzipped file.
 function how_to_view (filename)
     filename = real_path(filename) -- TODO: if not filename then ...
+    viewext, zipext = nil, nil
     if support_zipped then
-        viewext,zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
+        viewext, zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
         if viewext and zipext then
             unzip_command = config['unzip_'..zipext]
             local basename_pattern = '.*/(.*%.' .. viewext .. ')'
