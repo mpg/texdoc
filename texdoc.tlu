@@ -1,5 +1,5 @@
 #!/usr/bin/env texlua
--- $Id: texdoc.tlu 14618 2009-08-11 10:59:27Z mpg $ -*-Lua-*-
+-- $Id: texdoc.tlu 14940 2009-08-29 15:17:18Z mpg $ -*-Lua-*-
 --[[
 Copyright 2008, 2009 Manuel Pégourié-Gonnard.
 
@@ -29,7 +29,7 @@ Previous work in the public domain:
 
 -- progname and version
 progname = 'texdoc'
-version = '0.44'
+version = '0.45'
 if string.sub(version, -1) == '+' then
     local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
     version = version..' svn r'..svnrev
@@ -881,7 +881,9 @@ function print_menu (files, comp)
         if n > max_lines then
             io.write (n, " results.  Display them all? (y/N) ")
             local ans = io.read('*line')
-            if not ((ans == 'y') or (ans == 'Y')) then return end
+            if not ((ans == 'y') or (ans == 'Y')
+                -- io.read is quite strange wrt windows line endings :-(
+                or (ans == '\ry') or (ans == '\rY')) then return end
         end
     end
     display_table (files)
