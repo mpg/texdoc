@@ -146,14 +146,6 @@ alias tugboat-plain = tubguide
 alias ltugboat = ltubguid
 alias ltugproc = ltubguid
 
-# easy* bundle
-alias easyeqn = easy/doceqn
-alias easymat = easy/docmat
-alias easybmat = easy/docbmat
-alias easyvector = easy/docvector
-alias easybib = easy/docbib
-alias easytable = easy/doctable
-
 # misc
 alias fontinst = fontinstallationguide
 alias psfrag = pfgguide

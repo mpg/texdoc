@@ -1,5 +1,5 @@
 #!/usr/bin/env texlua
--- $Id$ -*-Lua-*-
+-- $Id: texdoc.tlu 14618 2009-08-11 10:59:27Z mpg $ -*-Lua-*-
 --[[
 Copyright 2008, 2009 Manuel Pégourié-Gonnard.
 
@@ -29,13 +29,13 @@ Previous work in the public domain:
 
 -- progname and version
 progname = 'texdoc'
-version = '0.43+'
+version = '0.44'
 if string.sub(version, -1) == '+' then
     local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
     version = version..' svn r'..svnrev
 end
 
--- make sure to update setup_config_from_cl() accordingly 
+-- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
 usage_msg = [[
 texdoc tries to find appropriate TeX documentation for the specified NAME(s).
@@ -106,7 +106,7 @@ support_zipped = false
 --------------------------   general-use functions   ---------------------------
 
 -- Remark: we always assume our tables have no hole (that is, no nil value
--- followed by a non-nil value). So we use the simple iterator below, and 
+-- followed by a non-nil value). So we use the simple iterator below, and
 -- the # operator sometimes (a bit faster than table.getn).
 function list (t)
     local i = 0
@@ -196,10 +196,10 @@ function populate_docfiles (pattern)
     local curr_dir = lfs.currentdir()
     for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root.path)
-        if root and shift and doc_root.recursion_allowed then  
+        if root and shift and doc_root.recursion_allowed then
             assert(lfs.chdir(root))
             scan_lsr(code, shift, pattern)
-        elseif (not doc_root.index_mandatory) 
+        elseif (not doc_root.index_mandatory)
             and lfs.isdir(doc_root.path) then
             assert(lfs.chdir(doc_root.path))
             scan_tree(code, '.', pattern, doc_root.recursion_allowed)
@@ -258,14 +258,14 @@ function scan_lsr (code, shift, pattern)
     local isdoc = false
     local current_dir
     local l = #shift
-    local lsr = assert(io.open('ls-R', 'r')) 
+    local lsr = assert(io.open('ls-R', 'r'))
     local _ = lsr:read('*line') -- throw away first line (comment)
     local maybe_dir = true -- next line may be a directory
     while true do
         local line = lsr:read('*line')
         while line == '' do line, maybe_dir = lsr:read('*line'), true end
         if line == nil then break end  -- EOF
-        local dir_line = maybe_dir and string.match (line, '^%./(.*):$') 
+        local dir_line = maybe_dir and string.match (line, '^%./(.*):$')
         if dir_line then
             maybe_dir = false -- next line may not be a dir
             if string.sub (dir_line, 1, l) == shift then
@@ -315,7 +315,7 @@ end
 function is_good_ext (ext)
     for e in list (config.ext_list) do
         if e == '*' then
-            return true 
+            return true
         elseif (e == '') and (not ext) then
             return true
         elseif ext == e then
@@ -328,9 +328,9 @@ end
 -- include a file in the *_docfiles lists if it "matches"
 function process_file (file, pathfile, code, pattern)
     local base, ext = string.match(string.lower(file), '^(.*)%.(.*)$')
-    if string.find(string.lower(pathfile), pattern, 1, no_regex) 
-        and is_good_ext (ext) then 
-        if (base == pattern) or (file == pattern) then 
+    if string.find(string.lower(pathfile), pattern, 1, no_regex)
+        and is_good_ext (ext) then
+        if (base == pattern) or (file == pattern) then
             table.insert(exact_docfiles, code_path (code, pathfile))
         else
             table.insert(rel_docfiles, code_path (code, pathfile))
@@ -400,7 +400,7 @@ function set_config_element (key, value, context)
         end
     elseif string.find (key, '_level$') then -- integer
         local val = tonumber (value)
-        if val then 
+        if val then
             config[key] = val
         else
             config_warn (key, value, context)
@@ -463,7 +463,7 @@ end
 -- TODO: should use some getopt_long()-like mechanism some day
 function setup_config_from_cl ()
     local curr_arg
-    local function set_config_elt(key, val) 
+    local function set_config_elt(key, val)
         set_config_element(key, val, {src='cl', name=curr_arg})
     end
     while arg[1] and string.match(arg[1],'^%-') do
@@ -499,13 +499,13 @@ function setup_config_from_cl ()
             set_config_elt('alias_switch', 'true')
         elseif (curr_arg == '-d') or (curr_arg == '--debug') then
             set_config_elt('verbosity_level', err_max)
-        elseif string.match(curr_arg, '^%-v') then 
+        elseif string.match(curr_arg, '^%-v') then
             local value = string.gsub(curr_arg, '^%-v=?', '')
             set_config_elt('verbosity_level', value)
         elseif string.match(curr_arg, '^%-%-verbosity') then
             local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
             set_config_elt('verbosity_level', value)
-        elseif string.match(curr_arg, '^%-e') then 
+        elseif string.match(curr_arg, '^%-e') then
             local value = string.gsub(curr_arg, '^%-e=?', '')
             set_config_elt('ext_list', value)
         elseif string.match(curr_arg, '^%-%-extensions') then
@@ -547,7 +547,7 @@ end
 
 -- set config+aliases from a particular config file assumed to exist
 function read_config_file(configfile)
-    local cnf = assert(io.open(configfile, 'r')) 
+    local cnf = assert(io.open(configfile, 'r'))
     local lineno = 0
     while true do
         local key, val
@@ -558,7 +558,7 @@ function read_config_file(configfile)
         line = string.gsub(line, '%s*$', '')    -- remove trailing spaces
         line = string.gsub(line, '^%s*', '')    -- remove leading spaces
         key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
-        if key and val then 
+        if key and val then
             set_config_element(key, val, {
                 src='file', file=configfile, line=lineno})
         else
@@ -589,24 +589,24 @@ function get_config_files ()
         TEXMFLOCAL .. '/texdoc/texdoc-'..platform..'.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc.cnf',
         TEXMFMAIN  .. '/texdoc/texdoc.cnf'
-    } 
+    }
 end
 
 -- the config_files table is shared by the next two functions
 do
 local config_files = {}
 
--- set config/aliases from all config files 
+-- set config/aliases from all config files
 function setup_config_from_files ()
     for i, file in ipairs (get_config_files ()) do
         local found = lfs.isfile(file)
         config_files[i] = {
             path = file,
-            status = found and (config.lastfile_switch 
+            status = found and (config.lastfile_switch
             and 'disabled' or 'active') or 'absent',
         }
         if config_files[i].status == 'active' then
-            read_config_file (file) 
+            read_config_file (file)
         end
     end
 end
@@ -615,12 +615,12 @@ end
 function show_config_files (print_fun, prefix)
     print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
-        local home = prefix and 
+        local home = prefix and
         ((i==2) and "(*) " or "    ") -- home conffile is the 2nd
         or ''
         print_fun (home..file.status..'\t'..win32_hook(file.path))
     end
-    if prefix then 
+    if prefix then
         print("(*) This is the recommended configuration file "
         .. "for your personal preferences.")
     end
@@ -654,71 +654,105 @@ end
 -- set some fall-back default values if no previous value is set
 function setup_config_from_defaults()
     local function set_config_ls(ls) set_config_list(ls, {src='def'}) end
-    local function set_config_elt(key, val) 
-        set_config_element(key, val, {src='def'}) 
+    local function set_config_elt(key, val)
+        set_config_element(key, val, {src='def'})
     end
     if (os.type == "windows") then
-        -- probably Windows (or OS/2)
-        -- which commands should we use for unzipping?
         set_config_ls {
-            viewer_dvi    = 'start ""',
-            viewer_html   = 'start ""',
-            viewer_pdf    = 'start ""',
-            viewer_ps     = 'start ""',
+            -- Use 'start' to get file associations.
+            -- We need to quote the filenames, but the first quoted argument
+            -- is considered as the title by start, so we provide a dummy title.
+            -- Also, since the command line parser removes quotes if there
+            -- is no space inside, the dummy title must contain spaces.
+            viewer_dvi    = 'start "texdoc dvi viewer"',
+            viewer_html   = 'start "texdoc html viewer"',
+            viewer_pdf    = 'start "texdoc pdf viewer"',
+            viewer_ps     = 'start "texdoc ps viewer"',
+            -- 'more' is always available.
+            -- However, we can't assume texdoc is called from a cmd.exe window
+            -- (it can be run from the start->run menu), hence we make sure
+            -- to open a new window if needed.
             viewer_txt    = 'start cmd /k more',
         }
-    else -- since we don't support msdos, if os.type is not windows, it's unix
-        if (os.name == 'macosx') then
-            set_config_ls {
-                viewer_dvi    = 'open',
-                viewer_html   = 'open',
-                viewer_pdf    = 'open',
-                viewer_ps     = 'open',
-                viewer_txt    = 'less',
+    elseif (os.name == 'macosx') then
+        set_config_ls {
+            viewer_dvi    = 'open',
+            viewer_html   = 'open',
+            viewer_pdf    = 'open',
+            viewer_ps     = 'open',
+            viewer_txt    = 'less',
+        }
+    else -- generic Unix
+        set_config_ls {
+            viewer_dvi      = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'evince',      '(evince %s) &'},
+                {'okular',      '(okular %s) &'},
+                {'kdvi',        '(kdvi %s) &'},
+                {'xgdvi',       '(xgdvi %s) &'},
+                {'spawg',       '(spawg %s) &'},
+                {'spawx11',     '(spawx11 %s) &'},
+                {'tkdvi',       '(tkdvi %s) &'},
+                {'dvilx',       '(dvilx %s) &'},
+                {'advi',        '(advi %s) &'},
+                {'xdvik-ja',    '(xdvik-ja %s) &'},
+                {'xdvi',        '(xdvi %s) &'},
+                {'see',         '(see %s) &'}
+            },
+            viewer_html     = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'firefox',     '(firefox %s) &'},
+                {'seamonkey',   '(seamonkey %s) &'},
+                {'mozilla',     '(mozilla %s) &'},
+                {'konqueror',   '(konqueror %s) &'},
+                {'epiphany',    '(epiphany %s) &'},
+                {'opera',       '(opera %s) &'},
+                {'w3m',         'w3m'},
+                {'links',       'links'},
+                {'lynx',        'lynx'},
+                {'see',         'see'}
+            },
+            viewer_pdf      = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'evince',      '(evince %s) &'},
+                {'okular',      '(okular %s) &'},
+                {'kpdf',        '(kpdf %s) &'},
+                {'xpdf',        '(xpdf %s) &'},
+                {'acroread',    '(xpdf %s) &'},
+                {'see',         '(see %s) &'}
+            },
+            viewer_ps       = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'evince',      '(evince %s) &'},
+                {'okular',      '(okular %s) &'},
+                {'kghostview',  '(kghostview %s) &'},
+                {'gv',          '(gv %s) &'},
+                {'see',         '(see %s) &'}
+            },
+            viewer_txt      = first_in_path {
+                {'most',        'most'},
+                {'less',        'less'},
+                {'more',        'more'}
             }
-        else
-            set_config_ls {
-                viewer_dvi      = first_in_path {
-                    {'evince',  '(evince %s) &'},
-                    {'okular',  '(okular %s) &'},
-                    {'kdvi',    '(kdvi %s) &'},
-                    {'xdvi',    '(xdvi %s) &'},
-                    {'see',     '(see %s) &'}
-                },
-                viewer_html     = first_in_path {
-                    {'firefox',     '(firefox %s) &'},
-                    {'mozilla',     '(mozilla %s) &'},
-                    {'konqueror',   '(konqueror %s) &'},
-                    {'epiphany',    '(epiphany %s) &'},
-                    {'opera',       '(opera %s) &'},
-                    {'w3m',         'w3m'},
-                    {'links',       'links'},
-                    {'lynx',        'lynx'},
-                    {'see',         'see'}
-                },
-                viewer_pdf      = first_in_path {
-                    {'evince',  '(evince %s) &'},
-                    {'okular',  '(okular %s) &'},
-                    {'kpdf',    '(kpdf %s) &'},
-                    {'xpdf',    '(xpdf %s) &'},
-                    {'see',     '(see %s) &'}
-                },
-                viewer_ps       = first_in_path {
-                    {'evince',  '(evince %s) &'},
-                    {'okular',  '(okular %s) &'},
-                    {'kghostview', '(kghostview %s) &'},
-                    {'gv',      '(gv %s) &'},
-                    {'see',     '(see %s) &'}
-                },
-                viewer_txt      = first_in_path {
-                    {'most',    'most'},
-                    {'less',    'less'},
-                    {'more',    'more'}
-                }
-            }
-        end
+        }
     end
-    -- then various stuff
+    -- then various, platform independant, stuff
     set_config_ls {
         mode                = 'view',
         interact_switch     = 'true',
@@ -727,9 +761,8 @@ function setup_config_from_defaults()
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
     -- now a particular case for config.ext_list and zip-related stuff
-    -- Note: removed texdoc_formats/zip_formats, gives simpler & generic code
     if support_zipped then
-        set_config_elt('ext_list', 
+        set_config_elt('ext_list',
         'pdf,pdf.gz,pdf.bz2, html,html.gz,html.bz2, txt,txt.gz,txt.bz2,'..
         'dvi,dvi.gz,dvi.bz2, ps,ps.gz,ps.bz2, ,gz,bz2')
         set_config_ls {
@@ -774,14 +807,14 @@ function how_to_view (filename)
             local basename_pattern = '.*/(.*%.' .. viewext .. ')'
             basename = string.match(filename,basename_pattern)
             tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
-            unzip_commandline = unzip_command .. filename .. " > " 
+            unzip_commandline = unzip_command .. filename .. " > "
             .. tmpdir .. "/" .. basename
             if os.execute(unzip_commandline) then
                 filename = tmpdir .. "/" .. basename
             else
                 print("Error executing \n" .. unzip_commandline)
             end
-            viewer_replacement = '"' .. filename .. '"; ' 
+            viewer_replacement = '"' .. filename .. '"; '
             .. config.rm_file .. ' ' .. filename .. '; '
             .. config.rm_dir .. ' ' .. tmpdir
         end
@@ -819,7 +852,7 @@ function try_viewing (view_command, viewer_replacement)
         err_print(view_command, 'debug1')
         view_result = os.execute(view_command)
         if not view_result then
-            err_print ("the following command failed\n\t" 
+            err_print ("the following command failed\n\t"
             .. view_command, "error")
         end
     end
@@ -828,7 +861,7 @@ end
 
 --------------------------------   displaying   --------------------------------
 
--- display a table, sorted, numbered with given offset (0 by default), 
+-- display a table, sorted, numbered with given offset (0 by default),
 -- with real path
 function display_table (t, offset)
     offset = offset or 0
@@ -845,7 +878,7 @@ function print_menu (files, comp)
     local f = #files
     if config.interact_switch then
         local n = f + #comp
-        if n > max_lines then 
+        if n > max_lines then
             io.write (n, " results.  Display them all? (y/N) ")
             local ans = io.read('*line')
             if not ((ans == 'y') or (ans == 'Y')) then return end
@@ -951,7 +984,7 @@ for docname in list (arg) do
     -- exceptions for arguments with extension given
     if config.mode ~= 'regex' then
         docname_base, docname_ext = string.match (docname, '^(.*)%.(.*)$')
-        if docname_ext == 'sty' then 
+        if docname_ext == 'sty' then
             err_print ("using special search mode for sty files", 'info')
             populate_docfiles = populate_docfiles_sty
             mixed_populate_docfiles = populate_docfiles_sty
@@ -983,7 +1016,7 @@ for docname in list (arg) do
         end
     elseif (config.mode == 'view') then
         mixed_populate_docfiles (docname)
-        if exact_docfiles[1] then 
+        if exact_docfiles[1] then
             table.sort(exact_docfiles, file_order)
             try_viewing (how_to_view(exact_docfiles[1]))
         else
@@ -993,18 +1026,18 @@ for docname in list (arg) do
         mixed_populate_docfiles (docname)
         if (not exact_docfiles[1]) then         -- no results
             apologize ('notfound', docname)
-        elseif (not exact_docfiles[2]) then     -- 1 result 
+        elseif (not exact_docfiles[2]) then     -- 1 result
             local ok = try_viewing (how_to_view(exact_docfiles[1]))
             if not ok then apologize ('oops') end
         else                                    -- 2 or more results
             print_menu (exact_docfiles)
         end
-    end 
+    end
     -- restoring possibly diverted values
     populate_docfiles = real_populate_docfiles
     mixed_populate_docfiles = real_mixed_populate_docfiles
     real_path = real_real_path
-end 
+end
 
 os.exit(exit_code)
 
