@@ -1,61 +1,78 @@
-#!/bin/sh
+#!/usr/bin/perl
 
-# Written in 2008 by Manuel Pégourié-Gonnard; placed under the WTFPL v2.
-#
-# Update texdoc from a texdoc working copy to a texlive working copy.
+# Manuel Pégourié-Gonnard, 2009. WTFPL v2.
 
-function usage() {
-    echo "Usage: $0 [-all|-cnf|-doc] texdoc-trunk texlive-trunk" >&2
-    exit 1
+use warnings 'FATAL' => 'all';
+use Fatal qw(:void open close opendir closedir chdir);
+use strict;
+use utf8;
+use open qw(:std utf8);
+
+# Update various texdoc files from a texdoc git repo to a texlive repo.
+# Use '.' or '..' as the default texdoc repo and $TLROO for texlive.
+# Default set of files is 'all'.
+my $usage = <<USAGE;
+Usage: $0 [all|tlu|cnf|doc [...]] [--td=td-path] [--tl=tlmaster]
+USAGE
+
+# TL directories
+use constant {
+    'TL_scr'    => 'texmf/scripts/texdoc',
+    'TL_cnf'    => 'texmf/texdoc',
+    'TL_doc'    => 'texmf/doc/texdoc',
+    'TL_man'    => 'texmf/doc/man/man1'
+};
+
+# file sets and destination directories
+my %filesets = (
+    'tlu' => {  'texdoc.tlu'            => TL_scr },
+    'cnf' => {  'texdoc.cnf'            => TL_cnf },
+    'doc' => {  'doc/texdoc.tex'        => TL_doc,
+                'doc/texdoc.pdf'        => TL_doc,
+                'doc/texdoc.1'          => TL_man,
+                'doc/texdoc.man1.pdf'   => TL_man,
+    });
+@{$filesets{all}}{values %$_} = keys %$_ for (values %filesets);
+
+# defaults
+my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : undef;
+my $texlive_path = $ENV{'TLROOT'};
+
+# get options
+use Getopt::Long;
+GetOptions(
+    'td=s' => \$texdoc_path,
+    'tl=s' => \$texlive_path,
+) or die "Unkown option.\n$usage";
+
+# chdir to source directory 
+chdir($texdoc_path) or die "chdir $texdoc_path failed.\n";
+
+# get the file set
+my %files;
+@ARGV = ('all') if @ARGV == 0;
+for my $fs (@ARGV) {
+    defined $filesets{$fs} or die "Unkown fileset $fs.\n$usage";
+    @files{values %{$filesets{$fs}}} = keys %{$filesets{$fs}};
 }
 
-# check what to do
-case $1 in
-    -all)
-        updoc=x 
-        upcnf=x
-        uptlu=x
-        ;;
-    -cnf)
-        upcnf=x
-        ;;
-    -doc)
-        upcnf=x
-        ;;
-    *)
-        usage
-        ;;
-esac
+# rebuild documentation if needed
+if (grep /doc\//, keys %files) {
+    system("cd doc && make");
+    die "Could not make documentation: $!.\n" if $?;
+}
 
-# the location of the working copies
-TEXDOC="$2"
-TEXLIVE="$3"
+# do the actual copy and compute the list of touched directories
+my %touched_dir;
+system 'pwd';
+while (my ($s, $d) = each %files) {
+    $touched_dir{$d}++;
+    my $dest = "$texlive_path/$d";
+    -d $dest or die "No such directory: $dest.\n";
+    system 'cp', '-t', $dest, $s;
+    die "Could not copy $s to $dest: $!\n" if $?;
+}
 
-test -d "$TEXDOC" || usage
-test -d "$TEXLIVE" || usage
-
-# various locations in the tl tree
-TLTEXMF="$TEXLIVE/Master/texmf"
-DOC="doc/texdoc"
-MAN="doc/man/man1"
-SCRIPT="scripts/texdoc"
-CONF="texdoc"
-
-# the copy itself
-if [ -n "$updoc" ]; then
-    # just make sure the generated doc is up-to-date first
-    (cd "$TEXDOC/doc" && make )
-    cp "$TEXDOC/doc/texdoc.tex" "$TEXDOC/doc/texdoc.pdf" "$TLTEXMF/$DOC" 
-    cp "$TEXDOC/doc/texdoc.1" "$TLTEXMF/$MAN"
-    cp "$TEXDOC/doc/texdoc.1.pdf" "$TLTEXMF/$MAN/texdoc.pdf"
-fi
-if [ -n "$upcnf" ]; then
-    cp "$TEXDOC/texdoc.cnf" "$TLTEXMF/$CONF"
-fi
-if [ -n "$uptlu" ]; then
-    sed -e "s/^version = '\(.\..*\)+'$/version = '\1'/" "$TEXDOC/texdoc.tlu" \
-    > "$TLTEXMF/$SCRIPT/texdoc.tlu"
-fi
-
-# commit help
-echo "cd $TLTEXMF && svn ci $DOC $MAN/texdoc.* $SCRIPT $CONF"
+# print some information
+print "Done. In order to commit, use:\ncd $texlive_path\nsvn ci ";
+print join(' ', keys %touched_dir), "\n";
