@@ -68,8 +68,8 @@ if (grep /doc\//, keys %files) {
 }
 
 # says if f1 and f2 differ, after applying subs to each line
-sub files_diff {
-    my ($f1, $f2) = @_;
+sub files_diff (&$$) {
+    my ($subs, $f1, $f2) = @_;
     open my $fh1, '<', $f1;
     my @lines1 = <$fh1>;
     close $fh1;
@@ -77,18 +77,26 @@ sub files_diff {
     my @lines2 = <$fh2>;
     close $fh2;
     return 1 if @lines1 != @lines2;
-    map { s/^(\.TH TEXDOC "1" ").*?("texdoc [\d.]+" "User Commands")$/$1$2/ }
-    @lines1, @lines2;
+    map { &$subs } @lines1, @lines2;
     for (my $i = 0; $i < @lines1; $i++) {
         return 1 if $lines1[$i] ne $lines2[$i];
     }
 }
 
 # don't update the man page if only the date changed
-if (defined $files{TD_man()} and not files_diff(
-            TD_man, "$texlive_path/$files{TD_man()}/".basename(TD_man))) {
+if (defined $files{TD_man()} and not files_diff
+        { s/^(\.TH TEXDOC "1" ").*?("texdoc [\d.]+" "User Commands")$/$1$2/ }
+        TD_man, "$texlive_path/$files{TD_man()}/".basename(TD_man)) {
     print "Info: man page differs only by date, skipping.\n";
     delete @files{TD_man, TD_manpdf};
+}
+
+# don't update the user manual if only the date and id changed
+if (defined $files{TD_doc()} and not files_diff
+        { s"^\/(CreationDate|ModDate|ID) .*"$1" }
+        TD_doc, "$texlive_path/$files{TD_doc()}/".basename(TD_doc)) {
+    print "Info: user manual differs only by date or id, skipping.\n";
+    delete @files{TD_doc()};
 }
 
 # do the actual copy and compute the list of touched directories
