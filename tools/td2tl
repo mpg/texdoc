@@ -13,7 +13,9 @@ use File::Basename;
 # Use '.' or '..' as the default texdoc repo and $TLROO for texlive.
 # Default set of files is 'all'.
 my $usage = <<USAGE;
-Usage: $0 [all|tlu|cnf|doc [...]] [--td=td-path] [--tl=tlmaster]
+Usage: $0 <option> <fileset> [...]
+Options: --td=texdoc-path --tl=texlive-path --force-wrong-branch
+Filesets: all, doc, cnf, tlu
 USAGE
 
 # TL directories
@@ -41,12 +43,14 @@ my %filesets = (
 # defaults
 my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : undef;
 my $texlive_path = $ENV{'TLROOT'};
+my $force_wrong_branch = 0;
 
 # get options
 use Getopt::Long;
 GetOptions(
     'td=s' => \$texdoc_path,
     'tl=s' => \$texlive_path,
+    'force-wrong-branch' => \$force_wrong_branch,
 ) or die "Unkown option.\n$usage";
 
 # chdir to source directory 
@@ -59,10 +63,10 @@ if (open my $git_head_fh, '<', '.git/HEAD') {
     close $git_head_fh;
     my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
     $git_branch_name ||= '(no branch)';
-    ($git_branch_name eq 'texlive') 
-	or warn "Warning: current branch is $git_branch_name!\n";
-} else {
-    warn "Warning: not updating from a git repository.\n";
+    ($git_branch_name eq 'texlive') or $::force_wrong_branch
+	or die "Current branch is $git_branch_name!\n";
+} elsif (not $::force_wrong_branch ) {
+    die "Not updating from a git repository.\n";
 }
 
 # get the file set
