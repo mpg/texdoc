@@ -175,8 +175,8 @@ alias caption-ru = caption-rus
 alias caption-dev = caption.pdf
 
 # misc
-alias hyperref = hyperref/manual
-alias hyperref = hyperref.pdf
+alias hyperref = hyperref/manual.pdf
+alias hyperref-dev = hyperref.pdf
 alias fontinst = fontinstallationguide
 alias psfrag = pfgguide
 alias bibtex = btxdoc
