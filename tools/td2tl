@@ -53,6 +53,18 @@ GetOptions(
 $texdoc_path or die "Option --td is mandatory if cwd is not a texdoc repo.\n";
 chdir($texdoc_path) or die "chdir $texdoc_path failed.\n";
 
+# check that we are in the right branch
+if (open my $git_head_fh, '<', '.git/HEAD') {
+    my $git_head = <$git_head_fh>;
+    close $git_head_fh;
+    my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
+    $git_branch_name ||= '(no branch)';
+    ($git_branch_name eq 'texlive') 
+	or warn "Warning: current branch is $git_branch_name!\n";
+} else {
+    warn "Warning: not updating from a git repository.\n";
+}
+
 # get the file set
 my %files;
 @ARGV = ('all') if @ARGV == 0;
