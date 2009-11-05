@@ -1,32 +1,80 @@
-- change the alias behaviour, alias should be like addalias (add a priority
-  level?)
+Small todo items
+================
 
-- look for <name><suffix>. Include -doc in the default suffixes. Document it on
-  the web page for the benefit of package authors. Maybe tell CTAN-ers too.
 
-- find a solution to the man vs info with same filename dilemma: rename the man
-  pages as .1.pdf and make texdoc find them (change the search routine for that)
+Big changes planned
+===================
 
-- make fonttable/fonttable.pdf win over anything/fonttable.pdf
+Code rework:
+- Dispatch the code in many files. Get rid of global variables as much as
+  possible, document the data structures.
+- Merge the rel_docfiles and exact_docfiles list. Change their structure in oder
+  to allow for metadata (how their where found, their priority, etc).
+- Make a clear separation between (1) finding results (2) sorting and selecting
+  them.
 
-- make the search routine ignore the first components of the path (eg /latex/)?
+Also search using info from the tlpdb (use docfiles associated with a given
+runfile -- see if it causes more hamr than good for bundles).
 
-- add support for shell-style globs (standard regex is probably too hard)
+Allow for multiple patterns to be searched at one time. Change the alias
+directove so that it adds patterns (possibly make another directive for
+replacing patterns -- see if they should cascade).
 
-- write or use some GNU-like getopt_long
+Create good default scoring rules. Ideas:
+- foo/foo.pdf should win over anything/foo.pdf
+- matching \<foo\> is better than just containing foo as a substring.
+- matching \<foo-doc\> is even better. Same for foo/doc.pdf.
+- decide how the different levels should interact (tree, extension,
+  how-good-is-the-match, how-it-was-found, alias-defined score...) and if this
+should be configurable.
 
-- display info from the tlpdb?
+Make the scoring configurable. Eg add a scoring option to the alias directive.
+Create a scoring directive (with shell-style globs eg). Eg make
+tex-virtual-academy-pl get a bad score.
 
-- maybe investigate the problem with AR 5.0.5, see
-http://tug.org/pipermail/tex-live/2009-March/020296.html
+Rework modes wrt the new scoring system. Decide how results shoud be filtered
+(eg score >= 0 is like current exact_docfiles, -10 < score < 0 is like
+rel_docfiles and score <= -10 is killed).
 
-Notes for using the Catalogue (later)
--------------------------------------
+Decide is regex (or shell-glob) mode should be dropped (probably yes).
+
+Misc ideas
+==========
+
+add support for shell-style globs (standard regex is probably too hard)
+
+write or use some GNU-like getopt_long
+
+display info from the tlpdb?
+
+Ideas for later
+===============
+
+Using the catalogue
+-------------------
 
 Derive aliases and categories from the catalogue information.
 
-Use language information.
+Use language information from the catalogue.
 
 Obsolescence information could be useful (Phil's suggestion).
 
-Do something with the description?
+Do something with the description from the catalogue?
+
+Port on MikTeX
+--------------
+
+Add a function in texlua's kpse library returning all files for which a certain
+Lua function (given as argument) returns true. Use only it.
+
+Adapt to the different tree layout in MikTeX (TEXMFHOME etc don't exist).
+
+May maintain two versions as branches?
+
+Coverage
+--------
+
+Once the search changes are done, make sure that each "real" .sty file gets a
+result with score >= 0. Write a script checking for that with an exclusion list
+(eg beemertheme*.sty). At this point, see:
+http://tug.org/mailman/htdig/tex-live/2009-October/023395.html
