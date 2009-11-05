@@ -7,6 +7,7 @@ use Fatal qw(:void open close opendir closedir chdir);
 use strict;
 use utf8;
 use open qw(:std utf8);
+use File::Basename;
 
 # Update various texdoc files from a texdoc git repo to a texlive repo.
 # Use '.' or '..' as the default texdoc repo and $TLROO for texlive.
@@ -17,22 +18,25 @@ USAGE
 
 # TL directories
 use constant {
-    'TL_scr'    => 'texmf/scripts/texdoc',
-    'TL_cnf'    => 'texmf/texdoc',
-    'TL_doc'    => 'texmf/doc/texdoc',
-    'TL_man'    => 'texmf/doc/man/man1'
+    TL_scr      => 'texmf/scripts/texdoc',
+    TL_cnf      => 'texmf/texdoc',
+    TL_doc      => 'texmf/doc/texdoc',
+    TL_man      => 'texmf/doc/man/man1',
+    TD_man      => 'doc/texdoc.1',
+    TD_manpdf   => 'doc/texdoc.man1.pdf',
+    TD_doc      => 'doc/texdoc.pdf',
 };
 
 # file sets and destination directories
 my %filesets = (
-    'tlu' => {  'texdoc.tlu'            => TL_scr },
-    'cnf' => {  'texdoc.cnf'            => TL_cnf },
-    'doc' => {  'doc/texdoc.tex'        => TL_doc,
-                'doc/texdoc.pdf'        => TL_doc,
-                'doc/texdoc.1'          => TL_man,
-                'doc/texdoc.man1.pdf'   => TL_man,
+    tlu => {    'texdoc.tlu'      => TL_scr },
+    cnf => {    'texdoc.cnf'      => TL_cnf },
+    doc => {    'doc/texdoc.tex'  => TL_doc,
+                'doc/texdoc.pdf'          => TL_doc,
+                'doc/texdoc.1'            => TL_man,
+                'doc/texdoc.man1.pdf'     => TL_man,
     });
-@{$filesets{all}}{values %$_} = keys %$_ for (values %filesets);
+@{$filesets{all}}{keys %$_} = values %$_ for (values %filesets);
 
 # defaults
 my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : undef;
@@ -46,6 +50,7 @@ GetOptions(
 ) or die "Unkown option.\n$usage";
 
 # chdir to source directory 
+$texdoc_path or die "Option --td is mandatory if cwd is not a texdoc repo.\n";
 chdir($texdoc_path) or die "chdir $texdoc_path failed.\n";
 
 # get the file set
@@ -53,22 +58,44 @@ my %files;
 @ARGV = ('all') if @ARGV == 0;
 for my $fs (@ARGV) {
     defined $filesets{$fs} or die "Unkown fileset $fs.\n$usage";
-    @files{values %{$filesets{$fs}}} = keys %{$filesets{$fs}};
+    @files{keys %{$filesets{$fs}}} = values %{$filesets{$fs}};
 }
 
 # rebuild documentation if needed
 if (grep /doc\//, keys %files) {
-    system("cd doc && make");
+    system("cd doc && make >/dev/null");
     die "Could not make documentation: $!.\n" if $?;
+}
+
+# says if f1 and f2 differ, after applying subs to each line
+sub files_diff {
+    my ($f1, $f2) = @_;
+    open my $fh1, '<', $f1;
+    my @lines1 = <$fh1>;
+    close $fh1;
+    open my $fh2, '<', $f2;
+    my @lines2 = <$fh2>;
+    close $fh2;
+    return 1 if @lines1 != @lines2;
+    map { s/^(\.TH TEXDOC "1" ").*?("texdoc [\d.]+" "User Commands")$/$1$2/ }
+    @lines1, @lines2;
+    for (my $i = 0; $i < @lines1; $i++) {
+        return 1 if $lines1[$i] ne $lines2[$i];
+    }
+}
+
+# don't update the man page if only the date changed
+if (defined $files{TD_man()} and not files_diff(
+            TD_man, "$texlive_path/$files{TD_man()}/".basename(TD_man))) {
+    print "Info: man page differs only by date, skipping.\n";
+    delete @files{TD_man, TD_manpdf};
 }
 
 # do the actual copy and compute the list of touched directories
 my %touched_dir;
-system 'pwd';
 while (my ($s, $d) = each %files) {
     $touched_dir{$d}++;
     my $dest = "$texlive_path/$d";
-    -d $dest or die "No such directory: $dest.\n";
     system 'cp', '-t', $dest, $s;
     die "Could not copy $s to $dest: $!\n" if $?;
 }
@@ -76,3 +103,5 @@ while (my ($s, $d) = each %files) {
 # print some information
 print "Done. In order to commit, use:\ncd $texlive_path\nsvn ci ";
 print join(' ', keys %touched_dir), "\n";
+
+__END__
