@@ -34,9 +34,10 @@ my %filesets = (
     tlu => {    'texdoc.tlu'      => TL_scr },
     cnf => {    'texdoc.cnf'      => TL_cnf },
     doc => {    'doc/texdoc.tex'  => TL_doc,
-                'doc/texdoc.pdf'          => TL_doc,
-                'doc/texdoc.1'            => TL_man,
-                'doc/texdoc.man1.pdf'     => TL_man,
+                'News'            => TL_doc,
+                TD_doc()          => TL_doc,
+                TD_man()          => TL_man,
+                TD_manpdf()       => TL_man,
     });
 @{$filesets{all}}{keys %$_} = values %$_ for (values %filesets);
 
