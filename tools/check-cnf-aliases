@@ -4,9 +4,12 @@
 
 my $usage = "Usage: $0 <tlbin>";
 
-# Checks aliases for texdoc in the TL installation corresponding to <tlbin>
+# Check aliases for texdoc in the TL installation corresponding to <tlbin>
 
-use warnings;
+use warnings 'FATAL' => 'all';
+use Fatal qw(:void open close opendir closedir chdir);
+use utf8;
+use open qw(:std utf8);
 
 my $tlbin = shift;
 $tlbin and -d $tlbin and -x "$tlbin/texdoc" or die "$usage\n";
