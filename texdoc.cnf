@@ -114,6 +114,22 @@ alias graphicx = grfguide
 alias color = grfguide
 alias epsfig = grfguide
 
+# latex's required psnfss2e bundle
+alias mathpazo = psnfss2e
+alias mathptmx = psnfss2e
+alias helvet = psnfss2e
+alias avant = psnfss2e
+alias courier = psnfss2e
+alias chancery = psnfss2e
+alias bookman = psnfss2e
+alias newcent = psnfss2e
+alias charter = psnfss2e
+alias times = psnfss2e
+alias palatino = psnfss2e
+alias mathptm = psnfss2e
+alias mathpple = psnfss2e
+alias utopia = psnfss2e 
+
 # ams
 alias amsmath = amsldoc
 alias amslatex = amshelp
