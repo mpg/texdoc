@@ -1,5 +1,4 @@
 #!/usr/bin/env texlua
--- $Id: texdoc.tlu 15829 2009-10-18 20:39:29Z mpg $ -*-Lua-*-
 --[[
 Copyright 2008, 2009 Manuel Pégourié-Gonnard.
 
@@ -30,10 +29,6 @@ Previous work in the public domain:
 -- progname and version
 progname = 'texdoc'
 version = '0.47'
-if string.sub(version, -1) == '+' then
-    local svnrev = string.match('$Rev$', '%$Rev:%s*(%d*)%s*%$');
-    version = svnrev and version..' svn r'..svnrev or version..' git'
-end
 
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
