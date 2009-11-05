@@ -1,0 +1,83 @@
+Version 0.47 (TeX Live 2009)
+----------------------------
+
+Improve support for zipped documentation and comments about it in the default
+configuration file. (Thank Norbert Preining for his help.)
+
+Version 0.46
+------------
+
+Avoid using lfs.currentdir() and lfs.chdir() which are broken on Solaris 10 
+in LuaTeX 0.40
+
+Version 0.45
+------------
+
+Fix possible line ending problems on windows with certain versions of LuaTeX
+
+Version 0.44
+------------
+
+- fixing viewer problems on Windows
+- expanding the list of default viewers on generic Unix
+
+
+Version 0.43
+------------
+
+Various fixes, aliases updates as usual.
+
+Version 0.42
+------------
+
+Improvements to default txt viewer on Windows (thanks to Phil Taylor).
+
+New debugging levels; new names for debugging options.
+
+New configuration file allowing to run the development version more easily.
+
+Changes to the way files are displayed. Results are numbered even when -I is
+used.
+
+Documentation update.  Alias additions and fixes as usual. Various bugfixes.
+
+License switched to GPL.
+
+Version 0.4 (TeX Live 2008)
+---------------------------
+
+Use our own configuration files, not texmf.cnf. Rework the way viewers are
+handled, and add a few configuration options.
+
+Add an 'alias' feature. Filter results in a more restrictive way. Add new search
+modes 'mixed' and 'regex'. Turn result lists into menus.
+
+Add a user manual in pdf.
+
+Development passed from Frank Küster to Manuel Pégourié-Gonnard.
+
+Version 0.3
+-----------
+
+Various changes including:
+- added changelog
+- better OS detection for default viewer settings
+- removed some debugging code
+- -s now works in dirs without ls-R, too
+
+Version 0.2
+-----------
+
+Various changes including:
+- implemented reading of configuration from texmf.cnf
+- fixed "-s" option
+
+Version 0.1
+-----------
+
+Initial public release of the texlua version by Frank Küster.
+
+Earlier versions
+----------------
+
+Shell script by Thomas Esser maintained as part of teTeX.
