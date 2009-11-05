@@ -1,9 +1,3 @@
-/* 
- * Copyright 2008 TeX Users Group.
- * You may freely use, modify and/or distribute this file.  
- * (So did I... mpg.)
- */
-
 body {
   color: black; background: white;
   font-family: sans-serif;
@@ -12,7 +6,10 @@ body {
   max-width: 800px;
 }
 
-h1, h2, h3, h4 { color: navy; }
+h1, h2, h3 { color: navy; }
+h1 { font-size: 150%; }
+h2 { font-size: 120%; }
+h3 { font-size: 100%; }
 
 code, tt, pre { font-size: 105%; }
 

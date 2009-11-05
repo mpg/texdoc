@@ -9,40 +9,51 @@
   <link href="../style.css" title="style" rel="stylesheet" type="text/css">
   <meta name="author" content="Manuel Pégourié-Gonnard">
 
-  <title>Texdoc - svn</title>
+  <title>Texdoc - development version</title>
   <meta name="description" content="texdoc svn page">
-  <meta name="keywords" content="texdoc, tex, documentation, texlive, svn">
+  <meta name="keywords" content="texdoc, tex, documentation, texlive, git">
  </head>
 
  <body>
 
-  <h1>Texdoc - svn version</h1>
+  <h1>Texdoc - development version</h1>
 
   <h2>Getting it</h2>
 
-  <p><code>svn co svn://tug.org/texdoc/trunk/</code></p>
+  <p><code>git clone git://github.com/mpg/texdoc.git</code> (first time)
+  <br><code>git pull</code> (later) </p>
 
-  <h2>Running it</h2>
+  <p>If you don't have git installed, you can get the current 'master' branch
+  from github as an archive in <a
+   href="http://github.com/mpg/texdoc/zipball/master" >zip</a> or <a
+   href="http://github.com/mpg/texdoc/tarball/master" >tar.gz</a> format.</p>
+
+  <h2>Setting up to use it</h2>
+
+  <p>The explanations below use <code>TdDev</code> to denote the path to the
+  directory holding the development version of texdoc. Names in
+  <code>ALL_CAPS</code> are <a href="../kpathsea">kpse</a> variables; you can
+  get their values using <code>kpsewhich --var-value VARIABLE</code>.</p>
 
   <h3>The command - Unix</h3>
 
-  <p>Just symlink <code>trunk/texdoc.tlu</code> to <code>~/bin/texdoc</code>
-  (where <code>trunk/</code> is your local checkout, and <code>~/bin</code> is
-  assumed to be in your <code>PATH</code> before the TeX Live binaries).</p>
+  <p>Just symlink <code>TdDev/texdoc.tlu</code> to <code>~/bin/texdoc</code>
+  (assumes <code>~/bin</code> is in your <code>PATH</code> before the TeX Live
+  binaries).</p>
 
   <h3>The command - Windows</h3>
 
   <p>Here things are a bit different, since there are generally no symlinks, so
   <code>texdoc.bat</code> is actually a script calling <code>texdoc.tlu</code>
   after locating it in the texmf trees. So, just put a copy of
-  <code>trunk/texdoc.tlu</code> in <code>TEXMFHOME/scripts/texdoc</code> (you
+  <code>TdDev/texdoc.tlu</code> in <code>TEXMFHOME/scripts/texdoc</code> (you
   may need to create this directory).</p>
 
-  <h3>Configuration file</h3>
+  <h3>The configuration file - both platforms</h3>
 
   <p>Since the name or meaning of some options used in the default configuration
-  file may change, you need to use the svn version of <code>texdoc.cnf</code>
-  too. Install a copy (or symlink) of it as
+  file may change, you need to use the development version of
+  <code>texdoc.cnf</code> too. Install a copy (or symlink) of it as
   <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the <code>-dist</code>
   part). It will completely override the configuration files in
   <code>TEXMFDIST</code> and <code>TEXMFLOCAL</code>.</p>
@@ -50,7 +61,7 @@
   <p>If everything is installed correctly, running <code>texdoc -f</code> should
   yield something similar to the following.</p>
 
-<pre><code>texdoc version: 0.4+ svn r33
+<pre><code>texdoc version: 0.47
 Configuration files are:
     absent /home/mpg/texmf/texdoc/texdoc-linux-latest.cnf
 (*) active /home/mpg/texmf/texdoc/texdoc.cnf
