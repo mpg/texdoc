@@ -1,5 +1,5 @@
 <!-- Creator     : groff version 1.18.1 -->
-<!-- CreationDate: Wed Mar 25 02:00:00 2009 -->
+<!-- CreationDate: Thu Apr  9 00:20:23 2009 -->
 <html>
 <head>
 <meta name="generator" content="groff -Thtml, see www.gnu.org">
@@ -22,7 +22,8 @@
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>texdoc &minus; manual page for texdoc version: 0.4</p>
+<p>texdoc &minus; finding &amp; viewing TeX
+documentation</p>
 </td>
 </table>
 <a name="SYNOPSIS"></a>
@@ -33,8 +34,7 @@
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>texdoc</b> <i>-h, --help | -v, --version | -f, --files
-|</i> [<i>option(s)</i>] <i>name(s)</i></p>
+<p><b>texdoc</b> [<i>OPTIONS</i>]... [<i>NAME</i>]...</p>
 </td>
 </table>
 <a name="DESCRIPTION"></a>
@@ -45,32 +45,12 @@
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;h</b>, <b>&minus;&minus;help</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Show this short help.</p>
-</td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="10%"></td>
-<td width="89%">
-<p><b>&minus;v</b>, <b>&minus;&minus;version</b></p></td>
-</table>
-<!-- INDENTATION -->
-<table width="100%" border=0 rules="none" frame="void"
-       cols="2" cellspacing="0" cellpadding="0">
-<tr valign="top" align="left">
-<td width="21%"></td>
-<td width="77%">
-<p>Print the version of the program.</p>
+<p>texdoc tries to find appropriate TeX documentation for
+the specified NAME(s). With no NAME, it can print
+configuration information (<b>&minus;f</b>,
+<b>&minus;&minus;files</b>); the usual
+<b>&minus;&minus;help</b> and <b>&minus;&minus;version</b>
+options are also accepted.</p>
 </td>
 </table>
 <!-- INDENTATION -->
@@ -267,8 +247,8 @@
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p><b>&minus;n</b>,
-<b>&minus;&minus;noise&minus;level</b>=<i>N</i></p></td>
+<p><b>&minus;v</b>,
+<b>&minus;&minus;verbosity</b>=<i>N</i></p></td>
 </table>
 <!-- INDENTATION -->
 <table width="100%" border=0 rules="none" frame="void"
@@ -285,9 +265,84 @@
 <tr valign="top" align="left">
 <td width="10%"></td>
 <td width="89%">
-<p>The command &lsquo;texdoc texdoc&rsquo; gives you the
-full user guide in pdf. Please report bugs and request
-features at texlive AT tug.org.</p>
+<p><b>&minus;d</b>, <b>&minus;&minus;debug</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="21%"></td>
+<td width="77%">
+<p>Set verbosity level to maximum.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
+<p><b>Environment:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%"></td>
+<td width="79%">
+<p>PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
+<p><b>Files:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%"></td>
+<td width="79%">
+<p>&lt;texmf&gt;/texdoc/texdoc.cnf files, see the
+<b>&minus;f</b> option.</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
+<p><b>Homepage:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%"></td>
+<td width="79%">
+<p>http://tug.org/texdoc/</p>
+</td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="4%"></td>
+<td width="95%">
+<p><b>Manual:</b></p></td>
+</table>
+<!-- INDENTATION -->
+<table width="100%" border=0 rules="none" frame="void"
+       cols="2" cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="20%"></td>
+<td width="79%">
+<p>displayed by &lsquo;texdoc texdoc&rsquo;.</p>
 </td>
 </table>
 <hr>
