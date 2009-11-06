@@ -1,0 +1,429 @@
+-- configuration handling for texdoc
+--[[ 
+Copyright 2008, 2009 Manuel Pégourié-Gonnard
+Distributed under the terms of the GNU GPL version 3 or later.
+See texdoc.tlu for details.
+--]]
+
+----------------------------   general functions   -----------------------------
+
+-- set a config parameter, but don't overwrite it if already set
+-- three special types: *_list (list), *_switch (boolean), *_level (number)
+function set_config_element (key, value, context)
+    local is_known = false -- is key a valid option?
+    for option in list(known_options) do
+        if string.match(key, option) then is_known = true break end
+    end
+    -- warn and exit if key is not a known option
+    if not is_known then config_warn(key, nil, context) return end
+    -- exit if key is already set (/!\ must test for nil, not false)
+    if not (config[key] == nil) then return nil end
+    if string.match(key, '_list$') then -- coma-separated list
+        local values = string.explode(value, ',')
+        local inverse = {}
+        for i, j in ipairs(values) do -- sanitize values...
+            j = string.gsub(j, '%s*$', '')
+            j = string.gsub(j, '^%s*', '')
+            values[i] = j
+            inverse[j] = i -- ... and build inverse mapping on the way
+        end
+        config[key] = values
+        config[key..'_inv'] = inverse
+        config[key..'_max'] = #values
+    elseif string.find (key, '_switch$') then -- boolean
+        if value == 'true' then
+            config[key] = true
+        elseif value == 'false' then
+            config[key] = false
+        else
+            config_warn (key, value, context)
+        end
+    elseif string.find (key, '_level$') then -- integer
+        local val = tonumber (value)
+        if val then
+            config[key] = val
+        else
+            config_warn (key, value, context)
+        end
+    else -- string
+        config[key] = value
+    end
+    -- special case: if we just set verbosity_level, print version info now
+    if key == 'verbosity_level' then
+        err_print(arg[0]..' version '..version, 'debug1')
+    end
+    -- now tell what we have just done, for debugging
+    err_print('Setting "'..key..'='..value..'" '
+    ..context_to_string(context)..'.', 'debug2')
+end
+
+-- a helper  function for warning messages in the above
+function config_warn (key, value, context)
+    local begin = value and 'Illegal value "'..value..'" for option "'..key..'"'
+    or 'Unknown option "'..key..'"'
+    local ending = '.  Skipping.'
+    err_print (begin..'\n    '..context_to_string(context)..ending, 'warning')
+end
+
+-- interpreting 'context' for the previous functions
+function context_to_string(context)
+    if not context then return '(no context)' end
+    if      context.src == 'cl' then
+        return 'from command line option "'..context.name..'"'
+    elseif  context.src == 'env' then
+        return 'from environment variable "'..context.name..'"'
+    elseif  context.src == 'file' then
+        return 'in file "'..context.file..'" on line '..context.line
+    elseif  context.src == 'def' then
+        return 'from built-in defaults'
+    else
+        return 'from unkown source (should not happen, please report)'
+    end
+end
+
+-- set a whole list, also whithout overwriting
+function set_config_list (conf, context)
+    for key, value in pairs(conf) do
+        set_config_element (key, value, context)
+    end
+end
+
+-- set an alias (w/o overwriting)
+function set_alias (key, value)
+    if alias[key] == nil then
+        alias[key] = value
+    end
+end
+
+------------------------   options from command line   -------------------------
+
+-- set config from the command line
+-- Please make sure to update usage_msg accordingly
+-- and set a default value in setup_config_from_defaults() if relevant.
+-- TODO: should use some getopt_long()-like mechanism some day
+function setup_config_from_cl ()
+    local curr_arg
+    local function set_config_elt(key, val)
+        set_config_element(key, val, {src='cl', name=curr_arg})
+    end
+    while arg[1] and string.match(arg[1],'^%-') do
+        curr_arg = table.remove(arg,1)
+        if (curr_arg == '-h') or (curr_arg == '--help') then
+            print (usage_msg)
+            os.exit(0)
+        elseif (curr_arg == '-V') or (curr_arg == '--version') then
+            print (progname .. ' ' .. version )
+            os.exit(0)
+        elseif (curr_arg == '-f') or (curr_arg == '--files') then
+            print (progname .. ' ' .. version )
+            setup_config_from_files ()
+            show_config_files (print, true)
+            os.exit(0)
+        elseif (curr_arg == '-w') or (curr_arg == '--view') then
+            set_config_elt('mode', 'view')
+        elseif (curr_arg == '-m') or (curr_arg == '--mixed') then
+            set_config_elt('mode', 'mixed')
+        elseif (curr_arg == '-l') or (curr_arg == '--list') then
+            set_config_elt('mode', 'list')
+        elseif (curr_arg == '-s') or (curr_arg == '--search') then
+            set_config_element ('mode', 'search', {src='cl', name=curr_arg})
+        elseif (curr_arg == '-r') or (curr_arg == '--regex') then
+            set_config_element ('mode', 'regex', {src='cl', name=curr_arg})
+        elseif (curr_arg == '-I') or (curr_arg == '--nointeract') then
+            set_config_elt('interact_switch', 'false')
+        elseif (curr_arg == '-i') or (curr_arg == '--interact') then
+            set_config_elt('interact_switch', 'true')
+        elseif (curr_arg == '-A') or (curr_arg == '--noalias') then
+            set_config_elt('alias_switch', 'false')
+        elseif (curr_arg == '-a') or (curr_arg == '--alias') then
+            set_config_elt('alias_switch', 'true')
+        elseif (curr_arg == '-d') or (curr_arg == '--debug') then
+            set_config_elt('verbosity_level', err_max)
+        elseif string.match(curr_arg, '^%-v') then
+            local value = string.gsub(curr_arg, '^%-v=?', '')
+            set_config_elt('verbosity_level', value)
+        elseif string.match(curr_arg, '^%-%-verbosity') then
+            local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
+            set_config_elt('verbosity_level', value)
+        elseif string.match(curr_arg, '^%-e') then
+            local value = string.gsub(curr_arg, '^%-e=?', '')
+            set_config_elt('ext_list', value)
+        elseif string.match(curr_arg, '^%-%-extensions') then
+            local value = string.gsub(curr_arg, '^%-%-extensions=?', '')
+            set_config_elt('ext_list', value)
+        else
+            err_print ("unknown option: "..curr_arg, "error")
+            print (error_msg)
+            os.exit(1)
+        end
+    end
+end
+
+-------------------------   config from environment   --------------------------
+
+-- set config from environment if available
+function setup_config_from_env ()
+    local function set_config_elt_from_vars(key, vars)
+        for var in list(vars) do
+            local value = os.getenv(var)
+            if value then
+                set_config_element(key, value, {src='env', name=var})
+            end
+        end
+    end
+    set_config_elt_from_vars('viewer_pdf',
+    {"PDFVIEWER_texdoc", "TEXDOCVIEW_pdf", "TEXDOC_VIEWER_PDF", "PDFVIEWER"})
+    set_config_elt_from_vars('viewer_ps',
+    {"PSVIEWER_texdoc", "TEXDOCVIEW_ps", "TEXDOC_VIEWER_PS", "PSVIEWER"})
+    set_config_elt_from_vars('viewer_dvi',
+    {"DVIVIEWER_texdoc", "TEXDOCVIEW_dvi", "TEXDOC_VIEWER_DVI", "DVIVIEWER"})
+    set_config_elt_from_vars('viewer_html',
+    {"BROWSER_texdoc", "TEXDOCVIEW_html", "TEXDOC_VIEWER_HTML", "BROWSER"})
+    set_config_elt_from_vars('viewer_txt',
+    {"PAGER_texdoc", "TEXDOCVIEW_txt", "TEXDOC_VIEWER_TXT", "PAGER"})
+end
+
+----------------------   options and aliases from files   ----------------------
+
+-- set config+aliases from a particular config file assumed to exist
+function read_config_file(configfile)
+    local cnf = assert(io.open(configfile, 'r'))
+    local lineno = 0
+    while true do
+        local key, val
+        local line=cnf:read('*line')
+        lineno = lineno + 1
+        if line == nil then break end  -- EOF
+        line = string.gsub(line, '%s*#.*$', '') -- comments begin with #
+        line = string.gsub(line, '%s*$', '')    -- remove trailing spaces
+        line = string.gsub(line, '^%s*', '')    -- remove leading spaces
+        key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
+        if key and val then
+            set_config_element(key, val, {
+                src='file', file=configfile, line=lineno})
+        else
+            key, val = string.match(line, '^alias%s+([%a%d_-]+)%s*=%s*(.+)')
+            if key and val then
+                set_alias(key, val)
+            else
+                if (not string.match (line, '^%s*$')) then
+                    err_print ('syntax error in '..configfile..
+                    ' at line '..lineno..'.', 'warning')
+                end
+            end
+        end
+    end
+    cnf:close()
+end
+
+-- return a table with config file and if they exist
+function get_config_files ()
+    local platform = string.match (kpse.var_value ('SELFAUTOLOC'), '.*/(.*)$')
+    local TEXMFHOME  = kpse.var_value ('TEXMFHOME')
+    local TEXMFLOCAL = kpse.var_value ('TEXMFLOCAL')
+    local TEXMFMAIN  = kpse.var_value ('TEXMFMAIN')
+    return {
+        TEXMFHOME  .. '/texdoc/texdoc-'..platform..'.cnf',
+        TEXMFHOME  .. '/texdoc/texdoc.cnf',
+        TEXMFHOME  .. '/texdoc/texdoc-dist.cnf',
+        TEXMFLOCAL .. '/texdoc/texdoc-'..platform..'.cnf',
+        TEXMFLOCAL .. '/texdoc/texdoc.cnf',
+        TEXMFMAIN  .. '/texdoc/texdoc.cnf'
+    }
+end
+
+-- the config_files table is shared by the next two functions
+do
+local config_files = {}
+
+-- set config/aliases from all config files
+function setup_config_from_files ()
+    for i, file in ipairs (get_config_files ()) do
+        local found = lfs.isfile(file)
+        config_files[i] = {
+            path = file,
+            status = found and (config.lastfile_switch
+            and 'disabled' or 'active') or 'absent',
+        }
+        if config_files[i].status == 'active' then
+            read_config_file (file)
+        end
+    end
+end
+
+-- now a special information function (see -f,--file option)
+function show_config_files (print_fun, prefix)
+    print_fun("Configuration files are:")
+    for i, file in ipairs (config_files) do
+        local home = prefix and
+        ((i==2) and "(*) " or "    ") -- home conffile is the 2nd
+        or ''
+        print_fun (home..file.status..'\t'..win32_hook(file.path))
+    end
+    if prefix then
+        print("(*) This is the recommended configuration file "
+        .. "for your personal preferences.")
+    end
+end
+
+end -- scope of config_files
+
+----------------------   options from built-in defaults   ----------------------
+
+-- for default viewer on general Unix, we have a list; the following two
+-- functions are used to check in the path which program is available
+
+-- check if "name" is the name of a file in the path
+-- Warning: to be used only on Unix! (separators, and PATH irrelevant on win32)
+function is_in_path(name)
+    local path_list = string.explode(os.getenv("PATH"), ':')
+    for _, path in ipairs(path_list) do
+        if lfs.isfile(path..'/'..name) then return true end
+    end
+    return false
+end
+
+-- return the first element of "list" whose name is found in path, or nil
+function first_in_path(cmds)
+    for _, cmd in ipairs(cmds) do
+        if is_in_path(cmd[1]) then return cmd[2] end
+    end
+    return nil
+end
+
+-- set some fall-back default values if no previous value is set
+function setup_config_from_defaults()
+    local function set_config_ls(ls) set_config_list(ls, {src='def'}) end
+    local function set_config_elt(key, val)
+        set_config_element(key, val, {src='def'})
+    end
+    if (os.type == "windows") then
+        set_config_ls {
+            -- Use 'start' to get file associations.
+            -- We need to quote the filenames, but the first quoted argument
+            -- is considered as the title by start, so we provide a dummy title.
+            -- Also, since the command line parser removes quotes if there
+            -- is no space inside, the dummy title must contain spaces.
+            viewer_dvi    = 'start "texdoc dvi viewer"',
+            viewer_html   = 'start "texdoc html viewer"',
+            viewer_pdf    = 'start "texdoc pdf viewer"',
+            viewer_ps     = 'start "texdoc ps viewer"',
+            -- 'more' is always available.
+            -- However, we can't assume texdoc is called from a cmd.exe window
+            -- (it can be run from the start->run menu), hence we make sure
+            -- to open a new window if needed.
+            viewer_txt    = 'start cmd /k more',
+        }
+    elseif (os.name == 'macosx') then
+        set_config_ls {
+            viewer_dvi    = 'open',
+            viewer_html   = 'open',
+            viewer_pdf    = 'open',
+            viewer_ps     = 'open',
+            viewer_txt    = 'less',
+        }
+    else -- generic Unix
+        set_config_ls {
+            viewer_dvi      = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'evince',      '(evince %s) &'},
+                {'okular',      '(okular %s) &'},
+                {'kdvi',        '(kdvi %s) &'},
+                {'xgdvi',       '(xgdvi %s) &'},
+                {'spawg',       '(spawg %s) &'},
+                {'spawx11',     '(spawx11 %s) &'},
+                {'tkdvi',       '(tkdvi %s) &'},
+                {'dvilx',       '(dvilx %s) &'},
+                {'advi',        '(advi %s) &'},
+                {'xdvik-ja',    '(xdvik-ja %s) &'},
+                {'xdvi',        '(xdvi %s) &'},
+                {'see',         '(see %s) &'}
+            },
+            viewer_html     = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'firefox',     '(firefox %s) &'},
+                {'seamonkey',   '(seamonkey %s) &'},
+                {'mozilla',     '(mozilla %s) &'},
+                {'konqueror',   '(konqueror %s) &'},
+                {'epiphany',    '(epiphany %s) &'},
+                {'opera',       '(opera %s) &'},
+                {'w3m',         'w3m'},
+                {'links',       'links'},
+                {'lynx',        'lynx'},
+                {'see',         'see'}
+            },
+            viewer_pdf      = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'evince',      '(evince %s) &'},
+                {'okular',      '(okular %s) &'},
+                {'kpdf',        '(kpdf %s) &'},
+                {'xpdf',        '(xpdf %s) &'},
+                {'acroread',    '(xpdf %s) &'},
+                {'see',         '(see %s) &'}
+            },
+            viewer_ps       = first_in_path {
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'evince',      '(evince %s) &'},
+                {'okular',      '(okular %s) &'},
+                {'kghostview',  '(kghostview %s) &'},
+                {'gv',          '(gv %s) &'},
+                {'see',         '(see %s) &'}
+            },
+            viewer_txt      = first_in_path {
+                {'most',        'most'},
+                {'less',        'less'},
+                {'more',        'more'}
+            }
+        }
+    end
+    -- then various, platform independant, stuff
+    set_config_ls {
+        mode                = 'view',
+        interact_switch     = 'true',
+        verbosity_level     = '3',
+    }
+    -- must be set after mode!
+    set_config_elt ('alias_switch', alias_from_mode(config.mode))
+    -- now a particular case for config.ext_list and zip-related stuff
+    if support_zipped then
+        set_config_elt('ext_list',
+        'pdf,pdf.gz,pdf.bz2, html,html.gz,html.bz2, txt,txt.gz,txt.bz2,'..
+        'man1.pdf, man5.pdf'..
+        'ps,ps.gz,ps.bz2, dvi,dvi.gz,dvi.bz2, ,gz,bz2')
+        set_config_ls {
+            unzip_gz    = 'gzip -d -c ',
+            unzip_bz2   = 'bzip -d -c ',
+            rm_file     = 'rm -f',
+            rm_dir      = 'rmdir'
+        }
+    else
+        set_config_elt('ext_list', 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ')
+    end
+end
+
+-- the default value of config.alias_switch depends on the mode as follows
+function alias_from_mode (mode) -- /!\ returns a string!
+    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then
+        return 'true'
+    else
+        return 'false'
+    end
+
+end
+

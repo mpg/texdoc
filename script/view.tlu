@@ -1,0 +1,118 @@
+-- view a document and/or display the list of results in texdoc
+--[[ 
+Copyright 2008, 2009 Manuel Pégourié-Gonnard
+Distributed under the terms of the GNU GPL version 3 or later.
+See texdoc.tlu for details.
+--]]
+
+---------------------------------   viewing   ----------------------------------
+
+-- prepare for viewing: returns <viewer command> and <viewer replacement>
+-- <viewer replacement> is either:
+-- 1. the filename, quoted with "
+-- 2. the filename, quoted with " followed by some rm commands
+-- The second case happens when the doc was zipped. In the case, this function
+-- unzips it in a tempdir so that the viewer command can use the unzipped file.
+function how_to_view (filename)
+    filename = real_path(filename) -- TODO: if not filename then ...
+    viewext, zipext = nil, nil
+    if support_zipped then
+        viewext, zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
+        if viewext and zipext then
+            unzip_command = config['unzip_'..zipext]
+            local basename_pattern = '.*/(.*%.' .. viewext .. ')'
+            basename = string.match(filename,basename_pattern)
+            tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
+            unzip_commandline = unzip_command .. filename .. " > "
+            .. tmpdir .. "/" .. basename
+            if os.execute(unzip_commandline) then
+                filename = tmpdir .. "/" .. basename
+            else
+                print("Error executing \n" .. unzip_commandline)
+            end
+            viewer_replacement = '"' .. filename .. '"; '
+            .. config.rm_file .. ' ' .. filename .. '; '
+            .. config.rm_dir .. ' ' .. tmpdir
+        end
+    end
+    -- if viewext wasn't set zipped way, then try the normal way
+    if not viewext then
+        viewer_replacement = '"' .. filename .. '"'
+        -- files without extension are assumed to be text
+        viewext = string.match(filename,'.*%.(.*)$') or 'txt'
+        if not config['viewer_'..viewext] then
+            err_print ("cannot determine type of file\n\t"
+            ..filename.."\nAssuming text.  Set the `viewer_"..viewext..
+            "' variable in texdoc.cnf to avoid this.", "warning")
+            viewext = 'txt'
+            if not config['viewer_'..viewext] then
+                err_print ("text viewer not found.  This "..
+                "should not happen, sorry.  Skipping\n\t"..filename, "error")
+            end
+        end -- viewer for ext
+    end -- zipped or not
+    return config['viewer_'..viewext], viewer_replacement
+end
+
+-- view a file, if possible
+function try_viewing (view_command, viewer_replacement)
+    if not view_command then
+        view_result = false
+    else
+        if string.match (view_command, place_holder) then
+            view_command = string.gsub(
+            view_command, place_holder, viewer_replacement)
+        else
+            view_command = view_command..' '..viewer_replacement
+        end
+        err_print(view_command, 'debug1')
+        view_result = os.execute(view_command)
+        if not view_result then
+            err_print ("the following command failed\n\t"
+            .. view_command, "error")
+        end
+    end
+    return view_result
+end
+
+--------------------------------   displaying   --------------------------------
+
+-- display a table, sorted, numbered with given offset (0 by default),
+-- with real path
+function display_table (t, offset)
+    offset = offset or 0
+    table.sort(t, file_order)
+    for i, val in ipairs (t) do
+        print(string.format('%2d %s', i+offset, real_path(val)))
+    end
+end
+
+-- print a list of files as a menu (with an optional complementary list)
+function print_menu (files, comp)
+    comp = comp or {}
+    max_lines = tonumber (config.max_lines) or 20
+    local f = #files
+    if config.interact_switch then
+        local n = f + #comp
+        if n > max_lines then
+            io.write (n, " results.  Display them all? (y/N) ")
+            local ans = io.read('*line')
+            if not ((ans == 'y') or (ans == 'Y')
+                -- io.read is quite strange wrt windows line endings :-(
+                or (ans == '\ry') or (ans == '\rY')) then return end
+        end
+    end
+    display_table (files)
+    display_table (comp, f)
+    if config.interact_switch then
+        io.write ("Please enter the number of the file to view, ",
+        "anything else to skip: ")
+        local num = tonumber(io.read('*line'))
+        if num and (num <= f) and files[num] then
+            try_viewing (how_to_view (files[num]))
+        elseif num and comp[num-f] then
+            try_viewing (how_to_view (comp[num-f]))
+        end
+    end
+end
+

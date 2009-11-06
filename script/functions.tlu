@@ -1,0 +1,36 @@
+-- General use functions for texdoc
+--[[ 
+Copyright 2008, 2009 Manuel Pégourié-Gonnard
+Distributed under the terms of the GNU GPL version 3 or later.
+See texdoc.tlu for details.
+--]]
+
+-- Remark: we always assume our tables have no hole (that is, no nil value
+-- followed by a non-nil value). So we use the simple iterator below, and
+-- the # operator sometimes (a bit faster than table.getn).
+function list (t)
+    local i = 0
+    return function ()
+        i = i + 1
+        return t[i]
+    end
+end
+
+-- remove the 'abc/../' components in a path
+function simplify_path (path)
+    local res = string.gsub (path, '/[^/]+/%.%./', '/')
+    return res -- get rid of gsub's 2nd return value
+end
+
+-- change '/' to '\' on windows, removine 'abc/../' components first
+if os.type == "windows" then
+    function win32_hook (path)
+        local res = string.gsub (simplify_path(path), '/', '\\')
+        return res -- get rid of gsub's 2nd return value
+    end
+else
+    function win32_hook (path)
+        return simplify_path(path)
+    end
+end
+

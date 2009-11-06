@@ -1,0 +1,217 @@
+-- File searching functions for texdoc.
+--[[ 
+Copyright 2008, 2009 Manuel Pégourié-Gonnard
+Distributed under the terms of the GNU GPL version 3 or later.
+See texdoc.tlu for details.
+--]]
+
+------------------   exploring trees (kpse-style functions)   ------------------
+
+-- global variables:
+-- exact_docfiles: list of "exact matches"
+-- rel_docfiles: list of "non-exact matches"
+
+do -- begin scope of doc_roots, a lua version of kpse's TEXDOCS
+local doc_roots
+
+-- structure of the doc_roots variable:
+-- doc_roots[i] = {
+--     path                 = <path>,
+--     index_mandatory      = <does path begin with !! in TEXDOCS?>
+--     recursion_allowed    = <does path ends with // in TEXDOCS?>,
+-- }
+
+-- set the doc_roots list from kpse's $TEXDOCS
+function get_texdocs ()
+    doc_roots = {}
+    local sep = (os.type == 'windows') and ';' or ':'
+    local kpse_texdocs = kpse.expand_var("$TEXDOCS")
+    -- expand the path and turn it into a lua list
+    local raw_doc_roots = string.explode(kpse.expand_braces(kpse_texdocs), sep)
+    err_print('Search paths:', 'debug3')
+    for i, dir in ipairs(raw_doc_roots) do
+        doc_roots[i] = {}
+        local n
+        dir, n = string.gsub (dir, '//$', '')
+        doc_roots[i].recursion_allowed = (n == 1)
+        doc_roots[i].path, n = string.gsub (dir, '^!!', '')
+        doc_roots[i].index_mandatory = (n == 1)
+        err_print(string.format('%s (index_mandatory=%s, recursion_allowed=%s)',
+                doc_roots[i].path,
+                doc_roots[i].index_mandatory   and 'true' or 'false',
+                doc_roots[i].recursion_allowed and 'true' or 'false'),
+            'debug3')
+    end
+end
+
+-- once get_texdocs() is done, roots are represented by their index in doc_roots
+-- this is usefull to avoid fake matches and also for the sort routine
+-- conversions are done by real_path() below and code_path() later
+
+-- decode a path as given in *_docfiles into a real path
+function real_path(fake)
+    local code, file = string.match(fake, '^(.-):(.*)$')
+    code = tonumber(code)
+    return win32_hook(doc_roots[code].path..'/'..file)
+end
+
+-- find docfiles "matching" pattern
+function populate_docfiles (pattern)
+    pattern = normalize_pattern(pattern)
+    rel_docfiles, exact_docfiles = {}, {} -- global
+    is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
+    for code, doc_root in ipairs (doc_roots) do
+        root, shift = lsr_root (doc_root.path)
+        if root and shift and doc_root.recursion_allowed then
+            scan_lsr(root, code, shift, pattern)
+        elseif (not doc_root.index_mandatory)
+            and lfs.isdir(doc_root.path) then
+            scan_tree(code, doc_root.path, '',
+                pattern, doc_root.recursion_allowed)
+        end
+    end
+    exact_docfiles = rmdirs (exact_docfiles)
+    rel_docfiles = rmdirs (rel_docfiles)
+end
+
+end -- scope of doc_roots
+
+-- encode the base path on two digits and concatenate with filename
+function code_path (code, file)
+    local padding = (code > 9) and '' or '0'
+    return padding..code..':'..file
+end
+
+-- merge two components of a path, taking care of empty components
+function merge_path (a, b)
+    return ((a == '') or (b == '')) and a..b or a..'/'..b
+end
+
+-- scan a tree without ls-R file
+function scan_tree (code, base, cwd, pattern, recurse)
+    for file in lfs.dir(base..'/'..cwd) do
+        if file ~= '.' and file ~= '..' then
+            local f = (cwd == '') and file or cwd..'/'..file
+            if lfs.isdir(base..'/'..f) then
+                if recurse then scan_tree(code, base, f, pattern, recurse) end
+            else
+                process_file(file, f, code, pattern, true)
+            end
+        end
+    end
+end
+
+-- finds a ls-R file in a parent directory an return it or nil
+function lsr_root (path)
+    if not lfs.isdir (path) then return end
+    local root, shift = path, ''
+    if string.sub(root, -1) == '/' then root = string.sub(root, 1, -2) end
+    while string.find(root, '/', 1, true) do
+        if lfs.isfile(root..'/ls-R') then
+            return root, shift
+        end
+        local last_comp = string.match(root, '^.*/(.*)$')
+        -- /!\ cannot put last_comp in a regex: can contain special char
+        root = string.sub(root, 1, - (#last_comp + 2))
+        shift = last_comp..'/'..shift
+    end
+end
+
+-- scan a ls-R file
+function scan_lsr (cwd, code, shift, pattern)
+    local isdoc = false
+    local current_dir
+    local l = #shift
+    local lsr = assert(io.open(cwd..'/ls-R', 'r'))
+    local _ = lsr:read('*line') -- throw away first line (comment)
+    local maybe_dir = true -- next line may be a directory
+    while true do
+        local line = lsr:read('*line')
+        while line == '' do line, maybe_dir = lsr:read('*line'), true end
+        if line == nil then break end  -- EOF
+        local dir_line = maybe_dir and string.match (line, '^%./(.*):$')
+        if dir_line then
+            maybe_dir = false -- next line may not be a dir
+            if string.sub (dir_line, 1, l) == shift then
+                isdoc = true
+                current_dir = string.sub (dir_line, l+1)
+                is_dir[code_path(code, current_dir)] = true
+            elseif isdoc then
+                break -- we're exiting the ./doc (or shift) dir, so it's over
+            end
+        elseif isdoc then
+            process_file (line, merge_path(current_dir, line), code, pattern)
+        end
+    end
+    lsr:close()
+end
+
+-- remove directories from a list
+function rmdirs (files)
+    local res = {}
+    for f in list (files) do
+        if not is_dir[f] then table.insert(res, f) end
+    end
+    return res
+end
+
+-- like populate_docfiles, but rel replaces exact if exact is empty
+function mixed_populate_docfiles (pattern)
+    populate_docfiles (pattern)
+    if not exact_docfiles[1] then
+        if not string.find (pattern, '/') then
+            err_print ("No exact match, trying full search mode.", "info")
+        end
+        exact_docfiles = rel_docfiles
+    end
+end
+
+-- for sty files, we obviously don't want to look in TEXDOCS...
+-- and we don't need a list since those are not duplicated (ahem...)
+function populate_docfiles_sty (styname)
+    exact_docfiles = { kpse.find_file (styname) }
+    rel_docfiles = {}
+end
+
+----------------------------   selecting results   -----------------------------
+
+-- says if file has a 'good' extenstion according to ext_list
+function check_ext(file, pattern)
+    local good_ext, exact_match = false, false
+    local l, pat = string.len(pattern) + 1, pattern..'.'
+    for e in list(config.ext_list) do
+        if e == '*' then
+            good_ext = true
+            if string.sub(file, 1, l) == pat then exact_match = true end
+        elseif (e == '') then
+            if not string.find(file, '.', 1, true) then good_ext = true end
+            if file == pattern then exact_match = true end
+        else
+            if string.sub(file, -string.len(e)) == e then good_ext = true end
+            if file == pattern..'.'..e then exact_match = true end
+        end
+    end
+    return good_ext, exact_match
+end
+
+-- include a file in the *_docfiles lists if it "matches"
+function process_file (file, pathfile, code, pattern)
+    file = string.lower(file)
+    local base, ext = string.match(file, '^(.*)%.(.*)$')
+    if string.find(string.lower(pathfile), pattern, 1, no_regex) then
+        local good_ext, exact_match = check_ext(file, pattern)
+        if good_ext then
+            if exact_match then
+                table.insert(exact_docfiles, code_path (code, pathfile))
+            else
+                table.insert(rel_docfiles, code_path (code, pathfile))
+            end
+        end
+    end
+end
+
+-- for now, just make lowercase, but may do more later
+function normalize_pattern (pattern)
+    return string.lower(pattern)
+end
+
