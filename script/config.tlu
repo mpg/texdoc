@@ -11,7 +11,7 @@ load_env(L, {
     'string', 'table', 'os', 'kpse', 'lfs', 'io', 'assert',
     'arg',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable',
-    'known_options', 'version', 'err_max',
+    'C',
     'err_print', 'win32_hook',
 }, {
     'config', 'alias'
@@ -27,7 +27,7 @@ local config, alias = {}, {}
 -- three special types: *_list (list), *_switch (boolean), *_level (number)
 function set_config_element (key, value, context)
     local is_known = false -- is key a valid option?
-    for _, option in ipairs(known_options) do
+    for _, option in ipairs(C.known_options) do
         if string.match(key, option) then is_known = true break end
     end
     -- warn and exit if key is not a known option
@@ -66,7 +66,7 @@ function set_config_element (key, value, context)
     end
     -- special case: if we just set verbosity_level, print version info now
     if key == 'verbosity_level' then
-        err_print(arg[0]..' version '..version, 'debug1')
+        err_print(arg[0]..' version '..C.version, 'debug1')
     end
     -- now tell what we have just done, for debugging
     err_print('Setting "'..key..'='..value..'" '
@@ -129,10 +129,10 @@ function setup_config_from_cl ()
             print (usage_msg)
             os.exit(0)
         elseif (curr_arg == '-V') or (curr_arg == '--version') then
-            print (progname .. ' ' .. version )
+            print (progname .. ' ' .. C.version )
             os.exit(0)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
-            print (progname .. ' ' .. version )
+            print (progname .. ' ' .. C.version )
             setup_config_from_files ()
             show_config_files (print, true)
             os.exit(0)
@@ -155,7 +155,7 @@ function setup_config_from_cl ()
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
         elseif (curr_arg == '-d') or (curr_arg == '--debug') then
-            set_config_elt('verbosity_level', err_max)
+            set_config_elt('verbosity_level', C.err_max)
         elseif string.match(curr_arg, '^%-v') then
             local value = string.gsub(curr_arg, '^%-v=?', '')
             set_config_elt('verbosity_level', value)

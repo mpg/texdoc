@@ -5,6 +5,12 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+local L = {}
+load_env(L, {
+    'export_symbols',
+    'setmetatable',
+})
+
 -- progname and version
 progname = 'texdoc'
 version = '0.47'
@@ -77,3 +83,14 @@ place_holder = '%%s' -- used for viewer commands
 -- we'll drop it at some point.
 support_zipped = false
 
+-- make C a proxy to the local environment
+C = {}
+setmetatable(C, {
+    __index = L,
+    __newindew = function ()
+        error('Internal error: attempt to update a constant.')
+    end
+})
+
+-- export C
+export_symbols(L, {'C'})

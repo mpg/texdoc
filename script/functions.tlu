@@ -48,7 +48,7 @@ end
 function err_print (msg, lvl)
     -- be careful: maybe config.verbosity_level is not set yet
     local verbosity_level = config.verbosity_level or 2
-    if err_priority[lvl] <= verbosity_level then
+    if C.err_priority[lvl] <= verbosity_level then
         io.stderr:write ("texdoc "..lvl..": "..msg.."\n")
     end
 end

@@ -12,7 +12,7 @@ load_env(L, {
     'tonumber', 'ipairs', 'print',
     'config', 
     'real_path',
-    'place_holder',
+    'C',
     'err_print',
 })
 
@@ -70,9 +70,9 @@ function try_viewing (view_command, viewer_replacement)
     if not view_command then
         view_result = false
     else
-        if string.match (view_command, place_holder) then
+        if string.match (view_command, C.place_holder) then
             view_command = string.gsub(
-            view_command, place_holder, viewer_replacement)
+            view_command, C.place_holder, viewer_replacement)
         else
             view_command = view_command..' '..viewer_replacement
         end
