@@ -11,7 +11,7 @@ load_env(L, {
     'string', 'table', 'os', 'kpse', 'lfs', 'io', 'assert',
     'arg',
     'ipairs', 'pairs', 'tonumber',
-    'known_options', 'version',
+    'known_options', 'version', 'err_max',
     'err_print', 'win32_hook',
     'config', 'alias',
 })
