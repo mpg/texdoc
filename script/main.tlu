@@ -7,19 +7,18 @@ See texdoc.tlu for details.
 
 -----------------------------   initialisations   ------------------------------
 
--- config options from command line, env, conf files or defaults
-assert_arg_not_empty ()
-setup_config_from_cl ()
-assert_arg_not_empty ()
-setup_config_from_env ()
-setup_config_from_files ()
-setup_config_from_defaults ()
+-- kpse is already initialised in texdoc.tlu
 
--- now that config.verbosity_level is known...
-show_config_files(function(s) err_print(s, 'debug1') end)
+-- setup config options and aliases from various places
+setup_config_and_alias()
+
+-- get the texdocs variable
 get_texdocs()
 
 ------------------------   looping over the arguments   ------------------------
+
+-- make sure we actually have argument
+assert_arg_not_empty ()
 
 -- initialising and saving a few values
 exit_code = 0

@@ -10,11 +10,16 @@ load_env(L, {
     'export_symbols',
     'string', 'table', 'os', 'kpse', 'lfs', 'io', 'assert',
     'arg',
-    'ipairs', 'pairs', 'tonumber', 'tostring',
+    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable',
     'known_options', 'version', 'err_max',
     'err_print', 'win32_hook',
-    'config', 'alias',
+}, {
+    'config', 'alias'
 })
+
+-- the real tables config and alias are hidden
+-- the global tables remain empty, they are only proxies
+local config, alias = {}, {}
 
 ----------------------------   general functions   -----------------------------
 
@@ -436,15 +441,33 @@ function alias_from_mode (mode) -- /!\ returns a string!
     else
         return 'false'
     end
+end
 
+--------------------------   set all configuration   ---------------------------
+
+-- populate the config and alias arrays and make them read-only
+function setup_config_and_alias()
+    -- setup config from all sources
+    setup_config_from_cl()
+    setup_config_from_env()
+    setup_config_from_files()
+    setup_config_from_defaults()
+    -- we were waiting for config.verbosity_level to be know to do this
+    show_config_files(function(s) err_print(s, 'debug1') end)
+    -- make the global table proxies for the internal ones
+    local ro = 'Internal error: attempt to update read-only table '
+    setmetatable(g_config, {
+        __index = config,
+        __newindex = function () error(ro..'config'..'.') end,
+    })
+    setmetatable(g_alias, {
+        __index = alias,
+        __newindex = function () error(ro..'alias'..'.') end,
+    })
 end
 
 -- finally export a few symbols
 export_symbols(L, {
-    'setup_config_from_cl',
-    'setup_config_from_env',
-    'setup_config_from_files',
-    'setup_config_from_defaults',
-    'show_config_files',
+    'setup_config_and_alias',
 })
 

@@ -33,13 +33,17 @@ end
 
 -- load a local environment, importing symbols from (this function's) _G
 -- usage: local L = {} load_env(L, {'a', 'b'})
+-- third argument (optional) is for symbols imported with a different name
 -- warning: must be defined after export_symbols so that it can be imported...
-function load_env(l, symbols)
-    for _, symb in ipairs(symbols) do
-        assert(_G[symb] ~= nil,
-            'Internal error: trying to import undefined symbol '..symb..'.')
-        l[symb] = _G[symb]
+function load_env(l, symbols, g_symbols)
+    g_symbols = g_symbols or {}
+    local function import(from, to)
+        assert(_G[from] ~= nil,
+            'Internal error: trying to import undefined symbol '..from..'.')
+        l[to] = _G[from]
     end
+    for _, symb in ipairs(symbols) do import(symb, symb) end
+    for _, symb in ipairs(g_symbols) do import(symb, 'g_'..symb) end
     setfenv(2, l)
 end
 
