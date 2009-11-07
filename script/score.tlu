@@ -5,6 +5,9 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+local L = {}
+load_env(L)
+
 -- compare two filenames with the following rule:
 -- 1. extensions are ordered as in ext_list first,
 -- 2. then filenames lexicographically (this include tree ordering).
@@ -40,3 +43,6 @@ function extension(file)
     return ext
 end
 
+export_symbols(L, {
+    'file_order',
+})

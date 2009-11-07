@@ -8,8 +8,6 @@ See texdoc.tlu for details.
 -----------------------------   initialisations   ------------------------------
 
 -- config options from command line, env, conf files or defaults
-config = {} -- everything is stored in this table ...
-alias = {}  -- ... except aliases
 assert_arg_not_empty ()
 setup_config_from_cl ()
 assert_arg_not_empty ()

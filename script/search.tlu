@@ -5,15 +5,12 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+local L = {}
+load_env(L)
+
 ------------------   exploring trees (kpse-style functions)   ------------------
 
--- global variables:
--- exact_docfiles: list of "exact matches"
--- rel_docfiles: list of "non-exact matches"
-
-do -- begin scope of doc_roots, a lua version of kpse's TEXDOCS
-local doc_roots
-
+-- doc_roots is a Lua version of kpse's TEXDOCS
 -- structure of the doc_roots variable:
 -- doc_roots[i] = {
 --     path                 = <path>,
@@ -55,11 +52,18 @@ function real_path(fake)
     return win32_hook(doc_roots[code].path..'/'..file)
 end
 
+-- encode the base path on two digits and concatenate with filename
+function code_path (code, file)
+    local padding = (code > 9) and '' or '0'
+    return padding..code..':'..file
+end
+
+-- here comes the main search function
 -- find docfiles "matching" pattern
 function populate_docfiles (pattern)
     pattern = normalize_pattern(pattern)
-    rel_docfiles, exact_docfiles = {}, {} -- global
-    is_dir = {} -- global; is_dir[path] = true iff path is a dir, see scan_lsr
+    rel_docfiles, exact_docfiles = {}, {}
+    is_dir = {} -- is_dir[path] = true iff path is a dir, see scan_lsr
     for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root.path)
         if root and shift and doc_root.recursion_allowed then
@@ -70,16 +74,8 @@ function populate_docfiles (pattern)
                 pattern, doc_root.recursion_allowed)
         end
     end
-    exact_docfiles = rmdirs (exact_docfiles)
-    rel_docfiles = rmdirs (rel_docfiles)
-end
-
-end -- scope of doc_roots
-
--- encode the base path on two digits and concatenate with filename
-function code_path (code, file)
-    local padding = (code > 9) and '' or '0'
-    return padding..code..':'..file
+    _G.exact_docfiles = rmdirs (exact_docfiles)
+    _G.rel_docfiles = rmdirs (rel_docfiles)
 end
 
 -- merge two components of a path, taking care of empty components
@@ -162,15 +158,15 @@ function mixed_populate_docfiles (pattern)
         if not string.find (pattern, '/') then
             err_print ("No exact match, trying full search mode.", "info")
         end
-        exact_docfiles = rel_docfiles
+        _G.exact_docfiles = rel_docfiles
     end
 end
 
 -- for sty files, we obviously don't want to look in TEXDOCS...
 -- and we don't need a list since those are not duplicated (ahem...)
 function populate_docfiles_sty (styname)
-    exact_docfiles = { kpse.find_file (styname) }
-    rel_docfiles = {}
+    _G.exact_docfiles = { kpse.find_file (styname) }
+    _G.rel_docfiles = {}
 end
 
 ----------------------------   selecting results   -----------------------------
@@ -198,7 +194,7 @@ end
 function process_file (file, pathfile, code, pattern)
     file = string.lower(file)
     local base, ext = string.match(file, '^(.*)%.(.*)$')
-    if string.find(string.lower(pathfile), pattern, 1, no_regex) then
+    if string.find(string.lower(pathfile), pattern, 1, _G.no_regex) then
         local good_ext, exact_match = check_ext(file, pattern)
         if good_ext then
             if exact_match then
@@ -214,4 +210,14 @@ end
 function normalize_pattern (pattern)
     return string.lower(pattern)
 end
+
+-- finally export a few symbols
+export_symbols(L, {
+    'get_texdocs',
+    'real_path',
+    'populate_docfiles', 
+    'mixed_populate_docfiles', 
+    'populate_docfiles_sty',
+})
+
 

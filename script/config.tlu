@@ -5,6 +5,9 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+local L = {}
+load_env(L)
+
 ----------------------------   general functions   -----------------------------
 
 -- set a config parameter, but don't overwrite it if already set
@@ -57,7 +60,7 @@ function set_config_element (key, value, context)
     ..context_to_string(context)..'.', 'debug2')
 end
 
--- a helper  function for warning messages in the above
+-- a helper function for warning messages in the above
 function config_warn (key, value, context)
     local begin = value and 'Illegal value "'..value..'" for option "'..key..'"'
     or 'Unknown option "'..key..'"'
@@ -426,4 +429,13 @@ function alias_from_mode (mode) -- /!\ returns a string!
     end
 
 end
+
+-- finally export a few symbols
+export_symbols(L, {
+    'setup_config_from_cl',
+    'setup_config_from_env',
+    'setup_config_from_files',
+    'setup_config_from_defaults',
+    'show_config_files',
+})
 

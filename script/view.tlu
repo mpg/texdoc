@@ -5,6 +5,9 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+local L = {}
+load_env(L)
+
 ---------------------------------   viewing   ----------------------------------
 
 -- prepare for viewing: returns <viewer command> and <viewer replacement>
@@ -115,4 +118,11 @@ function print_menu (files, comp)
         end
     end
 end
+
+-- finally export a few symbols
+export_symbols(L, {
+    'how_to_view',
+    'try_viewing',
+    'print_menu',
+})
 
