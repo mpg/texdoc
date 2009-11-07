@@ -10,7 +10,7 @@ load_env(L, {
     'export_symbols',
     'string', 'table', 'os', 'kpse', 'lfs', 'io', 'assert',
     'arg',
-    'ipairs', 'pairs', 'tonumber',
+    'ipairs', 'pairs', 'tonumber', 'tostring',
     'known_options', 'version', 'err_max',
     'err_print', 'win32_hook',
     'config', 'alias',
@@ -26,7 +26,7 @@ function set_config_element (key, value, context)
         if string.match(key, option) then is_known = true break end
     end
     -- warn and exit if key is not a known option
-    if not is_known then config_warn(key, nil, context) return end
+    if not is_known then config_warn(key, nil, context, true) return end
     -- exit if key is already set (/!\ must test for nil, not false)
     if not (config[key] == nil) then return nil end
     if string.match(key, '_list$') then -- coma-separated list
@@ -69,9 +69,10 @@ function set_config_element (key, value, context)
 end
 
 -- a helper function for warning messages in the above
-function config_warn (key, value, context)
-    local begin = value and 'Illegal value "'..value..'" for option "'..key..'"'
-    or 'Unknown option "'..key..'"'
+function config_warn (key, value, context, unknown)
+    local begin = unknown
+        and 'Unknown option "'..key..'"'
+        or 'Illegal value "'..tostring(value)..'" for option "'..key..'"'
     local ending = '.  Skipping.'
     err_print (begin..'\n    '..context_to_string(context)..ending, 'warning')
 end
