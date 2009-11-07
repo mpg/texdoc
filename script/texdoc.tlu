@@ -56,7 +56,6 @@ kpse.set_program_name(arg[-1], 'texdoc')
 -- actually load the components now
 texdoc_load('constants')
 texdoc_load('functions')
-texdoc_load('errors')
 alias, config = {}, {}
 texdoc_load('config')
 exact_docfiles, rel_docfiles = {}, {}
