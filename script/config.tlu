@@ -13,13 +13,27 @@ load_env(L, {
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable',
     'C',
     'err_print', 'win32_hook',
-}, {
     'config', 'alias'
 })
 
--- the real tables config and alias are hidden
--- the global tables remain empty, they are only proxies
-local config, alias = {}, {}
+-----------------------   hide config and alias tables   -----------------------
+
+function set_read_only(table, name)
+    local a, b
+    for a, b in pairs(table) do
+        error('Internal error: attempt to make read-only a non-empty table.')
+    end
+    local ro = 'Internal error: attempt to update read-only table '
+    local real = {}
+    setmetatable(table, {
+        __index = real,
+        __newindex = function () error(ro..name..'.') end,
+    })
+    return function(k, v) real[k] = v end
+end
+
+real_set_config = set_read_only(config, 'config')
+real_set_alias = set_read_only(alias, 'alias')
 
 ----------------------------   general functions   -----------------------------
 
@@ -34,7 +48,9 @@ function set_config_element (key, value, context)
     if not is_known then config_warn(key, nil, context, true) return end
     -- exit if key is already set (/!\ must test for nil, not false)
     if not (config[key] == nil) then return nil end
-    if string.match(key, '_list$') then -- coma-separated list
+    -- detect the type of the key
+    if string.match(key, '_list$') then
+        -- coma-separated list
         local values = string.explode(value, ',')
         local inverse = {}
         for i, j in ipairs(values) do -- sanitize values...
@@ -43,26 +59,28 @@ function set_config_element (key, value, context)
             values[i] = j
             inverse[j] = i -- ... and build inverse mapping on the way
         end
-        config[key] = values
-        config[key..'_inv'] = inverse
-        config[key..'_max'] = #values
-    elseif string.find (key, '_switch$') then -- boolean
+        real_set_config(key, values)
+        real_set_config(key..'_inv', inverse)
+        real_set_config(key..'_max', #values)
+    elseif string.find (key, '_switch$') then
+        -- boolean
         if value == 'true' then
-            config[key] = true
+            real_set_config(key, true)
         elseif value == 'false' then
-            config[key] = false
+            real_set_config(key, false)
         else
             config_warn (key, value, context)
         end
-    elseif string.find (key, '_level$') then -- integer
+    elseif string.find (key, '_level$') then
+        -- integer
         local val = tonumber (value)
         if val then
-            config[key] = val
+            real_set_config(key, val)
         else
             config_warn (key, value, context)
         end
     else -- string
-        config[key] = value
+        real_set_config(key, value)
     end
     -- special case: if we just set verbosity_level, print version info now
     if key == 'verbosity_level' then
@@ -108,7 +126,7 @@ end
 -- set an alias (w/o overwriting)
 function set_alias (key, value)
     if alias[key] == nil then
-        alias[key] = value
+        real_set_alias(key, value)
     end
 end
 
@@ -445,7 +463,7 @@ end
 
 --------------------------   set all configuration   ---------------------------
 
--- populate the config and alias arrays and make them read-only
+-- populate the config and alias arrays
 function setup_config_and_alias()
     -- setup config from all sources
     setup_config_from_cl()
@@ -454,16 +472,6 @@ function setup_config_and_alias()
     setup_config_from_defaults()
     -- we were waiting for config.verbosity_level to be know to do this
     show_config_files(function(s) err_print(s, 'debug1') end)
-    -- make the global table proxies for the internal ones
-    local ro = 'Internal error: attempt to update read-only table '
-    setmetatable(g_config, {
-        __index = config,
-        __newindex = function () error(ro..'config'..'.') end,
-    })
-    setmetatable(g_alias, {
-        __index = alias,
-        __newindex = function () error(ro..'alias'..'.') end,
-    })
 end
 
 -- finally export a few symbols
