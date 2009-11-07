@@ -6,7 +6,15 @@ See texdoc.tlu for details.
 --]]
 
 local L = {}
-load_env(L)
+load_env(L, {
+    'export_symbols',
+    'string', 'os', 'table', 'io',
+    'tonumber', 'ipairs', 'print',
+    'config', 
+    'real_path',
+    'place_holder',
+    'err_print',
+})
 
 ---------------------------------   viewing   ----------------------------------
 

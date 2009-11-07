@@ -6,7 +6,15 @@ See texdoc.tlu for details.
 --]]
 
 local L = {}
-load_env(L)
+load_env(L, {
+    'export_symbols',
+    'string', 'table', 'os', 'kpse', 'lfs', 'io', 'assert',
+    'arg',
+    'ipairs', 'pairs', 'tonumber',
+    'known_options', 'version',
+    'err_print', 'win32_hook', 'list',
+    'config', 'alias',
+})
 
 ----------------------------   general functions   -----------------------------
 

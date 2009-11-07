@@ -35,12 +35,6 @@ end
 -- usage: local L = {} load_env(L, {'a', 'b'})
 -- warning: must be defined after export_symbols so that it can be imported...
 function load_env(l, symbols)
-    if symbols == nil then
-        symbols = {}
-        for s, _ in pairs(_G) do
-            table.insert(symbols, s)
-        end
-    end
     for _, symb in ipairs(symbols) do
         assert(_G[symb] ~= nil,
             'Internal error: trying to import undefined symbol '..symb..'.')

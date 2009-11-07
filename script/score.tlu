@@ -6,7 +6,12 @@ See texdoc.tlu for details.
 --]]
 
 local L = {}
-load_env(L)
+load_env(L, {
+    'export_symbols',
+    'string',
+    'list',
+    'config',
+})
 
 -- compare two filenames with the following rule:
 -- 1. extensions are ordered as in ext_list first,
@@ -43,6 +48,7 @@ function extension(file)
     return ext
 end
 
+-- export a few symbols
 export_symbols(L, {
     'file_order',
 })

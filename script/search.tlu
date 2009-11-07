@@ -6,7 +6,14 @@ See texdoc.tlu for details.
 --]]
 
 local L = {}
-load_env(L)
+load_env(L, {
+    'export_symbols',
+    '_G',
+    'os', 'string', 'table', 'lfs', 'kpse', 'io', 
+    'ipairs', 'assert', 'tonumber',
+    'err_print', 'win32_hook', 'list',
+    'config',
+})
 
 ------------------   exploring trees (kpse-style functions)   ------------------
 
