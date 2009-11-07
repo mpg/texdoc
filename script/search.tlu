@@ -11,7 +11,7 @@ load_env(L, {
     '_G',
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
     'ipairs', 'assert', 'tonumber',
-    'err_print', 'win32_hook', 'list',
+    'err_print', 'win32_hook',
     'config',
 })
 
@@ -152,7 +152,7 @@ end
 -- remove directories from a list
 function rmdirs (files)
     local res = {}
-    for f in list (files) do
+    for _, f in ipairs(files) do
         if not is_dir[f] then table.insert(res, f) end
     end
     return res
@@ -182,7 +182,7 @@ end
 function check_ext(file, pattern)
     local good_ext, exact_match = false, false
     local l, pat = string.len(pattern) + 1, pattern..'.'
-    for e in list(config.ext_list) do
+    for _, e in ipairs(config.ext_list) do
         if e == '*' then
             good_ext = true
             if string.sub(file, 1, l) == pat then exact_match = true end

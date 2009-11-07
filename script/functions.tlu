@@ -5,17 +5,6 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
--- Remark: we always assume our tables have no hole (that is, no nil value
--- followed by a non-nil value). So we use the simple iterator below, and
--- the # operator sometimes (a bit faster than table.getn).
-function list (t)
-    local i = 0
-    return function ()
-        i = i + 1
-        return t[i]
-    end
-end
-
 -- change '/' to '\' on windows
 if os.type == "windows" then
     function win32_hook (path)

@@ -9,7 +9,7 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string',
-    'list',
+    'ipairs',
     'config',
 })
 
@@ -33,7 +33,7 @@ end
 -- returns the most specific extension of file in ext_list, or nil
 function extension(file)
     local ext = nil
-    for e in list(config.ext_list) do
+    for _, e in ipairs(config.ext_list) do
         if (e == '*') and (ext == nil) then
             ext = e
         elseif (e == '') and not string.find(file, '.', 1, true) then

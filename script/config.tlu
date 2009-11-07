@@ -12,7 +12,7 @@ load_env(L, {
     'arg',
     'ipairs', 'pairs', 'tonumber',
     'known_options', 'version',
-    'err_print', 'win32_hook', 'list',
+    'err_print', 'win32_hook',
     'config', 'alias',
 })
 
@@ -22,7 +22,7 @@ load_env(L, {
 -- three special types: *_list (list), *_switch (boolean), *_level (number)
 function set_config_element (key, value, context)
     local is_known = false -- is key a valid option?
-    for option in list(known_options) do
+    for _, option in ipairs(known_options) do
         if string.match(key, option) then is_known = true break end
     end
     -- warn and exit if key is not a known option
@@ -175,7 +175,7 @@ end
 -- set config from environment if available
 function setup_config_from_env ()
     local function set_config_elt_from_vars(key, vars)
-        for var in list(vars) do
+        for _, var in ipairs(vars) do
             local value = os.getenv(var)
             if value then
                 set_config_element(key, value, {src='env', name=var})
