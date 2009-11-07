@@ -16,21 +16,15 @@ function list (t)
     end
 end
 
--- remove the 'abc/../' components in a path
-function simplify_path (path)
-    local res = string.gsub (path, '/[^/]+/%.%./', '/')
-    return res -- get rid of gsub's 2nd return value
-end
-
--- change '/' to '\' on windows, removine 'abc/../' components first
+-- change '/' to '\' on windows
 if os.type == "windows" then
     function win32_hook (path)
-        local res = string.gsub (simplify_path(path), '/', '\\')
+        local res = string.gsub (path, '/', '\\')
         return res -- get rid of gsub's 2nd return value
     end
 else
     function win32_hook (path)
-        return simplify_path(path)
+        return path
     end
 end
 
