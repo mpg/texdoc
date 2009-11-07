@@ -7,8 +7,8 @@ See texdoc.tlu for details.
 
 local L = {}
 load_env(L, {
-    'export_symbols',
-    'setmetatable',
+    'setmetatable', 'next', 'assert', 'error',
+    'C',
 })
 
 -- progname and version
@@ -84,13 +84,11 @@ place_holder = '%%s' -- used for viewer commands
 support_zipped = false
 
 -- make C a proxy to the local environment
-C = {}
+assert(next(C) == nil,
+    'Internal error: table of constants should be empty at this point')
 setmetatable(C, {
     __index = L,
     __newindew = function ()
-        error('Internal error: attempt to update a constant.')
+        error('Internal error: attempt to modify a constant.')
     end
 })
-
--- export C
-export_symbols(L, {'C'})

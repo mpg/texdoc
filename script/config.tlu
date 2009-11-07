@@ -8,9 +8,10 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'export_symbols',
-    'string', 'table', 'os', 'kpse', 'lfs', 'io', 'assert',
+    'string', 'table', 'os', 'kpse', 'lfs', 'io',
     'arg',
-    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable',
+    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next',
+    'assert', 'error',
     'C',
     'err_print', 'win32_hook',
     'config', 'alias'
@@ -19,10 +20,8 @@ load_env(L, {
 -----------------------   hide config and alias tables   -----------------------
 
 function set_read_only(table, name)
-    local a, b
-    for a, b in pairs(table) do
-        error('Internal error: attempt to make read-only a non-empty table.')
-    end
+    assert(next(table) == nil,
+        'Internal error: '..name..' should be empty at this point.')
     local ro = 'Internal error: attempt to update read-only table '
     local real = {}
     setmetatable(table, {
