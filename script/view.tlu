@@ -21,7 +21,7 @@ load_env(L, {
 -- view a document
 -- see search.tlu for the structure of the argument
 function view_doc(docfile)
-    try_viewing(how_to_view(real_path(docfile)))
+    view_file(real_path(docfile))
 end
 
 -- prepare for viewing: returns <viewer command> and <viewer replacement>
@@ -30,8 +30,8 @@ end
 -- 2. the filename, quoted with " followed by some rm commands
 -- The second case happens when the doc was zipped. In the case, this function
 -- unzips it in a tempdir so that the viewer command can use the unzipped file.
-function how_to_view (filename)
-    viewext, zipext = nil, nil
+function view_file (filename)
+    local viewext, zipext
     if C.support_zipped then
         viewext, zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
         if viewext and zipext then
@@ -51,44 +51,40 @@ function how_to_view (filename)
             .. config.rm_dir .. ' ' .. tmpdir
         end
     end
-    -- if viewext wasn't set zipped way, then try the normal way
+    -- if viewext wasn't set the zipped way, then try the normal way
     if not viewext then
         viewer_replacement = '"' .. filename .. '"'
         -- files without extension are assumed to be text
         viewext = string.match(filename,'.*%.(.*)$') or 'txt'
+        -- special case : sty files use txt viewer
+        if viewext == 'sty' then viewext = 'txt' end
         if not config['viewer_'..viewext] then
-            err_print ("cannot determine type of file\n\t"
-            ..filename.."\nAssuming text.  Set the `viewer_"..viewext..
+            err_print ("cannot find a viewer for file\n\t"..filename..
+            "\nUsing viewer_txt as a fallback.  Set the `viewer_"..viewext..
             "' variable in texdoc.cnf to avoid this.", "warning")
             viewext = 'txt'
             if not config['viewer_'..viewext] then
                 err_print ("text viewer not found.  This "..
                 "should not happen, sorry.  Skipping\n\t"..filename, "error")
+                return
             end
-        end -- viewer for ext
-    end -- zipped or not
-    return config['viewer_'..viewext], viewer_replacement
+        end -- viewext
+    end -- zipped
+    return try_viewing(config['viewer_'..viewext], viewer_replacement)
 end
 
 -- view a file, if possible
 function try_viewing (view_command, viewer_replacement)
-    if not view_command then
-        view_result = false
+    if string.match (view_command, C.place_holder) then
+        view_command = string.gsub(
+        view_command, C.place_holder, viewer_replacement)
     else
-        if string.match (view_command, C.place_holder) then
-            view_command = string.gsub(
-            view_command, C.place_holder, viewer_replacement)
-        else
-            view_command = view_command..' '..viewer_replacement
-        end
-        err_print(view_command, 'debug1')
-        view_result = os.execute(view_command)
-        if not view_result then
-            err_print ("the following command failed\n\t"
-            .. view_command, "error")
-        end
+        view_command = view_command..' '..viewer_replacement
     end
-    return view_result
+    err_print(view_command, 'debug1')
+    if not os.execute(view_command) then
+        err_print("the following command failed\n\t"..view_command, "error")
+    end
 end
 
 -----------------------------   display results   ------------------------------
@@ -97,7 +93,7 @@ end
 -- if showall is false, stops as soon a non-exact match is encountered
 -- (unimplemented right now, waiting for the scoring routine)
 function print_menu (docfiles, showall)
-    max_lines = tonumber (config.max_lines) or 20
+    local max_lines = tonumber(config.max_lines) or 20
     if config.interact_switch and docfiles[max_lines+1] then
         -- there may be too many lines, count them
         local n
