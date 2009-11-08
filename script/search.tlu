@@ -11,7 +11,7 @@ load_env(L, {
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
     'ipairs', 'assert', 'tonumber', 'type', 'print',
     'err_print', 'win32_hook',
-    'config',
+    'config', 'alias',
 })
 
 -- variables shared by all functions below
@@ -27,7 +27,7 @@ local s_doc_roots, s_docfiles, s_no_regex, s_isdir
 --     exact = <boolean> does pattern match exactly,
 -- }
 
-------------------   exploring trees (kpse-style functions)   ------------------
+------------------   get results from TEXDOCS (à la kpse)   -------------------
 
 -- s_doc_roots is a Lua version of kpse's TEXDOCS
 -- structure of the s_doc_roots variable:
@@ -67,6 +67,7 @@ end
 -- return the real path of a docfile
 function real_path(docfile)
     if docfile.tree == nil then return docfile.name end
+    if s_doc_roots == nil then get_texdocs() end
     return win32_hook(s_doc_roots[docfile.tree].path..'/'..docfile.name)
 end
 
@@ -76,13 +77,11 @@ function code_path (code, file)
     return padding..code..':'..file
 end
 
--- here comes the main search function
--- find docfiles "matching" pattern
-function get_docfiles (pattern, no_regex)
-    s_no_regex = no_regex -- used in process_file()
-    pattern = normalize_pattern(pattern)
+-- find docfiles 
+function get_docfiles_texdocs (pattern)
     s_docfiles = {}
     s_is_dir = {} -- s_is_dir[path] = true iff path is a dir, see scan_lsr
+    if s_doc_roots == nil then get_texdocs() end
     for code, doc_root in ipairs (s_doc_roots) do
         root, shift = lsr_root (doc_root.path)
         if root and shift and doc_root.recursion_allowed then
@@ -171,17 +170,7 @@ function rmdirs (files)
     return res
 end
 
--- for sty files, we obviously don't want to look in TEXDOCS...
--- and we don't need a list since those are not duplicated (ahem...)
-function get_docfiles_sty (styname)
-    return {{
-        name = kpse.find_file(styname) ,
-        exact = true,
-        tree = nil,
-    }}
-end
-
-----------------------------   selecting results   -----------------------------
+------------------------------   select results   ------------------------------
 
 -- says if file has a 'good' extenstion according to ext_list
 function check_ext(file, pattern)
@@ -218,17 +207,40 @@ function process_file (file, pathfile, code, pattern)
     end
 end
 
--- for now, just make lowercase, but may do more later
-function normalize_pattern (pattern)
-    return string.lower(pattern)
+------------------------   get results from elsewhere   ------------------------
+
+-- for sty files, we obviously don't want to look in TEXDOCS...
+function get_docfiles_sty (styname)
+    return {{
+        name = kpse.find_file(styname) ,
+        exact = true,
+        tree = nil,
+    }}
+end
+
+------------------------------   main function   -------------------------------
+
+-- find docfiles according to pattern
+-- regex is optional, defaults to false
+function get_docfiles(pattern, regex)
+    if not regex then s_no_regex = true end
+    if string.match(string.lower(pattern), '%.([^/.]*)$') == 'sty'
+        and s_no_regex then
+        return get_docfiles_sty(pattern)
+    else
+        pattern = string.lower(pattern)
+        -- apply aliases if relevant
+        if s_no_regex and config.alias_switch and alias[pattern] then
+            err_print (pattern.." aliased to "..alias[pattern], 'info')
+            pattern = alias[pattern]
+        end
+        return get_docfiles_texdocs(pattern)
+    end
 end
 
 -- finally export a few symbols
 export_symbols(L, {
-    'get_texdocs',
     'real_path',
     'get_docfiles', 
-    'get_docfiles_sty',
 })
-
 

@@ -12,9 +12,6 @@ See texdoc.tlu for details.
 -- setup config options and aliases from various places
 setup_config_and_alias()
 
--- get the texdocs variable
-get_texdocs()
-
 ------------------------   looping over the arguments   ------------------------
 
 -- make sure we actually have argument(s)
@@ -22,8 +19,6 @@ assert_arg_not_empty ()
 
 -- initialising and saving a few values
 exit_code = 0
-local no_regex = (config.mode ~= 'regex')
-local real_get_docfiles = get_docfiles
 
 -- the actual loop
 for _, docname in ipairs(arg) do
@@ -31,21 +26,8 @@ for _, docname in ipairs(arg) do
     if arg[2] then
         print ("*** Results for: "..docname.." ***")
     end
-    -- apply aliases if relevant
-    if config.alias_switch and alias[docname] then
-        err_print (docname.." aliased to "..alias[docname], 'info')
-        docname = alias[docname]
-    end
-    -- exceptions for arguments with extension given
-    if config.mode ~= 'regex' then
-        docname_base, docname_ext = string.match (docname, '^(.*)%.(.*)$')
-        if docname_ext == 'sty' then
-            err_print ("using special search mode for sty files", 'info')
-            get_docfiles = get_docfiles_sty
-        end
-    end
     -- get results and sort them
-    local docfiles = get_docfiles(docname, no_regex)
+    local docfiles = get_docfiles(docname, config.mode == 'regex')
     sort_docfiles(docfiles)
     -- deliver results to the user
     if not docfiles[1] then apologize ('notfound', docname) end
@@ -60,8 +42,6 @@ for _, docname in ipairs(arg) do
     else
         print_menu(docfiles, showall)
     end
-    -- restore possibly diverted values
-    get_docfiles = real_get_docfiles
 end
 
 os.exit(exit_code)
