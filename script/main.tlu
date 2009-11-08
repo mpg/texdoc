@@ -23,25 +23,12 @@ exit_code = 0
 -- the actual loop
 for _, docname in ipairs(arg) do
     -- inform the user which arg is treated if more than one was provided
-    if arg[2] then
-        print ("*** Results for: "..docname.." ***")
-    end
+    if arg[2] then print ("*** Results for: "..docname.." ***") end
     -- get results and sort them
     local docfiles = get_docfiles(docname, config.mode == 'regex')
     sort_docfiles(docfiles)
     -- deliver results to the user
-    if not docfiles[1] then apologize ('notfound', docname) end
-    local showall = (config.mode == 'regex') or (config.mode == 'search')
-    if not showall and not docfiles[1].exact then
-        showall = true
-        err_print ("No exact match, trying full search mode.", "info")
-    end
-    if (config.mode == 'view')
-        or (config.mode == 'mixed' and not docfiles[2]) then
-        view_doc(docfiles[1])
-    else
-        print_menu(docfiles, showall)
-    end
+    deliver_results(docfiles, docname)
 end
 
 os.exit(exit_code)
