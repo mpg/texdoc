@@ -4,8 +4,6 @@ Small todo items
 - bug reported by Denis (write more debugging stuff in the search functions in
   order to understant it)
 
-- path simplification: do it correctly, in get_texdocs()
-
 Big changes planned
 ===================
 
