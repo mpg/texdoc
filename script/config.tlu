@@ -10,7 +10,7 @@ load_env(L, {
     'export_symbols',
     'string', 'table', 'os', 'kpse', 'lfs', 'io',
     'arg',
-    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next',
+    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
     'C',
     'err_print', 'win32_hook',
