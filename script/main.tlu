@@ -17,23 +17,21 @@ get_texdocs()
 
 ------------------------   looping over the arguments   ------------------------
 
--- make sure we actually have argument
+-- make sure we actually have argument(s)
 assert_arg_not_empty ()
 
 -- initialising and saving a few values
 exit_code = 0
-no_regex = true
-real_populate_docfiles = populate_docfiles
-real_mixed_populate_docfiles = mixed_populate_docfiles
-real_real_path = real_path
+local no_regex = (config.mode ~= 'regex')
+local real_get_docfiles = get_docfiles
 
 -- the actual loop
 for _, docname in ipairs(arg) do
-    -- inform the user which arg beeing treated if more than one was provided
+    -- inform the user which arg is treated if more than one was provided
     if arg[2] then
         print ("*** Results for: "..docname.." ***")
     end
-    -- applying alias if relevant
+    -- apply aliases if relevant
     if config.alias_switch and alias[docname] then
         err_print (docname.." aliased to "..alias[docname], 'info')
         docname = alias[docname]
@@ -43,57 +41,27 @@ for _, docname in ipairs(arg) do
         docname_base, docname_ext = string.match (docname, '^(.*)%.(.*)$')
         if docname_ext == 'sty' then
             err_print ("using special search mode for sty files", 'info')
-            populate_docfiles = populate_docfiles_sty
-            mixed_populate_docfiles = populate_docfiles_sty
-            real_path = function (arg) return arg end
+            get_docfiles = get_docfiles_sty
         end
     end
-    -- main "ifcase mode" construct
-    if (config.mode == 'regex') then
-        no_regex = false
-        populate_docfiles(docname)
-        if rel_docfiles[1] then
-            print_menu (rel_docfiles)
-        else
-            apologize ('notfound', docname)
-        end
-    elseif (config.mode == 'search') then
-        populate_docfiles(docname)
-        if exact_docfiles[1] or rel_docfiles[1] then
-            print_menu (exact_docfiles, rel_docfiles)
-        else
-            apologize ('notfound', docname)
-        end
-    elseif (config.mode == 'list') then
-        mixed_populate_docfiles (docname)
-        if exact_docfiles[1] then
-            print_menu (exact_docfiles)
-        else
-            apologize ('notfound', docname)
-        end
-    elseif (config.mode == 'view') then
-        mixed_populate_docfiles (docname)
-        if exact_docfiles[1] then
-            table.sort(exact_docfiles, file_order)
-            try_viewing (how_to_view(exact_docfiles[1]))
-        else
-            apologize ('notfound', docname)
-        end
-    elseif (config.mode == 'mixed') then
-        mixed_populate_docfiles (docname)
-        if (not exact_docfiles[1]) then         -- no results
-            apologize ('notfound', docname)
-        elseif (not exact_docfiles[2]) then     -- 1 result
-            local ok = try_viewing (how_to_view(exact_docfiles[1]))
-            if not ok then apologize ('oops') end
-        else                                    -- 2 or more results
-            print_menu (exact_docfiles)
-        end
+    -- get results and sort them
+    local docfiles = get_docfiles(docname, no_regex)
+    sort_docfiles(docfiles)
+    -- deliver results to the user
+    if not docfiles[1] then apologize ('notfound', docname) end
+    local showall = (config.mode == 'regex') or (config.mode == 'search')
+    if not showall and not docfiles[1].exact then
+        showall = true
+        err_print ("No exact match, trying full search mode.", "info")
     end
-    -- restoring possibly diverted values
-    populate_docfiles = real_populate_docfiles
-    mixed_populate_docfiles = real_mixed_populate_docfiles
-    real_path = real_real_path
+    if (config.mode == 'view')
+        or (config.mode == 'mixed' and not docfiles[2]) then
+        view_doc(docfiles[1])
+    else
+        print_menu(docfiles, showall)
+    end
+    -- restore possibly diverted values
+    get_docfiles = real_get_docfiles
 end
 
 os.exit(exit_code)

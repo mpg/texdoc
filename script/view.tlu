@@ -16,7 +16,13 @@ load_env(L, {
     'err_print',
 })
 
----------------------------------   viewing   ----------------------------------
+-----------------------------   view a document   ------------------------------
+
+-- view a document
+-- see search.tlu for the structure of the argument
+function view_doc(docfile)
+    try_viewing(how_to_view(real_path(docfile)))
+end
 
 -- prepare for viewing: returns <viewer command> and <viewer replacement>
 -- <viewer replacement> is either:
@@ -25,7 +31,6 @@ load_env(L, {
 -- The second case happens when the doc was zipped. In the case, this function
 -- unzips it in a tempdir so that the viewer command can use the unzipped file.
 function how_to_view (filename)
-    filename = real_path(filename) -- TODO: if not filename then ...
     viewext, zipext = nil, nil
     if support_zipped then
         viewext, zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
@@ -86,51 +91,52 @@ function try_viewing (view_command, viewer_replacement)
     return view_result
 end
 
---------------------------------   displaying   --------------------------------
+-----------------------------   display results   ------------------------------
 
--- display a table, sorted, numbered with given offset (0 by default),
--- with real path
-function display_table (t, offset)
-    offset = offset or 0
-    table.sort(t, file_order)
-    for i, val in ipairs (t) do
-        print(string.format('%2d %s', i+offset, real_path(val)))
-    end
-end
-
--- print a list of files as a menu (with an optional complementary list)
-function print_menu (files, comp)
-    comp = comp or {}
+-- print a list of files (structure: see search.tlu) as a menu
+-- if showall is false, stops as soon a non-exact match is encountered
+-- (unimplemented right now, waiting for the scoring routine)
+function print_menu (docfiles, showall)
     max_lines = tonumber (config.max_lines) or 20
-    local f = #files
-    if config.interact_switch then
-        local n = f + #comp
+    if config.interact_switch and docfiles[max_lines+1] then
+        -- there may be too many lines, count them
+        local n
+        if showall then
+            n = #docfiles
+        else
+            n = 0
+            while docfiles[n+1] and docfiles[n+1].exact do
+                n = n + 1
+            end
+        end
         if n > max_lines then
             io.write (n, " results.  Display them all? (y/N) ")
             local ans = io.read('*line')
             if not ((ans == 'y') or (ans == 'Y')
-                -- io.read is quite strange wrt windows line endings :-(
-                or (ans == '\ry') or (ans == '\rY')) then return end
+                -- io.read had a bug wrt windows eol on some versions of texlua
+                or (ans == '\ry') or (ans == '\rY')) then
+                return
+            end
         end
     end
-    display_table (files)
-    display_table (comp, f)
+    local i, doc
+    for i, doc in ipairs (docfiles) do
+        if (doc.exact == false) and not showall then break end
+        print(string.format('%2d %s', i, real_path(doc)))
+    end
     if config.interact_switch then
         io.write ("Please enter the number of the file to view, ",
         "anything else to skip: ")
         local num = tonumber(io.read('*line'))
-        if num and (num <= f) and files[num] then
-            try_viewing (how_to_view (files[num]))
-        elseif num and comp[num-f] then
-            try_viewing (how_to_view (comp[num-f]))
+        if num and docfiles[num] then
+            view_doc(docfiles[num])
         end
     end
 end
 
 -- finally export a few symbols
 export_symbols(L, {
-    'how_to_view',
-    'try_viewing',
+    'view_doc',
     'print_menu',
 })
 

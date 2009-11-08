@@ -8,47 +8,64 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'export_symbols',
-    'string',
+    'string', 'table',
     'ipairs',
     'config',
 })
 
--- compare two filenames with the following rule:
--- 1. extensions are ordered as in ext_list first,
--- 2. then filenames lexicographically (this include tree ordering).
-function file_order (a, b)
-    local ext_a = extension(a)
-    local ext_b = extension(b)
-    ext_pos_a = config.ext_list_inv[ext_a] or (config.ext_list_max+1)
-    ext_pos_b = config.ext_list_inv[ext_b] or (config.ext_list_max+1)
-    if ext_pos_a < ext_pos_b then
+-- sort docfiles
+function sort_docfiles(df)
+    table.sort(df, docfile_order)
+end
+
+-- compare docfiles: (see search.tlu for structure)
+-- 1. exact is better than non-exact,
+-- 2. then extensions are ordered as in ext_list,
+-- 3. then trees,
+-- 4. then filenames lexicographically.
+-- return true is a is better than b
+function docfile_order (a, b)
+    if a.exact and not b.exact then
         return true
-    elseif ext_pos_a > ext_pos_b then
+    elseif b.exact and not a.exact then
+        return false
+    elseif a.tree < b.tree then
+        return true
+    elseif b.tree < a.tree then
         return false
     else
-        return (a < b)
+        a.ext_pos = a.ext_pos or ext_pos(a.name)
+        b.ext_pos = b.ext_pos or ext_pos(b.name)
+        if a.ext_pos < b.ext_pos then
+            return true
+        elseif a.ext_pos > b.ext_pos then
+            return false
+        else
+            return (a.name < b.name)
+        end
     end
 end
 
--- returns the most specific extension of file in ext_list, or nil
-function extension(file)
-    local ext = nil
-    for _, e in ipairs(config.ext_list) do
+-- returns the index of the most specific extension of file in ext_list,
+-- or config.ext_list_max + 1
+function ext_pos(file)
+    local p, e, pos, ext
+    for p, e in ipairs(config.ext_list) do
         if (e == '*') and (ext == nil) then
-            ext = e
+            pos, ext = p, e
         elseif (e == '') and not string.find(file, '.', 1, true) then
-            ext = e
+            pos, ext = p, e
         elseif string.sub(file, -string.len(e)-1) == '.'..e then
             if (ext == nil) or (ext == '*')
                 or (string.len(e) > string.len(ext)) then
-                ext = e
+                pos, ext = p, e
             end
         end
     end
-    return ext
+    return pos or (config.ext_list_max + 1)
 end
 
 -- export a few symbols
 export_symbols(L, {
-    'file_order',
+    'sort_docfiles',
 })

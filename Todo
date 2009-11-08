@@ -12,8 +12,6 @@ Big changes planned
 Code rework:
 - Dispatch the code in many files. Get rid of global variables as much as
   possible, document the data structures.
-- Merge the rel_docfiles and exact_docfiles list. Change their structure in oder
-  to allow for metadata (how their where found, their priority, etc).
 - Make a clear separation between (1) finding results (2) sorting and selecting
   them.
 
@@ -40,7 +38,8 @@ Rework modes wrt the new scoring system. Decide how results shoud be filtered
 (eg score >= 0 is like current exact_docfiles, -10 < score < 0 is like
 rel_docfiles and score <= -10 is killed).
 
-Decide is regex (or shell-glob) mode should be dropped (probably yes).
+Decide if regex (or shell-glob) mode should be dropped (probably yes) or how it
+should be handled.
 
 Misc ideas
 ==========
