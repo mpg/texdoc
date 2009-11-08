@@ -134,7 +134,6 @@ end
 -- set config from the command line
 -- Please make sure to update C.usage_msg accordingly
 -- and set a default value in setup_config_from_defaults() if relevant.
--- TODO: should use some getopt_long()-like mechanism some day
 function setup_config_from_cl ()
     local curr_arg
     local function set_config_elt(key, val)
@@ -142,6 +141,7 @@ function setup_config_from_cl ()
     end
     while arg[1] and string.match(arg[1],'^%-') do
         curr_arg = table.remove(arg,1)
+        -- special options
         if (curr_arg == '-h') or (curr_arg == '--help') then
             print (C.usage_msg)
             os.exit(0)
@@ -153,6 +153,7 @@ function setup_config_from_cl ()
             setup_config_from_files ()
             show_config_files (print, true)
             os.exit(0)
+        -- options related to mode
         elseif (curr_arg == '-w') or (curr_arg == '--view') then
             set_config_elt('mode', 'view')
         elseif (curr_arg == '-m') or (curr_arg == '--mixed') then
@@ -160,17 +161,20 @@ function setup_config_from_cl ()
         elseif (curr_arg == '-l') or (curr_arg == '--list') then
             set_config_elt('mode', 'list')
         elseif (curr_arg == '-s') or (curr_arg == '--search') then
-            set_config_element ('mode', 'search', {src='cl', name=curr_arg})
+            set_config_elt ('mode', 'search')
         elseif (curr_arg == '-r') or (curr_arg == '--regex') then
-            set_config_element ('mode', 'regex', {src='cl', name=curr_arg})
+            set_config_elt ('mode', 'regex')
+        -- interaction
         elseif (curr_arg == '-I') or (curr_arg == '--nointeract') then
             set_config_elt('interact_switch', 'false')
         elseif (curr_arg == '-i') or (curr_arg == '--interact') then
             set_config_elt('interact_switch', 'true')
+        -- alias
         elseif (curr_arg == '-A') or (curr_arg == '--noalias') then
             set_config_elt('alias_switch', 'false')
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
+        -- verbosity
         elseif (curr_arg == '-d') or (curr_arg == '--debug') then
             set_config_elt('verbosity_level', C.err_max)
         elseif string.match(curr_arg, '^%-v') then
@@ -179,12 +183,14 @@ function setup_config_from_cl ()
         elseif string.match(curr_arg, '^%-%-verbosity') then
             local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
             set_config_elt('verbosity_level', value)
+        -- extensions list
         elseif string.match(curr_arg, '^%-e') then
             local value = string.gsub(curr_arg, '^%-e=?', '')
             set_config_elt('ext_list', value)
         elseif string.match(curr_arg, '^%-%-extensions') then
             local value = string.gsub(curr_arg, '^%-%-extensions=?', '')
             set_config_elt('ext_list', value)
+        -- problem
         else
             err_print ("unknown option: "..curr_arg, "error")
             print (C.error_msg)
@@ -477,4 +483,3 @@ end
 export_symbols(L, {
     'setup_config_and_alias',
 })
-

@@ -5,6 +5,14 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+local L = {}
+load_env(L, {
+    'export_symbols',
+    'string', 'io', 'os',
+    'C',
+    'config',
+})
+
 -- change '/' to '\' on windows
 if os.type == "windows" then
     function win32_hook (path)
@@ -26,3 +34,8 @@ function err_print (msg, lvl)
     end
 end
 
+-- finally export a few symbols
+export_symbols(L, {
+    'err_print',
+    'win32_hook',
+})

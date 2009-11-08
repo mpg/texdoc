@@ -9,17 +9,11 @@ Small todo items
 Big changes planned
 ===================
 
-Code rework:
-- Dispatch the code in many files. Get rid of global variables as much as
-  possible, document the data structures.
-- Make a clear separation between (1) finding results (2) sorting and selecting
-  them.
-
 Also search using info from the tlpdb (use docfiles associated with a given
-runfile -- see if it causes more hamr than good for bundles).
+runfile -- see if it causes more harm than good for bundles).
 
 Allow for multiple patterns to be searched at one time. Change the alias
-directove so that it adds patterns (possibly make another directive for
+directive so that it adds patterns (possibly make another directive for
 replacing patterns -- see if they should cascade).
 
 Create good default scoring rules. Ideas:

@@ -20,8 +20,21 @@ Previous work in the public domain:
 - Original shell script by Thomas Esser, David Aspinall, and Simon Wilkinson.
 --]]
 
+-- load a local environment, importing symbols from (this function's) _G
+-- usage: local L = {} load_env(L, {'a', 'b'})
+function load_env(l, symbols)
+    local _, symb
+    for _, symb in ipairs(symbols) do
+        assert(_G[symb] ~= nil,
+            'Internal error: trying to import undefined symbol '..symb..'.')
+        l[symb] = _G[symb]
+    end
+    setfenv(2, l)
+end
+
 -- export symbols from a local environment to (this fonction's) _G
 function export_symbols(l, symbols)
+    local _, symb
     for _, symb in ipairs(symbols) do
         assert(l[symb] ~= nil,
             'Internal error: trying to export undefined symbol '..symb..'.')
@@ -29,18 +42,6 @@ function export_symbols(l, symbols)
             'Internal error: trying to export existing symbol '..symb..'.')
         _G[symb] = l[symb]
     end
-end
-
--- load a local environment, importing symbols from (this function's) _G
--- usage: local L = {} load_env(L, {'a', 'b'})
--- warning: must be defined after export_symbols so that it can be imported...
-function load_env(l, symbols)
-    for _, symb in ipairs(symbols) do
-        assert(_G[symb] ~= nil,
-            'Internal error: trying to import undefined symbol '..symb..'.')
-        l[symb] = _G[symb]
-    end
-    setfenv(2, l)
 end
 
 -- load a component of texdoc
@@ -66,8 +67,8 @@ texdoc_load('search')
 texdoc_load('score')
 texdoc_load('view')
 
--- the last component is main
+-- execute main()
 texdoc_load('main')
 
--- this point should never be reached
-os.exit(255)
+-- the end
+os.exit(0)
