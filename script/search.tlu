@@ -14,8 +14,10 @@ load_env(L, {
     'config', 'alias',
 })
 
--- variables shared by all functions below
-local s_doc_roots, s_docfiles, s_no_regex, s_isdir
+----------------------------   the docfiles list   -----------------------------
+
+-- shared by all functions below
+local s_doc_files
 
 -- structure of the s_docfiles variable
 -- s_docfiles = {
@@ -23,66 +25,58 @@ local s_doc_roots, s_docfiles, s_no_regex, s_isdir
 -- }
 -- docfile = {
 --     name = filename relative to tree, absolute if tree == nil,
---     tree = number of the tree in s_doc_roots,
+--     tree = number of the tree in doc_roots,
 --     exact = <boolean> does pattern match exactly,
 -- }
 
 ------------------   get results from TEXDOCS (à la kpse)   -------------------
 
--- s_doc_roots is a Lua version of kpse's TEXDOCS
--- structure of the s_doc_roots variable:
--- s_doc_roots[i] = {
+do -- scope of doc_roots
+local doc_roots
+
+-- doc_roots is a Lua version of kpse's TEXDOCS
+-- structure of the doc_roots variable:
+-- doc_roots[i] = {
 --     path                 = <path>,
 --     index_mandatory      = <does path begin with !! in TEXDOCS?>
 --     recursion_allowed    = <does path ends with // in TEXDOCS?>,
 -- }
 
--- set the s_doc_roots list from kpse's $TEXDOCS
+-- set the doc_roots list from kpse's $TEXDOCS
 function get_texdocs ()
-    s_doc_roots = {}
+    doc_roots = {}
     local sep = (os.type == 'windows') and ';' or ':'
     local kpse_texdocs = kpse.expand_var("$TEXDOCS")
     -- expand the path and turn it into a lua list
     local raw_doc_roots = string.explode(kpse.expand_braces(kpse_texdocs), sep)
     err_print('Search paths:', 'debug3')
     for i, dir in ipairs(raw_doc_roots) do
-        s_doc_roots[i] = {}
+        doc_roots[i] = {}
         local n
         dir, n = string.gsub (dir, '//$', '')
-        s_doc_roots[i].recursion_allowed = (n == 1)
-        s_doc_roots[i].path, n = string.gsub (dir, '^!!', '')
-        s_doc_roots[i].index_mandatory = (n == 1)
+        doc_roots[i].recursion_allowed = (n == 1)
+        doc_roots[i].path, n = string.gsub (dir, '^!!', '')
+        doc_roots[i].index_mandatory = (n == 1)
         err_print(string.format('%s (index_mandatory=%s, recursion_allowed=%s)',
-                s_doc_roots[i].path,
-                s_doc_roots[i].index_mandatory   and 'true' or 'false',
-                s_doc_roots[i].recursion_allowed and 'true' or 'false'),
+                doc_roots[i].path,
+                doc_roots[i].index_mandatory   and 'true' or 'false',
+                doc_roots[i].recursion_allowed and 'true' or 'false'),
             'debug3')
     end
 end
 
--- roots are represented by their index in s_doc_roots
--- this is usefull to avoid fake matches and also for the sort routine
--- conversions are done by real_path() below and code_path() later
-
 -- return the real path of a docfile
 function real_path(docfile)
     if docfile.tree == nil then return docfile.name end
-    if s_doc_roots == nil then get_texdocs() end
-    return win32_hook(s_doc_roots[docfile.tree].path..'/'..docfile.name)
+    if doc_roots == nil then get_texdocs() end
+    return win32_hook(doc_roots[docfile.tree].path..'/'..docfile.name)
 end
 
--- encode the base path on two digits and concatenate with filename
-function code_path (code, file)
-    local padding = (code > 9) and '' or '0'
-    return padding..code..':'..file
-end
-
--- find docfiles 
+-- find docfiles in texdocs directories
 function get_docfiles_texdocs (pattern)
     s_docfiles = {}
-    s_is_dir = {} -- s_is_dir[path] = true iff path is a dir, see scan_lsr
-    if s_doc_roots == nil then get_texdocs() end
-    for code, doc_root in ipairs (s_doc_roots) do
+    if doc_roots == nil then get_texdocs() end
+    for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root.path)
         if root and shift and doc_root.recursion_allowed then
             scan_lsr(root, code, shift, pattern)
@@ -92,7 +86,7 @@ function get_docfiles_texdocs (pattern)
                 pattern, doc_root.recursion_allowed)
         end
     end
-    return rmdirs(s_docfiles)
+    return s_docfiles
 end
 
 -- merge two components of a path, taking care of empty components
@@ -108,13 +102,14 @@ function scan_tree (code, base, cwd, pattern, recurse)
             if lfs.isdir(base..'/'..f) then
                 if recurse then scan_tree(code, base, f, pattern, recurse) end
             else
-                process_file(file, f, code, pattern, true)
+                local df = process_file(file, f, code, pattern, true)
+                if df then table.insert(s_docfiles, df) end
             end
         end
     end
 end
 
--- finds a ls-R file in a parent directory an return it or nil
+-- find a ls-R file in a parent directory an return it or nil
 function lsr_root (path)
     if not lfs.isdir (path) then return end
     local root, shift = path, ''
@@ -132,6 +127,8 @@ end
 
 -- scan a ls-R file
 function scan_lsr (cwd, code, shift, pattern)
+    local is_dir = {} -- is_dir[path] = true iff path is a dir
+    local results = {}
     local isdoc = false
     local current_dir
     local l = #shift
@@ -148,27 +145,26 @@ function scan_lsr (cwd, code, shift, pattern)
             if string.sub (dir_line, 1, l) == shift then
                 isdoc = true
                 current_dir = string.sub (dir_line, l+1)
-                s_is_dir[code_path(code, current_dir)] = true
+                is_dir[current_dir] = true
             elseif isdoc then
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
         elseif isdoc then
-            process_file (line, merge_path(current_dir, line), code, pattern)
+            local df = process_file(
+                line, merge_path(current_dir, line), code, pattern)
+            if df then table.insert(results, df) end
         end
     end
     lsr:close()
-end
-
--- remove directories from a list
-function rmdirs (files)
-    local res = {}
-    for _, f in ipairs(files) do
-        if not s_is_dir[code_path(f.tree, f.name)] then
-            table.insert(res, f)
+    -- add non-directories to the list
+    for _, df in ipairs(results) do
+        if not is_dir[df.name] then
+            table.insert(s_docfiles, df)
         end
     end
-    return res
 end
+
+end -- scope of doc_roots
 
 ------------------------------   select results   ------------------------------
 
@@ -191,20 +187,22 @@ function check_ext(file, pattern)
     return good_ext, exact_match
 end
 
--- include a file in the *_docfiles lists if it "matches"
+-- return a docfile entry if it "matches", nil ortherwise
 function process_file (file, pathfile, code, pattern)
     file = string.lower(file)
     local base, ext = string.match(file, '^(.*)%.(.*)$')
-    if string.find(string.lower(pathfile), pattern, 1, s_no_regex) then
+    if string.find(string.lower(pathfile), pattern,
+            1, config.regex ~= 'regex') then
         local good_ext, exact_match = check_ext(file, pattern)
         if good_ext then
-            table.insert(s_docfiles, {
+            return {
                 name = pathfile,
                 tree = code,
                 exact = exact_match,
-            })
+            }
         end
     end
+    return nil
 end
 
 ------------------------   get results from elsewhere   ------------------------
@@ -221,16 +219,15 @@ end
 ------------------------------   main function   -------------------------------
 
 -- find docfiles according to pattern
--- regex is optional, defaults to false
-function get_docfiles(pattern, regex)
-    if not regex then s_no_regex = true end
+function get_docfiles(pattern)
+    local no_regex = (config.mode ~= 'regex')
     if string.match(string.lower(pattern), '%.([^/.]*)$') == 'sty'
-        and s_no_regex then
+        and no_regex then
         return get_docfiles_sty(pattern)
     else
         pattern = string.lower(pattern)
         -- apply aliases if relevant
-        if s_no_regex and config.alias_switch and alias[pattern] then
+        if no_regex and config.alias_switch and alias[pattern] then
             err_print (pattern.." aliased to "..alias[pattern], 'info')
             pattern = alias[pattern]
         end
