@@ -188,7 +188,7 @@ function setup_config_from_cl ()
         else
             err_print ("unknown option: "..curr_arg, "error")
             print (error_msg)
-            os.exit(1)
+            os.exit(2)
         end
     end
 end

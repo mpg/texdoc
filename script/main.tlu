@@ -5,20 +5,14 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
------------------------------   initialisations   ------------------------------
-
--- kpse is already initialised in texdoc.tlu
-
 -- setup config options and aliases from various places
 setup_config_and_alias()
 
-------------------------   looping over the arguments   ------------------------
-
 -- make sure we actually have argument(s)
-assert_arg_not_empty ()
-
--- initialising and saving a few values
-exit_code = 0
+if not arg[1] then
+    print (usage_msg)
+    os.exit(2)
+end
 
 -- the actual loop
 for _, docname in ipairs(arg) do
@@ -31,4 +25,4 @@ for _, docname in ipairs(arg) do
     deliver_results(docfiles, docname)
 end
 
-os.exit(exit_code)
+os.exit(0)
