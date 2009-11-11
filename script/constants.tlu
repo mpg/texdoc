@@ -13,7 +13,7 @@ load_env(L, {
 
 -- progname and version
 progname = 'texdoc'
-version = '0.47'
+version = '0.49'
 
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
