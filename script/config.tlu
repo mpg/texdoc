@@ -440,20 +440,17 @@ function setup_config_from_defaults()
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
-    -- now a particular case for config.ext_list and zip-related stuff
+    -- extensions
+    set_config_elt('ext_list', 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ')
+    -- now a particular case for zip-related stuff
     if C.support_zipped then
-        set_config_elt('ext_list',
-        'pdf,pdf.gz,pdf.bz2, html,html.gz,html.bz2, txt,txt.gz,txt.bz2,'..
-        'man1.pdf, man5.pdf'..
-        'ps,ps.gz,ps.bz2, dvi,dvi.gz,dvi.bz2, ,gz,bz2')
         set_config_ls {
-            unzip_gz    = 'gzip -d -c ',
-            unzip_bz2   = 'bzip -d -c ',
+            zipext_list = 'gz, bz2',
+            unzip_gz    = 'gzip -d -c',
+            unzip_bz2   = 'bzip -d -c',
             rm_file     = 'rm -f',
             rm_dir      = 'rmdir'
         }
-    else
-        set_config_elt('ext_list', 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ')
     end
 end
 

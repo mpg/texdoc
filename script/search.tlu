@@ -10,8 +10,8 @@ load_env(L, {
     'export_symbols',
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
     'ipairs', 'assert', 'tonumber', 'type', 'print', 'tostring',
-    'err_print', 'win32_hook',
-    'config', 'alias',
+    'err_print', 'win32_hook', 'parse_zip',
+    'config', 'alias', 'C',
 })
 
 ----------------------------   the docfiles list   -----------------------------
@@ -179,6 +179,9 @@ end -- scope of doc_roots
 -- says if file has a 'good' extenstion according to ext_list
 function check_ext(file, pattern)
     local good_ext, exact_match = false, false
+    -- remove zipext if applicable
+    file = parse_zip(file)
+    -- then do the normal thing
     local l, pat = string.len(pattern) + 1, pattern..'.'
     for _, e in ipairs(config.ext_list) do
         if e == '*' then

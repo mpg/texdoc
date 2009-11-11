@@ -34,11 +34,11 @@
 # If you want to enable support for zipped documentation (see comments in
 # texdoc.tlu), you may want to adapt viewer_* so that it starts a subshell:
 #
-# viewer_pdf = (xpdf %s )&
+# viewer_pdf = (xpdf %s) &
 #
 # Otherwise, the & will have no effect since the viewing command is followed by
 # some cleanup-commands for temporary files. For the same reason, %s must be the
-# last thing on you command line: (xpdf %s -option) will not work.
+# last thing on your command line: (xpdf %s -option) will not work.
 
 ### Other settings ###
 

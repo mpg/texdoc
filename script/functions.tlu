@@ -9,6 +9,7 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'io', 'os',
+    'ipairs',
     'C',
     'config',
 })
@@ -34,8 +35,24 @@ function err_print (msg, lvl)
     end
 end
 
+-- if zip is support and file is base..'.'..zip with zip in zipext_list, 
+-- return base, zip -- otherwise, returns file, nil
+function parse_zip(file) 
+    if C.support_zipped then
+        local zip
+        for _, zip in ipairs(config.zipext_list) do
+            local l = #zip + 1
+            if string.sub(file, -l, -1) == '.'..zip then
+                return string.sub(file, 1, -l - 1), zip
+            end
+        end
+    end
+    return file, nil
+end
+
 -- finally export a few symbols
 export_symbols(L, {
     'err_print',
     'win32_hook',
+    'parse_zip',
 })

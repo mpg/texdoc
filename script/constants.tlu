@@ -57,8 +57,7 @@ known_options = {
     'lastfile_switch',
     'rm_dir',
     'rm_file',
-    'unzip_bz2',
-    'unzip_gz',
+    'unzip_.*',
 }
 
 err_priority = {
@@ -79,11 +78,16 @@ place_holder = '%%s' -- used for viewer commands
 --
 -- optionally, texdoc can support compressed documentation, but this is
 -- system-dependant (commands for unzipping, temporary files, etc).
--- Since TeX Live doesn't ship compressed doc, downstream distributors who
--- want to ship zipped doc should change support_zipped to true *and* make sure
--- everything  works for them (look for support_zipped in the code).
--- If you use this feature, please let us know: if nobody uses it,
--- we'll drop it at some point.
+-- Since TeX Live doesn't ship compressed documentation, and I'm too lazy to
+-- make zip support work reliably on all platforms, I don't turn into an
+-- official option. However, it should work on Unix platforms.
+--
+-- If you enable zip support here, please check the configuration in config.tlu
+-- (look for support_zipped). The zip command should write the unzipped file to
+-- STDOUT. Check carefully that everything works as expected, since it got far
+-- less testing than the rest of texdoc.
+--
+-- See also comments in texdoc.cnf about viewer settings.
 support_zipped = false
 
 -- make C a proxy to the local environment

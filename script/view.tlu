@@ -13,7 +13,7 @@ load_env(L, {
     'config', 
     'real_path',
     'C',
-    'err_print',
+    'err_print', 'parse_zip',
 })
 
 -----------------------------   view a document   ------------------------------
@@ -21,55 +21,63 @@ load_env(L, {
 -- view a document
 -- see search.tlu for the structure of the argument
 function view_doc(docfile)
-    view_file(real_path(docfile))
+    return view_file(real_path(docfile))
 end
 
--- prepare for viewing: returns <viewer command> and <viewer replacement>
--- <viewer replacement> is either:
+-- get viewer and viewer_replacement before calling try_viewing
+-- returns false of failure, true on success
+-- viewer_replacement is either:
 -- 1. the filename, quoted with "
 -- 2. the filename, quoted with " followed by some rm commands
 -- The second case happens when the doc was zipped. In the case, this function
 -- unzips it in a tempdir so that the viewer command can use the unzipped file.
 function view_file (filename)
-    local viewext, zipext
-    if C.support_zipped then
-        viewext, zipext = string.match(filename, '.*%.([^.]*)%.([^.]*)$')
-        if viewext and zipext then
-            unzip_command = config['unzip_'..zipext]
-            local basename_pattern = '.*/(.*%.' .. viewext .. ')'
-            basename = string.match(filename,basename_pattern)
-            tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
-            unzip_commandline = unzip_command .. filename .. " > "
-            .. tmpdir .. "/" .. basename
-            if os.execute(unzip_commandline) then
-                filename = tmpdir .. "/" .. basename
-            else
-                print("Error executing \n" .. unzip_commandline)
-            end
-            viewer_replacement = '"' .. filename .. '"; '
-            .. config.rm_file .. ' ' .. filename .. '; '
-            .. config.rm_dir .. ' ' .. tmpdir
+    local viewer, viewer_replacement
+    -- check if the file is zipped
+    local nozipname, zipext = parse_zip(filename)
+    -- determine viewer_replacement
+    if zipext then
+        local unzip_cmd = config['unzip_'..zipext]
+        if not unzip_cmd then
+            err_print("No unzip command for ."..zipext..' files, skipping '
+                ..filename, 'error')
+            return false
+        end
+        local tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
+        if not tmpdir then
+            err_print('Failed to create tempdir to unzip.', 'error')
+            return false
+        end
+        local basename = string.match(nozipname, '.*/(.*)$') or nozipname
+        local tmpfile = '"'..tmpdir..'/'..basename..'"'
+        if not os.execute(unzip_cmd..' "'..filename..'">'..tmpfile) then
+            err_print("Failed to unzip '"..filename.."'", 'error')
+            os.remove(tmpfile)
+            os.remove(tmpdir)
+            return false
+        end
+        viewer_replacement = ''..tmpfile..'; '
+            ..config.rm_file..' '..tmpfile..'; '
+            ..config.rm_dir..' '..tmpdir
+        filename = nozipname
+    else
+        viewer_replacement = '"'..filename..'"'
+    end
+    -- files without extension are assumed to be text
+    local viewext = string.match(filename,'.*%.([^/]*)$') or 'txt'
+    -- special case : sty files use txt viewer
+    if viewext == 'sty' then viewext = 'txt' end
+    if not config['viewer_'..viewext] then
+        err_print ("cannot find a viewer for file\n\t"..filename..
+        "\nUsing viewer_txt as a fallback.  Set the 'viewer_"..viewext..
+        "' variable in texdoc.cnf to avoid this.", "warning")
+        viewext = 'txt'
+        if not config['viewer_'..viewext] then
+            err_print ("text viewer not found.  This "..
+            "should not happen, sorry.  Skipping\n\t"..filename, "error")
+            return false
         end
     end
-    -- if viewext wasn't set the zipped way, then try the normal way
-    if not viewext then
-        viewer_replacement = '"' .. filename .. '"'
-        -- files without extension are assumed to be text
-        viewext = string.match(filename,'.*%.(.*)$') or 'txt'
-        -- special case : sty files use txt viewer
-        if viewext == 'sty' then viewext = 'txt' end
-        if not config['viewer_'..viewext] then
-            err_print ("cannot find a viewer for file\n\t"..filename..
-            "\nUsing viewer_txt as a fallback.  Set the `viewer_"..viewext..
-            "' variable in texdoc.cnf to avoid this.", "warning")
-            viewext = 'txt'
-            if not config['viewer_'..viewext] then
-                err_print ("text viewer not found.  This "..
-                "should not happen, sorry.  Skipping\n\t"..filename, "error")
-                return
-            end
-        end -- viewext
-    end -- zipped
     return try_viewing(config['viewer_'..viewext], viewer_replacement)
 end
 
@@ -83,8 +91,10 @@ function try_viewing (view_command, viewer_replacement)
     end
     err_print(view_command, 'debug1')
     if not os.execute(view_command) then
-        err_print("the following command failed\n\t"..view_command, "error")
+        err_print("Failed to execute '"..view_command.."'", "error")
+        return false
     end
+    return true
 end
 
 -----------------------------   display results   ------------------------------
