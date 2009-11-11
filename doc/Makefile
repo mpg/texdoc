@@ -7,7 +7,7 @@ texdoc.pdf: texdoc.tex
 	pdflatex --interaction=batchmode $< >/dev/null
 	pdflatex --interaction=batchmode $< >/dev/null
 
-texdoc.1: texdoc ../texdoc.tlu Makefile
+texdoc.1: texdoc ../script/constants.tlu Makefile
 	help2man -N -n"find & view documentation in TeX Live" ./$< > $@
 
 texdoc.man1.html: texdoc.1

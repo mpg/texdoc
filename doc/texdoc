@@ -2,5 +2,5 @@
 
 # This fake texdoc is intended to try and make help2man happy
 
-texlua ../texdoc.tlu "$@" | sed -e 's/^\([^U][^-:]*:\) /\1\
+texlua ../script/texdoc.tlu "$@" | sed -e 's/^\([^U][^-:]*:\) /\1\
 \t/'
