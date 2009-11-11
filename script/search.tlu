@@ -9,7 +9,7 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
-    'ipairs', 'assert', 'tonumber', 'type', 'print',
+    'ipairs', 'assert', 'tonumber', 'type', 'print', 'tostring',
     'err_print', 'win32_hook',
     'config', 'alias',
 })
@@ -59,8 +59,8 @@ function get_texdocs ()
         doc_roots[i].index_mandatory = (n == 1)
         err_print(string.format('%s (index_mandatory=%s, recursion_allowed=%s)',
                 doc_roots[i].path,
-                doc_roots[i].index_mandatory   and 'true' or 'false',
-                doc_roots[i].recursion_allowed and 'true' or 'false'),
+                tostring(doc_roots[i].index_mandatory),
+                tostring(doc_roots[i].recursion_allowed)),
             'debug3')
     end
 end
@@ -79,9 +79,13 @@ function get_docfiles_texdocs (pattern)
     for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root.path)
         if root and shift and doc_root.recursion_allowed then
+            err_print("Looking in tree '"..doc_root.path
+                .."' using ls-R file'" ..root.."/ls-R'.", 'debug4')
             scan_lsr(root, code, shift, pattern)
         elseif (not doc_root.index_mandatory)
             and lfs.isdir(doc_root.path) then
+            err_print("Looking in tree '"..doc_root.path
+                .."' using filesystem.", 'debug4')
             scan_tree(code, doc_root.path, '',
                 pattern, doc_root.recursion_allowed)
         end
@@ -96,6 +100,7 @@ end
 
 -- scan a tree without ls-R file
 function scan_tree (code, base, cwd, pattern, recurse)
+    err_print("Entering directory: "..cwd, 'debug4')
     for file in lfs.dir(base..'/'..cwd) do
         if file ~= '.' and file ~= '..' then
             local f = (cwd == '') and file or cwd..'/'..file
@@ -107,6 +112,7 @@ function scan_tree (code, base, cwd, pattern, recurse)
             end
         end
     end
+    err_print("Leaving directory: "..cwd, 'debug4')
 end
 
 -- find a ls-R file in a parent directory an return it or nil
@@ -146,7 +152,9 @@ function scan_lsr (cwd, code, shift, pattern)
                 isdoc = true
                 current_dir = string.sub (dir_line, l+1)
                 is_dir[current_dir] = true
+                err_print('Scanning directory: '..current_dir, 'debug4')
             elseif isdoc then
+                err_print("Finished scanning: "..shift, 'debug4')
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
         elseif isdoc then
@@ -194,6 +202,8 @@ function process_file (file, pathfile, code, pattern)
     if string.find(string.lower(pathfile), pattern,
             1, config.regex ~= 'regex') then
         local good_ext, exact_match = check_ext(file, pattern)
+        err_print(string.format("File '%s' matches; good_ext=%s, exact=%s",
+            pathfile, tostring(good_ext), tostring(exact_match)), 'debug5')
         if good_ext then
             return {
                 name = pathfile,

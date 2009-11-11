@@ -68,8 +68,10 @@ err_priority = {
     debug1  = 4,
     debug2  = 5,
     debug3  = 6,
+    debug4  = 7,
+    debug5  = 8,
 }
-err_max = 6
+err_max = 8
 
 place_holder = '%%s' -- used for viewer commands
 
