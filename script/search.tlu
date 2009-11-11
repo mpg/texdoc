@@ -177,42 +177,48 @@ end -- scope of doc_roots
 
 -- says if file has a 'good' extenstion according to ext_list
 function check_ext(file)
+    file = string.lower(file)
     local good_ext, exact_match = false, false
     -- remove zipext if applicable
     file = parse_zip(file)
     -- then do the normal thing
-    local l, pat = string.len(s_pattern) + 1, s_pattern..'.'
-    for _, e in ipairs(config.ext_list) do
-        if e == '*' then
-            good_ext = true
-            if string.sub(file, 1, l) == pat then exact_match = true end
-        elseif (e == '') then
-            if not string.find(file, '.', 1, true) then good_ext = true end
-            if file == s_pattern then exact_match = true end
-        else
-            if string.sub(file, -string.len(e)) == e then good_ext = true end
-            if file == s_pattern..'.'..e then exact_match = true end
+    local pattern
+    for _, pattern in ipairs(s_patterns) do
+        local l, pat = string.len(pattern) + 1, pattern..'.'
+        for _, e in ipairs(config.ext_list) do
+            if e == '*' then
+                good_ext = true
+                if string.sub(file, 1, l) == pat then exact_match = true end
+            elseif (e == '') then
+                if not string.find(file, '.', 1, true) then good_ext = true end
+                if file == pattern then exact_match = true end
+            else
+                if string.sub(file, -string.len(e)) == e then good_ext=true end
+                if file == pattern..'.'..e then exact_match = true end
+            end
         end
     end
     return good_ext, exact_match
 end
 
 -- return a docfile entry if it "matches", nil ortherwise
+-- TODO: can match in multiple ways
 function process_file (file, pathfile, code)
     err_print('Processing file: '..pathfile, 'debug5')
-    file = string.lower(file)
-    local base, ext = string.match(file, '^(.*)%.(.*)$')
-    if string.find(string.lower(pathfile), s_pattern,
+    local pattern
+    for _, pattern in ipairs(s_patterns) do
+        if string.find(string.lower(pathfile), pattern,
             1, config.regex ~= 'regex') then
-        local good_ext, exact_match = check_ext(file, s_pattern)
-        err_print(string.format("File '%s' matches; good_ext=%s, exact=%s",
+            local good_ext, exact_match = check_ext(file)
+            err_print(string.format("File '%s' matches; good_ext=%s, exact=%s",
             pathfile, tostring(good_ext), tostring(exact_match)), 'debug5')
-        if good_ext then
-            return {
-                name = pathfile,
-                tree = code,
-                exact = exact_match,
-            }
+            if good_ext then
+                return {
+                    name = pathfile,
+                    tree = code,
+                    exact = exact_match,
+                }
+            end
         end
     end
     return nil
@@ -243,10 +249,9 @@ function get_docfiles(pattern)
     s_docfiles = {}
     if string.match(string.lower(pattern), '%.([^/.]*)$') == 'sty'
         and no_regex then
-        s_pattern = pattern
-        get_docfiles_sty()
+        get_docfiles_sty(pattern)
     else
-        s_pattern = string.lower(pattern)
+        s_patterns = {string.lower(pattern)}
         get_docfiles_texdocs()
     end
     return s_docfiles
