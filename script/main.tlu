@@ -11,10 +11,11 @@ load_env(L, {
     'print', 'ipairs',
     'arg',
     'C',
+    'config',
     'setup_config_and_alias',
     'get_docfiles',
     'sort_docfiles',
-    'deliver_results'
+    'deliver_results',
 })
 
 -- setup config options and aliases from various places
@@ -30,7 +31,13 @@ end
 local docname
 for _, docname in ipairs(arg) do
     -- inform the user which arg is treated if more than one was provided
-    if arg[2] then print ("*** Results for: "..docname.." ***") end
+    if arg[2] then 
+        if config.machine_switch == true then
+            print('\t'..docname)
+        else
+            print ("*** Results for: "..docname.." ***")
+        end
+    end
     -- get results and sort them
     local docfiles = get_docfiles(docname)
     sort_docfiles(docfiles)

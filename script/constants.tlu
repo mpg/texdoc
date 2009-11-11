@@ -35,6 +35,7 @@ Usage: texdoc [OPTIONS]... [NAME]...
   -I, --nointeract      Use plain lists, no interaction required.
   -v, --verbosity=N     Set verbosity level to N.
   -d, --debug           Set verbosity level to maximum.
+  -M, --machine         Use a more machine-friendly output format.
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf files, see the -f option.
 Homepage: http://tug.org/texdoc/
@@ -51,7 +52,9 @@ notfound_msg_ph = 'PKGNAME'
 known_options = {
     'viewer_.*',
     'mode',
-    'interact_switch', 'alias_switch',
+    'interact_switch',
+    'machine_switch',
+    'alias_switch',
     'ext_list',
     'verbosity_level',
     'lastfile_switch',

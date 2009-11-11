@@ -170,6 +170,9 @@ function setup_config_from_cl ()
             set_config_elt('interact_switch', 'false')
         elseif (curr_arg == '-i') or (curr_arg == '--interact') then
             set_config_elt('interact_switch', 'true')
+        -- output format
+        elseif (curr_arg == '-M') or (curr_arg == '--machine') then
+            set_config_elt('machine_switch', 'true')
         -- alias
         elseif (curr_arg == '-A') or (curr_arg == '--noalias') then
             set_config_elt('alias_switch', 'false')
@@ -437,6 +440,7 @@ function setup_config_from_defaults()
     set_config_ls {
         mode                = 'view',
         interact_switch     = 'true',
+        machine_switch      = 'false',
         verbosity_level     = '2',
         ext_list            = 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ',
     }

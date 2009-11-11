@@ -128,7 +128,11 @@ function print_menu (docfiles, showall)
     local i, doc
     for i, doc in ipairs (docfiles) do
         if (doc.exact == false) and not showall then break end
-        print(string.format('%2d %s', i, real_path(doc)))
+        if config.machine_switch == true then
+            print(real_path(doc))
+        else
+            print(string.format('%2d %s', i, real_path(doc)))
+        end
     end
     if config.interact_switch then
         io.write ("Please enter the number of the file to view, ",
