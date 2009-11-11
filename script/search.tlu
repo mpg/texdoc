@@ -72,7 +72,7 @@ function Docfile:new(df)
 end
 
 function Docfile:mergein(df)
-    error("Internal error: unimplemented feature.")
+    self.exact = self.exact or df.exact
 end
 
 function Docfile:real_path(df)
@@ -252,26 +252,28 @@ function check_ext(file)
 end
 
 -- return a docfile object if file "matches", nil ortherwise
--- TODO: can match in multiple ways
 function process_file (file, pathfile, code)
     err_print('Processing file: '..pathfile, 'debug5')
+    local docfile
     local pattern
     for _, pattern in ipairs(s_patterns) do
         if string.find(string.lower(pathfile), pattern,
-            1, config.regex ~= 'regex') then
+                1, config.mode ~= 'regex') then
             local good_ext, exact_match = check_ext(file)
-            err_print(string.format("File '%s' matches; good_ext=%s, exact=%s",
-            pathfile, tostring(good_ext), tostring(exact_match)), 'debug5')
+            err_print(string.format(
+                "File '%s' matches '%s'; good_ext=%s, exact=%s", pathfile,
+                pattern, tostring(good_ext), tostring(exact_match)), 'debug5')
             if good_ext then
-                return Docfile:new({
+                docfile = docfile or Docfile:new()
+                docfile:merge(Docfile:new({
                     name = pathfile,
                     tree = code,
                     exact = exact_match,
-                })
+                }))
             end
         end
     end
-    return nil
+    return docfile
 end
 
 ------------------------   get results from elsewhere   ------------------------
