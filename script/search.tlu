@@ -235,16 +235,17 @@ end
 -- find docfiles according to pattern
 function get_docfiles(pattern)
     local no_regex = (config.mode ~= 'regex')
+    -- apply aliases if relevant
+    if no_regex and config.alias_switch and alias[pattern] then
+        err_print (pattern.." aliased to "..alias[pattern], 'info')
+        pattern = alias[pattern]
+    end
+    -- search using the appropriate function
     if string.match(string.lower(pattern), '%.([^/.]*)$') == 'sty'
         and no_regex then
         return get_docfiles_sty(pattern)
     else
         pattern = string.lower(pattern)
-        -- apply aliases if relevant
-        if no_regex and config.alias_switch and alias[pattern] then
-            err_print (pattern.." aliased to "..alias[pattern], 'info')
-            pattern = alias[pattern]
-        end
         return get_docfiles_texdocs(pattern)
     end
 end
