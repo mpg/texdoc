@@ -200,6 +200,7 @@ end
 
 -- return a docfile entry if it "matches", nil ortherwise
 function process_file (file, pathfile, code, pattern)
+    err_print('Processing file: '..pathfile, 'debug5')
     file = string.lower(file)
     local base, ext = string.match(file, '^(.*)%.(.*)$')
     if string.find(string.lower(pathfile), pattern,
