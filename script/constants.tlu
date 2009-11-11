@@ -58,6 +58,7 @@ known_options = {
     'rm_dir',
     'rm_file',
     'unzip_.*',
+    'zipext_list',
 }
 
 err_priority = {

@@ -40,8 +40,9 @@ real_set_alias = set_read_only(alias, 'alias')
 -- three special types: *_list (list), *_switch (boolean), *_level (number)
 function set_config_element (key, value, context)
     local is_known = false -- is key a valid option?
+    local option
     for _, option in ipairs(C.known_options) do
-        if string.match(key, option) then is_known = true break end
+        if string.match(key, '^'..option..'$') then is_known = true break end
     end
     -- warn and exit if key is not a known option
     if not is_known then config_warn(key, nil, context, true) return end
@@ -96,7 +97,7 @@ function config_warn (key, value, context, unknown)
         and 'Unknown option "'..key..'"'
         or 'Illegal value "'..tostring(value)..'" for option "'..key..'"'
     local ending = '.  Skipping.'
-    err_print (begin..'\n    '..context_to_string(context)..ending, 'warning')
+    err_print (begin..' '..context_to_string(context)..ending, 'warning')
 end
 
 -- interpreting 'context' for the previous functions
@@ -436,13 +437,12 @@ function setup_config_from_defaults()
     set_config_ls {
         mode                = 'view',
         interact_switch     = 'true',
-        verbosity_level     = '3',
+        verbosity_level     = '2',
+        ext_list            = 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ',
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
-    -- extensions
-    set_config_elt('ext_list', 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ')
-    -- now a particular case for zip-related stuff
+    -- zip-related options
     if C.support_zipped then
         set_config_ls {
             zipext_list = 'gz, bz2',
