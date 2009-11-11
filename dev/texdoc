@@ -1,0 +1,7 @@
+#!/bin/sh -eu
+
+# texdoc wrapper for td-switch <http://tug.org/texdoc/dev/#td-switch>
+#
+# Manuel Pégourié-Gonnard, 2009. WTFPL v2.
+
+texlua $(kpsewhich --format texmfscripts texdoc.tlu) "$@"

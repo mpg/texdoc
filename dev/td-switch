@@ -1,0 +1,50 @@
+#!/bin/sh -eu
+
+# texdoc switcher
+#
+# Switch between the stable and development version of texdoc.
+# Assumes that the texdoc command found in PATH is an appropriate wrapper,
+# see <http://tug.org/texdoc/dev/>.
+#
+# Manuel Pégourié-Gonnard, 2009. WTFPL v2.
+
+usage() {
+   echo "Usage: $0 sys|git" >&2
+   exit 1
+}
+
+test 1 -eq "$#" || usage
+
+# adapt this line to the location of your working copy
+git_repo=~/texdoc/git
+
+texmfhome="`kpsewhich --var-value TEXMFHOME`"
+script_dir="$texmfhome/scripts/texdoc"
+conf_dir="$texmfhome/texdoc"
+script_name=texdoc.tlu
+conf_name=texdoc-dist.cnf
+conf_name_repo=texdoc.cnf
+
+do_git() {
+    do_sys
+    ln -s "$git_repo/$conf_name_repo" "$conf_dir/$conf_name"
+    if [ -d "$git_repo/script" ]; then
+	ln -s "$git_repo/script" "$script_dir"
+    elif [ -f "$git_repo/$script_name" ]; then
+	mkdir -p "$script_dir"
+	ln -s "$git_repo/$script_name" "$script_dir/$script_name"
+    else
+	echo "Unknown git repo layout" >&2; exit 1
+    fi
+}
+
+do_sys() {
+    rm -rf "$script_dir"
+    rm -f "$conf_dir/$conf_name"
+}
+
+case "$1" in
+    git) do_git ;;
+    sys) do_sys ;;
+    *)	 usage ;;
+esac

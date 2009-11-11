@@ -18,7 +18,7 @@
 
   <h1>Texdoc - development version</h1>
 
-  <h2>Getting it</h2>
+  <h2>Download</h2>
 
   <p><code>git clone git://github.com/mpg/texdoc.git</code> (first time)
   <br><code>git pull</code> (later) </p>
@@ -28,49 +28,42 @@
    href="http://github.com/mpg/texdoc/zipball/master" >zip</a> or <a
    href="http://github.com/mpg/texdoc/tarball/master" >tar.gz</a> format.</p>
 
-  <h2>Setting up to use it</h2>
+  <h2>Installation</h2>
 
   <p>The explanations below use <code>TdDev</code> to denote the path to the
-  directory holding the development version of texdoc. Names in
-  <code>ALL_CAPS</code> are <a href="../kpathsea">kpse</a> variables; you can
+  directory holding the development version of texdoc. Names in all caps like
+  <code>VARIABLE</code> are <a href="../kpathsea">kpse</a> variables; you can
   get their values using <code>kpsewhich --var-value VARIABLE</code>.</p>
 
-  <h3>The command - Unix</h3>
+  <ul>
 
-  <p>Just symlink <code>TdDev/texdoc.tlu</code> to <code>~/bin/texdoc</code>
-  (assumes <code>~/bin</code> is in your <code>PATH</code> before the TeX Live
-  binaries).</p>
+   <li><b>The command.</b> This step is platform-dependant.
 
-  <h3>The command - Windows</h3>
+   <ul>
+    <li> <em>Unix.</em> Symlink <code>TdDev/script</code> to
+    <code>TEXMFHOME/scripts/texdoc</code>. Then symlink <code>texdoc.tlu</code>
+    from this directory to <code>texdoc</code> in a directory that comes early
+    in your path, (typically, symlink to <code>~/bin/texdoc</code>).</li>
 
-  <p>Here things are a bit different, since there are generally no symlinks, so
-  <code>texdoc.bat</code> is actually a script calling <code>texdoc.tlu</code>
-  after locating it in the texmf trees. So, just put a copy of
-  <code>TdDev/texdoc.tlu</code> in <code>TEXMFHOME/scripts/texdoc</code> (you
-  may need to create this directory).</p>
+    <li><em>Windows.</em> Just copy the contents of <code>TdDev/script</code> to
+    <code>TEXMFHOME/scripts/texdoc</code>.</li>
+   </ul>
 
-  <h3>The configuration file - both platforms</h3>
+   <li><b>The configuration file.</b> Install a copy (or symlink) of
+   <code>TdDev/texdoc.cnf</code> as
+   <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the <code>-dist</code>
+   part). It will completely override the configuration files in
+   <code>TEXMFDIST</code> and <code>TEXMFLOCAL</code>.</li>
 
-  <p>Since the name or meaning of some options used in the default configuration
-  file may change, you need to use the development version of
-  <code>texdoc.cnf</code> too. Install a copy (or symlink) of it as
-  <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the <code>-dist</code>
-  part). It will completely override the configuration files in
-  <code>TEXMFDIST</code> and <code>TEXMFLOCAL</code>.</p>
+  </ul>
 
-  <p>If everything is installed correctly, running <code>texdoc -f</code> should
-  yield something similar to the following.</p>
+  <h2 id="td-switch">Texdoc switcher (Unix only)</h2>
 
-<pre><code>texdoc version: 0.47
-Configuration files are:
-    absent /home/mpg/texmf/texdoc/texdoc-linux-latest.cnf
-(*) active /home/mpg/texmf/texdoc/texdoc.cnf
-    active /home/mpg/texmf/texdoc/texdoc-dist.cnf
-    absent /usr/local/texlive/texmf-local/texdoc/texdoc-linux-latest.cnf
-    absent /usr/local/texlive/texmf-local/texdoc/texdoc.cnf
-    disabled /usr/local/texlive/2008/texmf/texdoc/texdoc.cnf
-(*) This is the recommended configuration file for your personal preferences.
-<code></pre>
+  <p>Alternatively, you can skip the explanations above and use the <a
+   href="td-switch"><code>td-switch</code></a> script after installing this <a
+   href="texdoc">wrapper</a> as your texdoc program (tipically in
+  <code>~/bin</code>. This is the setup I use; don't forget to adapt the
+  <code>git_repo</code> variable to your local configuration.</p>
 
  </body>
 </html>
