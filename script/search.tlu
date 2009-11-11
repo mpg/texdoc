@@ -9,28 +9,78 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
-    'ipairs', 'assert', 'tonumber', 'type', 'print', 'tostring',
+    'ipairs', 'assert', 'error', 'tostring', 'setmetatable',
     'err_print', 'win32_hook', 'parse_zip',
     'config', 'alias', 'C',
 })
 
 -- shared by all functions in this file
-local s_patterns
+local s_patterns, s_doclist
 
-----------------------------   the docfiles list   -----------------------------
+-----------------------   docfile and doclist objects   ------------------------
 
--- shared by all functions below
-local s_doc_files
-
--- structure of the s_docfiles variable
--- s_docfiles = {
---     [1] = docfile1, docfiles2, ...,
+-- doclist = {
+--     [1] = docfile1, [2] = docfiles2, ...,
+--     inv = { realpath1 = index1, ... }
 -- }
+--
+-- The inv subtable is such that for all i
+-- doclist.inv(realpath(doclist[i]) == i
+
+local Doclist = {}
+Doclist.__index = Doclist
+
+-- create a new list of docfiles
+function Doclist:new()
+    local dl = { inv = {} }
+    setmetatable(dl, self)
+    return dl
+end
+
+-- add a docfile to a list
+function Doclist:add(df)
+    local rp = df:real_path()
+    local index = self.inv[rp]
+    if index then
+        self[index]:mergein(df)
+    else
+        local newindex = #self + 1
+        self[newindex] = df
+        self.inv[rp] = newindex
+    end
+end
+
+-- merge another doclist in
+function Doclist:mergin(dl)
+    local _, df
+    for _, df in ipairs(dl) do self:add(df) end
+end
+
 -- docfile = {
 --     name = filename relative to tree, absolute if tree == nil,
 --     tree = number of the tree in doc_roots,
 --     exact = <boolean> does pattern match exactly,
 -- }
+
+local Docfile = {}
+Docfile.__index = Docfile
+
+function Docfile:new(df)
+    df = df or {}
+    setmetatable(df, self)
+    return df
+end
+
+function Docfile:mergein(df)
+    error("Internal error: unimplemented feature.")
+end
+
+function Docfile:real_path(df)
+    if not self.real_path_cache then
+        self.real_path_cache = real_path(self)
+    end
+    return self.real_path_cache
+end
 
 ------------------   get results from TEXDOCS (à la kpse)   -------------------
 
@@ -108,7 +158,7 @@ function scan_tree (code, base, cwd, recurse)
                 if recurse then scan_tree(code, base, f, recurse) end
             else
                 local df = process_file(file, f, code, true)
-                if df then table.insert(s_docfiles, df) end
+                if df then s_doclist:add(df) end
             end
         end
     end
@@ -134,7 +184,7 @@ end
 -- scan a ls-R file
 function scan_lsr (cwd, code, shift)
     local is_dir = {} -- is_dir[path] = true iff path is a dir
-    local results = {}
+    local results = Doclist:new()
     local isdoc = false
     local current_dir
     local l = #shift
@@ -159,14 +209,14 @@ function scan_lsr (cwd, code, shift)
             end
         elseif isdoc then
             local df = process_file(line, merge_path(current_dir, line), code)
-            if df then table.insert(results, df) end
+            if df then results:add(df) end
         end
     end
     lsr:close()
     -- add non-directories to the list
     for _, df in ipairs(results) do
         if not is_dir[df.name] then
-            table.insert(s_docfiles, df)
+            s_doclist:add(df)
         end
     end
 end
@@ -201,7 +251,7 @@ function check_ext(file)
     return good_ext, exact_match
 end
 
--- return a docfile entry if it "matches", nil ortherwise
+-- return a docfile object if file "matches", nil ortherwise
 -- TODO: can match in multiple ways
 function process_file (file, pathfile, code)
     err_print('Processing file: '..pathfile, 'debug5')
@@ -213,11 +263,11 @@ function process_file (file, pathfile, code)
             err_print(string.format("File '%s' matches; good_ext=%s, exact=%s",
             pathfile, tostring(good_ext), tostring(exact_match)), 'debug5')
             if good_ext then
-                return {
+                return Docfile:new({
                     name = pathfile,
                     tree = code,
                     exact = exact_match,
-                }
+                })
             end
         end
     end
@@ -228,11 +278,11 @@ end
 
 -- for sty files, we obviously don't want to look in TEXDOCS...
 function get_docfiles_sty (styname)
-    table.insert(s_docfiles, {
+   s_doclist:add(Docfile:new({
         name = kpse.find_file(styname),
         exact = true,
         tree = nil,
-    })
+    }))
 end
 
 ------------------------------   main function   -------------------------------
@@ -246,7 +296,7 @@ function get_docfiles(pattern)
         pattern = alias[pattern]
     end
     -- search using the appropriate function
-    s_docfiles = {}
+    s_doclist = Doclist:new()
     if string.match(string.lower(pattern), '%.([^/.]*)$') == 'sty'
         and no_regex then
         get_docfiles_sty(pattern)
@@ -254,7 +304,7 @@ function get_docfiles(pattern)
         s_patterns = {string.lower(pattern)}
         get_docfiles_texdocs()
     end
-    return s_docfiles
+    return s_doclist
 end
 
 -- finally export a few symbols
