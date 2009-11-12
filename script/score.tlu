@@ -13,17 +13,18 @@ load_env(L, {
     'config', 'parse_zip',
 })
 
--- sort docfiles
-function sort_docfiles(df)
-    table.sort(df, docfile_order)
+-- sort a doclist
+function sort_doclist(dl)
+    dl.inv = nil
+    table.sort(dl, docfile_order)
 end
 
--- compare docfiles: (see search.tlu for structure)
--- 1. exact is better than non-exact,
--- 2. then extensions are ordered as in ext_list,
--- 3. then trees,
--- 4. then filenames lexicographically.
--- return true is a is better than b
+-- compare two docfile's: (see search.tlu for structure)
+-- 1. by score
+-- 2. then by extensions (ordered as in ext_list),
+-- 3. then by tree,
+-- 4. then lexicographically by filename.
+-- return true if a is better than b
 function docfile_order (a, b)
     if a.exact and not b.exact then
         return true
@@ -70,5 +71,5 @@ end
 
 -- export a few symbols
 export_symbols(L, {
-    'sort_docfiles',
+    'sort_doclist',
 })

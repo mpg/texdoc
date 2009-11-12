@@ -78,7 +78,7 @@ function Docfile:new(df)
         df.matches = {{ pattern = df.pattern, exact = df.exact }}
         df.pattern = nil
     else
-        error('Internal error: no pattern info for docfiles.')
+        error('Internal error: no pattern info for docfile.')
     end
     return df
 end
@@ -133,7 +133,7 @@ function tree_to_path(tree, rel)
 end
 
 -- find docfiles in texdocs directories
-function get_docfiles_texdocs ()
+function get_doclist_texdocs ()
     if doc_roots == nil then get_texdocs() end
     for code, doc_root in ipairs (doc_roots) do
         root, shift = lsr_root (doc_root.path)
@@ -291,7 +291,7 @@ end
 ------------------------   get results from elsewhere   ------------------------
 
 -- for sty files, we obviously don't want to look in TEXDOCS...
-function get_docfiles_sty (pattern)
+function get_doclist_sty (pattern)
     local file = kpse.find_file(pattern.name)
     if file then
         local df = Docfile:new({
@@ -307,7 +307,7 @@ end
 ------------------------------   main function   -------------------------------
 
 -- find docfiles according to pattern
-function get_docfiles(pattern)
+function get_doclist(pattern)
     local no_regex = (config.mode ~= 'regex')
     -- initialise result list
     s_doclist = Doclist:new()
@@ -332,16 +332,16 @@ function get_docfiles(pattern)
     end
     -- look for sty files
     for _, p in ipairs(stylist) do
-        get_docfiles_sty(p)
+        get_doclist_sty(p)
     end
     -- now regular files in texdocs
     s_patterns = patlist
-    get_docfiles_texdocs()
+    get_doclist_texdocs()
     -- done
     return s_doclist
 end
 
 -- finally export a few symbols
 export_symbols(L, {
-    'get_docfiles', 
+    'get_doclist',
 })

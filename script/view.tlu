@@ -101,16 +101,16 @@ end
 -- print a list of files (structure: see search.tlu) as a menu
 -- if showall is false, stops as soon a non-exact match is encountered
 -- (unimplemented right now, waiting for the scoring routine)
-function print_menu (docfiles, showall)
+function print_menu (doclist, showall)
     local max_lines = tonumber(config.max_lines) or 20
-    if config.interact_switch and docfiles[max_lines+1] then
+    if config.interact_switch and doclist[max_lines+1] then
         -- there may be too many lines, count them
         local n
         if showall then
-            n = #docfiles
+            n = #doclist
         else
             n = 0
-            while docfiles[n+1] and docfiles[n+1].exact do
+            while doclist[n+1] and doclist[n+1].exact do
                 n = n + 1
             end
         end
@@ -125,7 +125,7 @@ function print_menu (docfiles, showall)
         end
     end
     local i, doc
-    for i, doc in ipairs (docfiles) do
+    for i, doc in ipairs (doclist) do
         if (doc.exact == false) and not showall then break end
         if config.machine_switch == true then
             print(doc.realpath)
@@ -137,17 +137,17 @@ function print_menu (docfiles, showall)
         io.write ("Please enter the number of the file to view, ",
         "anything else to skip: ")
         local num = tonumber(io.read('*line'))
-        if num and docfiles[num] then
-            view_doc(docfiles[num])
+        if num and doclist[num] then
+            view_doc(doclist[num])
         end
     end
 end
 
 -----------------------   deliver results base on mode   -----------------------
 
-function deliver_results(docfiles, name)
+function deliver_results(doclist, name)
     -- ensure that results were found or apologize
-    if not docfiles[1] then
+    if not doclist[1] then
         if not config.machine_switch then
             local msg = string.gsub(C.notfound_msg, C.notfound_msg_ph, name)
             print(msg) -- get rid of gsub's 2nd value
@@ -156,17 +156,17 @@ function deliver_results(docfiles, name)
     end
     -- shall we show all of them or only the "good" ones?
     local showall = (config.mode == 'regex') or (config.mode == 'search')
-    if not showall and not docfiles[1].exact then
+    if not showall and not doclist[1].exact then
         showall = true
         err_print ("No exact match, trying full search mode.", "info")
     end
     -- view result or show menu based on mode and number of results
     if (config.mode == 'view')
-        or config.mode == 'mixed' and (not docfiles[2]
-            or not docfiles[2].exact and not showall) then
-        view_doc(docfiles[1])
+        or config.mode == 'mixed' and (not doclist[2]
+            or not doclist[2].exact and not showall) then
+        view_doc(doclist[1])
     else
-        print_menu(docfiles, showall)
+        print_menu(doclist, showall)
     end
 end
 
