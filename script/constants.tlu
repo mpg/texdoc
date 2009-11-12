@@ -23,18 +23,18 @@ With no NAME, it can print configuration information (-f, --files);
 the usual --help and --version options are also accepted.
 Usage: texdoc [OPTIONS]... [NAME]...
   -f, --files           Print the name of the config files being used.
-  -e, --extensions=L    Require file extensions to be in the list L.
+  -e, --extensions=L    Set the list of allowed file extensions to L.
   -w, --view            Use view mode: start a viewer.
   -m, --mixed           Use mixed mode (view or list).
-  -l, --list            Use list mode: don't start a viewer.
-  -s, --search          Search for name as a substring.
+  -l, --list            Use list mode: show a list of results.
+  -s, --showall         Use showall mode: show also "bad" results.
   -r, --regex           Search for name as a lua regex.
   -a, --alias           Use the alias table.
   -A, --noalias         Don't use the alias table.
   -i, --interact        Use interactive menus.
   -I, --nointeract      Use plain lists, no interaction required.
   -v, --verbosity=N     Set verbosity level to N.
-  -d, --debug           Set verbosity level to maximum.
+  -d, --debug[=list]    Activate debug for selected items (default all).
   -M, --machine         Use a more machine-friendly output format.
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf files, see the -f option.
@@ -57,6 +57,7 @@ known_options = {
     'alias_switch',
     'ext_list',
     'verbosity_level',
+    'debug_list',
     'lastfile_switch',
     'rm_dir',
     'rm_file',
@@ -68,14 +69,19 @@ err_priority = {
     error   = 1,
     warning = 2,
     info    = 3,
-    debug1  = 4,
-    debug2  = 5,
-    debug3  = 6,
-    debug4  = 7,
-    debug5  = 8,
-    debug6  = 9,
 }
-err_max = 9
+
+known_debugs = {
+    version = {},
+    files   = {},
+    config  = {'files'},
+    view    = {},
+    texdocs = {},
+    filesea = {},
+    lsrsea  = {},
+    kpse    = {'texdocs', 'filesea', 'lsrsea'},
+    score   = {},
+}
 
 place_holder = '%%s' -- used for viewer commands
 

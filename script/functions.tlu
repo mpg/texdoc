@@ -9,7 +9,7 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'io', 'os',
-    'ipairs',
+    'pairs', 'ipairs',
     'C',
     'config',
 })
@@ -27,13 +27,56 @@ else
 end
 
 -- generic error display function (see the error_priority constant)
-function err_print (msg, lvl)
+function err_print (lvl, msg)
     -- be careful: maybe config.verbosity_level is not set yet
     local verbosity_level = config.verbosity_level or 2
     if C.err_priority[lvl] <= verbosity_level then
         io.stderr:write ("texdoc "..lvl..": "..msg.."\n")
     end
 end
+
+do --scope of active_debugs
+local active_debugs
+
+-- generic debug function
+function deb_print(cat, msg)
+    -- make sure active_debugs is set
+    if not active_debugs then set_active_debugs() end
+    -- print message it belongs to an active category
+    if active_debugs and active_debugs[cat] or cat == 'XXX' then
+        io.stderr:write ("texdoc debug-"..cat..": "..msg.."\n")
+    end
+end
+
+-- set active_debugs
+function set_active_debugs()
+    if not config.debug_list then return end
+    active_debugs = {}
+    -- all debug options imply version info
+    if config.debug_list[1] then
+        active_debugs.version = true
+    else
+        return
+    end
+    -- if 'all' is the first keyword, just activate all categories
+    if config.debug_list[1] == 'all' then
+        for deb in pairs(C.known_debugs) do
+            active_debugs[deb] = true end
+        return
+    end
+    -- activate options from the list
+    for _, deb in ipairs(config.debug_list) do
+        local deps = C.known_debugs[deb]
+        if deps then
+            active_debugs[deb] = true
+            for _, d in ipairs(deps) do active_debugs[d] = true end
+        else
+            err_print('warning', "Unknown debug category '"..deb.."'.")
+        end
+    end
+end
+
+end -- scope of active_debugs
 
 -- if zip is support and file is base..'.'..zip with zip in zipext_list, 
 -- return base, zip -- otherwise, returns file, nil
@@ -53,6 +96,7 @@ end
 -- finally export a few symbols
 export_symbols(L, {
     'err_print',
+    'deb_print',
     'win32_hook',
     'parse_zip',
 })

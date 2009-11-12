@@ -9,10 +9,10 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'os', 'table', 'io',
-    'tonumber', 'ipairs', 'print',
+    'tonumber', 'ipairs', 'print', 'assert',
     'config', 
     'C',
-    'err_print', 'parse_zip',
+    'deb_print', 'err_print', 'parse_zip',
 })
 
 -----------------------------   view a document   ------------------------------
@@ -38,19 +38,21 @@ function view_file (filename)
     if zipext then
         local unzip_cmd = config['unzip_'..zipext]
         if not unzip_cmd then
-            err_print("No unzip command for ."..zipext..' files, skipping '
-                ..filename, 'error')
+            err_print('error',
+            "No unzip command for ."..zipext..' files, skipping '..filename)
             return false
         end
         local tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
         if not tmpdir then
-            err_print('Failed to create tempdir to unzip.', 'error')
+            err_print('error', 'Failed to create tempdir to unzip.')
             return false
         end
         local basename = string.match(nozipname, '.*/(.*)$') or nozipname
         local tmpfile = '"'..tmpdir..'/'..basename..'"'
-        if not os.execute(unzip_cmd..' "'..filename..'">'..tmpfile) then
-            err_print("Failed to unzip '"..filename.."'", 'error')
+        local unzip = unzip_cmd..' "'..filename..'">'..tmpfile
+        deb_print('view', "Unzip command: "..unzip)
+        if not os.execute(unzip) then
+            err_print('error', "Failed to unzip '"..filename.."'")
             os.remove(tmpfile)
             os.remove(tmpdir)
             return false
@@ -67,16 +69,11 @@ function view_file (filename)
     -- special case : sty files use txt viewer
     if viewext == 'sty' then viewext = 'txt' end
     if not config['viewer_'..viewext] then
-        err_print ("cannot find a viewer for file\n\t"..filename..
-        "\nUsing viewer_txt as a fallback.  Set the 'viewer_"..viewext..
-        "' variable in texdoc.cnf to avoid this.", "warning")
+        err_print('warning',
+            "No viewer_"..viewext.." defined, using viewer_txt.")
         viewext = 'txt'
-        if not config['viewer_'..viewext] then
-            err_print ("text viewer not found.  This "..
-            "should not happen, sorry.  Skipping\n\t"..filename, "error")
-            return false
-        end
     end
+    assert(config['viewer_'..viewext], 'Internal error: no viewer found.')
     return try_viewing(config['viewer_'..viewext], viewer_replacement)
 end
 
@@ -88,9 +85,9 @@ function try_viewing (view_command, viewer_replacement)
     else
         view_command = view_command..' '..viewer_replacement
     end
-    err_print(view_command, 'debug1')
+    deb_print('view', 'View comand: '..view_command)
     if not os.execute(view_command) then
-        err_print("Failed to execute '"..view_command.."'", "error")
+        err_print('error', "Failed to execute '"..view_command.."'")
         return false
     end
     return true
@@ -157,7 +154,7 @@ function deliver_results(doclist, name)
     local showall = (config.mode == 'regex') or (config.mode == 'search')
     if not showall and doclist[1].score <= 0 then
         showall = true
-        err_print ("No exact match, trying full search mode.", "info")
+        err_print('info', 'No good result found, showing all results.')
     end
     -- view result or show menu based on mode and number of results
     if (config.mode == 'view')

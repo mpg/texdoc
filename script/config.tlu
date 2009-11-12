@@ -12,7 +12,7 @@ load_env(L, {
     'arg',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
-    'err_print', 'win32_hook',
+    'err_print', 'win32_hook', 'deb_print',
     'C',
     'config',
 })
@@ -86,13 +86,13 @@ function set_config_element (key, value, context)
     else -- string
         real_set_config(key, value)
     end
-    -- special case: if we just set verbosity_level, print version info now
-    if key == 'verbosity_level' then
-        err_print(arg[0]..' version '..C.version, 'debug1')
+    -- special case: if we just set debug_list, print version info now
+    if key == 'debug_list' then
+        deb_print('version', arg[0]..' version '..C.version)
     end
     -- now tell what we have just done, for debugging
-    err_print('Setting "'..key..'='..value..'" '
-    ..context_to_string(context)..'.', 'debug2')
+    deb_print('config',
+        "Setting '"..key.."="..value.."' "..context_to_string(context)..'.')
 end
 
 -- a helper function for warning messages in the above
@@ -101,7 +101,7 @@ function config_warn (key, value, context, unknown)
         and 'Unknown option "'..key..'"'
         or 'Illegal value "'..tostring(value)..'" for option "'..key..'"'
     local ending = '.  Skipping.'
-    err_print (begin..' '..context_to_string(context)..ending, 'warning')
+    err_print('warning', begin..' '..context_to_string(context)..ending)
 end
 
 -- interpreting 'context' for the previous functions
@@ -203,9 +203,16 @@ function setup_config_from_cl ()
             set_config_elt('alias_switch', 'false')
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
-        -- verbosity
+        -- debug
         elseif (curr_arg == '-d') or (curr_arg == '--debug') then
-            set_config_elt('verbosity_level', C.err_max)
+            set_config_elt('debug_list', 'all')
+        elseif string.match(curr_arg, '^%-d=') then
+            local value = string.gsub(curr_arg, '^%-d=', '')
+            set_config_elt('debug_list', value)
+        elseif string.match(curr_arg, '^%-%-debug=') then
+            local value = string.gsub(curr_arg, '^%-%-debug=', '')
+            set_config_elt('debug_list', value)
+        -- verbosity
         elseif string.match(curr_arg, '^%-v') then
             local value = string.gsub(curr_arg, '^%-v=?', '')
             set_config_elt('verbosity_level', value)
@@ -221,7 +228,7 @@ function setup_config_from_cl ()
             set_config_elt('ext_list', value)
         -- problem
         else
-            err_print ("unknown option: "..curr_arg, "error")
+            err_print('error', "unknown option: "..curr_arg)
             print (C.error_msg)
             os.exit(2)
         end
@@ -276,8 +283,8 @@ function read_config_file(configfile)
                 add_alias(key, val)
             else
                 if (not string.match (line, '^%s*$')) then
-                    err_print ('syntax error in '..configfile..
-                    ' at line '..lineno..'.', 'warning')
+                    err_print('warning',
+                    'syntax error in '..configfile..' at line '..lineno..'.')
                 end
             end
         end
@@ -501,8 +508,8 @@ function setup_config_and_alias()
     setup_config_from_env()
     setup_config_from_files()
     setup_config_from_defaults()
-    -- we were waiting for config.verbosity_level to be know to do this
-    show_config_files(function(s) err_print(s, 'debug1') end)
+    -- we were waiting for config.debug_list to be know to do this
+    show_config_files(function(s) deb_print('files', s) end)
 end
 
 -- finally export a few symbols
