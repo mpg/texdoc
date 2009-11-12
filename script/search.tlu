@@ -154,9 +154,22 @@ function get_doclist_texdocs ()
     end
 end
 
--- merge two components of a path, taking care of empty components
-function merge_path (a, b)
-    return ((a == '') or (b == '')) and a..b or a..'/'..b
+end -- scope of doc_roots
+
+-- find a ls-R file in a parent directory an return it or nil
+function lsr_root (path)
+    if not lfs.isdir (path) then return end
+    local root, shift = path, ''
+    if string.sub(root, -1) == '/' then root = string.sub(root, 1, -2) end
+    while string.find(root, '/', 1, true) do
+        if lfs.isfile(root..'/ls-R') then
+            return root, shift
+        end
+        local last_comp = string.match(root, '^.*/(.*)$')
+        -- /!\ cannot put last_comp in a regex: can contain special char
+        root = string.sub(root, 1, - (#last_comp + 2))
+        shift = last_comp..'/'..shift
+    end
 end
 
 -- scan a tree without ls-R file
@@ -174,22 +187,6 @@ function scan_tree (code, base, cwd, recurse)
         end
     end
     deb_print('filesea', "Leaving directory: "..cwd)
-end
-
--- find a ls-R file in a parent directory an return it or nil
-function lsr_root (path)
-    if not lfs.isdir (path) then return end
-    local root, shift = path, ''
-    if string.sub(root, -1) == '/' then root = string.sub(root, 1, -2) end
-    while string.find(root, '/', 1, true) do
-        if lfs.isfile(root..'/ls-R') then
-            return root, shift
-        end
-        local last_comp = string.match(root, '^.*/(.*)$')
-        -- /!\ cannot put last_comp in a regex: can contain special char
-        root = string.sub(root, 1, - (#last_comp + 2))
-        shift = last_comp..'/'..shift
-    end
 end
 
 -- scan a ls-R file
@@ -219,7 +216,7 @@ function scan_lsr (cwd, code, shift)
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
         elseif isdoc then
-            local df = process_file(line, merge_path(current_dir, line), code)
+            local df = process_file(line, current_dir..'/'..line, code)
             if df then results:add(df) end
         end
     end
@@ -231,10 +228,6 @@ function scan_lsr (cwd, code, shift)
         end
     end
 end
-
-end -- scope of doc_roots
-
-------------------------------   select results   ------------------------------
 
 -- says if file has a 'good' extenstion according to ext_list
 function check_ext(file)
