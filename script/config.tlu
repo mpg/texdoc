@@ -369,11 +369,6 @@ function setup_config_from_defaults()
     else -- generic Unix
         set_config_ls {
             viewer_dvi      = first_in_path {
-                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
-                {'kde-open',    '(kde-open %s) &'},     -- kde 4
-                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
-                {'exo-open',    '(exo-open %s) &'},     -- xfce
-                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kdvi',        '(kdvi %s) &'},
@@ -385,14 +380,14 @@ function setup_config_from_defaults()
                 {'advi',        '(advi %s) &'},
                 {'xdvik-ja',    '(xdvik-ja %s) &'},
                 {'xdvi',        '(xdvi %s) &'},
-                {'see',         '(see %s) &'}
-            },
-            viewer_html     = first_in_path {
                 {'gnome-open',  '(gnome-open %s) &'},   -- gnome
                 {'kde-open',    '(kde-open %s) &'},     -- kde 4
                 {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
                 {'exo-open',    '(exo-open %s) &'},     -- xfce
                 {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'see',         '(see %s) &'}
+            },
+            viewer_html     = first_in_path {
                 {'firefox',     '(firefox %s) &'},
                 {'seamonkey',   '(seamonkey %s) &'},
                 {'mozilla',     '(mozilla %s) &'},
@@ -402,31 +397,36 @@ function setup_config_from_defaults()
                 {'w3m',         'w3m'},
                 {'links',       'links'},
                 {'lynx',        'lynx'},
-                {'see',         'see'}
-            },
-            viewer_pdf      = first_in_path {
                 {'gnome-open',  '(gnome-open %s) &'},   -- gnome
                 {'kde-open',    '(kde-open %s) &'},     -- kde 4
                 {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
                 {'exo-open',    '(exo-open %s) &'},     -- xfce
                 {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'see',         'see'}
+            },
+            viewer_pdf      = first_in_path {
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kpdf',        '(kpdf %s) &'},
                 {'xpdf',        '(xpdf %s) &'},
                 {'acroread',    '(xpdf %s) &'},
-                {'see',         '(see %s) &'}
-            },
-            viewer_ps       = first_in_path {
                 {'gnome-open',  '(gnome-open %s) &'},   -- gnome
                 {'kde-open',    '(kde-open %s) &'},     -- kde 4
                 {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
                 {'exo-open',    '(exo-open %s) &'},     -- xfce
                 {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
+                {'see',         '(see %s) &'}
+            },
+            viewer_ps       = first_in_path {
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kghostview',  '(kghostview %s) &'},
                 {'gv',          '(gv %s) &'},
+                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
+                {'kde-open',    '(kde-open %s) &'},     -- kde 4
+                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
+                {'exo-open',    '(exo-open %s) &'},     -- xfce
+                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
                 {'see',         '(see %s) &'}
             },
             viewer_txt      = first_in_path {
