@@ -16,7 +16,7 @@ load_env(L, {
 })
 
 -- shared by all functions in this file
-local s_patterns, s_doclist
+local s_doclist
 
 -----------------------   docfile and doclist objects   ------------------------
 
@@ -150,13 +150,13 @@ function tree_to_path(tree, rel)
 end
 
 -- find docfiles in texdocs directories
-function get_doclist_texdocs()
+function get_doclist_texdocs(patlist)
     if doc_roots == nil then get_texdocs() end
     for code, dr in ipairs(doc_roots) do
         if dr.lsr then
-            scan_lsr(code, dr.lsr, dr.lsr_shift)
+            scan_lsr(patlist, code, dr.lsr, dr.lsr_shift)
         elseif dr.searchfs then
-            scan_tree(code, dr.path, '', dr.recursion_allowed)
+            scan_tree(patlist, code, dr.path, '', dr.recursion_allowed)
         end
     end
 end
@@ -180,15 +180,15 @@ function lsr_root (path)
 end
 
 -- scan a tree without ls-R file
-function scan_tree (code, base, cwd, recurse)
+function scan_tree (patlist, code, base, cwd, recurse)
     deb_print('filesea', "Entering directory: "..cwd)
     for file in lfs.dir(base..'/'..cwd) do
         if file ~= '.' and file ~= '..' then
             local f = (cwd == '') and file or cwd..'/'..file
             if lfs.isdir(base..'/'..f) then
-                if recurse then scan_tree(code, base, f, recurse) end
+                if recurse then scan_tree(patlist, code, base, f, recurse) end
             else
-                local df = process_file(file, f, code, true)
+                local df = process_file(patlist, file, f, code, true)
                 if df then s_doclist:add(df) end
             end
         end
@@ -197,7 +197,7 @@ function scan_tree (code, base, cwd, recurse)
 end
 
 -- scan a ls-R file
-function scan_lsr(code, cwd, shift)
+function scan_lsr(patlist, code, cwd, shift)
     local is_dir = {} -- is_dir[path] = true iff path is a dir
     local results = Doclist:new()
     local isdoc = false
@@ -223,7 +223,7 @@ function scan_lsr(code, cwd, shift)
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
         elseif isdoc then
-            local df = process_file(line, current_dir..'/'..line, code)
+            local df = process_file(patlist, line, current_dir..'/'..line, code)
             if df then results:add(df) end
         end
     end
@@ -260,11 +260,11 @@ function check_ext(file)
 end
 
 -- return a docfile object if file "matches", nil ortherwise
-function process_file (file, pathfile, code)
+function process_file(patlist, file, pathfile, code)
     deb_print('kpse', 'Processing file: '..pathfile)
     local docfile
     local pattern
-    for _, pattern in ipairs(s_patterns) do
+    for _, pattern in ipairs(patlist) do
         if string.find(string.lower(pathfile), pattern.name,
                 1, config.mode ~= 'regex') then
             local good_ext = check_ext(file)
@@ -291,15 +291,16 @@ end
 ------------------------   get results from elsewhere   ------------------------
 
 -- for sty files, we obviously don't want to look in TEXDOCS...
-function get_doclist_sty (pattern)
-    local file = kpse.find_file(pattern.name)
-    if file then
-        local df = Docfile:new({
-            name    = file ,
-            tree    = nil,
-            pattern = pattern,
-        })
-        s_doclist:add(df)
+function get_doclist_sty(patlist)
+    for _, pat in ipairs(patlist) do
+        local file = kpse.find_file(pat.name)
+        if file then
+            local df = Docfile:new({
+                name    = file ,
+                pattern = pat,
+            })
+            s_doclist:add(df)
+        end
     end
 end
 
@@ -307,33 +308,30 @@ end
 
 -- find docfiles according to pattern
 function get_doclist(pattern)
-    local no_regex = (config.mode ~= 'regex')
+    -- get patterns (inc. aliases)
+    local normal, sty = normal_vs_sty(get_patterns(pattern))
     -- initialise result list
     s_doclist = Doclist:new()
-    -- get patterns
-    local tmplist = get_patterns(pattern)
-    -- discriminate sty files
-    local patlist, stylist = {}, {}
-    if no_regex then
-        local p
-        for _, p in ipairs(tmplist) do
-            if string.match(string.lower(p.name), '%.([^/.]*)$') == 'sty' then
-                table.insert(stylist, p)
-            else
-                table.insert(patlist, p)
-            end
+    -- get results
+    get_doclist_sty(sty)
+    get_doclist_texdocs(normal)
+    -- finally, sort results
+    sort_doclist(s_doclist)
+    return s_doclist
+end
+
+-- separate sty patterns from the rest
+function normal_vs_sty(list)
+    if config.mode == 'regex' then return list, {} end
+    local normal, sty = {}, {}
+    for _, p in ipairs(list) do
+        if string.match(string.lower(p.name), '%.([^/.]*)$') == 'sty' then
+            table.insert(sty, p)
+        else
+            table.insert(normal, p)
         end
     end
-    -- look for sty files
-    for _, p in ipairs(stylist) do
-        get_doclist_sty(p)
-    end
-    -- now regular files in texdocs
-    s_patterns = patlist
-    get_doclist_texdocs()
-    -- finally, sort results
-     sort_doclist(s_doclist)
-    return s_doclist
+    return normal, sty
 end
 
 -- finally export a few symbols
