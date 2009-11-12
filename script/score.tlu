@@ -9,8 +9,8 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'table',
-    'ipairs',
-    'config', 'parse_zip',
+    'ipairs', 'tostring',
+    'config', 'parse_zip', 'err_print',
 })
 
 -- sort a doclist
@@ -30,36 +30,74 @@ end
 -- set the score of a docfile
 function set_score(df)
     local score = 0
+    err_print('Start scoring '..df.realpath, 'debug6')
     for _, pat in ipairs(df.matches) do
         local s = match_score(df.name, pat.name)
         s = s * pat.ratio
+        err_print(string.format("For pattern '%s': score '%d' ratio '%d'",
+            pat.name, tostring(s), tostring(pat.ratio)), 'debug6')
         if s > score then score = s end
     end
+    err_print('Final score: '..tostring(score), 'debug6')
     df.score = score
 end
 
 -- compute a matching score:
 -- 0 by default
--- 1 if pat is a sub-word of file
--- 2 if pat is the basename of file (w/o extension)
+-- 1 if pat is a "subword" of file
+-- 2 if file is an "exact" match for pat
 function match_score(file, pat)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then return 0 end
     -- be case-insensitive
     file = string.lower(file)
     pat = string.lower(pat)
-    basename = string.gsub(file, '^.*/', '')
     -- look for exact match
+    if is_exact(file, pat) then
+        return 2
+    end
+    -- look for subword match
+    if is_subword(file, pat) then
+        return 1
+    end
+    -- return default value
+    return 0
+end
+
+-- says if file is an exact match for pat
+-- TODO: what to do is pat contains '/' ?
+-- TODO: zipped
+function is_exact(file, pat)
+    basename = string.gsub(file, '^.*/', '')
     if basename == pat then return 2 end
     for _, ext in ipairs(config.ext_list) do
         if ext ~= '' and ext ~= '*' and basename == pat..'.'..ext then
-            return 2
+            return true
         end
     end
-    -- look for sub-word match
-    -- TODO: implement sub-word detection
-    -- return default value
-    return 0
+    return false
+end
+
+-- say if pat is a "subword" of str
+function is_subword(str, pat)
+    print('Looking for '..pat..' as subword of '..str)
+    local i, j = string.find(str, pat, 1, true)
+    if i and j
+        and (i == 1 or is_delim(str, i-1))
+        and (j == #string or is_delim(str, j+1)) then
+        return true
+    else
+        return false
+    end
+end
+
+-- say if chararcter i of str is not a word character
+function is_delim(str, i)
+    if string.find(string.sub(str, i, i), '%w') then
+        return false
+    else
+        return true
+    end
 end
 
 -- compare two docfile's: (see search.tlu for structure)

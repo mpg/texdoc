@@ -467,7 +467,7 @@ function setup_config_from_defaults()
         interact_switch     = 'true',
         machine_switch      = 'false',
         verbosity_level     = '2',
-        ext_list            = 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ',
+        ext_list            = 'pdf, html, txt, ps, dvi, ',
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
