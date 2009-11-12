@@ -15,8 +15,51 @@ load_env(L, {
 
 -- sort a doclist
 function sort_doclist(dl)
-    dl.inv = nil
+    set_list_scores(dl)
+    dl.inv = nil -- wrong after a sort, and useless now
     table.sort(dl, docfile_order)
+end
+
+-- set the scores for a doclist
+function set_list_scores(list)
+    for _, df in ipairs(list) do
+        set_score(df)
+    end
+end
+
+-- set the score of a docfile
+function set_score(df)
+    local score = 0
+    for _, pat in ipairs(df.matches) do
+        local s = match_score(df.name, pat.name)
+        s = s * pat.ratio
+        if s > score then score = s end
+    end
+    df.score = score
+end
+
+-- compute a matching score:
+-- 0 by default
+-- 1 if pat is a sub-word of file
+-- 2 if pat is the basename of file (w/o extension)
+function match_score(file, pat)
+    -- scoring is irrelevant in regex mode
+    if config.mode == 'regex' then return 0 end
+    -- be case-insensitive
+    file = string.lower(file)
+    pat = string.lower(pat)
+    basename = string.gsub(file, '^.*/', '')
+    -- look for exact match
+    if basename == pat then return 2 end
+    for _, ext in ipairs(config.ext_list) do
+        if ext ~= '' and ext ~= '*' and basename == pat..'.'..ext then
+            return 2
+        end
+    end
+    -- look for sub-word match
+    -- TODO: implement sub-word detection
+    -- return default value
+    return 0
 end
 
 -- compare two docfile's: (see search.tlu for structure)
@@ -26,13 +69,13 @@ end
 -- 4. then lexicographically by filename.
 -- return true if a is better than b
 function docfile_order (a, b)
-    if a.exact and not b.exact then
+    if a.score > b.score then
         return true
-    elseif b.exact and not a.exact then
+    elseif a.score < b.score then
         return false
     elseif a.tree < b.tree then
         return true
-    elseif b.tree < a.tree then
+    elseif a.tree > b.tree then
         return false
     else
         a.ext_pos = a.ext_pos or ext_pos(a.name)

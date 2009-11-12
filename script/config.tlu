@@ -12,13 +12,17 @@ load_env(L, {
     'arg',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
-    'C',
     'err_print', 'win32_hook',
-    'config', 'alias'
+    'C',
+    'config',
 })
 
------------------------   hide config and alias tables   -----------------------
+---------------------   hide the config and alias tables   ---------------------
 
+-- alias is local to this file
+local alias = {}
+
+-- config is read-only
 function set_read_only(table, name)
     assert(next(table) == nil,
         'Internal error: '..name..' should be empty at this point.')
@@ -32,7 +36,7 @@ function set_read_only(table, name)
 end
 
 real_set_config = set_read_only(config, 'config')
-real_set_alias = set_read_only(alias, 'alias')
+
 
 -------------------------   general config functions   -------------------------
 
@@ -127,21 +131,28 @@ end
 
 -- add an alias value for a key
 function add_alias(key, value)
-    if not alias[key] then real_set_alias(key, default_alias(key)) end
+    if not alias[key] then alias[key] = default_alias(key) end
     table.insert(alias[key], {
         name    = value,
-        score   = 1,
-        abs     = false,
+        ratio   = 2,
     })
 end
 
 -- turn a name into a suitable alias list
 function default_alias(name)
     return {
-        name    = key,
-        score   = 0,
-        abs     = false,
+        name    = name,
+        ratio   = 1,
     }
+end
+
+-- get patterns for a name
+function get_patterns(name)
+    if config.mode ~= 'regex' and config.alias_switch and alias[name] then
+        return alias[name]
+    else
+        return { default_alias(name) }
+    end
 end
 
 ------------------------   options from command line   -------------------------
@@ -497,4 +508,5 @@ end
 -- finally export a few symbols
 export_symbols(L, {
     'setup_config_and_alias',
+    'get_patterns',
 })

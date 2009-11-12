@@ -54,15 +54,15 @@ end
 -- initialize kpathsea
 kpse.set_program_name(arg[-1], 'texdoc')
 
--- declare global variables; they will be made read-only later
+-- declare global variables;
+-- they will be made read-only as soon as they are set
 C = {}      -- constants
 config = {} -- configuration settings
-alias = {}  -- aliases
 
 -- actually load the components now
-texdoc_load('constants') -- makes C read-only
+texdoc_load('constants') -- sets C
 texdoc_load('functions')
-texdoc_load('config') -- makes config and alias read-only
+texdoc_load('config') -- sets config
 texdoc_load('search')
 texdoc_load('score')
 texdoc_load('view')

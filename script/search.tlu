@@ -9,9 +9,10 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
-    'ipairs', 'assert', 'error', 'tostring', 'setmetatable',
+    'ipairs', 'assert', 'error', 'tostring', 'setmetatable', 'print',
     'err_print', 'win32_hook', 'parse_zip',
-    'config', 'alias', 'C',
+    'get_patterns',
+    'config', 'C',
 })
 
 -- shared by all functions in this file
@@ -49,16 +50,10 @@ function Doclist:add(df)
     end
 end
 
--- merge another doclist in
-function Doclist:mergin(dl)
-    local _, df
-    for _, df in ipairs(dl) do self:add(df) end
-end
-
 -- docfile = {
---     name = filename relative to tree, absolute if tree == nil,
---     tree = number of the tree in doc_roots,
---     exact = <boolean> does pattern match exactly,
+--     name     = filename relative to tree, absolute if tree == nil,
+--     tree     = number of the tree in doc_roots,
+--     matches  = {pattern1, pattern2, ...}
 -- }
 
 local Docfile = {}
@@ -74,8 +69,8 @@ function Docfile:new(df)
     else
         error('Internal error: no realpath for docfile.')
     end
-    if df.exact ~= nil and df.pattern then
-        df.matches = {{ pattern = df.pattern, exact = df.exact }}
+    if df.pattern then
+        df.matches = { df.pattern }
         df.pattern = nil
     else
         error('Internal error: no pattern info for docfile.')
@@ -84,7 +79,6 @@ function Docfile:new(df)
 end
 
 function Docfile:mergein(df)
-    self.exact = self.exact or df.exact
     for _, m in ipairs(df.matches) do
         table.insert(self.matches, m)
     end
@@ -233,27 +227,26 @@ end -- scope of doc_roots
 ------------------------------   select results   ------------------------------
 
 -- says if file has a 'good' extenstion according to ext_list
--- and is an exact match for patname
-function check_ext(file, patname)
+function check_ext(file)
     file = string.lower(file)
-    local good_ext, exact_match = false, false
     -- remove zipext if applicable
     file = parse_zip(file)
     -- then do the normal thing
-    local l, pat = string.len(patname) + 1, patname..'.'
     for _, e in ipairs(config.ext_list) do
         if e == '*' then
-            good_ext = true
-            if string.sub(file, 1, l) == pat then exact_match = true end
+            return true
         elseif (e == '') then
-            if not string.find(file, '.', 1, true) then good_ext = true end
-            if file == patname then exact_match = true end
+            if not string.find(file, '.', 1, true) then
+                return true
+            end
         else
-            if string.sub(file, -string.len(e)) == e then good_ext=true end
-            if file == patname..'.'..e then exact_match = true end
+            local dot_e = '.'..e
+            if string.sub(file, -string.len(dot_e)) == dot_e then
+                return true
+            end
         end
     end
-    return good_ext, exact_match
+    return false
 end
 
 -- return a docfile object if file "matches", nil ortherwise
@@ -264,17 +257,15 @@ function process_file (file, pathfile, code)
     for _, pattern in ipairs(s_patterns) do
         if string.find(string.lower(pathfile), pattern.name,
                 1, config.mode ~= 'regex') then
-            local good_ext, exact_match = check_ext(file, pattern.name)
+            local good_ext = check_ext(file)
             err_print(string.format(
-                "File '%s' matches '%s'; good_ext=%s, exact=%s",
-                pathfile, pattern.name,
-                tostring(good_ext), tostring(exact_match)),
+                "File '%s' matches '%s'; good_ext=%s",
+                pathfile, pattern.name, tostring(good_ext)),
                 'debug5')
             if good_ext then
                 local info = {
                     name    = pathfile,
                     tree    = code,
-                    exact   = exact_match,
                     pattern = pattern,
                 }
                 if docfile then
@@ -297,7 +288,6 @@ function get_doclist_sty (pattern)
         local df = Docfile:new({
             name    = file ,
             tree    = nil,
-            exact   = true,
             pattern = pattern,
         })
         s_doclist:add(df)
@@ -311,13 +301,8 @@ function get_doclist(pattern)
     local no_regex = (config.mode ~= 'regex')
     -- initialise result list
     s_doclist = Doclist:new()
-    -- build pattern list, applying aliases if relevant
-    local tmplist = {}
-    if no_regex and config.alias_switch and alias[pattern] then
-        tmplist = alias[pattern]
-    else
-        tmplist = default_alias(pattern)
-    end
+    -- get patterns
+    local tmplist = get_patterns(pattern)
     -- discriminate sty files
     local patlist, stylist = {}, {}
     if no_regex then

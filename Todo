@@ -6,6 +6,8 @@ Small todo items
 Big changes planned
 ===================
 
+Need to review extensively case-sensitivity issues (alias, matches, etc.)
+
 Also search using info from the tlpdb (use docfiles associated with a given
 runfile -- see if it causes more harm than good for bundles).
 
