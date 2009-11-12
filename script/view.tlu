@@ -11,7 +11,6 @@ load_env(L, {
     'string', 'os', 'table', 'io',
     'tonumber', 'ipairs', 'print',
     'config', 
-    'real_path',
     'C',
     'err_print', 'parse_zip',
 })
@@ -21,7 +20,7 @@ load_env(L, {
 -- view a document
 -- see search.tlu for the structure of the argument
 function view_doc(docfile)
-    return view_file(real_path(docfile))
+    return view_file(docfile.realpath)
 end
 
 -- get viewer and viewer_replacement before calling try_viewing
@@ -129,9 +128,9 @@ function print_menu (docfiles, showall)
     for i, doc in ipairs (docfiles) do
         if (doc.exact == false) and not showall then break end
         if config.machine_switch == true then
-            print(real_path(doc))
+            print(doc.realpath)
         else
-            print(string.format('%2d %s', i, real_path(doc)))
+            print(string.format('%2d %s', i, doc.realpath))
         end
     end
     if config.interact_switch then

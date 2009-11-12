@@ -25,7 +25,7 @@ local s_patterns, s_doclist
 -- }
 --
 -- The inv subtable is such that for all i
--- doclist.inv(realpath(doclist[i]) == i
+-- doclist.inv(doclist[i].realpath) == i
 
 local Doclist = {}
 Doclist.__index = Doclist
@@ -39,14 +39,13 @@ end
 
 -- add a docfile to a list
 function Doclist:add(df)
-    local rp = df:real_path()
-    local index = self.inv[rp]
+    local index = self.inv[df.realpath]
     if index then
         self[index]:mergein(df)
     else
         local newindex = #self + 1
         self[newindex] = df
-        self.inv[rp] = newindex
+        self.inv[df.realpath] = newindex
     end
 end
 
@@ -68,18 +67,18 @@ Docfile.__index = Docfile
 function Docfile:new(df)
     df = df or {}
     setmetatable(df, self)
+    if df.name and df.tree then
+        df.realpath = tree_to_path(df.tree, df.name)
+    elseif df.name then
+        df.realpath = df.name
+    else
+        error('Internal error: no realpath for docfile.')
+    end
     return df
 end
 
 function Docfile:mergein(df)
     self.exact = self.exact or df.exact
-end
-
-function Docfile:real_path(df)
-    if not self.real_path_cache then
-        self.real_path_cache = real_path(self)
-    end
-    return self.real_path_cache
 end
 
 ------------------   get results from TEXDOCS (à la kpse)   -------------------
@@ -118,11 +117,10 @@ function get_texdocs ()
     end
 end
 
--- return the real path of a docfile
-function real_path(docfile)
-    if docfile.tree == nil then return docfile.name end
+-- return the real path from a tree + relative path
+function tree_to_path(tree, rel)
     if doc_roots == nil then get_texdocs() end
-    return win32_hook(doc_roots[docfile.tree].path..'/'..docfile.name)
+    return win32_hook(doc_roots[tree].path..'/'..rel)
 end
 
 -- find docfiles in texdocs directories
@@ -334,6 +332,5 @@ end
 
 -- finally export a few symbols
 export_symbols(L, {
-    'real_path',
     'get_docfiles', 
 })
