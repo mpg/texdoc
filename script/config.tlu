@@ -12,15 +12,12 @@ load_env(L, {
     'arg',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
-    'err_print', 'win32_hook', 'deb_print',
+    'err_print', 'win32_hook', 'deb_print', 'confline_to_alias',
     'C',
     'config',
 })
 
----------------------   hide the config and alias tables   ---------------------
-
--- alias is local to this file
-local alias = {}
+--------------------------   hide the config table   ---------------------------
 
 -- config is read-only
 function set_read_only(table, name)
@@ -124,34 +121,6 @@ end
 function set_config_list (conf, context)
     for key, value in pairs(conf) do
         set_config_element (key, value, context)
-    end
-end
-
--------------------------   general alias functions   --------------------------
-
--- add an alias value for a key
-function add_alias(key, value)
-    if not alias[key] then alias[key] = default_alias(key) end
-    table.insert(alias[key], {
-        name    = value,
-        ratio   = 10,
-    })
-end
-
--- turn a name into a suitable alias list
-function default_alias(name)
-    return {
-        name    = name,
-        ratio   = 1,
-    }
-end
-
--- get patterns for a name
-function get_patterns(name)
-    if config.mode ~= 'regex' and config.alias_switch and alias[name] then
-        return alias[name]
-    else
-        return { default_alias(name) }
     end
 end
 
@@ -266,31 +235,35 @@ function read_config_file(configfile)
     local cnf = assert(io.open(configfile, 'r'))
     local lineno = 0
     while true do
-        local key, val
         local line=cnf:read('*line')
         lineno = lineno + 1
         if line == nil then break end  -- EOF
         line = string.gsub(line, '%s*#.*$', '') -- comments begin with #
         line = string.gsub(line, '%s*$', '')    -- remove trailing spaces
         line = string.gsub(line, '^%s*', '')    -- remove leading spaces
-        key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
-        if key and val then
-            set_config_element(key, val, {
-                src='file', file=configfile, line=lineno})
-        else
-            key, val = string.match(line, '^alias%s+([%a%d_-]+)%s*=%s*(.+)')
-            if key and val then
-                add_alias(key, val)
-            else
-                if (not string.match (line, '^%s*$')) then
-                    err_print('warning',
-                    'syntax error in '..configfile..' at line '..lineno..'.')
-                end
-            end
+        -- try to interpret the line
+        local ok = string.match(line, '^%s*$') 
+        or confline_to_alias(line, configfile, lineno)
+        or confline_to_config(line, configfile, lineno)
+        -- complain if it failed
+        if not ok then
+            err_print('warning',
+            'syntax error in '..configfile..' at line '..lineno..'.')
         end
     end
     cnf:close()
 end
+
+-- interpret a confline as a config setting or return false
+function confline_to_config(line, file, pos)
+    local key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
+    if key and val then
+        set_config_element(key, val, {src='file', file=file, line=pos})
+        return true
+    end
+    return false
+end
+
 
 -- return a table with config file and if they exist
 function get_config_files ()
@@ -515,5 +488,4 @@ end
 -- finally export a few symbols
 export_symbols(L, {
     'setup_config_and_alias',
-    'get_patterns',
 })
