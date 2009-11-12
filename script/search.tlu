@@ -264,12 +264,16 @@ function process_file (file, pathfile, code)
                 "File '%s' matches '%s'; good_ext=%s, exact=%s", pathfile,
                 pattern, tostring(good_ext), tostring(exact_match)), 'debug5')
             if good_ext then
-                docfile = docfile or Docfile:new()
-                docfile:merge(Docfile:new({
+                local info = {
                     name = pathfile,
                     tree = code,
                     exact = exact_match,
-                }))
+                }
+                if docfile then
+                    docfile:mergein(Docfile:new(info))
+                else
+                    docfile = Docfile:new(info)
+                end
             end
         end
     end
@@ -280,11 +284,15 @@ end
 
 -- for sty files, we obviously don't want to look in TEXDOCS...
 function get_docfiles_sty (styname)
-   s_doclist:add(Docfile:new({
-        name = kpse.find_file(styname),
-        exact = true,
-        tree = nil,
-    }))
+    local file = kpse.find_file(styname)
+    if file then
+        local df = Docfile:new({
+            name = file ,
+            exact = true,
+            tree = nil,
+        })
+        s_doclist:add(df)
+    end
 end
 
 ------------------------------   main function   -------------------------------
@@ -292,20 +300,35 @@ end
 -- find docfiles according to pattern
 function get_docfiles(pattern)
     local no_regex = (config.mode ~= 'regex')
-    -- apply aliases if relevant
-    if no_regex and config.alias_switch and alias[pattern] then
-        err_print(pattern.." aliased to "..alias[pattern], 'info')
-        pattern = alias[pattern]
-    end
-    -- search using the appropriate function
+    -- initialise result list
     s_doclist = Doclist:new()
-    if string.match(string.lower(pattern), '%.([^/.]*)$') == 'sty'
-        and no_regex then
-        get_docfiles_sty(pattern)
+    -- build pattern list, applying aliases if relevant
+    local tmplist = {}
+    if no_regex and config.alias_switch and alias[pattern] then
+        tmplist = alias[pattern]
     else
-        s_patterns = {string.lower(pattern)}
-        get_docfiles_texdocs()
+        tmplist = { pattern }
     end
+    -- discriminate sty files
+    local patlist, stylist = {}, {}
+    if no_regex then
+        local p
+        for _, p in ipairs(tmplist) do
+            if string.match(string.lower(p), '%.([^/.]*)$') == 'sty' then
+                table.insert(stylist, p)
+            else
+                table.insert(patlist, p)
+            end
+        end
+    end
+    -- look for sty files
+    for _, p in ipairs(stylist) do
+        get_docfiles_sty(p)
+    end
+    -- now regular files in texdocs
+    s_patterns = patlist
+    get_docfiles_texdocs()
+    -- done
     return s_doclist
 end
 

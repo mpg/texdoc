@@ -12,6 +12,7 @@ runfile -- see if it causes more harm than good for bundles).
 Allow for multiple patterns to be searched at one time. Change the alias
 directive so that it adds patterns (possibly make another directive for
 replacing patterns -- see if they should cascade).
+	Done, except for the cascading part.
 
 Create good default scoring rules. Ideas:
 - foo/foo.pdf should win over anything/foo.pdf

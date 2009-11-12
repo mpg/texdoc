@@ -34,7 +34,7 @@ end
 real_set_config = set_read_only(config, 'config')
 real_set_alias = set_read_only(alias, 'alias')
 
-----------------------------   general functions   -----------------------------
+-------------------------   general config functions   -------------------------
 
 -- set a config parameter, but don't overwrite it if already set
 -- three special types: *_list (list), *_switch (boolean), *_level (number)
@@ -123,11 +123,18 @@ function set_config_list (conf, context)
     end
 end
 
--- set an alias (w/o overwriting)
-function set_alias (key, value)
-    if alias[key] == nil then
-        real_set_alias(key, value)
-    end
+-------------------------   general alias functions   --------------------------
+
+-- add an alias value for a key
+function add_alias(key, value)
+    if not alias[key] then real_set_alias(key, {key}) end
+    table.insert(alias[key], value)
+end
+
+-- set a substitution value for a key, w/o overwriting
+function set_subs(key, value)
+    if not alias[key] then real_set_alias(key, {}) end
+    if not alias[key].subs then alias[key].subs = value end
 end
 
 ------------------------   options from command line   -------------------------
@@ -248,7 +255,7 @@ function read_config_file(configfile)
         else
             key, val = string.match(line, '^alias%s+([%a%d_-]+)%s*=%s*(.+)')
             if key and val then
-                set_alias(key, val)
+                add_alias(key, val)
             else
                 if (not string.match (line, '^%s*$')) then
                     err_print ('syntax error in '..configfile..
