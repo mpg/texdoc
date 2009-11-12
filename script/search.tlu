@@ -113,19 +113,33 @@ function get_texdocs ()
     local kpse_texdocs = kpse.expand_var("$TEXDOCS")
     -- expand the path and turn it into a lua list
     local raw_doc_roots = string.explode(kpse.expand_braces(kpse_texdocs), sep)
-    deb_print('texdocs', 'Search paths:')
     for i, dir in ipairs(raw_doc_roots) do
-        doc_roots[i] = {}
+        local dr = {}
         local n
+        -- get path, !! and // values
         dir, n = string.gsub (dir, '//$', '')
-        doc_roots[i].recursion_allowed = (n == 1)
-        doc_roots[i].path, n = string.gsub (dir, '^!!', '')
-        doc_roots[i].index_mandatory = (n == 1)
+        dr.recursion_allowed = (n == 1)
+        dr.path, n = string.gsub (dir, '^!!', '')
+        dr.index_mandatory = (n == 1)
         deb_print('texdocs', string.format(
-            '%s (index_mandatory=%s, recursion_allowed=%s)',
-            doc_roots[i].path,
-            tostring(doc_roots[i].index_mandatory),
-            tostring(doc_roots[i].recursion_allowed)))
+            'texdocs[%d] = %s (index_mandatory=%s, recursion_allowed=%s)',
+            i, dr.path,
+            tostring(dr.index_mandatory),
+            tostring(dr.recursion_allowed)))
+        -- decide if we should use a ls-R index, the filesystem, or do nothing
+        local root, shift = lsr_root(dr.path)
+        if root and shift and dr.recursion_allowed then
+            dr.lsr = root
+            dr.lsr_shift = shift
+            deb_print('texdocs', string.format(
+                'texdocs[%d] using index: %s (shift=%s)', i, root, shift))
+        elseif not dr.index_mandatory and lfs.isdir(dr.path) then
+            dr.searchfs = true
+            deb_print('texdocs', string.format(
+                'texdocs[%d] using filesystem search', i))
+        end
+        -- register this in docroots
+        doc_roots[i] = dr
     end
 end
 
@@ -136,20 +150,13 @@ function tree_to_path(tree, rel)
 end
 
 -- find docfiles in texdocs directories
-function get_doclist_texdocs ()
+function get_doclist_texdocs()
     if doc_roots == nil then get_texdocs() end
-    for code, doc_root in ipairs (doc_roots) do
-        root, shift = lsr_root (doc_root.path)
-        if root and shift and doc_root.recursion_allowed then
-            deb_print('texdocs',
-                "Looking in tree '"..doc_root.path
-                .."' using ls-R file'" ..root.."/ls-R'.")
-            scan_lsr(root, code, shift)
-        elseif (not doc_root.index_mandatory)
-            and lfs.isdir(doc_root.path) then
-            deb_print('texdocs',
-                "Looking in tree '"..doc_root.path.."' using filesystem.")
-            scan_tree(code, doc_root.path, '', doc_root.recursion_allowed)
+    for code, dr in ipairs(doc_roots) do
+        if dr.lsr then
+            scan_lsr(code, dr.lsr, dr.lsr_shift)
+        elseif dr.searchfs then
+            scan_tree(code, dr.path, '', dr.recursion_allowed)
         end
     end
 end
@@ -190,7 +197,7 @@ function scan_tree (code, base, cwd, recurse)
 end
 
 -- scan a ls-R file
-function scan_lsr (cwd, code, shift)
+function scan_lsr(code, cwd, shift)
     local is_dir = {} -- is_dir[path] = true iff path is a dir
     local results = Doclist:new()
     local isdoc = false
