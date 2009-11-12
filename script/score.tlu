@@ -17,7 +17,7 @@ load_env(L, {
 function docfile_quality(df)
     if df.score > 0 then
         return 'good'
-    elseif df.score > -10 then
+    elseif df.score > -100 then
         return 'bad'
     else
         return 'killed'
@@ -54,26 +54,24 @@ function set_score(df)
     df.score = score
 end
 
--- compute a matching score:
--- 0 by default
--- 1 if pat is a "subword" of file
--- 2 if file is an "exact" match for pat
+-- compute a matching score 0 <= s < 10 
+-- 0 iff pat or a derivative doesn't match at least as a subword
 function match_score(file, pat)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then return 0 end
     -- be case-insensitive
     file = string.lower(file)
     pat = string.lower(pat)
+    local score = 0
     -- look for exact match
     if is_exact(file, pat) then
-        return 2
+        score = 2
     end
     -- look for subword match
     if is_subword(file, pat) then
-        return 1
+        score = 1
     end
-    -- return default value
-    return 0
+    return score
 end
 
 -- says if file is an exact match for pat
@@ -81,7 +79,7 @@ end
 -- TODO: zipped
 function is_exact(file, pat)
     basename = string.gsub(file, '^.*/', '')
-    if basename == pat then return 2 end
+    if basename == pat then return true end
     for _, ext in ipairs(config.ext_list) do
         if ext ~= '' and ext ~= '*' and basename == pat..'.'..ext then
             return true

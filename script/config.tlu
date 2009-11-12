@@ -134,7 +134,7 @@ function add_alias(key, value)
     if not alias[key] then alias[key] = default_alias(key) end
     table.insert(alias[key], {
         name    = value,
-        ratio   = 2,
+        ratio   = 10,
     })
 end
 
