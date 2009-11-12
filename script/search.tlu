@@ -74,11 +74,20 @@ function Docfile:new(df)
     else
         error('Internal error: no realpath for docfile.')
     end
+    if df.exact ~= nil and df.pattern then
+        df.matches = {{ pattern = df.pattern, exact = df.exact }}
+        df.pattern = nil
+    else
+        error('Internal error: no pattern info for docfiles.')
+    end
     return df
 end
 
 function Docfile:mergein(df)
     self.exact = self.exact or df.exact
+    for _, m in ipairs(df.matches) do
+        table.insert(self.matches, m)
+    end
 end
 
 ------------------   get results from TEXDOCS (à la kpse)   -------------------
@@ -224,26 +233,24 @@ end -- scope of doc_roots
 ------------------------------   select results   ------------------------------
 
 -- says if file has a 'good' extenstion according to ext_list
-function check_ext(file)
+-- and is an exact match for patname
+function check_ext(file, patname)
     file = string.lower(file)
     local good_ext, exact_match = false, false
     -- remove zipext if applicable
     file = parse_zip(file)
     -- then do the normal thing
-    local pattern
-    for _, pattern in ipairs(s_patterns) do
-        local l, pat = string.len(pattern) + 1, pattern..'.'
-        for _, e in ipairs(config.ext_list) do
-            if e == '*' then
-                good_ext = true
-                if string.sub(file, 1, l) == pat then exact_match = true end
-            elseif (e == '') then
-                if not string.find(file, '.', 1, true) then good_ext = true end
-                if file == pattern then exact_match = true end
-            else
-                if string.sub(file, -string.len(e)) == e then good_ext=true end
-                if file == pattern..'.'..e then exact_match = true end
-            end
+    local l, pat = string.len(patname) + 1, patname..'.'
+    for _, e in ipairs(config.ext_list) do
+        if e == '*' then
+            good_ext = true
+            if string.sub(file, 1, l) == pat then exact_match = true end
+        elseif (e == '') then
+            if not string.find(file, '.', 1, true) then good_ext = true end
+            if file == patname then exact_match = true end
+        else
+            if string.sub(file, -string.len(e)) == e then good_ext=true end
+            if file == patname..'.'..e then exact_match = true end
         end
     end
     return good_ext, exact_match
@@ -255,17 +262,20 @@ function process_file (file, pathfile, code)
     local docfile
     local pattern
     for _, pattern in ipairs(s_patterns) do
-        if string.find(string.lower(pathfile), pattern,
+        if string.find(string.lower(pathfile), pattern.name,
                 1, config.mode ~= 'regex') then
-            local good_ext, exact_match = check_ext(file)
+            local good_ext, exact_match = check_ext(file, pattern.name)
             err_print(string.format(
-                "File '%s' matches '%s'; good_ext=%s, exact=%s", pathfile,
-                pattern, tostring(good_ext), tostring(exact_match)), 'debug5')
+                "File '%s' matches '%s'; good_ext=%s, exact=%s",
+                pathfile, pattern.name,
+                tostring(good_ext), tostring(exact_match)),
+                'debug5')
             if good_ext then
                 local info = {
-                    name = pathfile,
-                    tree = code,
-                    exact = exact_match,
+                    name    = pathfile,
+                    tree    = code,
+                    exact   = exact_match,
+                    pattern = pattern,
                 }
                 if docfile then
                     docfile:mergein(Docfile:new(info))
@@ -281,13 +291,14 @@ end
 ------------------------   get results from elsewhere   ------------------------
 
 -- for sty files, we obviously don't want to look in TEXDOCS...
-function get_docfiles_sty (styname)
-    local file = kpse.find_file(styname)
+function get_docfiles_sty (pattern)
+    local file = kpse.find_file(pattern.name)
     if file then
         local df = Docfile:new({
-            name = file ,
-            exact = true,
-            tree = nil,
+            name    = file ,
+            tree    = nil,
+            exact   = true,
+            pattern = pattern,
         })
         s_doclist:add(df)
     end
@@ -305,14 +316,14 @@ function get_docfiles(pattern)
     if no_regex and config.alias_switch and alias[pattern] then
         tmplist = alias[pattern]
     else
-        tmplist = { pattern }
+        tmplist = default_alias(pattern)
     end
     -- discriminate sty files
     local patlist, stylist = {}, {}
     if no_regex then
         local p
         for _, p in ipairs(tmplist) do
-            if string.match(string.lower(p), '%.([^/.]*)$') == 'sty' then
+            if string.match(string.lower(p.name), '%.([^/.]*)$') == 'sty' then
                 table.insert(stylist, p)
             else
                 table.insert(patlist, p)

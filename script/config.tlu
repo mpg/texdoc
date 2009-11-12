@@ -127,14 +127,21 @@ end
 
 -- add an alias value for a key
 function add_alias(key, value)
-    if not alias[key] then real_set_alias(key, {key}) end
-    table.insert(alias[key], value)
+    if not alias[key] then real_set_alias(key, default_alias(key)) end
+    table.insert(alias[key], {
+        name    = value,
+        score   = 1,
+        abs     = false,
+    })
 end
 
--- set a substitution value for a key, w/o overwriting
-function set_subs(key, value)
-    if not alias[key] then real_set_alias(key, {}) end
-    if not alias[key].subs then alias[key].subs = value end
+-- turn a name into a suitable alias list
+function default_alias(name)
+    return {
+        name    = key,
+        score   = 0,
+        abs     = false,
+    }
 end
 
 ------------------------   options from command line   -------------------------
