@@ -13,10 +13,21 @@ load_env(L, {
     'config', 'parse_zip', 'err_print', 'deb_print',
 })
 
+-- return the "quality" of docfile
+function docfile_quality(df)
+    if df.score > 0 then
+        return 'good'
+    elseif df.score > -10 then
+        return 'bad'
+    else
+        return 'killed'
+    end
+end
+
 -- sort a doclist
 function sort_doclist(dl)
+    dl:stop()
     set_list_scores(dl)
-    dl.inv = nil -- wrong after a sort, and useless now
     table.sort(dl, docfile_order)
 end
 
@@ -153,4 +164,5 @@ end
 -- export a few symbols
 export_symbols(L, {
     'sort_doclist',
+    'docfile_quality',
 })

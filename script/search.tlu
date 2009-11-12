@@ -11,7 +11,7 @@ load_env(L, {
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
     'ipairs', 'assert', 'error', 'tostring', 'setmetatable',
     'deb_print', 'err_print', 'win32_hook', 'parse_zip',
-    'get_patterns',
+    'get_patterns', 'sort_doclist', 'docfile_quality',
     'config', 'C',
 })
 
@@ -50,6 +50,11 @@ function Doclist:add(df)
     end
 end
 
+-- stops a doclist
+function Doclist:stop()
+    self.inv = nil
+end
+
 -- docfile = {
 --     name     = filename relative to tree, absolute if tree == nil,
 --     tree     = number of the tree in doc_roots,
@@ -59,8 +64,8 @@ end
 local Docfile = {}
 Docfile.__index = Docfile
 
+-- create a new docfile objet using initilisation info
 function Docfile:new(df)
-    df = df or {}
     setmetatable(df, self)
     if df.name and df.tree then
         df.realpath = tree_to_path(df.tree, df.name)
@@ -78,11 +83,15 @@ function Docfile:new(df)
     return df
 end
 
+-- merge a second docfile objet into self
 function Docfile:mergein(df)
     for _, m in ipairs(df.matches) do
         table.insert(self.matches, m)
     end
 end
+
+-- from score.tlu
+Docfile.quality = docfile_quality
 
 ------------------   get results from TEXDOCS (à la kpse)   -------------------
 
@@ -322,7 +331,8 @@ function get_doclist(pattern)
     -- now regular files in texdocs
     s_patterns = patlist
     get_doclist_texdocs()
-    -- done
+    -- finally, sort results
+     sort_doclist(s_doclist)
     return s_doclist
 end
 

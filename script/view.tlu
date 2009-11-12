@@ -106,7 +106,7 @@ function print_menu (doclist, showall)
             n = #doclist
         else
             n = 0
-            while doclist[n+1] and doclist[n+1].score > 0 do
+            while doclist[n+1] and doclist[n+1]:quality() == 'good' do
                 n = n + 1
             end
         end
@@ -122,7 +122,8 @@ function print_menu (doclist, showall)
     end
     local i, doc
     for i, doc in ipairs (doclist) do
-        if (doc.score <= 0) and not showall then break end
+        if doc:quality() == 'killed' then break end
+        if doc:quality() ~= 'good' and not showall then break end
         if config.machine_switch == true then
             print(doc.realpath)
         else
@@ -152,14 +153,14 @@ function deliver_results(doclist, name)
     end
     -- shall we show all of them or only the "good" ones?
     local showall = (config.mode == 'regex') or (config.mode == 'search')
-    if not showall and doclist[1].score <= 0 then
+    if not showall and doclist[1]:quality() ~= 'good' then
         showall = true
         err_print('info', 'No good result found, showing all results.')
     end
     -- view result or show menu based on mode and number of results
     if (config.mode == 'view')
         or config.mode == 'mixed' and (not doclist[2]
-            or doclist[2].score <= 0 and not showall) then
+            or (doclist[2]:quality() ~= 'good' and not showall)) then
         view_doc(doclist[1])
     else
         print_menu(doclist, showall)

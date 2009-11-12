@@ -14,7 +14,6 @@ load_env(L, {
     'config',
     'setup_config_and_alias',
     'get_doclist',
-    'sort_doclist',
     'deliver_results',
 })
 
@@ -38,9 +37,8 @@ for _, docname in ipairs(arg) do
             print ("*** Results for: "..docname.." ***")
         end
     end
-    -- get results and sort them
+    -- get results
     local doclist = get_doclist(docname)
-    sort_doclist(doclist)
     -- deliver results to the user
     deliver_results(doclist, docname)
 end
