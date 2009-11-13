@@ -129,7 +129,8 @@ function print_menu(name, docfiles, showall)
     for i, doc in ipairs (docfiles) do
         if (doc.exact == false) and not showall then break end
         if config.machine_switch == true then
-            print(name, real_path(doc))
+            local score = doc.exact and 1 or 0
+            print(name, score, real_path(doc))
         else
             print(string.format('%2d %s', i, real_path(doc)))
         end
