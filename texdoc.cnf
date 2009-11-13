@@ -68,8 +68,8 @@ setscore /Makefile = -100
 adjscore /tex-virtual-academy-pl/ = -99
 
 # Uncomment to make the man pages have a greater priority
-#adjscore .man1. = 10
-#adjscore .man5. = 10
+#adjscore .man1. = 50
+#adjscore .man5. = 50
 
 ### Aliases ###
 

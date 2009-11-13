@@ -16,11 +16,7 @@ Make scoring rules better. Ideas:
 - Matching \<foo-doc\> or \<foo/doc.pdf is better than just \<foo\>
 - Matching exactly foo-doc is better than matching \<foo-doc\>.
 
-Make the scoring configurable. Eg add a scoring option to the alias directive.
-Create a scoring directive (with shell-style globs eg). Eg make
-tex-virtual-academy-pl get a bad score, Makefile a very bad score.
-	Mostly done, but scaling problems with alias scores.
-	And needs testing!
+Add a scoring option to the alias directive.
 
 Misc ideas
 ==========
