@@ -51,8 +51,6 @@ end
 function set_score(df)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then df.score = 0 return end
-    -- default score 
-    local score = 0
     deb_print('score', 'Start scoring '..df.realpath)
     -- set from tables
     for pat, val in pairs(setscore) do
@@ -64,6 +62,7 @@ function set_score(df)
         end
     end
     -- get score from patterns
+    local score = 0
     for _, pat in ipairs(df.matches) do
         local s = match_score(df.name, pat.name)
         s = s * pat.ratio
@@ -74,12 +73,13 @@ function set_score(df)
     deb_print('score', 'Total pattern score: '..tostring(score))
     -- adjust from tables
     for pat, val in pairs(adjscore) do
-        local s = match_score(df.name, pat)
-        score = score + s * val
-        deb_print('score', string.format(
-            "Adjust pattern '%s': score %d, ratio %d", pat, s, val))
+        if match_score(df.name, pat) > 0 then
+            score = score + val
+            deb_print('score', string.format(
+                "Adjust pattern '%s': add %d", pat, val))
+        end
     end
-    deb_print('score', 'Adjusted score: '..tostring(score))
+    deb_print('score', 'Final score: '..tostring(score))
     df.score = score
 end
 
@@ -91,12 +91,10 @@ function match_score(file, pat)
     file = string.lower(file)
     pat = string.lower(pat)
     local score = 0
-    -- look for exact match
+    -- look for exact or subword match
     if is_exact(file, pat) then
-        score = 2
-    end
-    -- look for subword match
-    if is_subword(file, pat) then
+        score = 5
+    elseif is_subword(file, pat) then
         score = 1
     end
     return score
