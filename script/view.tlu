@@ -102,7 +102,7 @@ end
 -- print a list of files (structure: see search.tlu) as a menu
 -- if showall is false, stops as soon a non-exact match is encountered
 -- (unimplemented right now, waiting for the scoring routine)
-function print_menu (docfiles, showall)
+function print_menu(name, docfiles, showall)
     local max_lines = tonumber(config.max_lines) or 20
     if config.interact_switch and docfiles[max_lines+1] then
         -- there may be too many lines, count them
@@ -129,7 +129,7 @@ function print_menu (docfiles, showall)
     for i, doc in ipairs (docfiles) do
         if (doc.exact == false) and not showall then break end
         if config.machine_switch == true then
-            print(real_path(doc))
+            print(name, real_path(doc))
         else
             print(string.format('%2d %s', i, real_path(doc)))
         end
@@ -146,7 +146,7 @@ end
 
 -----------------------   deliver results base on mode   -----------------------
 
-function deliver_results(docfiles, name)
+function deliver_results(name, docfiles, many)
     -- ensure that results were found or apologize
     if not docfiles[1] then
         if not config.machine_switch then
@@ -167,7 +167,10 @@ function deliver_results(docfiles, name)
             or not docfiles[2].exact and not showall) then
         view_doc(docfiles[1])
     else
-        print_menu(docfiles, showall)
+        if many and not config.machine_switch then 
+            print ("*** Results for: "..name.." ***")
+        end
+        print_menu(name, docfiles, showall)
     end
 end
 

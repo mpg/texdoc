@@ -30,17 +30,11 @@ end
 -- main loop
 local docname
 for _, docname in ipairs(arg) do
-    -- inform the user which arg is treated if more than one was provided
-    if arg[2] then 
-        if config.machine_switch == true then
-            print('\t'..docname)
-        else
-            print ("*** Results for: "..docname.." ***")
-        end
-    end
+    -- do we have more then one argument?
+    local multiarg = not not arg[2]
     -- get results and sort them
     local docfiles = get_docfiles(docname)
     sort_docfiles(docfiles)
     -- deliver results to the user
-    deliver_results(docfiles, docname)
+    deliver_results(docname, docfiles, multiarg)
 end
