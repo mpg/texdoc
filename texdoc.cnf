@@ -47,9 +47,29 @@
 #
 # mode = view
 # interact_switch = true
-# alias_switch = true				# but false if mode is 'regex'
-# ext_list = pdf, html, txt, man1.pdf, man5.pdf, ps, dvi,  # empty string at end
-# verbosity_level = 3
+# alias_switch = true
+# ext_list = pdf, html, txt, ps, dvi,	# Note: empty string at end
+# verbosity_level = 2 	# Print: 0 nothing, 1 errors, 2 warnings, 3: infos
+# debug_list = 	# the empty list
+# machine_switch = false
+
+### Score ###
+
+# Only results with positive scores are displayed (unless mode is 'showall').
+# Results with score <= 100 are never displayed.
+# 
+# You can set the score of a result with 'setscore'
+# or adjust it by adding some signed value with adjscore.
+
+# Makefile's are never documentation
+setscore /Makefile = -100
+
+# tex-virtual-academy provides a lot of fake matches
+adjscore /tex-virtual-academy-pl/ = -99
+
+# Uncomment to make the man pages have a greater priority
+#adjscore .man1. = 10
+#adjscore .man5. = 10
 
 ### Aliases ###
 
