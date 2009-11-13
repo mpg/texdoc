@@ -11,18 +11,17 @@ load_env(L, {
     'print', 'ipairs',
     'arg',
     'C',
-    'config',
     'setup_config_and_alias',
     'get_doclist',
     'deliver_results',
 })
 
 -- setup config options and aliases from various places
-setup_config_and_alias()
+setup_config_and_alias(arg)
 
 -- make sure we actually have argument(s)
 if not arg[1] then
-    print (C.usage_msg)
+    print(C.usage_msg)
     os.exit(2)
 end
 

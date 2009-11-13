@@ -8,12 +8,14 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'setmetatable', 'next', 'assert', 'error',
+    'arg',
     'C',
 })
 
 -- progname and version
-progname = 'texdoc'
-version = '0.49'
+fullname    = arg[0]
+progname    = 'texdoc'
+version     = '0.49'
 
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
