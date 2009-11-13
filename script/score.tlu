@@ -52,9 +52,11 @@ function set_score(df)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then df.score = 0 return end
     deb_print('score', 'Start scoring '..df.realpath)
+    -- scoring is case-insenstitive (patterns are already lowercased)
+    local name = string.lower(df.name)
     -- set from tables
     for pat, val in pairs(setscore) do
-        if is_subword(df.name, pat) then
+        if is_subword(name, pat) then
             deb_print('score', string.format(
                 "Set from pattern '%s': %d", pat, val))
             df.score = val
@@ -64,7 +66,7 @@ function set_score(df)
     -- get score from patterns
     local score = 0
     for _, pat in ipairs(df.matches) do
-        local s = match_score(df.name, pat.name)
+        local s = match_score(name, pat.name)
         deb_print('score', string.format(
             "For pattern '%s': score %d adjust %d", pat.name, s, pat.adjscore))
         if s > 0 then s = s + pat.adjscore end
@@ -74,7 +76,7 @@ function set_score(df)
     -- adjust from tables
     if score > 0 then
         for pat, val in pairs(adjscore) do
-            if is_subword(df.name, pat) then
+            if is_subword(name, pat) then
                 score = score + val
                 deb_print('score', string.format(
                 "Adjust pattern '%s': add %d", pat, val))
@@ -89,9 +91,6 @@ end
 -- 0 iff pat or a derivative doesn't match at least as a subword
 -- >= 1 otherwise
 function match_score(file, pat)
-    -- be case-insensitive
-    file = string.lower(file)
-    pat = string.lower(pat)
     local score = 0
     -- look for exact or subword match
     if is_exact(file, pat) then
