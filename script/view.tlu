@@ -97,7 +97,7 @@ end
 
 -- print a list of files (structure: see search.tlu) as a menu
 -- if showall is false, stops as soon a bad result is encountered
-function print_menu (doclist, showall)
+function print_menu(name, doclist, showall)
     local max_lines = tonumber(config.max_lines) or 20
     if config.interact_switch and doclist[max_lines+1] then
         -- there may be too many lines, count them
@@ -125,7 +125,7 @@ function print_menu (doclist, showall)
         if doc:quality() == 'killed' then break end
         if doc:quality() ~= 'good' and not showall then break end
         if config.machine_switch == true then
-            print(doc.realpath)
+            print(name, doc.score, doc.realpath)
         else
             print(string.format('%2d %s', i, doc.realpath))
         end
@@ -142,7 +142,7 @@ end
 
 -----------------------   deliver results base on mode   -----------------------
 
-function deliver_results(doclist, name)
+function deliver_results(name, doclist, many)
     -- ensure that results were found or apologize
     if not doclist[1] or doclist[1]:quality() == 'killed' then
         if not config.machine_switch then
@@ -163,7 +163,10 @@ function deliver_results(doclist, name)
             or (doclist[2]:quality() ~= 'good' and not showall)) then
         view_doc(doclist[1])
     else
-        print_menu(doclist, showall)
+        if many and not config.machine_switch then 
+            print ("*** Results for: "..name.." ***")
+        end
+        print_menu(name, doclist, showall)
     end
 end
 
