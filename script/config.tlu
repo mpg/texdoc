@@ -12,7 +12,8 @@ load_env(L, {
     'arg',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
-    'err_print', 'win32_hook', 'deb_print', 'confline_to_alias',
+    'err_print', 'win32_hook', 'deb_print',
+    'confline_to_alias', 'confline_to_score',
     'C',
     'config',
 })
@@ -244,6 +245,7 @@ function read_config_file(configfile)
         -- try to interpret the line
         local ok = string.match(line, '^%s*$') 
         or confline_to_alias(line, configfile, lineno)
+        or confline_to_score(line, configfile, lineno)
         or confline_to_config(line, configfile, lineno)
         -- complain if it failed
         if not ok then

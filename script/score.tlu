@@ -9,27 +9,36 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'table',
-    'ipairs', 'tostring',
+    'pairs', 'ipairs', 'tostring', 'tonumber',
     'config', 'parse_zip', 'err_print', 'deb_print',
 })
 
--- return the "quality" of docfile
-function docfile_quality(df)
-    if df.score > 0 then
-        return 'good'
-    elseif df.score > -100 then
-        return 'bad'
-    else
-        return 'killed'
+-- shared variables
+local setscore, adjscore = {}, {}
+
+-------------------------   configuration directives   -------------------------
+
+-- interpret a confline as a score directive or return false
+function confline_to_score(line, file, pos)
+    local key, val
+    -- try setscore
+    key, val = string.match(line, '^setscore%s+([%w%p]+)%s*=%s*([%d]+)')
+    if key and val then 
+        local k = string.lower(key)
+        if setscore[k] == nil then setscore[k] = tonumber(val) end
+        return true
     end
+    -- try adjscore
+    key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*([%d]+)')
+    if key and val then 
+        local k = string.lower(key)
+        if adjscore[k] == nil then adjscore[k] = tonumber(val) end
+        return true
+    end
+    return false
 end
 
--- sort a doclist
-function sort_doclist(dl)
-    dl:stop()
-    set_list_scores(dl)
-    table.sort(dl, docfile_order)
-end
+----------------------------   score computation   -----------------------------
 
 -- set the scores for a doclist
 function set_list_scores(list)
@@ -42,20 +51,38 @@ end
 function set_score(df)
     local score = 0
     deb_print('score', 'Start scoring '..df.realpath)
+    -- set from tables
+    for pat, val in pairs(setscore) do
+        if match_score(df.name, pat) then
+            deb_print('score', string.format(
+                "Set from pattern '%s': %d", pat, val))
+            df.score = val
+            return
+        end
+    end
+    -- get score from patterns
     for _, pat in ipairs(df.matches) do
         local s = match_score(df.name, pat.name)
         s = s * pat.ratio
-        deb_print('score', string.format(
-            "For pattern '%s': score '%d' ratio '%d'",
-            pat.name, tostring(s), tostring(pat.ratio)))
         if s > score then score = s end
+        deb_print('score', string.format(
+            "For pattern '%s': score %d ratio %d", pat.name, s, pat.ratio))
     end
-    deb_print('score', 'Final score: '..tostring(score))
+    deb_print('score', 'Total pattern score: '..tostring(score))
+    -- adjust from tables
+    for pat, val in pairs(adjscore) do
+        local s = match_score(df.name, pat)
+        score = score + s * val
+        deb_print('score', string.format(
+            "Adjust pattern '%s': score %d, ratio %d", pat, s, val))
+    end
+    deb_print('score', 'Adjusted score: '..tostring(score))
     df.score = score
 end
 
 -- compute a matching score 0 <= s < 10 
 -- 0 iff pat or a derivative doesn't match at least as a subword
+-- >= 1 otherwise
 function match_score(file, pat)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then return 0 end
@@ -91,22 +118,14 @@ end
 -- say if pat is a "subword" of str
 function is_subword(str, pat)
     local i, j = string.find(str, pat, 1, true)
-    if i and j
-        and (i == 1 or is_delim(str, i-1))
-        and (j == #string or is_delim(str, j+1)) then
-        return true
-    else
-        return false
-    end
+    return not not (i and j
+        and (i == 1 or is_delim(str, i) or is_delim(str, i-1))
+        and (j == #string or is_delim(str, j) or is_delim(str, j+1)))
 end
 
--- say if chararcter i of str is not a word character
+-- say if chararcter i of str is a delimiter (ponctuation)
 function is_delim(str, i)
-    if string.find(string.sub(str, i, i), '%w') then
-        return false
-    else
-        return true
-    end
+    return not not string.find(string.sub(str, i, i), '%p')
 end
 
 -- compare two docfile's: (see search.tlu for structure)
@@ -159,8 +178,29 @@ function ext_pos(file)
     return pos or (config.ext_list_max + 1)
 end
 
+-----------------------------   public functions   -----------------------------
+
+-- return the "quality" of docfile
+function docfile_quality(df)
+    if df.score > 0 then
+        return 'good'
+    elseif df.score > -100 then
+        return 'bad'
+    else
+        return 'killed'
+    end
+end
+
+-- sort a doclist
+function sort_doclist(dl)
+    dl:stop()
+    set_list_scores(dl)
+    table.sort(dl, docfile_order)
+end
+
 -- export a few symbols
 export_symbols(L, {
     'sort_doclist',
     'docfile_quality',
+    'confline_to_score',
 })

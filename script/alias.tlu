@@ -49,7 +49,7 @@ end
 
 -- interpret a confline as an alias setting or return false
 function confline_to_alias(line, file, pos)
-    local key, val = string.match(line, '^alias%s+([%a%d_-]+)%s*=%s*(.+)')
+    local key, val = string.match(line, '^alias%s+([%w%p]+)%s*=%s*(.+)')
     if key and val then
         add_alias(string.lower(key), val)
         return true
