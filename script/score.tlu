@@ -22,14 +22,14 @@ local setscore, adjscore = {}, {}
 function confline_to_score(line, file, pos)
     local key, val
     -- try setscore
-    key, val = string.match(line, '^setscore%s+([%w%p]+)%s*=%s*([%d]+)')
+    key, val = string.match(line, '^setscore%s+([%w%p]+)%s*=%s*(-?[%d]+)')
     if key and val then 
         local k = string.lower(key)
         if setscore[k] == nil then setscore[k] = tonumber(val) end
         return true
     end
     -- try adjscore
-    key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*([%d]+)')
+    key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*(-?[%d]+)')
     if key and val then 
         local k = string.lower(key)
         if adjscore[k] == nil then adjscore[k] = tonumber(val) end
@@ -49,11 +49,14 @@ end
 
 -- set the score of a docfile
 function set_score(df)
+    -- scoring is irrelevant in regex mode
+    if config.mode == 'regex' then df.score = 0 return end
+    -- default score 
     local score = 0
     deb_print('score', 'Start scoring '..df.realpath)
     -- set from tables
     for pat, val in pairs(setscore) do
-        if match_score(df.name, pat) then
+        if match_score(df.name, pat) > 0 then
             deb_print('score', string.format(
                 "Set from pattern '%s': %d", pat, val))
             df.score = val
@@ -84,8 +87,6 @@ end
 -- 0 iff pat or a derivative doesn't match at least as a subword
 -- >= 1 otherwise
 function match_score(file, pat)
-    -- scoring is irrelevant in regex mode
-    if config.mode == 'regex' then return 0 end
     -- be case-insensitive
     file = string.lower(file)
     pat = string.lower(pat)
@@ -120,7 +121,7 @@ function is_subword(str, pat)
     local i, j = string.find(str, pat, 1, true)
     return not not (i and j
         and (i == 1 or is_delim(str, i) or is_delim(str, i-1))
-        and (j == #string or is_delim(str, j) or is_delim(str, j+1)))
+        and (j == #str or is_delim(str, j) or is_delim(str, j+1)))
 end
 
 -- say if chararcter i of str is a delimiter (ponctuation)

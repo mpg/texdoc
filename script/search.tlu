@@ -265,7 +265,7 @@ function process_file(patlist, file, pathfile, code)
     local docfile
     local pattern
     for _, pattern in ipairs(patlist) do
-        if string.find(string.lower(pathfile), pattern.name,
+        if string.find(string.lower(pathfile), string.lower(pattern.name),
                 1, config.mode ~= 'regex') then
             local good_ext = check_ext(file)
             deb_print('kpse', string.format(
