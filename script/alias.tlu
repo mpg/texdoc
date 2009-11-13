@@ -20,21 +20,25 @@ load_env(L, {
 -- alias is local to this file
 local alias = {}
 
--- add an alias value for a key
-function add_alias(key, value)
-    if not alias[key] then alias[key] = default_alias(key, 1) end
-    table.insert(alias[key], {
-        name    = value,
-        ratio   = 10,
-    })
+-- scores
+local original      = 0
+local alias_default = 20
+
+-- turn a name into a suitable alias entry
+function make_alias(pat, score)
+    score = score or alias_default
+    return {
+        name        = pat,
+        adjscore    = score,
+    }
 end
 
--- turn a name into a suitable alias list
-function default_alias(pat, score)
-    return {
-        name    = pat,
-        ratio   = score,
-    }
+-- add an alias value for a key
+function add_alias(key, value, score)
+    if not alias[key] then
+        alias[key] = { make_alias(key, original) }
+    end
+    table.insert(alias[key], make_alias(value, score))
 end
 
 -- get patterns for a name
@@ -43,7 +47,7 @@ function get_patterns(name)
     if config.mode ~= 'regex' and config.alias_switch and alias[n] then
         return alias[n]
     else
-        return { default_alias(name, 10) }
+        return { make_alias(name) }
     end
 end
 

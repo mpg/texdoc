@@ -54,7 +54,7 @@ function set_score(df)
     deb_print('score', 'Start scoring '..df.realpath)
     -- set from tables
     for pat, val in pairs(setscore) do
-        if match_score(df.name, pat) > 0 then
+        if is_subword(df.name, pat) then
             deb_print('score', string.format(
                 "Set from pattern '%s': %d", pat, val))
             df.score = val
@@ -66,15 +66,15 @@ function set_score(df)
     for _, pat in ipairs(df.matches) do
         local s = match_score(df.name, pat.name)
         deb_print('score', string.format(
-            "For pattern '%s': score %d ratio %d", pat.name, s, pat.ratio))
-        s = s * pat.ratio
+            "For pattern '%s': score %d adjust %d", pat.name, s, pat.adjscore))
+        if s > 0 then s = s + pat.adjscore end
         if s > score then score = s end
     end
     deb_print('score', 'Total pattern score: '..tostring(score))
     -- adjust from tables
     if score > 0 then
         for pat, val in pairs(adjscore) do
-            if match_score(df.name, pat) > 0 then
+            if is_subword(df.name, pat) then
                 score = score + val
                 deb_print('score', string.format(
                 "Adjust pattern '%s': add %d", pat, val))
