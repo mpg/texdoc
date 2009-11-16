@@ -1,3 +1,10 @@
+Version 0.50
+------------
+
+- New option for machine-readable output.
+- Bugfixes (esp. for zipped file support (Unix only)).
+- Hopefully more sensible default viewer selection.
+
 Version 0.49
 ------------
 
