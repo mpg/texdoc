@@ -31,7 +31,7 @@ use constant {
 
 # file sets and destination directories
 my %filesets = (
-    tlu => {    'texdoc.tlu'      => TL_scr },
+    tlu => {    'script/*'    	  => TL_scr },
     cnf => {    'texdoc.cnf'      => TL_cnf },
     doc => {    'doc/texdoc.tex'  => TL_doc,
                 'News'            => TL_doc,
@@ -121,7 +121,7 @@ my %touched_dir;
 while (my ($s, $d) = each %files) {
     $touched_dir{$d}++;
     my $dest = "$texlive_path/$d";
-    system 'cp', '-t', $dest, $s;
+    system("cp -t $dest $s");
     die "Could not copy $s to $dest: $!\n" if $?;
 }
 
