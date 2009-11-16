@@ -9,16 +9,17 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'table', 'os', 'kpse', 'lfs', 'io',
-    'arg',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
+    'err_print', 'win32_hook', 'deb_print',
+    'confline_to_alias', 'confline_to_score',
     'C',
-    'err_print', 'win32_hook',
-    'config', 'alias'
+    'config',
 })
 
------------------------   hide config and alias tables   -----------------------
+--------------------------   hide the config table   ---------------------------
 
+-- config is read-only
 function set_read_only(table, name)
     assert(next(table) == nil,
         'Internal error: '..name..' should be empty at this point.')
@@ -32,9 +33,9 @@ function set_read_only(table, name)
 end
 
 real_set_config = set_read_only(config, 'config')
-real_set_alias = set_read_only(alias, 'alias')
 
-----------------------------   general functions   -----------------------------
+
+-------------------------   general config functions   -------------------------
 
 -- set a config parameter, but don't overwrite it if already set
 -- three special types: *_list (list), *_switch (boolean), *_level (number)
@@ -82,13 +83,13 @@ function set_config_element (key, value, context)
     else -- string
         real_set_config(key, value)
     end
-    -- special case: if we just set verbosity_level, print version info now
-    if key == 'verbosity_level' then
-        err_print(arg[0]..' version '..C.version, 'debug1')
+    -- special case: if we just set debug_list, print version info now
+    if key == 'debug_list' then
+        deb_print('version', C.fullname..' version '..C.version)
     end
     -- now tell what we have just done, for debugging
-    err_print('Setting "'..key..'='..value..'" '
-    ..context_to_string(context)..'.', 'debug2')
+    deb_print('config',
+        "Setting '"..key.."="..value.."' "..context_to_string(context)..'.')
 end
 
 -- a helper function for warning messages in the above
@@ -97,7 +98,7 @@ function config_warn (key, value, context, unknown)
         and 'Unknown option "'..key..'"'
         or 'Illegal value "'..tostring(value)..'" for option "'..key..'"'
     local ending = '.  Skipping.'
-    err_print (begin..' '..context_to_string(context)..ending, 'warning')
+    err_print('warning', begin..' '..context_to_string(context)..ending)
 end
 
 -- interpreting 'context' for the previous functions
@@ -123,19 +124,12 @@ function set_config_list (conf, context)
     end
 end
 
--- set an alias (w/o overwriting)
-function set_alias (key, value)
-    if alias[key] == nil then
-        real_set_alias(key, value)
-    end
-end
-
 ------------------------   options from command line   -------------------------
 
 -- set config from the command line
 -- Please make sure to update C.usage_msg accordingly
 -- and set a default value in setup_config_from_defaults() if relevant.
-function setup_config_from_cl ()
+function setup_config_from_cl(arg)
     local curr_arg
     local function set_config_elt(key, val)
         set_config_element(key, val, {src='cl', name=curr_arg})
@@ -178,9 +172,16 @@ function setup_config_from_cl ()
             set_config_elt('alias_switch', 'false')
         elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
-        -- verbosity
+        -- debug
         elseif (curr_arg == '-d') or (curr_arg == '--debug') then
-            set_config_elt('verbosity_level', C.err_max)
+            set_config_elt('debug_list', 'all')
+        elseif string.match(curr_arg, '^%-d=') then
+            local value = string.gsub(curr_arg, '^%-d=', '')
+            set_config_elt('debug_list', value)
+        elseif string.match(curr_arg, '^%-%-debug=') then
+            local value = string.gsub(curr_arg, '^%-%-debug=', '')
+            set_config_elt('debug_list', value)
+        -- verbosity
         elseif string.match(curr_arg, '^%-v') then
             local value = string.gsub(curr_arg, '^%-v=?', '')
             set_config_elt('verbosity_level', value)
@@ -196,7 +197,7 @@ function setup_config_from_cl ()
             set_config_elt('ext_list', value)
         -- problem
         else
-            err_print ("unknown option: "..curr_arg, "error")
+            err_print('error', "unknown option: "..curr_arg)
             print (C.error_msg)
             os.exit(2)
         end
@@ -234,31 +235,36 @@ function read_config_file(configfile)
     local cnf = assert(io.open(configfile, 'r'))
     local lineno = 0
     while true do
-        local key, val
         local line=cnf:read('*line')
         lineno = lineno + 1
         if line == nil then break end  -- EOF
         line = string.gsub(line, '%s*#.*$', '') -- comments begin with #
         line = string.gsub(line, '%s*$', '')    -- remove trailing spaces
         line = string.gsub(line, '^%s*', '')    -- remove leading spaces
-        key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
-        if key and val then
-            set_config_element(key, val, {
-                src='file', file=configfile, line=lineno})
-        else
-            key, val = string.match(line, '^alias%s+([%a%d_-]+)%s*=%s*(.+)')
-            if key and val then
-                set_alias(key, val)
-            else
-                if (not string.match (line, '^%s*$')) then
-                    err_print ('syntax error in '..configfile..
-                    ' at line '..lineno..'.', 'warning')
-                end
-            end
+        -- try to interpret the line
+        local ok = string.match(line, '^%s*$') 
+        or confline_to_alias(line, configfile, lineno)
+        or confline_to_score(line, configfile, lineno)
+        or confline_to_config(line, configfile, lineno)
+        -- complain if it failed
+        if not ok then
+            err_print('warning',
+            'syntax error in '..configfile..' at line '..lineno..'.')
         end
     end
     cnf:close()
 end
+
+-- interpret a confline as a config setting or return false
+function confline_to_config(line, file, pos)
+    local key, val = string.match(line, '^([%a%d_]+)%s*=%s*(.+)')
+    if key and val then
+        set_config_element(key, val, {src='file', file=file, line=pos})
+        return true
+    end
+    return false
+end
+
 
 -- return a table with config file and if they exist
 function get_config_files ()
@@ -442,7 +448,7 @@ function setup_config_from_defaults()
         interact_switch     = 'true',
         machine_switch      = 'false',
         verbosity_level     = '2',
-        ext_list            = 'pdf, html, txt, man1.pdf, man5.pdf, ps, dvi, ',
+        ext_list            = 'pdf, html, txt, ps, dvi, ',
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
@@ -470,14 +476,14 @@ end
 --------------------------   set all configuration   ---------------------------
 
 -- populate the config and alias arrays
-function setup_config_and_alias()
+function setup_config_and_alias(arg)
     -- setup config from all sources
-    setup_config_from_cl()
+    setup_config_from_cl(arg)
     setup_config_from_env()
     setup_config_from_files()
     setup_config_from_defaults()
-    -- we were waiting for config.verbosity_level to be know to do this
-    show_config_files(function(s) err_print(s, 'debug1') end)
+    -- we were waiting for config.debug_list to be know to do this
+    show_config_files(function(s) deb_print('files', s) end)
 end
 
 -- finally export a few symbols

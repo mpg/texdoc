@@ -1,0 +1,70 @@
+-- configuration handling for texdoc
+--[[ 
+Copyright 2008, 2009 Manuel Pégourié-Gonnard
+Distributed under the terms of the GNU GPL version 3 or later.
+See texdoc.tlu for details.
+--]]
+
+local L = {}
+load_env(L, {
+    'export_symbols',
+    'string', 'table', 'os', 'kpse', 'lfs', 'io',
+    'arg',
+    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
+    'assert', 'error',
+    'err_print', 'deb_print',
+    'C',
+    'config',
+})
+
+-- alias is local to this file
+local alias = {}
+
+-- scores
+local default_score = 10
+
+-- turn a name into a suitable alias entry
+-- if score is 'false', this is the original name
+function make_alias(pat, score)
+    local al = {}
+    al.name = pat
+    if score == false then
+        al.original = true
+    else
+        al.score = score or default_score
+    end
+    return al
+end
+
+-- add an alias value for a key
+function add_alias(key, value, score)
+    k = string.lower(key)
+    alias[k] = alias[k] or { make_alias(key, false) }
+    table.insert(alias[k], make_alias(value, score))
+end
+
+-- get patterns for a name
+function get_patterns(name)
+    local n = string.lower(name)
+    if config.mode ~= 'regex' and config.alias_switch and alias[n] then
+        return alias[n]
+    else
+        return { make_alias(name, false) }
+    end
+end
+
+-- interpret a confline as an alias setting or return false
+function confline_to_alias(line, file, pos)
+    local key, val = string.match(line, '^alias%s+([%w%p]+)%s*=%s*(.+)')
+    if key and val then
+        add_alias(string.lower(key), val)
+        return true
+    end
+    return false
+end
+
+-- finally export a few symbols
+export_symbols(L, {
+    'confline_to_alias',
+    'get_patterns',
+})

@@ -6,31 +6,17 @@ Small todo items
 Big changes planned
 ===================
 
+Need to review extensively case-sensitivity issues (alias, matches, etc.)
+
 Also search using info from the tlpdb (use docfiles associated with a given
 runfile -- see if it causes more harm than good for bundles).
 
-Allow for multiple patterns to be searched at one time. Change the alias
-directive so that it adds patterns (possibly make another directive for
-replacing patterns -- see if they should cascade).
-
-Create good default scoring rules. Ideas:
+Make scoring rules better. Ideas:
 - foo/foo.pdf should win over anything/foo.pdf
-- matching \<foo\> is better than just containing foo as a substring.
-- matching \<foo-doc\> is even better. Same for foo/doc.pdf.
-- decide how the different levels should interact (tree, extension,
-  how-good-is-the-match, how-it-was-found, alias-defined score...) and if this
-should be configurable.
+- Matching \<foo-doc\> or \<foo/doc.pdf is better than just \<foo\>
+- Matching exactly foo-doc is better than matching \<foo-doc\>.
 
-Make the scoring configurable. Eg add a scoring option to the alias directive.
-Create a scoring directive (with shell-style globs eg). Eg make
-tex-virtual-academy-pl get a bad score.
-
-Rework modes wrt the new scoring system. Decide how results shoud be filtered
-(eg score >= 0 is like current exact_docfiles, -10 < score < 0 is like
-rel_docfiles and score <= -10 is killed).
-
-Decide if regex (or shell-glob) mode should be dropped (probably yes) or how it
-should be handled.
+Add a scoring option to the alias directive.
 
 Misc ideas
 ==========

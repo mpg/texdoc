@@ -9,11 +9,10 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'os', 'table', 'io',
-    'tonumber', 'ipairs', 'print',
+    'tonumber', 'ipairs', 'print', 'assert',
     'config', 
-    'real_path',
     'C',
-    'err_print', 'parse_zip',
+    'deb_print', 'err_print', 'parse_zip',
 })
 
 -----------------------------   view a document   ------------------------------
@@ -21,7 +20,7 @@ load_env(L, {
 -- view a document
 -- see search.tlu for the structure of the argument
 function view_doc(docfile)
-    return view_file(real_path(docfile))
+    return view_file(docfile.realpath)
 end
 
 -- get viewer and viewer_replacement before calling try_viewing
@@ -39,19 +38,21 @@ function view_file (filename)
     if zipext then
         local unzip_cmd = config['unzip_'..zipext]
         if not unzip_cmd then
-            err_print("No unzip command for ."..zipext..' files, skipping '
-                ..filename, 'error')
+            err_print('error',
+            "No unzip command for ."..zipext..' files, skipping '..filename)
             return false
         end
         local tmpdir = os.tmpdir("/tmp/texdoc.XXXXXX")
         if not tmpdir then
-            err_print('Failed to create tempdir to unzip.', 'error')
+            err_print('error', 'Failed to create tempdir to unzip.')
             return false
         end
         local basename = string.match(nozipname, '.*/(.*)$') or nozipname
         local tmpfile = '"'..tmpdir..'/'..basename..'"'
-        if not os.execute(unzip_cmd..' "'..filename..'">'..tmpfile) then
-            err_print("Failed to unzip '"..filename.."'", 'error')
+        local unzip = unzip_cmd..' "'..filename..'">'..tmpfile
+        deb_print('view', "Unzip command: "..unzip)
+        if not os.execute(unzip) then
+            err_print('error', "Failed to unzip '"..filename.."'")
             os.remove(tmpfile)
             os.remove(tmpdir)
             return false
@@ -68,16 +69,11 @@ function view_file (filename)
     -- special case : sty files use txt viewer
     if viewext == 'sty' then viewext = 'txt' end
     if not config['viewer_'..viewext] then
-        err_print ("cannot find a viewer for file\n\t"..filename..
-        "\nUsing viewer_txt as a fallback.  Set the 'viewer_"..viewext..
-        "' variable in texdoc.cnf to avoid this.", "warning")
+        err_print('warning',
+            "No viewer_"..viewext.." defined, using viewer_txt.")
         viewext = 'txt'
-        if not config['viewer_'..viewext] then
-            err_print ("text viewer not found.  This "..
-            "should not happen, sorry.  Skipping\n\t"..filename, "error")
-            return false
-        end
     end
+    assert(config['viewer_'..viewext], 'Internal error: no viewer found.')
     return try_viewing(config['viewer_'..viewext], viewer_replacement)
 end
 
@@ -89,9 +85,9 @@ function try_viewing (view_command, viewer_replacement)
     else
         view_command = view_command..' '..viewer_replacement
     end
-    err_print(view_command, 'debug1')
+    deb_print('view', 'View comand: '..view_command)
     if not os.execute(view_command) then
-        err_print("Failed to execute '"..view_command.."'", "error")
+        err_print('error', "Failed to execute '"..view_command.."'")
         return false
     end
     return true
@@ -100,18 +96,17 @@ end
 -----------------------------   display results   ------------------------------
 
 -- print a list of files (structure: see search.tlu) as a menu
--- if showall is false, stops as soon a non-exact match is encountered
--- (unimplemented right now, waiting for the scoring routine)
-function print_menu(name, docfiles, showall)
+-- if showall is false, stops as soon a bad result is encountered
+function print_menu(name, doclist, showall)
     local max_lines = tonumber(config.max_lines) or 20
-    if config.interact_switch and docfiles[max_lines+1] then
+    if config.interact_switch and doclist[max_lines+1] then
         -- there may be too many lines, count them
         local n
         if showall then
-            n = #docfiles
+            n = #doclist
         else
             n = 0
-            while docfiles[n+1] and docfiles[n+1].exact do
+            while doclist[n+1] and doclist[n+1]:quality() == 'good' do
                 n = n + 1
             end
         end
@@ -126,30 +121,30 @@ function print_menu(name, docfiles, showall)
         end
     end
     local i, doc
-    for i, doc in ipairs (docfiles) do
-        if (doc.exact == false) and not showall then break end
+    for i, doc in ipairs (doclist) do
+        if doc:quality() == 'killed' then break end
+        if doc:quality() ~= 'good' and not showall then break end
         if config.machine_switch == true then
-            local score = doc.exact and 1 or 0
-            print(name, score, real_path(doc))
+            print(name, doc.score, doc.realpath)
         else
-            print(string.format('%2d %s', i, real_path(doc)))
+            print(string.format('%2d %s', i, doc.realpath))
         end
     end
     if config.interact_switch then
         io.write ("Please enter the number of the file to view, ",
         "anything else to skip: ")
         local num = tonumber(io.read('*line'))
-        if num and docfiles[num] then
-            view_doc(docfiles[num])
+        if num and doclist[num] then
+            view_doc(doclist[num])
         end
     end
 end
 
 -----------------------   deliver results base on mode   -----------------------
 
-function deliver_results(name, docfiles, many)
+function deliver_results(name, doclist, many)
     -- ensure that results were found or apologize
-    if not docfiles[1] then
+    if not doclist[1] or doclist[1]:quality() == 'killed' then
         if not config.machine_switch then
             local msg = string.gsub(C.notfound_msg, C.notfound_msg_ph, name)
             print(msg) -- get rid of gsub's 2nd value
@@ -158,20 +153,20 @@ function deliver_results(name, docfiles, many)
     end
     -- shall we show all of them or only the "good" ones?
     local showall = (config.mode == 'regex') or (config.mode == 'search')
-    if not showall and not docfiles[1].exact then
+    if not showall and doclist[1]:quality() ~= 'good' then
         showall = true
-        err_print ("No exact match, trying full search mode.", "info")
+        err_print('info', 'No good result found, showing all results.')
     end
     -- view result or show menu based on mode and number of results
     if (config.mode == 'view')
-        or config.mode == 'mixed' and (not docfiles[2]
-            or not docfiles[2].exact and not showall) then
-        view_doc(docfiles[1])
+        or config.mode == 'mixed' and (not doclist[2]
+            or (doclist[2]:quality() ~= 'good' and not showall)) then
+        view_doc(doclist[1])
     else
         if many and not config.machine_switch then 
             print ("*** Results for: "..name.." ***")
         end
-        print_menu(name, docfiles, showall)
+        print_menu(name, doclist, showall)
     end
 end
 

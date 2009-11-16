@@ -11,19 +11,17 @@ load_env(L, {
     'print', 'ipairs',
     'arg',
     'C',
-    'config',
     'setup_config_and_alias',
-    'get_docfiles',
-    'sort_docfiles',
+    'get_doclist',
     'deliver_results',
 })
 
 -- setup config options and aliases from various places
-setup_config_and_alias()
+setup_config_and_alias(arg)
 
 -- make sure we actually have argument(s)
 if not arg[1] then
-    print (C.usage_msg)
+    print(C.usage_msg)
     os.exit(2)
 end
 
@@ -32,9 +30,8 @@ local docname
 for _, docname in ipairs(arg) do
     -- do we have more then one argument?
     local multiarg = not not arg[2]
-    -- get results and sort them
-    local docfiles = get_docfiles(docname)
-    sort_docfiles(docfiles)
+    -- get results
+    local doclist = get_doclist(docname)
     -- deliver results to the user
-    deliver_results(docname, docfiles, multiarg)
+    deliver_results(docname, doclist, multiarg)
 end
