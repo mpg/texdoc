@@ -66,20 +66,26 @@ function set_score(df)
     -- get score from patterns
     local score = 0
     for _, pat in ipairs(df.matches) do
-        local s = match_score(name, pat.name)
-        deb_print('score', string.format(
-            "For pattern '%s': score %d adjust %d", pat.name, s, pat.adjscore))
-        if s > 0 then s = s + pat.adjscore end
+        local s = 0
+        if pat.original then
+            s = heuristic_score(name, pat.name)
+            deb_print('score', string.format(
+                'Heuristic score: %d', s))
+        elseif is_exact(name, pat.name) then
+            s = pat.score
+            deb_print('score', string.format(
+                "Matching alias '%s', score: %d", pat.name, s))
+        end
         if s > score then score = s end
     end
-    deb_print('score', 'Total pattern score: '..tostring(score))
+    deb_print('score', 'Max pattern score: '..tostring(score))
     -- adjust from tables
     if score > 0 then
         for pat, val in pairs(adjscore) do
             if is_subword(name, pat) then
                 score = score + val
                 deb_print('score', string.format(
-                "Adjust pattern '%s': add %d", pat, val))
+                    "Adjust by '%d' from pattern '%s'", val, pat))
             end
         end
     end
@@ -87,10 +93,10 @@ function set_score(df)
     df.score = score
 end
 
--- compute a matching score 0 <= s < 10 
+-- compute a heuristic score 0 <= s < 10 
 -- 0 iff pat or a derivative doesn't match at least as a subword
 -- >= 1 otherwise
-function match_score(file, pat)
+function heuristic_score(file, pat)
     local score = 0
     -- look for exact or subword match
     if is_exact(file, pat) then
