@@ -108,10 +108,11 @@ function heuristic_score(file, pat)
 end
 
 -- says if file is an exact match for pat
--- TODO: what to do is pat contains '/' ?
--- TODO: zipped
 function is_exact(file, pat)
-    basename = string.gsub(file, '^.*/', '')
+    file = parse_zip(file)
+    local slashes = string.gsub(pat, '[^/]+', '[^/]+')
+    basename = string.match(file, slashes..'$')
+    if not basename then return nil end
     if basename == pat then return true end
     for _, ext in ipairs(config.ext_list) do
         if ext ~= '' and ext ~= '*' and basename == pat..'.'..ext then
@@ -129,7 +130,7 @@ function is_subword(str, pat)
         and (j == #str or is_delim(str, j) or is_delim(str, j+1)))
 end
 
--- say if chararcter i of str is a delimiter (ponctuation)
+-- say if character i of str is a delimiter (ponctuation)
 function is_delim(str, i)
     return not not string.find(string.sub(str, i, i), '%p')
 end
