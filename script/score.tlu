@@ -67,9 +67,10 @@ function set_score(df)
     local score = 0
     for _, pat in ipairs(df.matches) do
         local s = 0
+        local p = string.lower(pat.name)
         if pat.original then
-            s = heuristic_score(name, pat.name)
-        elseif is_exact(name, pat.name) then
+            s = heuristic_score(name, p)
+        elseif is_exact(name, p) then
             s = pat.score
             deb_print('score', string.format(
                 "Matching alias '%s', score: %d", pat.name, s))
@@ -94,7 +95,7 @@ end
 -- suffixes for heuristic match
 local suffixes = {
     'doc', '-doc', '_doc', '.doc', '/doc',
-    'manual', '/manual',
+    'manual', '/manual', '-manual',
     '-user',
     '-man',
 }
