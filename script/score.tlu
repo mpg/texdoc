@@ -101,10 +101,14 @@ local suffixes = {
 }
 
 -- compute a heuristic score 0 <= s < 10 
--- 0 iff pat or a derivative doesn't match at least as a subword
--- >= 1 otherwise
 function heuristic_score(file, pat)
     deb_print('score', 'Start heuristic scoring with pattern: '..pat)
+    -- if extension is bad, score is 0
+    local ext = config.ext_list[ext_pos(file)]
+    if ext and config.badext_list_inv[ext] then
+        deb_print('score', 'Bad extension, heuristic score 0')
+        return 0
+    end
     -- score management
     local score = 0
     local function upscore(s, reason)
