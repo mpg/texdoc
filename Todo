@@ -11,11 +11,6 @@ Need to review extensively case-sensitivity issues (alias, matches, etc.)
 Also search using info from the tlpdb (use docfiles associated with a given
 runfile -- see if it causes more harm than good for bundles).
 
-Make scoring rules better. Ideas:
-- foo/foo.pdf should win over anything/foo.pdf
-- Matching \<foo-doc\> or \<foo/doc.pdf is better than just \<foo\>
-- Matching exactly foo-doc is better than matching \<foo-doc\>.
-
 Add a scoring option to the alias directive.
 
 Misc ideas

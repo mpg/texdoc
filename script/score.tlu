@@ -69,8 +69,6 @@ function set_score(df)
         local s = 0
         if pat.original then
             s = heuristic_score(name, pat.name)
-            deb_print('score', string.format(
-                'Heuristic score: %d', s))
         elseif is_exact(name, pat.name) then
             s = pat.score
             deb_print('score', string.format(
@@ -93,17 +91,53 @@ function set_score(df)
     df.score = score
 end
 
+-- suffixes for heuristic match
+local suffixes = {
+    'doc', '-doc', '_doc', '.doc', '/doc',
+    'manual', '/manual',
+    '-user',
+    '-man',
+}
+
 -- compute a heuristic score 0 <= s < 10 
 -- 0 iff pat or a derivative doesn't match at least as a subword
 -- >= 1 otherwise
 function heuristic_score(file, pat)
+    deb_print('score', 'Start heuristic scoring with pattern: '..pat)
+    -- score management
     local score = 0
+    local function upscore(s, reason)
+        if s > score then
+            score = s
+            deb_print('score', 'New heuristic score: '..tostring(s)
+                ..'. Reason: '..reason)
+        end
+    end
+    local slash = not not string.find(pat, '/', 1, true)
     -- look for exact or subword match
     if is_exact(file, pat) then
-        score = 5
+        upscore(4, 'exact match')
     elseif is_subword(file, pat) then
-        score = 1
+        upscore(1, 'subword match')
     end
+    -- try derivatives unless pat contains a slash
+    if not slash then
+        for _, suffix in ipairs(suffixes) do
+            local deriv = pat..suffix
+            if is_exact(file, deriv) then
+                upscore(3, 'exact match for derived pattern: '..deriv)
+            elseif is_subword(file, deriv) then
+                upscore(2, 'subword match for derived pattern: '..deriv)
+            end
+        end
+    end
+    -- bonus for being in the right directory
+    if score > 0 and not slash
+        and string.find(file, '/'..pat..'/', 1, true) then
+        upscore(score + 0.5, 'directory bonus')
+    end
+    -- done
+    deb_print('score', 'Final heuristic score: '..tostring(score))
     return score
 end
 
