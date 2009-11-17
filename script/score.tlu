@@ -185,16 +185,16 @@ function docfile_order (a, b)
         return true
     elseif a.score < b.score then
         return false
-    elseif a.tree < b.tree then
-        return true
-    elseif a.tree > b.tree then
-        return false
     else
         a.ext_pos = a.ext_pos or ext_pos(a.name)
         b.ext_pos = b.ext_pos or ext_pos(b.name)
         if a.ext_pos < b.ext_pos then
             return true
         elseif a.ext_pos > b.ext_pos then
+            return false
+        elseif a.tree < b.tree then
+            return true
+        elseif a.tree > b.tree then
             return false
         else
             return (a.name < b.name)
