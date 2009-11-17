@@ -113,7 +113,9 @@ function get_texdocs ()
     local kpse_texdocs = kpse.expand_var("$TEXDOCS")
     -- expand the path and turn it into a lua list
     local raw_doc_roots = string.explode(kpse.expand_braces(kpse_texdocs), sep)
-    for i, dir in ipairs(raw_doc_roots) do
+    local max = #raw_doc_roots + 1
+    for j, dir in ipairs(raw_doc_roots) do
+        local i = max - j
         local dr = {}
         local n
         -- get path, !! and // values
