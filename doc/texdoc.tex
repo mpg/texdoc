@@ -8,14 +8,13 @@
 \usepackage{textcomp}
 \usepackage{fixltx2e}
 
-\usepackage{lmodern} \edef\ttmodern{\ttdefault}
-\usepackage[osf]{mathpazo}
-\renewcommand\sfdefault{uop} % optima
-\renewcommand\ttdefault{lmvtt} % lm tt proportional
+\usepackage{tgbonum}
+\usepackage{tgheros}
+\usepackage[scaled=1.10]{inconsolata}
 \renewcommand\familydefault{\sfdefault} \normalfont
 \newcommand\otherfamily{\rmfamily}
-\newcommand\mylangle{\textlangle}
-\newcommand\myrangle{\textrangle}
+\newcommand\mylangle{$\langle$}
+\newcommand\myrangle{$\rangle$}
 
 \usepackage{xargs, xspace, fancyvrb, xcolor, pifont, calc, ifmtarg, mathstyle}
 
@@ -24,6 +23,7 @@
 \titleformat{\subsubsection}[runin]{\otherfamily\itshape}{%
   \makebox[0pt][r]{\thetitle\kern1pc}}{%
   0pt}{}[\maybedot\space --- ]
+\titlespacing{\subsubsection}{0pt}{0.5\baselineskip}{0pt}
 
 \usepackage{enumitem}
 \newlength\lssep \setlength\lssep{\smallskipamount}
@@ -34,7 +34,7 @@
 \usepackage[bookmarks=true]{hyperref}
 \hypersetup{%
   bookmarksnumbered=true, bookmarksopen=true, bookmarksopenlevel=2,
-  pdftitle=texdoc: finding and viewing TeX documentation,
+  pdftitle=texdoc: find and view documentation in TeX Live,
   pdfauthor=Manuel Pégourié-Gonnard,
   pdfsubject=texdoc's user manual,
   pdfkeywords={texdoc, TeX Live, manual}}
@@ -62,8 +62,6 @@
 \definecolor{input}{rgb}{1.0,0,0}
 \newcommand\inputcolorname{red}
 \hypersetup{colorlinks=true, linkcolor=links, urlcolor=links, citecolor=links}
-\newcommand\textpa[1]{% % noms d'extensions (package)
-  {\normalfont\color{special}\otherfamily #1}}
 \newcommand\cofont{% % code
   \color{code}\normalfont\ttfamily}
 \newcommand\textco[1]{{\cofont#1}}
@@ -151,156 +149,110 @@
 \setkomafont{subtitle}{\Large}
 \deffootnote[1.5em]{1.5em}{1em}{\textsuperscript{\thefootnotemark}\thinspace}
 
-\newcommand\texdoc{\textpa{texdoc}\xspace}
+\newcommand\texdoc{texdoc\xspace}
 
 \title{\texdoc}
-\subtitle{Finding \& viewing \TeX documentation
-  }
+\subtitle{Find \& view documentation in \TeX\ Live}
 \author{\url{http://tug.org/texdoc/}\\
   Manuel Pégourié-Gonnard}
-\date{v0.47 2009-10-12}
+\date{v0.60rc 2009-11-18}
 
 \begin{document}
 \VerbatimFootnotes
 
 \maketitle
 
-\section{Basic Usage, Modes}\label{s-basics}
+\section{Quick guide}
 
-\begin{cmdsubsec}{Normal (view) mode}{ss-view}
-  texdoc «name»
-\end{cmdsubsec}
+\subsection{Basics}
 
-The simplest way to use \texdoc is just to type\footnote{In a command line.  If
-  you don't know how to open one, look for Start$\to$Execute and type ©cmd© on
-  Windows, or use the ``terminal'' icon on Mac OS X.  If you are using another
-  flavour of Unix, you probably know what to do.} ©texdoc© followed by the
-name of the package whose documentation you want to read.  It usually finds
-the documentation for you and opens it in the appropriate reader.  That's it:
-easy and usually fast.  The rest of this manual describes what to do if
-this doesn't work exactly as you like and you want to customise things, and
-how to do more extensive searchs.
+Open a command line\footnote{On windows, use ``Execute'' from the Start menu
+  and type ©cmd©.  On Mac OS X, use the ``terminal'' icon on Mac OS X.  If you
+  are using another flavour of Unix, you probably know what to do.} and type
+©texdoc «name»©: the documentation of the ©«name»© package will pop up. Of
+course, replace ©«name»© with the actual name of the package you want to learn
+about. You can also look for the documentation of more than one package at
+once: just give many names as arguments.
 
-Before the description of \texdoc's different modes, just a word words about
-the typographic conventions in this manual.  Things like ©«name»© in the above
-title mean that they should be replaced by what you actually want.  For
-example, if you want to read \package{hyperref}'s manual, type
-©texdoc hyperref©.  Sometimes there will be complete examples like this:
+The rest of this section describes the most usual options, like how to
+see all documentation related to a package or use a different viewer.
 
-\begin{htcode}
-  þ texdoc -s babelbib þ
-  1 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/babelbib.pdf
-  2 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/tugboat-babelbib.pdf
-  3 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/ChangeLog
-  4 /usr/local/texlive/2008/texmf-dist/doc/latex/babelbib/README
-  Please enter the number of the file to view, anything else to skip: ¶2¶
-\end{htcode}
+\subsection{Modes}
 
-In this case, what you actually type is in \textcolor{input}{\inputcolorname},
-and the funny symbol \textco{\prompt} represents your shell's prompt, which
-can actually be something like ©C:\>© or ©name@host:~%© or funnier.
+\texdoc has different modes that determine how results will be handled. The
+default mode, called ``view'' mode, is to open the first (supposedly the best)
+result in a viewer. It is rather handy when you know what you want to read,
+and want to access it quickly. On the other hand, there may be other relevant
+documents for the given ©«name»©, which are ignored in view mode.
 
-\bigskip
+The so-called ``list mode'' makes \texdoc list all relevant documentation and
+ask you which one you want to view. It is useful when there a other
+interesting sources of information besides the package's main documentation.
 
-\texdoc's normal mode of operation is to find the more appropriate document
-for your request and open it. But sometimes it has a weird notion of
-``appropriate'', and you'd better look at the list of all results and choose
-to see oen or more of them. For this, \texdoc offers various modes, like the
-``search mode'' illustrated above.
+There is also a ``mixed'' mode, intended to combine the best of view mode and
+list mode: if there is only one relevant result, then \texdoc opens it in a
+viewer, else it offers you a menu.
 
-\begin{cmdsubsec}{Search mode}{ss-search}
-  texdoc -s «name» 
-  texdoc --search «name»
-\end{cmdsubsec}
+Usually, \texdoc shows you only results it considers relevant. If there are no
+``good'' results, it falls back to less relevant results. You can force
+\texdoc to show you also ``bad'' results even when there are good ones by
+using the ``showall'' mode. (This implies using a menu rather than starting a
+viewer.)
 
-With the two (equivalent) commands above, \texdoc also looks for documentation
-for ©«name»©, but using the \emph{search mode}, which differs from the
-normal mode (called \emph{view mode}) on two points:
-\begin{itemize}
-  \item It doesn't start a viewer and offers you a \emph{menu} instead.
-  \item It always do a \emph{full search}.
-\end{itemize}
-The first point is rather straightforward on the example.  The second deserves
-more explanation. 
+You can select with command-line options: use ©texdoc «option» «name»© with
+one of the following options: ©-w© or ©--view© for view mode, ©-m© or
+©--mixed© for mixed mode, ©-l© or ©--list© for list mode, ©-s© or ©--showall©
+for showall mode.
 
-Usually, \texdoc looks for files named ©«name».pdf© or ©«name».html© etc. (see
-\ref{cf-ext_list}), where ©«name»© means what you asked for, in \texlive's
-documentation directories, and if cannot find such a file, it tries a full
-search: it finds all files which have ©«name»© in their name, or in the
-directory's name.  In search mode, \texdoc always performs a full search.
+If you always (or mostly) use the same mode, it is probably easier to
+select it in a configuration file than to always use the command-line
+option. For this, see the next section.
 
-Now look carefully at the previous example.  The purpose of search mode is to
-allow you to find related documentation, such as the
-\href{http://www.tug.org/TUGboat/}{TUGboat} article on \package{babelbib},
-which you might want to read, whereas in normal mode \texdoc offers you no
-choice and just displays the user manual ©babelbib.pdf©.  On the other hand,
-the view mode is much faster when you know exactly what you want to read.
+\subsection{Configuration files}
 
-To try and make you happy, \texdoc offers two other modes, introduced below.
+\texdoc use various configuration files, which you can see using the ©-f© or
+©--files© options. The second entry in this list is marked with a star ©(*)©:
+it is the file you should use for your personal preferences as a user; you may
+need to create it (and the parents directories).
 
-\begin{cmdsubsec}{List mode}{ss-list}
-  texdoc -l «name»
-  texdoc --list «name»
-\end{cmdsubsec}
+In order to select you favorite mode, just insert a line ©mode = «yourmode»©
+in this files, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
+©showall©.
 
-The \emph{list mode} uses a normal search, but forces \texdoc to give you a
-menu instead of choosing itself the documentation to display.  It is usefull
-when there are many files with the same name but different contents, or many
-versions of the same file on your system. 
+The configuration files can be used to tweak \texdoc in many ways, the most
+useful of which is probably the selection of the viewers for various types of
+documents, explained in the next section.
 
-\begin{htcode}
-  þ texdoc -l tex þ
-  1 /usr/local/texlive/2008/texmf/doc/man/man1/tex.pdf
-  2 /usr/local/texlive/2008/texmf-doc/doc/english/knuth/tex/tex.pdf
-  Please enter the number of the file to view, anything else to skip: 
-\end{htcode}
+\subsection{Viewers}
 
-Here the first file is the manual page\footnote{converted in pdf.  To allow
-  texdoc to find and display real man pages in man format,
-  see~\ref{cf-ext_list}.} of the ©tex© command, while the second is \TeX{}'s
-documented source code\dots
+\texdoc's mechanism for choosing a viewer varies according to your platform.
+On Windows and MacOS, it uses your file associations like when you
+double-click files in the Explorer or the Finder (except for the text viewer,
+which is always a pager). On Unix, it tries to find a viewer in the path from
+a list of ``known' viewers.
 
-\begin{cmdsubsec}{Mixed mode}{ss-mixed}
-  texdoc -m «name»
-  texdoc --mixed «name»
-\end{cmdsubsec}
+You may want to select a different viewer for some kind of file. This is
+achieved by the various ©viewer_«ext»© configuration options, where ©«ext»© is
+the extension corresponding to the file type. For example, if you want to set
+xpdf as your default PDF viewer, and run it in the background, insert the line
+©viewer_pdf = xpdf %s &© in your configuration file. Here, ©%s© stands for the
+name of the file to view.
 
-As the name says, \emph{mixed mode} is an attempt to provide you the best of
-the normal (view) and list modes, by mixing them in the following way:  If
-only one file is found, then \texdoc opens it, and if many are found, it
-displays a menu to let you choose.  You may want to make this mode the
-default, see~\ref{cf-mode}.
+\subsection{Conclusion}
 
-\begin{cmdsubsec}{What's a <name>?}{ss-name}
-  texdoc «name1» «name2» «...»
-  texdoc «name.ext»
-\end{cmdsubsec}
+We have now covered the most common needs. The next part explains
+how \texdoc proceeds to find the best results.
+The default configuration file tries hard to set appropriate values so that
+you have a good out-of-the-box experience, but you may want to understand the
+underlying mechanisms and adapt them to your needs. The final part is a full
+reference for configuration options, including points omitted in the present
+part.
 
-To conclude this section on basics, let us just mention two points concerning
-the ©«name»© in all previous sections.  Is is usually a single name without
-extension, but you can also use many names at once: then, depending on the
-mode, \texdoc will either open all the corresponding documentation or show you
-menus for each of the names you mentioned.  For each name, you can also
-specifiy the file exention\footnote{It should be an allowed extension,
-  see~\ref{cf-ext_list}, and preferably have a associated viewer defined,
-  see~\ref{cf-viewer_*}.} if you want, eg ©texdoc texlive-en.html© lets you
-read the \texlive manual in html rather than in pdf format.
+Your feedback is very welcome of the \href {mailto:texdoc@tug.org} {texdoc
+  mailing list}. Feel free to post comments, bug reports, suggestions for
+improvements (inc. new aliases), even without subscribing.
 
-\bigskip
-
-You can now stop reading this manual unless you have special needs.  If you
-want to understand the curious ©aliased too© messages that you will sometimes
-see, and control them, read section~\ref{s-alias}.  If you have problems
-viewing certain type of files or want to choose you preferred reader, look at
-section~\ref{s-viewer}.  Finally, section~\ref{s-ref} is the full
-reference concerning \texdoc configuration: while you probably don't want to
-read it all at once, you can consult~\ref{cf-mode} if you want to select your
-preferred mode and make it the default.
-
-Finally, be aware of the ©-h© or ©--help© option which provides you a quick
-reminder of all available command-line options.
-
-\section{Aliases, or name substitution}\label{s-alias}
+\section{File search, aliases, score}
 
 \subsection{Basic concept}\label{ss-alias-basics}
 
@@ -367,65 +319,7 @@ configuration file provided (the last one showed by ©texdoc -f©) for examples.
 If you want to permanently unalias something, just insert a line
 ©«name»=«name»©: it will overwrite the previous alias.
 
-\subsection{Remarks on aliases}\label{ss-alias-rem}
-
-Please be aware that this alias feature, or at least its intensive use to try
-to find the ``right'' documentation for a given package, should be temporary.
-Indeed, one problem is that currently aliases do \emph{hide} other files, while
-it is desirable that they just \emph{add} results in some case. However,
-defining a coherent behaviour (and how to maintain the needed database)
-requires work and time, and is therefore reported to future versions.
-
-In this vein, it would be desirable to have a notion of ``category'', like
-user documentation of a package, or man page of a program, or reference manual
-of a program, or documented source code of a package or program, or\dots If
-you have ideas about desirable categories and ways they should be handled,
-feel free to share them at the usual address.
-
-\section{Viewer selection}\label{s-viewer}
-
-A list of default viewers is defined in \texdoc, depending on your platform
-(Windows, MacOS X, other Unix). On Windows and MacOS, it uses your file
-associations like when you double-click files in the Explorer or the Finder.
-On Unix, it tries to find a viewer in the path from a list of ``known'
-viewers.
-
-If you want to use another viewer, you have two ways of telling this to
-\texdoc: in your configuration file or using environment variables.  If you
-hesitate, the configuration file is the recommended way.
-
-To find your configuration file, type ©texdoc -f© and pick the file marked
-with a star (unless you are a system administrator or your home is shared
-between many machines whith different architectures, see~\ref{ss-prec}); you
-may need to create the file and a few directories. Then you can add lines
-like:
-
-\begin{htcode}
-  viewer_pdf = (xpdf %s) &
-  viewer_txt = less
-\end{htcode}
-
-Here the ©%s© stands for the name of the file to view. The first line sets
-©xpdf© as the pdf viewer, and use a bit of shell syntax to force it to run in
-the background (the ©()© are here for compatibility with zip support,
-see~\ref{s-bugs}). The second line sets ©less© as the text viewer: it doesn't
-use ©%s©, which means the filename will be placed at the end of the command.
-
-The default extensions allowed are ©pdf©, ©html©, ©txt©, ©dvi©, ©ps©, and no
-extension.  The ©txt© viewer is used for files without extension.
-See~\ref{cf-ext_list} for how to allow for more extensions.
-
-The corresponding environment variables are ©PDFVIEWER©, ©BROWSER©, ©PAGER©,
-©DVIVIEWER©, ©PSVIEWER©. They follow the same convention as values from the
-configuration files, and override them if they are set. Since some of those
-variable are shared by other programs, you can override them just for \texdoc
-by adding ©_texdoc© at the end, like in ©BROWSER_texdoc©.
-
-\section{Full reference}\label{s-ref}
-
-The most useful command-line options, configuration values and all
-environment variables have been presented.  Here we complete our presentation
-and review all in a systematic way.
+\section{Configuration reference}
 
 \subsection{Precedence}\label{ss-prec}
 
@@ -694,35 +588,6 @@ The current exit code are as follow:
   \item Documentation not found for at least one argument.
 \end{enumerate}
 
-\section{Bugs, warnings}\label{s-bugs}
-
-There is currently no known bug (fingers crossed).  But a few things you should
-be warned about.
-
-First of all, \texdoc doesn't always succeed in finding documentation (or
-finds so many results that it is not useful).  Moreover, it cannot handle very
-correctly packages with many relevant documentation files at the moment
-(see~\ref{ss-alias-rem}).  Ideas about how to improve this are most welcome at
-the usual address.
-
-Second, support for zipped documentation, which have been ``available'' in
-previous versions of \texdoc, is now disabled by default. The reasons are that
-this support wasn't portable (didn't work on windows for example), and
-moreover we won't ship compressed documentation in \texlive.  However, the
-code has not been totally removed and should be easy to activate again. If you
-want to use this feature, please:
-\begin{enumerate}
-  \item Look in \texdoc's code for instructions (look for the ©support_zipped©
-    variable and change it to true).
-  \item Check that the zip commands in texdoc's default match whatever command
-    is available on your system.
-\end{enumerate}
-
-Finally, \texdoc is also missing a GUI version (texdoctk has never been the
-GUI version of \texdoc, and is unmaintained and probably unmaintainable
-anyway).  This is on the list, but the time line is rather unclear at the
-moment.
-
 \section{Licence}\label{s-licence}
 
 The current \texdoc program and its documentation are copyright 2008, 2009
@@ -752,10 +617,8 @@ Previous work (texdoc program) in the public domain:
 \end{itemize}
 
 \bigskip
-\begin{center}\Large\rmfamily
+\begin{center}\Large\rmfamily\bfseries
   Happy \TeX{}ing!
 \end{center}
 
 \end{document}
-
-
