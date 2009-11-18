@@ -330,7 +330,7 @@ function get_doclist_tlpdb(patlist)
     tlpdb:close()
     local doclines
     local state = 'none'
-    for line in string.gmatch(tlpdb_content, '[^\n]*') do
+    for _, line in ipairs(string.explode(tlpdb_content, '\n')) do
         -- process runfiles or docfiles lines
         if state == 'docfiles' then
             if not string.find(line, '^ ') then
@@ -345,10 +345,13 @@ function get_doclist_tlpdb(patlist)
                 -- does the line match a pat in patlist?
                 local found = false
                 for _, pat in ipairs(patlist) do
-                    if string.find(line, '/'..pat.name..'.sty$')
-                        or string.find(line, '/'..pat.name..'.cls$') then
-                        found = true
-                        break
+                    local l = #pat.name
+                    if string.sub(line, -5 - l, -4) == '/'..pat.name..'.' then
+                        local ext = string.sub(line, -3)
+                        if ext == 'sty' or ext == 'cls' then
+                            found = true
+                            break
+                        end
                     end
                 end
                 -- if so, insert results in s_doclist
