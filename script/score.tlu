@@ -22,17 +22,28 @@ local setscore, adjscore = {}, {}
 function confline_to_score(line, file, pos)
     local key, val
     -- try setscore
-    key, val = string.match(line, '^setscore%s+([%w%p]+)%s*=%s*(-?[%d]+)')
+    key, val = string.match(line, '^setscore%s+([%w%p]+)%s*=%s*([%w+-]+)')
     if key and val then 
-        local k = string.lower(key)
-        if setscore[k] == nil then setscore[k] = tonumber(val) end
-        return true
+        return set_score_table(setscore, key, val)
     end
     -- try adjscore
-    key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*(-?[%d]+)')
+    key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*([%w+-]+)')
     if key and val then 
-        local k = string.lower(key)
-        if adjscore[k] == nil then adjscore[k] = tonumber(val) end
+        return set_score_table(adjscore, key, val)
+    end
+    return false
+end
+
+-- set key in score table to val, without overriding
+function set_score_table(tab, key, val)
+    local k = string.lower(key)
+    if val == 'no' then
+        if tab[k] == nil then tab[k] = false end
+        return true
+    end
+    local v = tonumber(val)
+    if v then
+        if tab[k] == nil then tab[k] = v end
         return true
     end
     return false
@@ -57,7 +68,7 @@ function set_score(df)
     local name = string.lower(df.name)
     -- set from tables
     for pat, val in pairs(setscore) do
-        if is_subword(name, pat) then
+        if val and is_subword(name, pat) then
             deb_print('score', string.format(
                 "Set from pattern '%s': %d", pat, val))
             df.score = val
@@ -82,7 +93,7 @@ function set_score(df)
     -- adjust from tables
     if score > 0 and df.tree > -1 then
         for pat, val in pairs(adjscore) do
-            if is_subword(name, pat) then
+            if val and is_subword(name, pat) then
                 score = score + val
                 deb_print('score', string.format(
                     "Adjust by '%d' from pattern '%s'", val, pat))
