@@ -68,7 +68,7 @@ local Docfile = {}
 Docfile.__index = Docfile
 
 -- create a new docfile objet using initilisation info
--- fields : name (relative to tree), tree, pattern (optional)
+-- fields : name (relative to tree), tree, pattern
 function Docfile:new(info)
     df = {}
     setmetatable(df, self)
@@ -326,6 +326,7 @@ function get_doclist_sty(patlist)
             local df = Docfile:new({
                 name    = file,
                 tree    = -1,
+                pattern = pat,
             })
             s_doclist:add(df)
         end
