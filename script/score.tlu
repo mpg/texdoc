@@ -52,6 +52,7 @@ function set_score(df)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then df.score = 0 return end
     deb_print('score', 'Start scoring '..df.realpath)
+    deb_print('score', 'Name used: '..df.name)
     -- scoring is case-insenstitive (patterns are already lowercased)
     local name = string.lower(df.name)
     -- set from tables
@@ -69,7 +70,7 @@ function set_score(df)
         local s = 0
         local p = string.lower(pat.name)
         if pat.original then
-            s = heuristic_score(name, p)
+            s = df.tree > -1 and heuristic_score(name, p) or 1
         elseif is_exact(name, p) then
             s = pat.score
             deb_print('score', string.format(
@@ -79,7 +80,7 @@ function set_score(df)
     end
     deb_print('score', 'Max pattern score: '..tostring(score))
     -- adjust from tables
-    if score > 0 then
+    if score > 0 and df.tree > -1 then
         for pat, val in pairs(adjscore) do
             if is_subword(name, pat) then
                 score = score + val

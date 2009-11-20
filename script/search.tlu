@@ -56,26 +56,48 @@ function Doclist:stop()
 end
 
 -- docfile = {
---     name     = filename (relative to tree)
+--     name     = filename (used for scoring only)
 --     tree     = code of the tree, see below
 --     matches  = {pattern1, pattern2, ...}
 -- }
 -- if tree > 1, this is the index of the tree in TEXDOCS
 -- if tree = 0, then name is relative to TLROOT (file found from tlpdb only)
 -- tree = - 1 if and only if file is a sty file. Here name is absolute.
--- see tree_to_path()
 
 local Docfile = {}
 Docfile.__index = Docfile
 
 -- create a new docfile objet using initilisation info
--- fields : name, tree (mandatory) pattern (optional)
-function Docfile:new(df)
+-- fields : name (relative to tree), tree, pattern
+function Docfile:new(info)
+    df = {}
     setmetatable(df, self)
-    df.realpath = tree_to_path(df.tree, df.name)
-    if df.pattern then
-        df.matches = { df.pattern }
-        df.pattern = nil
+    -- get realpath, tree and prepare name
+    df.tree = info.tree
+    if info.tree > 0 then
+        df.realpath = texdocs_tree_to_path(info.tree, info.name)
+    elseif info.tree == 0 then
+        df.realpath = get_tlroot()..'/'..info.name
+        info.name = string.sub(info.name, '^texmf(-dist)?/doc/', '', 1)
+    elseif info.tree == -1 then
+        df.realpath = info.name
+    else
+        error('Internal error: bad tree number')
+    end
+    -- remove first component of name if at least two directory levels
+    if info.tree > -1 then
+        local name = string.match(info.name, '^..-/(.+/.+)$')
+        if name then
+            df.name = '/'..name
+        else
+            df.name = info.name
+        end
+    else
+        df.name = info.name
+    end
+    -- initialise the list of matches
+    if info.pattern then
+        df.matches = { info.pattern }
     else
         df.matches = {}
     end
@@ -148,13 +170,8 @@ function get_texdocs ()
     end
 end
 
--- return the real path from a tree + relative path
-function tree_to_path(tree, rel)
-    -- absolute path
-    if tree == -1 then return rel end
-    -- relative to TLROOT
-    if tree == 0 then return get_tlroot()..'/'..rel end
-    -- else relative to something in TEXDOCS
+-- return the real path from a texdocs tree number + relative path
+function texdocs_tree_to_path(tree, rel)
     if doc_roots == nil then get_texdocs() end
     return win32_hook(doc_roots[tree].path..'/'..rel)
 end
@@ -308,6 +325,7 @@ function get_doclist_sty(patlist)
             local df = Docfile:new({
                 name    = file,
                 tree    = -1,
+                pattern = pat,
             })
             s_doclist:add(df)
         end
@@ -359,8 +377,8 @@ function get_doclist_tlpdb(patlist)
                     for _, line in ipairs(doclines) do
                         local l = string.match(line, '^ ([^ ]*)')
                         s_doclist:add(Docfile:new({
-                            name = l,
-                            tree = 0,
+                            name    = l,
+                            tree    = 0,
                         }))
                     end
                 end
