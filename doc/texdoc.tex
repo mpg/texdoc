@@ -2,6 +2,11 @@
 % written by Manuel Pégourié-Gonnard in 2008, 2009
 % distributed under the terms of GPL v3 or later
 
+%!TEX encoding=latin1
+%!TEX program=pdflatex
+
+\setlength\overfullrule{5pt}
+
 \documentclass[a4paper, oneside]{scrartcl}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
@@ -22,7 +27,7 @@
 \titlelabel{\makebox[0pt][r]{\thetitle\kern1pc}}
 \titleformat{\subsubsection}[runin]{\otherfamily\itshape}{%
   \makebox[0pt][r]{\thetitle\kern1pc}}{%
-  0pt}{}[\maybedot\space --- ]
+  0pt}{}[\maybedot\space --- \kern0pt]
 \titlespacing{\subsubsection}{0pt}{0.5\baselineskip}{0pt}
 
 \usepackage{enumitem}
@@ -76,7 +81,7 @@
 \newcommand\file{\nolinkurl}
 
 % take care of nbsp
-\catcode`\ 10\relax
+\catcode`\ 10\relax
 
 \newcommand\meta[1]{% % variantes à remplacer
   {\color{special}\mylangle\textme{#1}\myrangle}}
@@ -177,7 +182,7 @@ once: just give many names as arguments.
 The rest of this section describes the most usual options, like how to
 see all documentation related to a package or use a different viewer.
 
-\subsection{Modes}
+\subsection{Modes}\label{ss-modes}
 
 \texdoc has different modes that determine how results will be handled. The
 default mode, called ``view'' mode, is to open the first (supposedly the best)
@@ -208,7 +213,7 @@ If you always (or mostly) use the same mode, it is probably easier to
 select it in a configuration file than to always use the command-line
 option. For this, see the next section.
 
-\subsection{Configuration files}
+\subsection{Configuration files}\label{ss-quick-file}
 
 \texdoc use various configuration files, which you can see using the ©-f© or
 ©--files© options. The second entry in this list is marked with a star ©(*)©:
@@ -254,74 +259,130 @@ improvements (inc. new aliases), even without subscribing.
 
 \section{File search, aliases, score}
 
-\subsection{Basic concept}\label{ss-alias-basics}
+\subsection{An overview of how texdoc works}
 
-The usual search modes of \texdoc assume that the name of the documentation
-file is the name of the package, or contains it (at least in the directory
-name).  However, this is not always true, due either to the author choosing a
-fancy name, or packaging peculiarities.  To try helping the user to find the
-doc even in these cases, \texdoc provides an alias mechanism and comes with a
-list of circa 200 pre-defined aliases.
+When you type ©texdoc «keyword»©, texdoc browses the tree containing
+documentation (given by the \href{http://www.tug.org/kpathsea/} {kpathsea}
+variable ©TEXDOCS©), lists all files containing ©«keyword»© in their name
+(including the directory name) and give them a score based on some simple
+heuristics. For example, a file named ©«keyword».pdf©, will get a high score,
+©«keyword»-doc© will be preferred over ©«keyword»whatever©, files in a
+directory named exactly ©«keyword»© get a bonus, etc.
+
+There is also some filtering based on extensions: only files with known
+extensions are listed, and some extensions get a lesser score. Also, there is
+some score adjustments based on keywords; by default, Makefile's get a very
+bad score since they are almost never documentation.\footnote{They often end
+  up in the doc tree, since the source of documentation is often in the same
+  directory as the documentation itself in \TeX\ Live. Other source files are
+  discriminated by extension.}
+
+Then, depending on the mode, the file with the highest score is opened in a
+viewer, or the list of results is shown. Usually, only results with a positive
+score are displayed, except in showall mode. Result with very bad score (-100
+and below) are never displayed.
+
+\medskip
+
+However, this model works only if the documentation for ©«keyword»© has
+©«keyword»© in its name, which is not always true. The documentation of the
+memoir class is in ©memman.pdf©, for example, but it will be found anyway
+since it is in a directory named memoir. But there are more complicated cases:
+the documentation for mathptmx is in ©psnfss2e.pdf©, which is quite more
+complicated to guess.\footnote{But not totally impossible: using the \TeX\
+  Live database, texdoc can know which documentation files are associated with
+  a given ©.sty© file. Here, it could guess that the documentation is either
+  ©psfonts.pdf© of ©psnfss2e.pdf©. This will probably be done in a future
+  version.}
+
+Here comes the notion of \emph{alias}: in the default configuration file,
+mathptmx is aliased to psnfss2e, so that when you type ©texdoc mathptmx©,
+texdoc knows it has to look also for psnfss2e. Note that texdoc will also look
+for the original name, and that a name can be aliased to more than one new
+name (this is new in texdoc 0.60).
+
+\medskip
+
+We will soon see how you can configure this, but let's give a few definitions
+about how a file can match keyword first (all matching is case-insensitive):
+\begin{enumerate}
+  \item The keyword is a substring of the file name.
+  \item The keyword is a ``subword'' of the file name; words are defined as a
+    sequence of alphanumeric characters delimited by punctuation characters
+    (there is no space in file names in \TeX\ Live) and a subword is a
+    substring both ends of which are a word boundary.
+  \item The keyword can match ``exactly'' the file name: that is, the file
+    name is the keyword + and extension.
+\end{enumerate}
+
+\subsection{Alias directives}\label{ss-alias}
 
 \begin{htcode}
-  þ texdoc -l geometry þ
-  texdoc info: geometry aliased to geometry/manual.pdf
-  1 /usr/local/texlive/2008/texmf-dist/doc/latex/geometry/manual.pdf
-  Please enter the number of the file to view, anything else to skip: ¶0¶
+  alias «original keyword» = «name»
 \end{htcode}
 
-The concept of alias is very\footnote{See~\ref{ss-alias-rem} for why it is
-  actually \emph{too} simple.} simple: as you can see of the above example,
-when you type and ©geometry© is aliased to ©geometry/manual.pdf©, then
-everything happens as if you actually typed ©texdoc geometry/manual.pdf©
-(without any further alias substitution), and \texdoc informs you that
-something happened so you can understand the results
-(see~\ref{cf-verbosity_level} to get rid of this message):
+You can define your own aliases in \texdoc's configuration files
+(see~\ref{ss-quick-file} or \ref{ss-prec}). For example, insert
+\begin{htcode}
+  alias mathptmx = psnfss2e
+\end{htcode}
+in order to alias mathptmx to psnfss2e. Precisely, it means that files
+matching exactly psnfss2e will be added to the result list when you look for
+mathptmx, and get a score of 10 (default score for alias results). This is
+greater than the results of heuristic scoring: it means that results found via
+aliases will always rank before results associated to the original keyword.
+Please note than aliasing is case-insensitive, and the aliases don't cascade:
+only aliases associated to the original keyword are used.
 
-\begin{cmdsubsec}{Command line options}{ss-alias-cl}
-  texdoc -a «options» «name»
-  texdoc --alias «options» «name»
-  texdoc -A «options» «name»
-  texdoc --noalias «options» «name»
-\end{cmdsubsec}
+You can have a look at the configuration file provided (the last shown by
+©texdoc -f©) for examples.  If you feel one of the aliases you defined locally
+should be added to the default configuration, please share it on the \href
+{mailto:texdoc@tug.org} {texdoc mailing list}.
 
-By default, aliased are used in view, list and mixed modes, and disabled in
-search mode. But you may want to disable it, because the default alias doesn't
-do what you want\footnote{In this case, please report it to
-  \mailto{texdoc@tug.org}, so that the faulty alias can be updated.} or for
-another reason.  In this case, you just have to add ©-A© or ©--noalias© to the
-options, like:
+If, for some reason, you want to prevent aliases from begin used for one
+session of texdoc, you can use the ©-A© or ©--noalias© command-line option
+(see~\ref{cl-a}).
+
+\subsection{Score directives}\label{ss-score}
 
 \begin{htcode}
-  þ texdoc -A -l geometry þ
-  1 /usr/local/texlive/2008/texmf-doc/doc/polish/tex-virtual-academy-pl/
-  latex2e/macro/geometry.html
-  Please enter the number of the file to view, anything else to skip: ¶0¶
+  setscore «pattern» = «final score»
+  adjscore «pattern» = «score adjustment»
 \end{htcode}
 
-On the contrary, you can force aliasing in search mode by using the ©-a© or
-©--alias© option, though it may not prove very useful.
-
-\subsection{Your own aliases}\label{ss-alias-own}
-
-You can define your own aliases, or override the default ones, in \texdoc's
-configuration files. You can get a list of those files by typing ©texdoc -f©.
-For personal aliases, it is recommended that you use the second file, marked
-by a star (see~\ref{ss-prec} for details). You'll probably need to
-create in and one or two of the directories containing it.
-
-Creating an alias is easy: you just insert a line like 
+There are two ways of changing the score of a result: you can either set it to
+a fixed score, or adjust it by some quantity. This is done in the
+configuration file (\ref{ss-quick-file} or \ref{ss-prec}) using the directives
+©setscore© and ©adjustscore©. They only affect results for which ©«pattern»©
+matches as a subword.
 \begin{htcode}
-  alias geometry = geometry/manual.pdf
+  setscore /Makefile = -100
+  adjscore /tex-virtual-academy-pl/ = -10
 \end{htcode}
-in your configuration file, and it's all.  You can have a look at the
-configuration file provided (the last one showed by ©texdoc -f©) for examples.
-If you want to permanently unalias something, just insert a line
-©«name»=«name»©: it will overwrite the previous alias.
+In the above example (from the default configuration file), all files named
+©Makefile© are killed (also files names ©Makefile-foo© if there are any):
+since the get a score of exactly -100, they will never be displayed. Files
+from the ©tex-virtual-academy-pl© directory, on the other hand, are not killed
+but just get a malus, since they are a common source of ``fake'' matches which
+hide better results (even for the lucky ones who can read polish).
 
-\section{Configuration reference}
+\subsection{File extensions}
 
-\subsection{Precedence}\label{ss-prec}
+The allowed file extensions are defined by the configuration item ©ext_list©
+(default: pdf, html, txt, ps, dvi, no extension). You can configure with
+a line ©ext_list = «your, list»© in a configuration file. Be aware
+that it will completely override the default list, not add to it. An empty
+string in the list means files without extension (no dot in the name), while a
+star means any extension.
+
+For scoring purposes, there is also a ©badext_list© parameter: files whose
+extension is ``bad'' according to this list will get a lesser score (currently
+0). This only affect heuristic scoring (results found from the original
+keyword, not from aliases).
+
+\section{Full reference}
+
+\subsection{Precedence of configuration sources}\label{ss-prec}
 
 Values for a particular setting can come from several sources. They are treated
 in the following order, where first value found is always used:
@@ -354,9 +415,10 @@ its default config file) in your home: see \href{http://tug.org/texdoc/}{the
 
 \subsection{Command-line options}\label{ss-cl}
 
-Most of the command-line options correspond to an option that can be set from
-the config files. For them, we refer the reader to the description of the
-corresponding configuration option. 
+All command-line options (except the first three below) correspond to
+configuration item that can be set in the configuration files: we refer
+the reader to the corresponding section for the meaning of this configuration
+item.
 
 \begin{cmdsubsub}{-h, --help}{cl-h}
   -h, --help
@@ -365,7 +427,7 @@ corresponding configuration option.
 Shows a quick help message (namely a list of command-line options) and exits
 successfully.
 
-\begin{cmdsubsub}{-V, --version}{cl-v}
+\begin{cmdsubsub}{-V, --version}{cl-V}
   -V, --version
 \end{cmdsubsub}
 
@@ -376,56 +438,68 @@ Show the current version of the program and exits successfully.
 \end{cmdsubsub}
 
 Shows the list of the configuration files for the current installation and
-platform, with their status (active or not found) and a star marking the
-recommended file for user settings.
+platform, with their status (active, not found, or disabled
+(see~\ref{cf-lastfile_switch})) and exits successfully.
 
-\begin{cmdsubsub}{-w, -l, -m, -s, -r, --view, --list, --mixed, --search,
+\begin{cmdsubsub}{-w, -l, -m, -s, -r, --view, --list, --mixed, --showall,
     --regex}{cl-mode}
-  -w, --view, -l, --list, -m, --mixed, -s, --search, -r, --regex
+  -w, --view, -l, --list, -m, --mixed, -s, --showall, -r, --regex
 \end{cmdsubsub}
 
-See~\ref{cf-mode}.
+\hfill Set ©mode© to the given value, see~\ref{cf-mode}.
 
 \begin{cmdsubsub}{-a, -A, --alias, --noalias}{cl-a}
   -a, --alias, -A, --noalias
 \end{cmdsubsub}
 
-See~\ref{s-alias}.
+Set ©alias_switch© true (resp. false), see~\ref{cf-alias_switch}
 
 \begin{cmdsubsub}{-i, -I, --interact, --nointeract}{cl-i}
   -i, --interact, -I, --nointeract
 \end{cmdsubsub}
 
-See~\ref{cf-interact}.
+Set ©interact_switch© to true (resp. false), see~\ref{cf-interact_switch}.
 
 \begin{cmdsubsub}{-e, --extensions}{cl-e}
   -e=«l», --extensions=«l»
 \end{cmdsubsub}
 
-See~\ref{cf-ext_list}.  \emph{But} be aware that on the command line there
-should be no space at all, neither in the list (unless quoted according to you
-shell's convention) not between the ©-e© or ©--extension© option, the equal
-sign, and the list.  Also take care to quote the special value ©*© if
-necessary.  The equal sign is optional.
+Set ©ext_list©, see~\ref{cf-ext_list}.  \emph{But} be aware that on the
+command line there should be no space at all, neither in the list (unless
+quoted according to you shell's convention) not between the ©-e© or
+©--extension© option, the equal sign, and the list.  Also take care to quote
+the special value ©*© if necessary.  The equal sign is optional.
 
-\begin{cmdsubsub}{-v, --verbosity, -d, --debug}{cl-n}
-  -v=«n», --verbosity=«n», -d, --debug
+\begin{cmdsubsub}{-v, --verbosity}{cl-v}
+  -v=«n», --verbosity=«n»
 \end{cmdsubsub}
 
-See~\ref{cf-verbosity_level} and be aware that you must avoid spaces on the
-command line, and the ©=© sign is optional. The ©--debug© option sets
-verbosity at the maximum level.
+Set ©verbosity_level© to ©«n»©, see~\ref{cf-verbosity_level}. Be aware that you
+must avoid spaces on the command line, and the ©=© sign is optional.
+
+\begin{cmdsubsub}{-d, --debug}{cl-d}
+  -d, -d=«list», --debug, --debug=«list»
+\end{cmdsubsub}
+
+Set ©debug_list©, see~\ref{cf-debug_list}. If not list is given, activates all
+available debug items.
+
+\begin{cmdsubsub}{-M, --machine}{cl-M}
+  -M, --machine
+\end{cmdsubsub}
+
+Set ©machine_switch© to true, see~\ref{cf-machine_switch}.
 
 \subsection{Environment variables}\label{ss-envvar}
 
 They all correspond to some ©viewer_«ext»© setting, and the reader is referred
-to~\ref{s-viewer} and~\ref{cf-viewer_*} for details. Also, environment
-variables used by older versions of \texdoc are accepted. You can append
-©_texdoc© to every name in the first column: this wins over every other name.
+to~\ref{cf-viewer_*} for details. Also, environment variables used by older
+versions of \texdoc are accepted. You can append ©_texdoc© to every name in
+the first column: this wins over every other name.
 
 \begin{center}
-  \begin{tabular}{@{}l*3{@{ }l}@{}}
-    New name    & Old name 1        & Old name 2           & Config. param.\\
+  \begin{tabular}{*4l}
+    New name    & Old name 1        & Old name 2           & Config. item\\
     ©PAGER©     & ©TEXDOCVIEW_txt©  & ©TEXDOC_VIEWER_TXT©  & ©viewer_txt©  \\
     ©BROWSER©   & ©TEXDOCVIEW_html© & ©TEXDOC_VIEWER_HTML© & ©viewer_html© \\
     ©DVIVIEWER© & ©TEXDOCVIEW_dvi©  & ©TEXDOC_VIEWER_DVI©  & ©viewer_dvi©  \\
@@ -434,69 +508,70 @@ variables used by older versions of \texdoc are accepted. You can append
   \end{tabular}
 \end{center}
 
-\subsection{Configuration files}\label{ss-conf}
+\subsection{Configuration items}\label{ss-conf}
 
-\subsubsection{General structure}\label{sss-sonf-struct}
+\subsubsection{Structure of configuration files}\label{sss-sonf-struct}
 
 Configuration files are line-oriented text files. Comments begin with a ©#©
 and run to the end of line. Lines containing only space are ignored. Space at
 the beginning or end of a line, as well as around an ©=© sign, is ignored.
 Apart from comments and empty lines, each line must be of one of the following
-forms:
+forms.
 
 \begin{htcode}
-  «config_param» = «value»
-  alias «name» = «target»
+  «configuration item» = «value»
+  alias «original keyword» = «name»
+  setscore «pattern» = «final score»
+  adjscore «pattern» = «score adjustment»
 \end{htcode}
 
-where ©«config_parameter»© consists of only letters, digits or ©-© signs,
-©«name»© of letters, digits, ©-© and ©_© signs. ©«value»© and ©«target»© are
-free strings (except that not every ©«value»© is valid for every
-©«config_param»©, see below) and nothing in it need not be quoted (actually,
-quotes will be interpreted as part of the value, not as quotation marks).
+We will concentrate on the «configuration items» here, other directives have
+already be presented (\ref{ss-alias} and \ref{ss-score}).
 
-Lines which do not obey these rules raise a warning. However, unrecognised
-values of ©«config_param»© raise no warning at the moment.
+In the above, ©«value»© is usually a free string, but of course not every
+©«value»© is valid for every ©«configuration item»© and nothing in it need not
+be quoted: quotes would be interpreted as part of the value, not as quotation
+marks (this also holds for the other directives).
 
-The ©«value»© is usually interpreted as a string, except when ©«config_param»©
-ends with:
+Lines which do not obey these rules raise a warning, as well as unrecognised
+values of ©«configuration item»© raise no warning at the moment.
+
+The ©«value»© is usually interpreted as a string, except when
+©«configuration item»© ends with:
 \begin{enumerate}
   \item ©_list©, then ©«value»© is a coma-separated list of strings. Space
     around commas is ignored. Two consecutive comas or a coma at the beginning
     or end of the list means the empty string at the corresponding place.
   \item ©_switch©, then ©«value»© must be either ©true© or ©false©
-    (case-sensitive).
-  \item ©_level©, then ©«value»© is a non-negative integer.
+    (lowercase).
+  \item ©_level©, then ©«value»© is an integer.
 \end{enumerate}
 
 \begin{cmdsubsub}{mode}{cf-mode}
-  mode = «view, list, mixed, search, regex»
+  mode = «view, list, mixed, showall, regex»
 \end{cmdsubsub}
-Set the  mode to the given value.  Default is ©view©.  The first three values
-©view©, ©list©, ©mixed© use the same searching method: first search a file
-whose name is the ©«name»© on the command line and whose extension is in
-©ext_list© (see~\ref{cf-ext_list}), and if nothing is found, then do a full
-search.  This means that a file matches if ©«name»© is a substring of its
-path+name (and its extension is in the list). Here path does not mean the full
-path, but only the part below ©TEXMF/doc©. The ©search© mode forces a full
-search.
+Set the  mode to the given value.  Default is ©view©. All mode except regex
+have been presented in~\ref{ss-modes}.
 
-The last mode, ©regex©, looks for ©«name»© in the path+filename as a Lua
-regex.  If you don't know Lua regexes you should be aware that the escape
-character is ©%© and the ©-© sign is a special character (which means the same
-as ©*?© in Perl regexes).  For more details, see the Lua
-\href{http://www.lua.org/manual/}{reference manual} or the book
-\href{http://www.lua.org/pil/}{\emph{programming in Lua}}.  You might want to
-use\footnote{The quotes in the example are just to make the shell happy.}
-©-e='*'© if your regex uses the ©$© anchor.%stopzone
+In regex mode, the given name is
+interpreted as a Lua regex, and only files whose full name (including path)
+matches it are found. Alias and score mechanisms are disabled.
+\textbf{Warning}: this mode may disappear in a future version of texdoc. If
+you want me to keep it, please tell me so!
 
-\begin{cmdsubsub}{interact}{cf-interact}
+\begin{cmdsubsub}{interact}{cf-interact_switch}
   interact_switch = «true, false»
 \end{cmdsubsub}
 
 Turn on or off interaction.  Default is on.  Turning interaction off prevents
 \texdoc to ask you to choose a file to view when there are multiple choices,
-and merely just print the list of files found.
+so it just prints the list of files found.
+
+\begin{cmdsubsub}{alias}{cf-alias_switch}
+  alias_switch = «true, false»
+\end{cmdsubsub}
+
+Turn on or off aliasing.  Default is on.
 
 \begin{cmdsubsub}{ext_list}{cf-ext_list}
   ext_list = «list»
@@ -506,8 +581,9 @@ Set the list of recognised extensions to ©«list»©.  Default is
 \begin{htcode}
   pdf, html, txt, dvi, ps,
 \end{htcode}
-This list is used to filter and  sort the results (with the default value: pdf
-first, etc).  Two special values are recognised:
+This list is used to filter and  sort the results that have the same
+score(with the default value: pdf first, etc).  Two special values are
+recognised:
 \begin{itemize}
   \item \emph{The empty element}. This means files without extensions, or more
     precisely without a dot in their name.  This is meant for files like
@@ -518,7 +594,7 @@ first, etc).  Two special values are recognised:
 
 There is a very special case: if the searched ©«name»© has ©.sty© extension,
 \texdoc enters a special search mode for ©.sty© files (not located in the same
-place as real documentation files) for this ©«name»©, independantly of the
+place as real documentation files) for this ©«name»©, indepandantly of the
 current value of ©ext_list© and ©mode© (unless it is the ©regex© mode). In an
 ideal world, this wouldn't be necessary since every sty file would have a
 proper documentation in pdf, html or plain text, but\dots
@@ -529,54 +605,70 @@ For each ©«ext»© in ©ext_list© there should be a corresponding
 \texdoc to be able to find man pages and display them with the ©man© command,
 you can use
 \begin{htcode}
-  ext_list = 1, 5, pdf, html, txt, dvi, ps,
+  ext_list = pdf, html, 1, 5, txt, dvi, ps,
   viewer_1 = man
   viewer_5 = man
 \end{htcode}
-(This also makes man pages in man format take precedence over their pdf
-versions.)
+
+\begin{cmdsubsub}{badext_list}{cf-badext_list}
+  badext_list = «list»
+\end{cmdsubsub}
+
+Set the list of ``bad'' extensions to ©«list»©.  Default is
+\begin{htcode}
+  txt, 
+\end{htcode}
+Files with those extensions get a heuristic score of 0.
 
 \begin{cmdsubsub}{viewer_*}{cf-viewer_*}
   viewer_«ext» = «cmd»
 \end{cmdsubsub}
 
 Set the viewer command for files with extension ©«ext»© to ©«cmd»©. For files
-without extension, ©viewer_txt© is used, and there's not ©viewer_© variable.
+without extension, ©viewer_txt© is used, and there's no ©viewer_© variable.
 In ©«cmd»©, ©%s© can be used as a placeholder for the file name, which is
 otherwise inserted at the end of the command.  The command can be a arbitrary
 shell construct. 
-
-\begin{cmdsubsub}{alias}{cf-alias}
-  alias «name» = «othername»
-\end{cmdsubsub}
-
-Everything has already been said in section~\ref{s-alias}.
 
 \begin{cmdsubsub}{verbosity_level}{cf-verbosity_level}
   verbosity_level = «n»
 \end{cmdsubsub}
 
-Set the verbosity level to ©«n»©.  This determines whether \texdoc will print
-or not errors or debug information (to stderr). Default level is 3. The
-numeric codes are as follow:
-\begin{enumerate}[start=0]
-  \item Print nothing (not recommended).
-  \item Print only error messages.
-  \item Also print warnings.
-  \item Also print information messages.
-  \item[n] Also print debug(n-3) information messages.
-\end{enumerate}
+Set the verbosity level to ©«n»©. 3 means errors, warnings and informational
+message will be printed (on stdout); 2 means only errors and warnings, 1 only
+errors and 0 nothing (not recommended).
 
-Currently, debug goes from 1 to 3 : ©debug1© prints the command used to view a
-file just before executing it, ©debug2© prints information about setting
-configuration paramters, and ©debug3© about the search paths used.
+\begin{cmdsubsub}{debug_list}{cf-debug_list}
+  debug_list = «list»
+\end{cmdsubsub}
+
+Set the list of activated debug items (default: none). For a list of available
+items, see the source code, file ©constants.tlu©, variable ©known_debugs©.
+
+\begin{cmdsubsub}{machine_switch}{cf-machine_switch}
+  machine_switch = «true, false»
+\end{cmdsubsub}
+
+Turn on or off machine-readable output (default: off). In machine-readable
+mode, each line of output is
+\begin{htcode}
+  «argument»\t«score»\t«filename»
+\end{htcode}
+where ©«argument»© is the name of the argument to which the results correspond
+(mainly useful if there were many arguments), ©\t© is the tab (ascii 9)
+character, and the other entries are pretty self-explanatory. Nothing else is
+printed on stdout, except if a internal error occurs (in which case exit code
+will be 1). In the future, more tab-separated fields may be added at the end
+of the line, but the first 3 fields will remain unchanged.
 
 \begin{cmdsubsub}{lastfile_switch}{cf-lastfile_switch}
   lastfile_switch = «true, false»
 \end{cmdsubsub}
 
-Prevents \texdoc from reading any other configuration file after this one.
-Mainly useful for installing a newer version of \texdoc in your home (see the
+If set to true, prevents \texdoc from reading any other configuration file
+after this one (they will be reported as ``disabled'' by ©texdoc -f©).  Mainly
+useful for installing a newer version of \texdoc in your home and preventing
+the default configuration file from older versions to be used(see the
 \href{http://tug.org/texdoc/}{web site} for instructions on how to do so).
 
 \subsection{Exit codes}\label{ss-exit}
