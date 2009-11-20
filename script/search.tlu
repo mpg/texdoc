@@ -79,7 +79,7 @@ function Docfile:new(info)
     elseif info.tree == 0 then
         error('Unimplemented')
         df.realpath = get_tlroot()..'/'..info.name
-        info.name = string.sub(info.name, '^texmf(-dist)?/doc/', '', 1)
+        info.name = string.gsub(info.name, '^texmf(-dist)?/doc/', '', 1)
     elseif info.tree == -1 then
         df.realpath = info.name
     else
