@@ -56,35 +56,38 @@ function Doclist:stop()
 end
 
 -- docfile = {
---     name     = filename relative to tree, absolute if tree == nil,
---     tree     = number of the tree in doc_roots,
+--     name     = filename (relative to tree)
+--     tree     = code of the tree, see below
 --     matches  = {pattern1, pattern2, ...}
 -- }
+-- if tree > 1, this is the index of the tree in TEXDOCS
+-- if tree = 0, then name is relative to TLROOT (file found from tlpdb only)
+-- tree = - 1 if and only if file is a sty file. Here name is absolute.
+-- see tree_to_path()
 
 local Docfile = {}
 Docfile.__index = Docfile
 
 -- create a new docfile objet using initilisation info
+-- fields : name, tree (mandatory) pattern (optional)
 function Docfile:new(df)
     setmetatable(df, self)
-    if df.name and df.tree then
-        df.realpath = tree_to_path(df.tree, df.name)
-    elseif df.name then
-        df.realpath = df.name
-    else
-        error('Internal error: no realpath for docfile.')
-    end
+    df.realpath = tree_to_path(df.tree, df.name)
     if df.pattern then
         df.matches = { df.pattern }
         df.pattern = nil
     else
-        error('Internal error: no pattern info for docfile.')
+        df.matches = {}
     end
     return df
 end
 
 -- merge a second docfile objet into self
 function Docfile:mergein(df)
+    if df.tree > self.tree then
+        self.name = df.name
+        self.tree = df.tree
+    end
     for _, m in ipairs(df.matches) do
         table.insert(self.matches, m)
     end
@@ -147,6 +150,11 @@ end
 
 -- return the real path from a tree + relative path
 function tree_to_path(tree, rel)
+    -- absolute path
+    if tree == -1 then return rel end
+    -- relative to TLROOT
+    if tree == 0 then error('Unimplemented') return get_tlroot()..'/'..rel end
+    -- else relative to something in TEXDOCS
     if doc_roots == nil then get_texdocs() end
     return win32_hook(doc_roots[tree].path..'/'..rel)
 end
@@ -290,16 +298,16 @@ function process_file(patlist, file, pathfile, code)
     return docfile
 end
 
-------------------------   get results from elsewhere   ------------------------
+----------------------------   look for sty files   ----------------------------
 
--- for sty files, we obviously don't want to look in TEXDOCS...
+-- add doclist entries for sty files in patlist
 function get_doclist_sty(patlist)
     for _, pat in ipairs(patlist) do
         local file = kpse.find_file(pat.name)
         if file then
             local df = Docfile:new({
-                name    = file ,
-                pattern = pat,
+                name    = file,
+                tree    = -1,
             })
             s_doclist:add(df)
         end
