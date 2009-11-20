@@ -49,6 +49,7 @@
 # interact_switch = true
 # alias_switch = true
 # ext_list = pdf, html, txt, ps, dvi,	# Note: empty string at end
+# badext_list = txt, 			# Note: empty string at end
 # verbosity_level = 2 	# Print: 0 nothing, 1 errors, 2 warnings, 3: infos
 # debug_list = 	# the empty list
 # machine_switch = false
@@ -65,11 +66,11 @@
 setscore /Makefile = -100
 
 # tex-virtual-academy provides a lot of fake matches
-adjscore /tex-virtual-academy-pl/ = -99
+adjscore /tex-virtual-academy-pl/ = -50
 
 # Uncomment to make the man pages have a greater priority
-#adjscore .man1. = 50
-#adjscore .man5. = 50
+#adjscore .man1. = 5
+#adjscore .man5. = 5
 
 ### Aliases ###
 
@@ -282,7 +283,6 @@ alias MeX = base/mex.html
 alias akademia = tex-virtual-academy-pl/index.html
 alias cyrillic = cyrillic/00readme.txt
 alias otibet = otibet/unidoc
-alias memoir = memman
 alias layouts = layman
 alias texsis = texsis/base/README
 alias startex = startex/base/guide
