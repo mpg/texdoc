@@ -339,9 +339,16 @@ You can have a look at the configuration file provided (the last shown by
 should be added to the default configuration, please share it on the \href
 {mailto:texdoc@tug.org} {texdoc mailing list}.
 
-If, for some reason, you want to prevent aliases from begin used for one
-session of texdoc, you can use the ©-A© or ©--noalias© command-line option
-(see~\ref{cl-a}).
+Aliases are additive: if you define your own aliases for a keyword in your
+configuration file, and there are also aliases for the same keyword in the
+default configuration, they will add up. You can prevent the default aliases
+from begin applied for a particular keyword by saying ©stopalias «keyword»© in
+your personal configuration file. It will keep the aliases defined before
+this directive (if any) and prevent all further aliasing on this keyword.
+
+If, for some reason, you want to prevent any alias from begin used for one
+particular session of texdoc, you can use the ©-A© or ©--noalias© command-line
+option (see~\ref{cl-a}).
 
 \subsection{Score directives}\label{ss-score}
 

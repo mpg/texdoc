@@ -38,9 +38,17 @@ end
 
 -- add an alias value for a key
 function add_alias(key, value, score)
-    k = string.lower(key)
+    local k = string.lower(key)
     alias[k] = alias[k] or { make_alias(key, false) }
+    if alias[k].stop then return end
     table.insert(alias[k], make_alias(value, score))
+end
+
+-- prevent a key from begin further aliased
+function stop_alias(key)
+    local k = string.lower(key)
+    alias[k] = alias[k] or {}
+    alias[k].stop = true
 end
 
 -- get patterns for a name
@@ -55,9 +63,16 @@ end
 
 -- interpret a confline as an alias setting or return false
 function confline_to_alias(line, file, pos)
+    -- alias directive
     local key, val = string.match(line, '^alias%s+([%w%p]+)%s*=%s*(.+)')
     if key and val then
-        add_alias(string.lower(key), val)
+        add_alias(key, val)
+        return true
+    end
+    -- stopalias directive
+    local key = string.match(line, '^stopalias%s+(.+)')
+    if key then 
+        stop_alias(key)
         return true
     end
     return false
