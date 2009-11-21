@@ -506,6 +506,10 @@ function setup_config_and_alias(arg)
         err_print('warning', 
         'Please protest on the texdoc mailing list if you need this.')
     end
+    -- machine mode implies no interaction
+    if config.machine_switch == true then
+        real_set_config('interact_switch', false)
+    end
     -- we were waiting for config.debug_list to be know to do this
     show_config_files(function(s) deb_print('files', s) end)
 end

@@ -651,13 +651,15 @@ errors and 0 nothing (not recommended).
 
 Set the list of activated debug items (default: none). For a list of available
 items, see the source code, file ©constants.tlu©, variable ©known_debugs©.
+Debug information is printed on standard error.
 
 \begin{cmdsubsub}{machine_switch}{cf-machine_switch}
   machine_switch = «true, false»
 \end{cmdsubsub}
 
-Turn on or off machine-readable output (default: off). In machine-readable
-mode, each line of output is
+Turn on or off machine-readable output (default: off).  With this option
+active, the value of ©interact_switch© is forced to ©false©, and each line of
+output is
 \begin{htcode}
   «argument»\t«score»\t«filename»
 \end{htcode}
@@ -680,11 +682,11 @@ the default configuration file from older versions to be used(see the
 
 \subsection{Exit codes}\label{ss-exit}
 
-The current exit code are as follow:
+The current exit codes are:
 \begin{enumerate}[start=0]
   \item Success.
-  \item Syntax error.
-  \item Documentation not found for at least one argument.
+  \item Internal error.
+  \item Usage error.
 \end{enumerate}
 
 \section{Licence}\label{s-licence}
