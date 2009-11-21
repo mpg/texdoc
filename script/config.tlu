@@ -155,8 +155,12 @@ function setup_config_from_cl(arg)
             set_config_elt('mode', 'mixed')
         elseif (curr_arg == '-l') or (curr_arg == '--list') then
             set_config_elt('mode', 'list')
-        elseif (curr_arg == '-s') or (curr_arg == '--search') then
-            set_config_elt ('mode', 'search')
+        elseif (curr_arg == '-s') or (curr_arg == '--showall') then
+            set_config_elt ('mode', 'showall')
+        elseif (curr_arg == '--search') then
+            set_config_elt ('mode', 'showall')
+            err_print('warning', '--search has been renamed to --showall')
+            err_print('warning', 'Please use the new name.')
         elseif (curr_arg == '-r') or (curr_arg == '--regex') then
             set_config_elt ('mode', 'regex')
         -- interaction
@@ -188,13 +192,25 @@ function setup_config_from_cl(arg)
         elseif string.match(curr_arg, '^%-%-verbosity') then
             local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
             set_config_elt('verbosity_level', value)
-        -- extensions list
+        -- extensions list (deprecated)
         elseif string.match(curr_arg, '^%-e') then
             local value = string.gsub(curr_arg, '^%-e=?', '')
             set_config_elt('ext_list', value)
+            err_print('warning',
+            '-e is deprecated and will likely be removed soon.')
+            err_print('warning',
+            'ext_list should be set in a configuration file instead.')
+            err_print('warning',
+            'Please protest on the texdoc mailing list if you need this.')
         elseif string.match(curr_arg, '^%-%-extensions') then
             local value = string.gsub(curr_arg, '^%-%-extensions=?', '')
             set_config_elt('ext_list', value)
+            err_print('warning',
+            '--extensions is deprecated and will likely be removed soon.')
+            err_print('warning',
+            'ext_list should be set in a configuration file instead.')
+            err_print('warning',
+            'Please protest on the texdoc mailing list if you need this.')
         -- problem
         else
             err_print('error', "unknown option: "..curr_arg)
@@ -483,6 +499,13 @@ function setup_config_and_alias(arg)
     setup_config_from_env()
     setup_config_from_files()
     setup_config_from_defaults()
+    -- regex mode is deprecated
+    if config.mode == 'regex' then 
+        err_print('warning', 
+        'Regex mode is deprecated and will likely be removed soon.')
+        err_print('warning', 
+        'Please protest on the texdoc mailing list if you need this.')
+    end
     -- we were waiting for config.debug_list to be know to do this
     show_config_files(function(s) deb_print('files', s) end)
 end

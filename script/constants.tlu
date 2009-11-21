@@ -25,12 +25,12 @@ With no NAME, it can print configuration information (-f, --files);
 the usual --help and --version options are also accepted.
 Usage: texdoc [OPTIONS]... [NAME]...
   -f, --files           Print the name of the config files being used.
-  -e, --extensions=L    Set the list of allowed file extensions to L.
   -w, --view            Use view mode: start a viewer.
   -m, --mixed           Use mixed mode (view or list).
   -l, --list            Use list mode: show a list of results.
   -s, --showall         Use showall mode: show also "bad" results.
-  -r, --regex           Search for name as a lua regex.
+  -r, --regex           Use regex mode. (Deprecated.)
+  -e, --extensions=L    Set ext_list=L. (Deprecated.)
   -a, --alias           Use the alias table.
   -A, --noalias         Don't use the alias table.
   -i, --interact        Use interactive menus.

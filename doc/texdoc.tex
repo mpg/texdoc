@@ -141,13 +141,15 @@
   }{%
   \endcommandes}
 
+\makeatletter
 \newenvironment{htcode}{% % code en hors-texte
   \SaveVerbatim[samepage, gobble=2]{verbmat}%
   }{%
   \endSaveVerbatim
   \par\medskip\noindent\hspace*{\parindent}%
   \BUseVerbatim{verbmat}%
-  \par\medskip}
+  \par\medskip\@endpetrue}
+\makeatother
 \DefineShortVerb{\©}
 
 \setkomafont{title}{}
@@ -155,6 +157,7 @@
 \deffootnote[1.5em]{1.5em}{1em}{\textsuperscript{\thefootnotemark}\thinspace}
 
 \newcommand\texdoc{texdoc\xspace}
+\newcommand\tdml{\href{mailto:texdoc@tug.org}{texdoc mailing list}\xspace}
 
 \title{\texdoc}
 \subtitle{Find \& view documentation in \TeX\ Live}
@@ -253,9 +256,9 @@ underlying mechanisms and adapt them to your needs. The final part is a full
 reference for configuration options, including points omitted in the present
 part.
 
-Your feedback is very welcome of the \href {mailto:texdoc@tug.org} {texdoc
-  mailing list}. Feel free to post comments, bug reports, suggestions for
-improvements (inc. new aliases), even without subscribing.
+Your feedback is very welcome of the \tdml. Feel free to post comments, bug
+reports, suggestions for improvements (inc. new aliases), even without
+subscribing.
 
 \section{File search, aliases, score}
 
@@ -336,8 +339,7 @@ only aliases associated to the original keyword are used.
 
 You can have a look at the configuration file provided (the last shown by
 ©texdoc -f©) for examples.  If you feel one of the aliases you defined locally
-should be added to the default configuration, please share it on the \href
-{mailto:texdoc@tug.org} {texdoc mailing list}.
+should be added to the default configuration, please share it on the \tdml.
 
 Aliases are additive: if you define your own aliases for a keyword in your
 configuration file, and there are also aliases for the same keyword in the
@@ -471,11 +473,10 @@ Set ©interact_switch© to true (resp. false), see~\ref{cf-interact_switch}.
   -e=«l», --extensions=«l»
 \end{cmdsubsub}
 
-Set ©ext_list©, see~\ref{cf-ext_list}.  \emph{But} be aware that on the
-command line there should be no space at all, neither in the list (unless
-quoted according to you shell's convention) not between the ©-e© or
-©--extension© option, the equal sign, and the list.  Also take care to quote
-the special value ©*© if necessary.  The equal sign is optional.
+Set ©ext_list©, see~\ref{cf-ext_list}. \textbf{Warning}: this command-line
+option is deprecated and will likely be removed soon. It is recommended to set
+©ext_list© in a configuration file instead. Please protest on the \tdml if you
+can to keep this command-line option.
 
 \begin{cmdsubsub}{-v, --verbosity}{cl-v}
   -v=«n», --verbosity=«n»
@@ -560,11 +561,10 @@ The ©«value»© is usually interpreted as a string, except when
 Set the  mode to the given value.  Default is ©view©. All mode except regex
 have been presented in~\ref{ss-modes}.
 
-In regex mode, the given name is
-interpreted as a Lua regex, and only files whose full name (including path)
-matches it are found. Alias and score mechanisms are disabled.
-\textbf{Warning}: this mode may disappear in a future version of texdoc. If
-you want me to keep it, please tell me so!
+In regex mode, the given name is interpreted as a Lua regex, and only files
+whose full name (including path) matches it are found. Alias and score
+mechanisms are disabled.  \textbf{Warning}: this mode is deprecated and will
+likely be removed soon.  Please protest on the \tdml if you want it to stay.
 
 \begin{cmdsubsub}{interact}{cf-interact_switch}
   interact_switch = «true, false»
