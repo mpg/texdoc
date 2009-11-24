@@ -260,11 +260,13 @@ Your feedback is very welcome of the \tdml. Feel free to post comments, bug
 reports, suggestions for improvements (inc. new aliases), even without
 subscribing.
 
+\clearpage
+
 \section{File search, aliases, score}
 
 \subsection{An overview of how texdoc works}
 
-When you type ©texdoc «keyword»©, texdoc browses the tree containing
+When you type ©texdoc «keyword»©, texdoc browses the trees containing
 documentation (given by the \href{http://www.tug.org/kpathsea/} {kpathsea}
 variable ©TEXDOCS©), lists all files containing ©«keyword»© in their name
 (including the directory name) and give them a score based on some simple
@@ -322,10 +324,13 @@ about how a file can match keyword first (all matching is case-insensitive):
 
 \begin{htcode}
   alias «original keyword» = «name»
+  alias(«score») «original keyword» = «name»
 \end{htcode}
 
 You can define your own aliases in \texdoc's configuration files
-(see~\ref{ss-quick-file} or \ref{ss-prec}). For example, insert
+(see~\ref{ss-quick-file} or \ref{ss-prec}). For example,
+insert\footnote{Actually, you don't need to do this, the default configuration
+  file already includes this directive.}
 \begin{htcode}
   alias mathptmx = psnfss2e
 \end{htcode}
@@ -334,13 +339,18 @@ matching exactly psnfss2e will be added to the result list when you look for
 mathptmx, and get a score of 10 (default score for alias results). This is
 greater than the results of heuristic scoring: it means that results found via
 aliases will always rank before results associated to the original keyword.
-Please note than aliasing is case-insensitive, and the aliases don't cascade:
-only aliases associated to the original keyword are used.
+
+If you want the results associated to a particular alias to have a custom
+score instead of the default 10, you can use the optional argument to the
+alias directive. This can be usefull if you associate many aliases to
+a keyword and want one of them to show up first.
 
 You can have a look at the configuration file provided (the last shown by
 ©texdoc -f©) for examples.  If you feel one of the aliases you defined locally
 should be added to the default configuration, please share it on the \tdml.
 
+Please note than aliasing is case-insensitive, and the aliases don't cascade:
+only aliases associated to the original keyword are used.
 Aliases are additive: if you define your own aliases for a keyword in your
 configuration file, and there are also aliases for the same keyword in the
 default configuration, they will add up. You can prevent the default aliases
@@ -356,27 +366,46 @@ option (see~\ref{cl-a}).
 
 \begin{htcode}
   adjscore «pattern» = «score adjustment»
+  adjscore(«keyword») «pattern» = «score adjustment»
 \end{htcode}
 
-There are two ways of changing the score of a result: you can either set it to
-a fixed score, or adjust it by some quantity. This is done in the
-configuration file (\ref{ss-quick-file} or \ref{ss-prec}) using the directives
-©setscore© and ©adjustscore©. They only affect results for which ©«pattern»©
-matches as a subword.
+It is possible to adjust the score of results containing some pattern as a
+subword, either globally (for the result of all searches) or only 
+when searching with a particular keyword. This is done in the
+configuration file (\ref{ss-quick-file} or \ref{ss-prec}) using the 
+©adjustscore© directive. Here are a few examples from the default
+configuration file.
+
 \begin{htcode}
-  adjscore /tex-virtual-academy-pl/ = -10
+  adjscore /Makefile = -1000
+  adjscore /tex-virtual-academy-pl/ = -50
+  adjscore(tex) texdoc = -10
 \end{htcode}
-In the above example (from the default configuration file), all files named
-©Makefile© are killed (also files names ©Makefile-foo© if there are any):
-since the get a score of exactly -100, they will never be displayed. Files
-from the ©tex-virtual-academy-pl© directory, on the other hand, are not killed
-but just get a malus, since they are a common source of ``fake'' matches which
-hide better results (even for the lucky ones who can read polish).
+
+All files named ©Makefile© (and also files names ©Makefile-foo© if there are
+any): are ``killed'' : by adjusting their score with such a large negative
+value, their final score will most probably be less than -100, so they will
+never be displayed. Files from the ©tex-virtual-academy-pl© directory, on the
+other hand, are not killed but just get a malus, since they are a common
+source of ``fake'' matches which hide better results (even for the lucky ones
+who can read polish).
+
+The third directive gives a malus for results containing ©texdoc© only if the
+search keyword is ©tex©. Otherwise, such results would get a high score
+because the heuristic scoring would think ©texdoc© is the name of \TeX's
+documentation. The value -10 is enough to ensure that those results will have
+a negative score, so wil not be displayed unless ``showall'' mode is active.
+
+\textbf{Warning}: Values of scores (like the default score for aliases, the
+range of heuristic scoring, etc.) may change in a future version of texdoc.
+Scoring is quite new and may need some adjustments. So, don't be surprised if
+you need to adapt your scoring directives after a future update of texdoc.
+This warning will disappear at some point.
 
 \subsection{File extensions}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
-(default: pdf, html, txt, ps, dvi, no extension). You can configure with
+(default: pdf, html, txt, ps, dvi, no extension). You can configure it with
 a line ©ext_list = «your, list»© in a configuration file. Be aware
 that it will completely override the default list, not add to it. An empty
 string in the list means files without extension (no dot in the name), while a
@@ -386,6 +415,8 @@ For scoring purposes, there is also a ©badext_list© parameter: files whose
 extension is ``bad'' according to this list will get a lesser score (currently
 0). This only affect heuristic scoring (results found from the original
 keyword, not from aliases).
+
+\clearpage
 
 \section{Full reference}
 
@@ -474,7 +505,7 @@ Set ©interact_switch© to true (resp. false), see~\ref{cf-interact_switch}.
 Set ©ext_list©, see~\ref{cf-ext_list}. \textbf{Warning}: this command-line
 option is deprecated and will likely be removed soon. It is recommended to set
 ©ext_list© in a configuration file instead. Please protest on the \tdml if you
-can to keep this command-line option.
+want to keep this command-line option.
 
 \begin{cmdsubsub}{-v, --verbosity}{cl-v}
   -v=«n», --verbosity=«n»
@@ -527,23 +558,22 @@ forms.
 \begin{htcode}
   «configuration item» = «value»
   alias «original keyword» = «name»
-  setscore «pattern» = «final score»
+  alias(«score») «original keyword» = «name»
+  stopalias «original keyword»
   adjscore «pattern» = «score adjustment»
+  adjscore(«keyword») «pattern» = «score adjustment»
 \end{htcode}
 
-We will concentrate on the «configuration items» here, other directives have
-already be presented (\ref{ss-alias} and \ref{ss-score}).
+We will concentrate on the ©«configuration item»© part here, since other
+directives have already been presented (\ref{ss-alias} and \ref{ss-score}).
 
-In the above, ©«value»© is usually a free string, but of course not every
-©«value»© is valid for every ©«configuration item»© and nothing in it need not
-be quoted: quotes would be interpreted as part of the value, not as quotation
-marks (this also holds for the other directives).
+In the above, ©«value»©  never needs to be quoted: quotes would be interpreted
+as part of the value, not as quotation marks (this also holds for the other
+directives).
 
 Lines which do not obey these rules raise a warning, as well as unrecognised
-values of ©«configuration item»© raise no warning at the moment.
-
-The ©«value»© is usually interpreted as a string, except when
-©«configuration item»© ends with:
+values of ©«configuration item»©. The ©«value»© can be an arbitrary string,
+except when the name of the ©«configuration item»© ends with:
 \begin{enumerate}
   \item ©_list©, then ©«value»© is a coma-separated list of strings. Space
     around commas is ignored. Two consecutive comas or a coma at the beginning
@@ -552,6 +582,7 @@ The ©«value»© is usually interpreted as a string, except when
     (lowercase).
   \item ©_level©, then ©«value»© is an integer.
 \end{enumerate}
+In these cases, an improper ©«value»© will raise a warning too.
 
 \begin{cmdsubsub}{mode}{cf-mode}
   mode = «view, list, mixed, showall, regex»
@@ -619,11 +650,8 @@ you can use
   badext_list = «list»
 \end{cmdsubsub}
 
-Set the list of ``bad'' extensions to ©«list»©.  Default is
-\begin{htcode}
-  txt, 
-\end{htcode}
-Files with those extensions get a heuristic score of 0.
+Set the list of ``bad'' extensions to ©«list»©.  Default is ``©txt,©''. Files
+with those extensions get a heuristic score of 0.
 
 \begin{cmdsubsub}{viewer_*}{cf-viewer_*}
   viewer_«ext» = «cmd»
@@ -686,6 +714,8 @@ The current exit codes are:
   \item Internal error.
   \item Usage error.
 \end{enumerate}
+
+\clearpage
 
 \section{Licence}\label{s-licence}
 
