@@ -21,11 +21,6 @@ local setscore, adjscore = {}, {}
 -- interpret a confline as a score directive or return false
 function confline_to_score(line, file, pos)
     local key, val
-    -- try setscore
-    key, val = string.match(line, '^setscore%s+([%w%p]+)%s*=%s*([%w+-]+)')
-    if key and val then 
-        return set_score_table(setscore, key, val)
-    end
     -- try adjscore
     key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*([%w+-]+)')
     if key and val then 
@@ -66,15 +61,6 @@ function set_score(df)
     deb_print('score', 'Name used: '..df.name)
     -- scoring is case-insenstitive (patterns are already lowercased)
     local name = string.lower(df.name)
-    -- set from tables
-    for pat, val in pairs(setscore) do
-        if val and is_subword(name, pat) then
-            deb_print('score', string.format(
-                "Set from pattern '%s': %d", pat, val))
-            df.score = val
-            return
-        end
-    end
     -- get score from patterns
     local score = 0
     for _, pat in ipairs(df.matches) do
@@ -90,7 +76,7 @@ function set_score(df)
         if s > score then score = s end
     end
     deb_print('score', 'Max pattern score: '..tostring(score))
-    -- adjust from tables
+    -- adjust from global tables
     if score > 0 and df.tree > -1 then
         for pat, val in pairs(adjscore) do
             if val and is_subword(name, pat) then

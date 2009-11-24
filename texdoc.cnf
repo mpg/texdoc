@@ -59,16 +59,15 @@
 # Only results with positive scores are displayed (unless mode is 'showall').
 # Results with score <= 100 are never displayed.
 # 
-# You can set the score of a result with 'setscore'
-# or adjust it by adding some signed value with adjscore.
+# You can adjust the score of a result with adjscore.
 
 # Makefile's are never documentation
-setscore /Makefile = -100
+adjscore /Makefile = -200
 
 # tex-virtual-academy provides a lot of fake matches
 adjscore /tex-virtual-academy-pl/ = -50
 
-# Uncomment to make the man pages have a greater priority
+# Uncomment this to make the man pages have a greater priority
 #adjscore .man1. = 5
 #adjscore .man5. = 5
 

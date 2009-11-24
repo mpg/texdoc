@@ -355,7 +355,6 @@ option (see~\ref{cl-a}).
 \subsection{Score directives}\label{ss-score}
 
 \begin{htcode}
-  setscore «pattern» = «final score»
   adjscore «pattern» = «score adjustment»
 \end{htcode}
 
@@ -365,7 +364,6 @@ configuration file (\ref{ss-quick-file} or \ref{ss-prec}) using the directives
 ©setscore© and ©adjustscore©. They only affect results for which ©«pattern»©
 matches as a subword.
 \begin{htcode}
-  setscore /Makefile = -100
   adjscore /tex-virtual-academy-pl/ = -10
 \end{htcode}
 In the above example (from the default configuration file), all files named
