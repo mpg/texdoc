@@ -8,8 +8,11 @@ Should to review extensively case-sensitivity issues (alias, matches, etc.)
 Big stuff planned
 =================
 
-Also search using info from the tlpdb (use docfiles associated with a given
-runfile -- see if it causes more harm than good for bundles).
+Decide how and when tlpdb search should happen (performance issues).
+
+Use meta-data from the tlpdb for scoring (eg 'Package documentation' should get
+a good score). Porbably need to standardise comments with the catalogue
+maintainers.
 
 Once the search changes are done, make sure that each "real" .sty file gets a
 result with score >= 0. Write a script checking for that with an exclusion list
@@ -31,9 +34,7 @@ Ideas for later
 Using the catalogue
 -------------------
 
-Derive aliases and categories from the catalogue information.
-
-Use language information from the catalogue.
+Use language information from the catalogue/tlpdb.
 
 Obsolescence information could be useful (Phil's suggestion).
 

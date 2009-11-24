@@ -77,7 +77,6 @@ function Docfile:new(info)
     if info.tree > 0 then
         df.realpath = texdocs_tree_to_path(info.tree, info.name)
     elseif info.tree == 0 then
-        error('Unimplemented')
         df.realpath = get_tlroot()..'/'..info.name
         info.name = string.gsub(info.name, '^texmf(-dist)?/doc/', '', 1)
     elseif info.tree == -1 then
@@ -333,6 +332,69 @@ function get_doclist_sty(patlist)
     end
 end
 
+--------------------------------   use tlpdb   ---------------------------------
+
+-- find the TeX Live root
+function get_tlroot()
+    local tlroot = kpse.var_value('SELFAUTOPARENT')
+    get_tlroot = function() return tlroot end
+    return tlroot
+end
+
+-- look in the tlpdb for doclines related to the patterns
+function get_doclist_tlpdb(patlist)
+    local tlpdb = assert(io.open(get_tlroot()..'/tlpkg/texlive.tlpdb'))
+    local tlpdb_content = tlpdb:read('*all')
+    tlpdb:close()
+    local doclines
+    local state = 'none'
+    for _, line in ipairs(string.explode(tlpdb_content, '\n')) do
+        -- process runfiles or docfiles lines
+        if state == 'docfiles' then
+            if not string.find(line, '^ ') then
+                state = 'none'
+            else
+                table.insert(doclines, line)
+            end
+        elseif state == 'runfiles' then
+            if not string.find(line, '^ ') then
+                state = 'none'
+            else
+                -- does the line match a pat in patlist?
+                local found = false
+                for _, pat in ipairs(patlist) do
+                    local l = #pat.name
+                    if string.sub(line, -5 - l, -4) == '/'..pat.name..'.' then
+                        local ext = string.sub(line, -3)
+                        if ext == 'sty' or ext == 'cls' then
+                            found = true
+                            break
+                        end
+                    end
+                end
+                -- if so, insert results in s_doclist
+                if found then
+                    for _, line in ipairs(doclines) do
+                        local l = string.match(line, '^ ([^ ]*)')
+                        s_doclist:add(Docfile:new({
+                            name    = l,
+                            tree    = 0,
+                        }))
+                    end
+                end
+            end
+        end
+        -- update state
+        if string.find(line, '^docfiles ') then
+            state = 'docfiles'
+            doclines = {}
+        elseif string.find(line, '^runfiles ') then
+            state = 'runfiles'
+        end
+    end
+end
+
+
 ------------------------------   main function   -------------------------------
 
 -- find docfiles according to pattern
@@ -344,6 +406,7 @@ function get_doclist(pattern)
     -- get results
     get_doclist_sty(sty)
     get_doclist_texdocs(normal)
+    --get_doclist_tlpdb(normal)
     -- finally, sort results
     sort_doclist(s_doclist, pattern)
     return s_doclist
