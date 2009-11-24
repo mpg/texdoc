@@ -1,3 +1,15 @@
+Version 0.60
+------------
+
+Changed the search/alias/score logic. See section 2 of the manual for details,
+but here is a primer:
+- alias now /adds/ patterns to be search, it is no more a substitution
+- new scoring system, partially confugurable, with improved heuristics
+
+The beginning of the manual has been completely rewritten.
+
+Bug have been fixed as usual, and probably some others introduced...
+
 Version 0.50
 ------------
 
