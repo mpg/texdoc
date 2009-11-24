@@ -150,7 +150,7 @@ function heuristic_score(file, pat)
     end
     -- bonus for being in the right directory
     if score > 0 and not slash
-        and string.find(file, '/'..pat..'/', 1, true) then
+        and string.find('/'..file, '/'..pat..'/', 1, true) then
         upscore(score + 0.5, 'directory bonus')
     end
     -- done
