@@ -59,10 +59,11 @@
 # Only results with positive scores are displayed (unless mode is 'showall').
 # Results with score <= 100 are never displayed.
 # 
-# You can adjust the score of a result with adjscore.
+# You can adjust the score of results containing a pattern with adjscore,
+# either globally or only for specific keywords
 
-# Makefile's are never documentation
-adjscore /Makefile = -200
+# Makefile's are never documentation, -1000 should be enough to kill them
+adjscore /Makefile = -1000
 
 # tex-virtual-academy provides a lot of fake matches
 adjscore /tex-virtual-academy-pl/ = -50
@@ -70,6 +71,25 @@ adjscore /tex-virtual-academy-pl/ = -50
 # Uncomment this to make the man pages have a greater priority
 #adjscore .man1. = 5
 #adjscore .man5. = 5
+
+# 'texdoc' may look like "tex's documentation" but it isn't...
+adjscore(tex) texdoc = -10
+adjscore(tex) tex-gyre = -10
+adjscore(tex) tex-ps = -10
+
+# avoid too many results to be shown for 'latex'
+# package names
+adjscore(latex) guide-to-latex = -10 # only usefull with the book
+adjscore(latex) latex-web-companion = -10
+adjscore(latex) tufte-latex = -10
+adjscore(latex) cweb-latex = -10
+adjscore(latex) duerer-latex = -10
+adjscore(latex) cjw-latex = -10
+adjscore(latex) ocr-latex = -10
+# file names
+adjscore(latex) Content_LaTeX_Package_Demo = -10
+adjscore(latex) example_latex = -10
+adjscore(latex) test_latex = -10
 
 ### Aliases ###
 

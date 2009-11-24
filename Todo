@@ -5,8 +5,6 @@ Bug reported by Denis
 
 Should to review extensively case-sensitivity issues (alias, matches, etc.)
 
-Add a scoring option to the alias directive?
-
 Big stuff planned
 =================
 
@@ -41,8 +39,8 @@ Obsolescence information could be useful (Phil's suggestion).
 
 Do something with the description from the catalogue?
 
-Port on MikTeX
---------------
+Port on MikTeX ?
+----------------
 
 Add a function in texlua's kpse library returning all files for which a certain
 Lua function (given as argument) returns true. Use only it.

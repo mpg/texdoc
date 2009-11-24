@@ -345,7 +345,7 @@ function get_doclist(pattern)
     get_doclist_sty(sty)
     get_doclist_texdocs(normal)
     -- finally, sort results
-    sort_doclist(s_doclist)
+    sort_doclist(s_doclist, pattern)
     return s_doclist
 end
 

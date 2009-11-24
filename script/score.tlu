@@ -9,22 +9,30 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'table',
-    'pairs', 'ipairs', 'tostring', 'tonumber',
+    'pairs', 'ipairs', 'tostring', 'tonumber', 'assert',
     'config', 'parse_zip', 'err_print', 'deb_print',
 })
 
 -- shared variables
-local setscore, adjscore = {}, {}
+local global_adjscore, spec_adjscore = {}, {}
 
 -------------------------   configuration directives   -------------------------
 
 -- interpret a confline as a score directive or return false
 function confline_to_score(line, file, pos)
-    local key, val
-    -- try adjscore
-    key, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*([%w+-]+)')
-    if key and val then 
-        return set_score_table(adjscore, key, val)
+    local keyw, pat, val
+    -- try global adjscore
+    pat, val = string.match(line, '^adjscore%s+([%w%p]+)%s*=%s*([%d+-.]+)')
+    if pat and val then 
+        return set_score_table(global_adjscore, pat, val)
+    end
+    -- try keyword specific adjscore
+    keyw, pat, val = string.match(line,
+    '^adjscore%(([%w%p]+)%)%s+([%w%p]+)%s*=%s*([%d+-.]+)')
+    if keyw and pat and val then 
+        keyw = string.lower(keyw)
+        spec_adjscore[keyw] = spec_adjscore[keyw] or {}
+        return set_score_table(spec_adjscore[keyw], pat, val)
     end
     return false
 end
@@ -32,10 +40,6 @@ end
 -- set key in score table to val, without overriding
 function set_score_table(tab, key, val)
     local k = string.lower(key)
-    if val == 'no' then
-        if tab[k] == nil then tab[k] = false end
-        return true
-    end
     local v = tonumber(val)
     if v then
         if tab[k] == nil then tab[k] = v end
@@ -47,14 +51,14 @@ end
 ----------------------------   score computation   -----------------------------
 
 -- set the scores for a doclist
-function set_list_scores(list)
+function set_list_scores(list, original_kw)
     for _, df in ipairs(list) do
-        set_score(df)
+        set_score(df, original_kw)
     end
 end
 
 -- set the score of a docfile
-function set_score(df)
+function set_score(df, original_kw)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then df.score = 0 return end
     deb_print('score', 'Start scoring '..df.realpath)
@@ -76,13 +80,23 @@ function set_score(df)
         if s > score then score = s end
     end
     deb_print('score', 'Max pattern score: '..tostring(score))
-    -- adjust from global tables
-    if score > 0 and df.tree > -1 then
-        for pat, val in pairs(adjscore) do
+    -- adjust from keyword-specific tables
+    if df.tree > -1 and spec_adjscore[original_kw] then
+        for pat, val in pairs(spec_adjscore[original_kw]) do
             if val and is_subword(name, pat) then
-                score = score + val
+                if score > 0 or val < 0 then score = score + val end
                 deb_print('score', string.format(
-                    "Adjust by '%d' from pattern '%s'", val, pat))
+                    "Adjust by '%d' from specific pattern '%s'", val, pat))
+            end
+        end
+    end
+    -- adjust from global tables
+    if df.tree > -1 then
+        for pat, val in pairs(global_adjscore) do
+            if val and is_subword(name, pat) then
+                if score > 0 or val < 0 then score = score + val end
+                deb_print('score', string.format(
+                    "Adjust by '%d' from global pattern '%s'", val, pat))
             end
         end
     end
@@ -236,9 +250,9 @@ function docfile_quality(df)
 end
 
 -- sort a doclist
-function sort_doclist(dl)
+function sort_doclist(dl, original_kw)
     dl:stop()
-    set_list_scores(dl)
+    set_list_scores(dl, original_kw)
     table.sort(dl, docfile_order)
 end
 
