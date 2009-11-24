@@ -69,7 +69,7 @@ function set_score(df)
         if pat.original then
             s = df.tree > -1 and heuristic_score(name, p) or 1
         elseif is_exact(name, p) then
-            s = pat.score
+            s = pat.score or 10 -- default alias score
             deb_print('score', string.format(
                 "Matching alias '%s', score: %d", pat.name, s))
         end

@@ -9,19 +9,21 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'table', 'os', 'kpse', 'lfs', 'io',
-    'arg',
-    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
-    'assert', 'error',
-    'err_print', 'deb_print',
+    'deb_print', 'tostring', 'tonumber',
     'C',
     'config',
 })
 
+-- structure of an alias entry
+-- 
+-- aliasentry = {
+--   name   = <string> pattern to be matched,
+--   score  = <number> associated score (may be nil),
+--   original = <boolean> is this the original keyword?,
+-- }
+
 -- alias is local to this file
 local alias = {}
-
--- scores
-local default_score = 10
 
 -- turn a name into a suitable alias entry
 -- if score is 'false', this is the original name
@@ -31,7 +33,7 @@ function make_alias(pat, score)
     if score == false then
         al.original = true
     else
-        al.score = score or default_score
+        al.score = score -- may be nil
     end
     return al
 end
@@ -63,10 +65,18 @@ end
 
 -- interpret a confline as an alias setting or return false
 function confline_to_alias(line, file, pos)
-    -- alias directive
+    -- alias directive without score
     local key, val = string.match(line, '^alias%s+([%w%p]+)%s*=%s*(.+)')
     if key and val then
         add_alias(key, val)
+        return true
+    end
+    -- alias directive with score
+    local score, key, val = string.match(line,
+        '^alias%(([%d+-.]+)%)%s+([%w%p]+)%s*=%s*(.+)')
+    if score then score = tonumber(score) end
+    if key and val and score then
+        add_alias(key, val, score)
         return true
     end
     -- stopalias directive
