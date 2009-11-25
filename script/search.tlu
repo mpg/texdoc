@@ -158,9 +158,9 @@ function get_texdocs ()
         if root and shift and dr.recursion_allowed then
             deb_print('texdocs', string.format(
                 'texdocs[%d] using index: %s (shift=%s)', i, root, shift))
-            dr.lsr_db = init_lsr_db(root, shift)
+            dr.db = init_lsr_db(root, shift)
         elseif not dr.index_mandatory and lfs.isdir(dr.path) then
-            dr.searchfs = true
+            dr.db = init_tree_db(dr.path, dr.recursion_allowed)
             deb_print('texdocs', string.format(
                 'texdocs[%d] using filesystem search', i))
         end
@@ -179,11 +179,7 @@ end
 function get_doclist_texdocs(patlist)
     if doc_roots == nil then get_texdocs() end
     for code, dr in ipairs(doc_roots) do
-        if dr.lsr_db then
-            scan_lsr_db(patlist, code, dr.lsr_db)
-        elseif dr.searchfs then
-            scan_tree(patlist, code, dr.path, '', dr.recursion_allowed)
-        end
+        if dr.db then scan_db(patlist, code, dr.db) end
     end
 end
 
@@ -245,8 +241,27 @@ function init_lsr_db(root, shift)
     return db
 end
 
--- scan a ls-R database
-function scan_lsr_db(patlist, code, lsr_db)
+-- build a db for a tree without ls-R index
+function init_tree_db(base, recurse)
+    local db = {}
+    local function init_tree_db_rec(dir)
+        for file in lfs.dir(base..'/'..dir) do
+            if file ~= '.' and file ~= '..' then
+                local f = (dir == '') and file or dir..'/'..file
+                if lfs.isdir(base..'/'..f) then
+                    if recurse then init_tree_db_rec(f) end
+                else
+                    db[f] = file
+                end
+            end
+        end
+    end
+    init_tree_db_rec('')
+    return db
+end
+
+-- scan a database
+function scan_db(patlist, code, lsr_db)
     deb_print('lsrsea', string.format(
         'Start scanning docroots[%d] using precompiled database', code))
     for file, basename in pairs(lsr_db) do
@@ -255,23 +270,6 @@ function scan_lsr_db(patlist, code, lsr_db)
     end
     deb_print('lsrsea', string.format(
         'Finished scanning docroots[%d] using precompiled database', code))
-end
-
--- scan a tree without ls-R file
-function scan_tree (patlist, code, base, cwd, recurse)
-    deb_print('filesea', "Entering directory: "..cwd)
-    for file in lfs.dir(base..'/'..cwd) do
-        if file ~= '.' and file ~= '..' then
-            local f = (cwd == '') and file or cwd..'/'..file
-            if lfs.isdir(base..'/'..f) then
-                if recurse then scan_tree(patlist, code, base, f, recurse) end
-            else
-                local df = process_file(patlist, file, f, code, true)
-                if df then s_doclist:add(df) end
-            end
-        end
-    end
-    deb_print('filesea', "Leaving directory: "..cwd)
 end
 
 -- says if file has a 'good' extenstion according to ext_list
