@@ -80,9 +80,6 @@ known_debugs = {
     config  = {'files'},
     view    = {},
     texdocs = {},
-    filesea = {},
-    lsrsea  = {},
-    kpse    = {'texdocs', 'filesea', 'lsrsea'},
     score   = {},
 }
 

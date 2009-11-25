@@ -118,7 +118,7 @@ end
 -- from score.tlu
 Docfile.quality = docfile_quality
 
-------------------   get results from TEXDOCS (à la kpse)   -------------------
+---------------------   manage TEXDOCS trees à la kpse   ----------------------
 
 do -- scope of doc_roots
 local doc_roots
@@ -141,31 +141,29 @@ function get_texdocs ()
     local max = #raw_doc_roots + 1
     for j, dir in ipairs(raw_doc_roots) do
         local i = max - j
-        local dr = {}
         local n
+        local path, db
         -- get path, !! and // values
         dir, n = string.gsub (dir, '//$', '')
-        dr.recursion_allowed = (n == 1)
-        dr.path, n = string.gsub (dir, '^!!', '')
-        dr.index_mandatory = (n == 1)
+        local recursion_allowed = (n == 1)
+        local path, n = string.gsub (dir, '^!!', '')
+        local index_mandatory = (n == 1)
         deb_print('texdocs', string.format(
             'texdocs[%d] = %s (index_mandatory=%s, recursion_allowed=%s)',
-            i, dr.path,
-            tostring(dr.index_mandatory),
-            tostring(dr.recursion_allowed)))
+            i, path, tostring(index_mandatory), tostring(recursion_allowed)))
         -- decide if we should use a ls-R index, the filesystem, or do nothing
-        local root, shift = lsr_root(dr.path)
-        if root and shift and dr.recursion_allowed then
+        local root, shift = lsr_root(path)
+        if root and shift and recursion_allowed then
             deb_print('texdocs', string.format(
                 'texdocs[%d] using index: %s (shift=%s)', i, root, shift))
-            dr.db = init_lsr_db(root, shift)
-        elseif not dr.index_mandatory and lfs.isdir(dr.path) then
-            dr.db = init_tree_db(dr.path, dr.recursion_allowed)
+            db = init_lsr_db(root, shift)
+        elseif not index_mandatory and lfs.isdir(path) then
+            db = init_tree_db(path, recursion_allowed)
             deb_print('texdocs', string.format(
                 'texdocs[%d] using filesystem search', i))
         end
         -- register this in docroots
-        doc_roots[i] = dr
+        doc_roots[i] = { path = path, db = db }
     end
 end
 
@@ -203,7 +201,6 @@ end
 
 -- build a db from a ls-R file
 function init_lsr_db(root, shift)
-    deb_print('lsrsea', "Start scanning: "..root..'/'..shift)
     -- read the file at once
     local file = assert(io.open(root..'/ls-R', 'r'))
     local content = file:read('*all')
@@ -228,7 +225,6 @@ function init_lsr_db(root, shift)
                 isdoc = true
                 current_dir = string.sub(dir_line, l+1)
                 db[current_dir] = nil
-                deb_print('lsrsea', 'Scanning directory: '..current_dir)
             elseif isdoc then
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
@@ -237,7 +233,6 @@ function init_lsr_db(root, shift)
             db[file] = line
         end
     end
-    deb_print('lsrsea', "Finished scanning: "..root..'/'..shift)
     return db
 end
 
@@ -260,16 +255,14 @@ function init_tree_db(base, recurse)
     return db
 end
 
+--------------------   select results from TEXDOCS trees   ---------------------
+
 -- scan a database
 function scan_db(patlist, code, lsr_db)
-    deb_print('lsrsea', string.format(
-        'Start scanning docroots[%d] using precompiled database', code))
     for file, basename in pairs(lsr_db) do
         local df = process_file(patlist, basename, file, code)
         if df then s_doclist:add(df) end
     end
-    deb_print('lsrsea', string.format(
-        'Finished scanning docroots[%d] using precompiled database', code))
 end
 
 -- says if file has a 'good' extenstion according to ext_list
@@ -297,16 +290,12 @@ end
 
 -- return a docfile object if file "matches", nil ortherwise
 function process_file(patlist, file, pathfile, code)
-    deb_print('kpse', 'Processing file: '..pathfile)
     local docfile
     local pattern
     for _, pattern in ipairs(patlist) do
         if string.find(string.lower(pathfile), string.lower(pattern.name),
                 1, config.mode ~= 'regex') then
             local good_ext = check_ext(file)
-            deb_print('kpse', string.format(
-                "File '%s' matches '%s'; good_ext=%s",
-                pathfile, pattern.name, tostring(good_ext)))
             if good_ext then
                 local info = {
                     name    = pathfile,
