@@ -9,7 +9,7 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'os', 'string', 'table', 'lfs', 'kpse', 'io', 
-    'ipairs', 'assert', 'error', 'tostring', 'setmetatable',
+    'pairs', 'ipairs', 'assert', 'error', 'tostring', 'setmetatable',
     'deb_print', 'err_print', 'win32_hook', 'parse_zip',
     'get_patterns', 'sort_doclist', 'docfile_quality',
     'config', 'C',
@@ -156,10 +156,9 @@ function get_texdocs ()
         -- decide if we should use a ls-R index, the filesystem, or do nothing
         local root, shift = lsr_root(dr.path)
         if root and shift and dr.recursion_allowed then
-            dr.lsr = root
-            dr.lsr_shift = shift
             deb_print('texdocs', string.format(
                 'texdocs[%d] using index: %s (shift=%s)', i, root, shift))
+            dr.lsr_db = init_lsr_db(root, shift)
         elseif not dr.index_mandatory and lfs.isdir(dr.path) then
             dr.searchfs = true
             deb_print('texdocs', string.format(
@@ -180,8 +179,8 @@ end
 function get_doclist_texdocs(patlist)
     if doc_roots == nil then get_texdocs() end
     for code, dr in ipairs(doc_roots) do
-        if dr.lsr then
-            scan_lsr(patlist, code, dr.lsr, dr.lsr_shift)
+        if dr.lsr_db then
+            scan_lsr_db(patlist, code, dr.lsr_db)
         elseif dr.searchfs then
             scan_tree(patlist, code, dr.path, '', dr.recursion_allowed)
         end
@@ -206,6 +205,58 @@ function lsr_root (path)
     end
 end
 
+-- build a db from a ls-R file
+function init_lsr_db(root, shift)
+    deb_print('lsrsea', "Start scanning: "..root..'/'..shift)
+    -- read the file at once
+    local file = assert(io.open(root..'/ls-R', 'r'))
+    local content = file:read('*all')
+    file:close()
+    local lines = string.explode(content, '\n')
+    -- scan it
+    local db = {}
+    local i = 1
+    local line
+    local maybe_dir, isdoc = true, false
+    local current_dir
+    local l = #shift
+    while true do
+        i = i + 1
+        line = lines[i]
+        while line == '' do i = i + 1 line = lines[i] maybe_dir = true end
+        if line == nil then break end -- EOF
+        local dir_line = maybe_dir and string.match(line, '^%./(.*):$')
+        if dir_line then
+            maybe_dir = false -- next line may not be a dir
+            if string.sub(dir_line, 1, l) == shift then
+                isdoc = true
+                current_dir = string.sub(dir_line, l+1)
+                db[current_dir] = nil
+                deb_print('lsrsea', 'Scanning directory: '..current_dir)
+            elseif isdoc then
+                break -- we're exiting the ./doc (or shift) dir, so it's over
+            end
+        elseif isdoc then
+            local file = current_dir..'/'..line
+            db[file] = line
+        end
+    end
+    deb_print('lsrsea', "Finished scanning: "..root..'/'..shift)
+    return db
+end
+
+-- scan a ls-R database
+function scan_lsr_db(patlist, code, lsr_db)
+    deb_print('lsrsea', string.format(
+        'Start scanning docroots[%d] using precompiled database', code))
+    for file, basename in pairs(lsr_db) do
+        local df = process_file(patlist, basename, file, code)
+        if df then s_doclist:add(df) end
+    end
+    deb_print('lsrsea', string.format(
+        'Finished scanning docroots[%d] using precompiled database', code))
+end
+
 -- scan a tree without ls-R file
 function scan_tree (patlist, code, base, cwd, recurse)
     deb_print('filesea', "Entering directory: "..cwd)
@@ -221,46 +272,6 @@ function scan_tree (patlist, code, base, cwd, recurse)
         end
     end
     deb_print('filesea', "Leaving directory: "..cwd)
-end
-
--- scan a ls-R file
-function scan_lsr(patlist, code, cwd, shift)
-    local is_dir = {} -- is_dir[path] = true iff path is a dir
-    local results = Doclist:new()
-    local isdoc = false
-    local current_dir
-    local l = #shift
-    local lsr = assert(io.open(cwd..'/ls-R', 'r'))
-    local _ = lsr:read('*line') -- throw away first line (comment)
-    local maybe_dir = true -- next line may be a directory
-    while true do
-        local line = lsr:read('*line')
-        while line == '' do line, maybe_dir = lsr:read('*line'), true end
-        if line == nil then break end  -- EOF
-        local dir_line = maybe_dir and string.match (line, '^%./(.*):$')
-        if dir_line then
-            maybe_dir = false -- next line may not be a dir
-            if string.sub (dir_line, 1, l) == shift then
-                isdoc = true
-                current_dir = string.sub (dir_line, l+1)
-                is_dir[current_dir] = true
-                deb_print('lsrsea', 'Scanning directory: '..current_dir)
-            elseif isdoc then
-                deb_print('lsrsea', "Finished scanning: "..shift)
-                break -- we're exiting the ./doc (or shift) dir, so it's over
-            end
-        elseif isdoc then
-            local df = process_file(patlist, line, current_dir..'/'..line, code)
-            if df then results:add(df) end
-        end
-    end
-    lsr:close()
-    -- add non-directories to the list
-    for _, df in ipairs(results) do
-        if not is_dir[df.name] then
-            s_doclist:add(df)
-        end
-    end
 end
 
 -- says if file has a 'good' extenstion according to ext_list
@@ -348,6 +359,7 @@ function get_doclist_tlpdb(patlist)
     tlpdb:close()
     local doclines
     local state = 'none'
+    -- TODO: wrong on windows
     for _, line in ipairs(string.explode(tlpdb_content, '\n')) do
         -- process runfiles or docfiles lines
         if state == 'docfiles' then
