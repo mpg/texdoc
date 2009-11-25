@@ -201,22 +201,17 @@ end
 
 -- build a db from a ls-R file
 function init_lsr_db(root, shift)
-    -- read the file at once
-    local file = assert(io.open(root..'/ls-R', 'r'))
-    local content = file:read('*all')
-    file:close()
-    local lines = string.explode(content, '\n')
+    -- open the file
+    local lsr = assert(io.open(root..'/ls-R', 'r'))
+    local _ = lsr:read('*line') -- throw away first line (comment)
     -- scan it
     local db = {}
-    local i = 1
-    local line
     local maybe_dir, isdoc = true, false
     local current_dir
     local l = #shift
     while true do
-        i = i + 1
-        line = lines[i]
-        while line == '' do i = i + 1 line = lines[i] maybe_dir = true end
+        local line = lsr:read('*line')
+        while line == '' do line, maybe_dir = lsr:read('*line'), true end
         if line == nil then break end -- EOF
         local dir_line = maybe_dir and string.match(line, '^%./(.*):$')
         if dir_line then
@@ -233,6 +228,7 @@ function init_lsr_db(root, shift)
             db[file] = line
         end
     end
+    lsr:close()
     return db
 end
 
