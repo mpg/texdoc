@@ -341,20 +341,52 @@ end -- scope of config_files
 
 -- check if "name" is the name of a file in the path
 -- Warning: to be used only on Unix! (separators, and PATH irrelevant on win32)
+-- the value of PATH is cached
+do local path_list = string.explode(os.getenv("PATH"), ':')
 function is_in_path(name)
-    local path_list = string.explode(os.getenv("PATH"), ':')
     for _, path in ipairs(path_list) do
         if lfs.isfile(path..'/'..name) then return true end
     end
     return false
 end
+end
 
--- return the first element of "list" whose name is found in path, or nil
-function first_in_path(cmds)
+-- guess a viewer from a list: 
+-- - try detecting desktop environments
+-- - or return the first element of "list" whose name is found in path
+-- - or nil
+-- caches results of desktop environment detection
+do local de_viewer
+function guess_viewer(cmds)
+    -- try desktop environment
+    if not de_viewer then de_viewer = desktop_environment_viewer() end
+    if de_viewer then return de_viewer end
+    -- or look along path
     for _, cmd in ipairs(cmds) do
         if is_in_path(cmd[1]) then return cmd[2] end
     end
-    return nil
+end
+end
+
+-- returns a viewer specific to a desktop environement if relevant
+-- doesn't work on windows (uses io.popen)
+-- logic stolen from xdg-open (http://www.freedesktop.org/) and adapted
+function desktop_environment_viewer()
+    if os.getenv('KDE_SESSION_VERSION') and is_in_path('kde-open') then
+        return '(kde-open %s) &'                     -- kde 4 (or greater)
+    end
+    if os.getenv('KDE_FULL_SESSION') and is_in_path('kfmclient') then
+        return '(kfmclient exec %s) &'              -- kde < 4
+    end
+    if os.getenv('GNOME_DESKTOP_SESSION_ID') then   -- gnome
+        return '(gnome-open %s) &'
+    end
+    local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE')
+    local xprop_out = xprop_fh:read('*line')
+    xprop_fh:close()
+    if string.find(xprop_out, '= "xfce4"$') then     -- xfce
+        return '(exo-open %s) &'
+    end
 end
 
 -- set some fall-back default values if no previous value is set
@@ -390,7 +422,7 @@ function setup_config_from_defaults()
         }
     else -- generic Unix
         set_config_ls {
-            viewer_dvi      = first_in_path {
+            viewer_dvi      = guess_viewer {
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kdvi',        '(kdvi %s) &'},
@@ -402,14 +434,9 @@ function setup_config_from_defaults()
                 {'advi',        '(advi %s) &'},
                 {'xdvik-ja',    '(xdvik-ja %s) &'},
                 {'xdvi',        '(xdvi %s) &'},
-                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
-                {'kde-open',    '(kde-open %s) &'},     -- kde 4
-                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
-                {'exo-open',    '(exo-open %s) &'},     -- xfce
-                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
                 {'see',         '(see %s) &'}
             },
-            viewer_html     = first_in_path {
+            viewer_html     = guess_viewer {
                 {'firefox',     '(firefox %s) &'},
                 {'seamonkey',   '(seamonkey %s) &'},
                 {'mozilla',     '(mozilla %s) &'},
@@ -419,39 +446,24 @@ function setup_config_from_defaults()
                 {'w3m',         'w3m'},
                 {'links',       'links'},
                 {'lynx',        'lynx'},
-                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
-                {'kde-open',    '(kde-open %s) &'},     -- kde 4
-                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
-                {'exo-open',    '(exo-open %s) &'},     -- xfce
-                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
                 {'see',         'see'}
             },
-            viewer_pdf      = first_in_path {
+            viewer_pdf      = guess_viewer {
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kpdf',        '(kpdf %s) &'},
                 {'xpdf',        '(xpdf %s) &'},
                 {'acroread',    '(xpdf %s) &'},
-                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
-                {'kde-open',    '(kde-open %s) &'},     -- kde 4
-                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
-                {'exo-open',    '(exo-open %s) &'},     -- xfce
-                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
                 {'see',         '(see %s) &'}
             },
-            viewer_ps       = first_in_path {
+            viewer_ps       = guess_viewer {
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kghostview',  '(kghostview %s) &'},
                 {'gv',          '(gv %s) &'},
-                {'gnome-open',  '(gnome-open %s) &'},   -- gnome
-                {'kde-open',    '(kde-open %s) &'},     -- kde 4
-                {'kfmclient',   '(kfmclient exec %s) &'}, -- older kde
-                {'exo-open',    '(exo-open %s) &'},     -- xfce
-                {'xdg-open',    '(xdg-open %s) &'},     -- freedesktop.org
                 {'see',         '(see %s) &'}
             },
-            viewer_txt      = first_in_path {
+            viewer_txt      = guess_viewer {
                 {'most',        'most'},
                 {'less',        'less'},
                 {'more',        'more'}
