@@ -51,7 +51,7 @@
 # ext_list = pdf, html, txt, ps, dvi,	# Note: empty string at end
 # badext_list = txt, 			# Note: empty string at end
 # verbosity_level = 2 	# Print: 0 nothing, 1 errors, 2 warnings, 3: infos
-# debug_list = 	# the empty list
+# debug_list = 		# the empty list
 # machine_switch = false
 
 ### Score ###
@@ -90,6 +90,10 @@ adjscore(latex) ocr-latex = -10
 adjscore(latex) Content_LaTeX_Package_Demo = -10
 adjscore(latex) example_latex = -10
 adjscore(latex) test_latex = -10
+
+# it is also possible to set the score directly in alias directives
+# eg, fontinstallationguide is related to fontinst:
+alias(0.1) fontinst = fontinstallationguide
 
 ### Aliases ###
 
@@ -217,7 +221,6 @@ alias caption-dev = caption.pdf
 # misc
 alias hyperref = hyperref/manual.pdf
 alias hyperref-dev = hyperref.pdf
-alias fontinst = fontinstallationguide
 alias psfrag = pfgguide
 alias bibtex = btxdoc
 alias IEEEtran = IEEEtran_HOWTO
