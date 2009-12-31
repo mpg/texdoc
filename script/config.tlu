@@ -381,6 +381,7 @@ function desktop_environment_viewer()
     if os.getenv('GNOME_DESKTOP_SESSION_ID') then   -- gnome
         return '(gnome-open %s) &'
     end
+    if not is_in_path('xprop') then return end
     local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE')
     local xprop_out = xprop_fh:read('*line')
     xprop_fh:close()
