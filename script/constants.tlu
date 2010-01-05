@@ -15,7 +15,7 @@ load_env(L, {
 -- progname and version
 fullname    = arg[0]
 progname    = 'texdoc'
-version = '0.61'
+version = '0.62'
 
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
@@ -87,22 +87,6 @@ known_debugs = {
 }
 
 place_holder = '%%s' -- used for viewer commands
-
--- zip/gz support
---
--- optionally, texdoc can support compressed documentation, but this is
--- system-dependant (commands for unzipping, temporary files, etc).
--- Since TeX Live doesn't ship compressed documentation, and I'm too lazy to
--- make zip support work reliably on all platforms, I don't turn into an
--- official option. However, it should work on Unix platforms.
---
--- If you enable zip support here, please check the configuration in config.tlu
--- (look for support_zipped). The zip command should write the unzipped file to
--- STDOUT. Check carefully that everything works as expected, since it got far
--- less testing than the rest of texdoc.
---
--- See also comments in texdoc.cnf about viewer settings.
-support_zipped = false
 
 -- make C a proxy to the local environment
 assert(next(C) == nil,

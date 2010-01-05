@@ -25,25 +25,47 @@
 
 ### Viewer settings ###
 
-# Defaults are directly in texdoc.tlu.  Here are some examples.
+# Defaults depend on what is available on you system, as well as you desktop
+# environement.  Here are a few examples.
+#
 # %s is optional and stands for the filename.
-# 
+#
 # viewer_pdf = xpdf		# works
 # viewer_pdf = xpdf %s &	# works even better
 
-# If you want to enable support for zipped documentation (see comments in
-# texdoc.tlu), you may want to adapt viewer_* so that it starts a subshell:
+# If you want to enable support for zipped documentation (see below),
+# you may want to adapt viewer_* so that it starts a subshell:
 #
 # viewer_pdf = (xpdf %s) &
 #
 # Otherwise, the & will have no effect since the viewing command is followed by
 # some cleanup-commands for temporary files. For the same reason, %s must be the
 # last thing on your command line: (xpdf %s -option) will not work.
+#
+# WARNING: for zip support your viewer needs to be blocking, i.e. it must not
+# return immediately: otherwise the file will be delete too early.
+
+### Zipped documentation support ###
+
+# WARNING: support for zipped documents works only on Unix. Make sure that the
+# values of the associated options are adapted to your system.  Read the above
+# warning concerning viewers.
+
+# Built-in defaults (for reference):
+#
+# zipext_list   =       # (empty list)
+# rm_file       = rm -f
+# rm_dir        = rmdir
+#
+# For each "ext" in zipext_list, you must define a "unzip_ext" unzipper.
+# The unzipped data must be printed on stdout. Example:
+#
+# zipext_list = gz
+# unzip_gz = gzip -d -c
 
 ### Other settings ###
 
-# Here are the defaults settings as they are in texdoc.tlu
-# recalled here as example and reference
+# Built-in defaults (for reference):
 #
 # mode = view
 # interact_switch = true

@@ -483,15 +483,11 @@ function setup_config_from_defaults()
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
     -- zip-related options
-    if C.support_zipped then
-        set_config_ls {
-            zipext_list = 'gz, bz2',
-            unzip_gz    = 'gzip -d -c',
-            unzip_bz2   = 'bzip -d -c',
-            rm_file     = 'rm -f',
-            rm_dir      = 'rmdir'
-        }
-    end
+    set_config_ls {
+        zipext_list         = '',
+        rm_file             = 'rm -f',
+        rm_dir              = 'rmdir',
+    }
 end
 
 -- the default value of config.alias_switch depends on the mode as follows

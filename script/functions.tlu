@@ -78,16 +78,14 @@ end
 
 end -- scope of active_debugs
 
--- if zip is support and file is base..'.'..zip with zip in zipext_list, 
--- return base, zip -- otherwise, returns file, nil
+-- if file is base..'.'..zip with zip in zipext_list, return: base, zip
+-- otherwise, return: file, nil
 function parse_zip(file) 
-    if C.support_zipped then
-        local zip
-        for _, zip in ipairs(config.zipext_list) do
-            local l = #zip + 1
-            if string.sub(file, -l, -1) == '.'..zip then
-                return string.sub(file, 1, -l - 1), zip
-            end
+    local zip
+    for _, zip in ipairs(config.zipext_list) do
+        local l = #zip + 1
+        if string.sub(file, -l, -1) == '.'..zip then
+            return string.sub(file, 1, -l - 1), zip
         end
     end
     return file, nil

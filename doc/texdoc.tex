@@ -163,7 +163,7 @@
 \subtitle{Find \& view documentation in \TeX\ Live}
 \author{\url{http://tug.org/texdoc/}\\
   Manuel Pégourié-Gonnard}
-\date{v0.60 2009-11-24}
+\date{v0.62 2010-01-05}
 
 \begin{document}
 \VerbatimFootnotes
@@ -696,6 +696,41 @@ printed on stdout, except if a internal error occurs (in which case exit code
 will be 1). In the future, more tab-separated fields may be added at the end
 of the line, but the first 3 fields will remain unchanged.
 
+\begin{cmdsubsub}{zipext_list}{cf-zipext_list}
+  zipext_list = «list»
+\end{cmdsubsub}
+
+List of supported extension for zipped files (default: empty).  Allows
+compressed files with names like ©foobar.«zip»©, with ©«zip»© in the given
+©«list»©, to be found and unzipped before the viewer is launched (the
+temporary file will be destroyed right after).
+
+\textbf{Warning.} Support for zipped documentation is not meant to work on
+windows, a Unix shell is assumed! If you add anything to this list, please
+make sure that you also set a corresponding ©unzip=«ext»© value for each
+©«ext»© in the list. Also make sure you are using blocking (i.e. not returning
+immediately) viewers.
+
+\textit{Remark.} \TeX\ Live doesn't ship compressed documentation files, so
+this option is mainly useful with re-packaged version of \TeX\ Live that do,
+for example in Linux distributions.
+
+\begin{cmdsubsub}{unzip_*}{cf-unzip_star}
+  unzip_«zipext» = «command»
+\end{cmdsubsub}
+
+The unzipping command for zipped files with extension ©«zipext»© (default: no
+default). Define one for each item in ©zipext_list©. The command must print
+the result on stdout, like ©gzip -d -c© does.
+
+\begin{cmdsubsub}{rm_file, rm_dir}{cf-rm_star}
+  rm_file = «command»
+  rm_dir  = «command»
+\end{cmdsubsub}
+
+Commands for removing files (resp. directories) on your system (defaults:
+©rm -f© and ©rmdir©). Only useful for zipped documents (see ©zipext_list©).
+
 \begin{cmdsubsub}{lastfile_switch}{cf-lastfile_switch}
   lastfile_switch = «true, false»
 \end{cmdsubsub}
@@ -703,7 +738,7 @@ of the line, but the first 3 fields will remain unchanged.
 If set to true, prevents \texdoc from reading any other configuration file
 after this one (they will be reported as ``disabled'' by ©texdoc -f©).  Mainly
 useful for installing a newer version of \texdoc in your home and preventing
-the default configuration file from older versions to be used(see the
+the default configuration file from older versions to be used (see the
 \href{http://tug.org/texdoc/}{web site} for instructions on how to do so).
 
 \subsection{Exit codes}\label{ss-exit}
@@ -714,8 +749,6 @@ The current exit codes are:
   \item Internal error.
   \item Usage error.
 \end{enumerate}
-
-\clearpage
 
 \section{Licence}\label{s-licence}
 
