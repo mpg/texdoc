@@ -37,8 +37,10 @@ debugging levels.
 Version 0.47 (TeX Live 2009)
 ----------------------------
 
-Improve support for zipped documentation and comments about it in the default
-configuration file. (Thank Norbert Preining for his help.)
+Adapt for man pages named *.man1.pdf instead of *.pdf.
+(Temporary hack, done better since version 0.60.)
+
+Warning: zip support probably broken!
 
 Version 0.46
 ------------
@@ -60,6 +62,9 @@ Version 0.44
 
 Version 0.43
 ------------
+
+Improve support for zipped documentation and comments about it in the default
+configuration file. (Thank Norbert Preining for his help.)
 
 Various fixes, aliases updates as usual.
 
