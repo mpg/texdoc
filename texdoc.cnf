@@ -178,8 +178,9 @@ alias luatex = luatexref-t
 alias article = classes
 alias report = classes
 alias book = classes
-#alias minimal = ???
 #alias ltxguide = ???
+#alias minimal = ???
+adjscore(minimal) europecv = -1000 # false positive
 
 # latex/basic packages, grouped by dtx
 alias bezier = latex209
