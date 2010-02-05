@@ -1,3 +1,8 @@
+Version 0.63
+------------
+
+Fix a bug on windows which prevented from viewing sty files.
+
 Version 0.62
 ------------
 
@@ -15,7 +20,7 @@ Version 0.60
 Changed the search/alias/score logic. See section 2 of the manual for details,
 but here is a primer:
 - alias now /adds/ patterns to be search, it is no more a substitution
-- new scoring system, partially confugurable, with improved heuristics
+- new scoring system, partially configurable, with improved heuristics
 
 The beginning of the manual has been completely rewritten.
 

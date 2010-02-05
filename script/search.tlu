@@ -324,7 +324,7 @@ function get_doclist_sty(patlist)
         local file = kpse.find_file(pat.name)
         if file then
             local df = Docfile:new({
-                name    = file,
+                name    = win32_hook(file),
                 tree    = -1,
                 pattern = pat,
             })
