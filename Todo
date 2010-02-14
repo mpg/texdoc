@@ -7,27 +7,54 @@ Big stuff planned
 =================
 
 Decide how and when tlpdb search should happen (performance issues).
+    - if tlpdb is found, use it (load it once, use tables later, like the
+      kpse-like part does, and unlike the current code does)
+        - rewrite for this with my own code (look for optimisations, and don't
+          forget to handle relocated packages)
+        - test Norbert's texlive.tlpdb.tlu once he fixed it, and compare
+          performance.
+    - otherwise, use a pre-hashed database (write a script to prepare it,
+      ship it with TL: useless here but then downstream distros will get it).
+    - see "caching" in the ideas section.
 
-Use meta-data from the tlpdb for scoring (eg 'Package documentation' should get
-a good score). Porbably need to standardise comments with the catalogue
-maintainers.
+Use meta-data from the tlpdb for scoring.
+    - for now, we may not need to use the metadata itself, only its presence
+    - but if we want to use it, we'll have to rely on heuristics (eg all get a
+      good score except 'readme')
+    - exclude bundles (a hard-coded list of bundles would be ok, but perhaps
+      putting it in texdoc.cnf is cleaner)
 
 Once the search changes are done, make sure that each "real" .sty file gets a
 result with score >= 0. Write a script checking for that with an exclusion list
 (eg beamertheme*.sty). At this point, see:
 http://tug.org/mailman/htdig/tex-live/2009-October/023395.html
 
-Write a script for alias validation.
+Write a script for alias validation (write it in Lua using the texdoc code,
+trying to reverse engineer the score results from a Perl script is too hard and
+too likely to break).
 
 Misc ideas
 ==========
 
+Add caching support à la ConTeXt-fonts? Could be useful for files which are long
+to read, like tlpdb. (Would also simplify the distribution of a pre-hashed db
+for downstream distros, and make the "custom code vs standard module for tlpdb
+reading" dilemna disappear.) Would work as follows:
+    1. look for a cache in TEXMFVAR/some/location/to/be/determined
+    2. If non-existent or older than the reference files (texlive.tlpdb or
+    various ls-R files, regenerate, else use it.
+Need to determine:
+- whether this is useful: at all, for tlpdb, for ls-R files...
+- what to do with unindexed directories if caching is used?
+
 add support for shell-style globs (standard regex is probably too hard)
-    Well, would anyone really use it?
+    Well, would anyone really use it? (would be for patterns in texdoc.cnf, not
+    for texdoc arguments)
 
 write or use some GNU-like getopt_long
 
 display info from the tlpdb?
+    Could do it only in machine-readable mode for now...
 
 Ideas for later
 ===============
@@ -35,17 +62,25 @@ Ideas for later
 Using the catalogue
 -------------------
 
-Use language information from the catalogue/tlpdb.
+Use language information from the catalogue/tlpdb. (Next big item after the
+search stuff.)
 
-Obsolescence information could be useful (Phil's suggestion).
+Obsolescence information could be useful (Phil's suggestion), but may be hard to
+obtain (not in the tlpdb)...
 
 Do something with the description from the catalogue?
+
+Help maintainers standardise comments in order to allow for more accurate
+scoring/classification?
 
 Port on MikTeX ?
 ----------------
 
 Add a function in texlua's kpse library returning all files for which a certain
 Lua function (given as argument) returns true. Use only it.
+
+What to do withh all the functions using tkpdb coming? Is it possible to use an
+equivalent on MikTeX?
 
 Adapt to the different tree layout in MikTeX (TEXMFHOME etc don't exist).
 
