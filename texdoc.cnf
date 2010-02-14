@@ -139,7 +139,7 @@ alias lshort-zh = lshort-zh-cn		# chinese
 alias lshort-nl = lshort-nl-1.3		# dutch
 alias lshort-en = -english/lshort	# english (original)
 alias lshort-fi = lyhyt2e		# finnish
-alias lshort-fr = flshort-3.20		# french
+alias lshort-fr = lshort-fr		# french
 alias lshort-de = l2kurz		# german
 alias lshort-it = itlshort		# italian
 alias lshort-ja = jlshort		# japanese
@@ -323,6 +323,7 @@ alias ofs-cz = ofsdoc
 alias petri-nets = pndoc
 alias pst-geo = pst-map3d-doc
 alias sanskrit = sktdoc
+alias german = gerdoc
 
 ## aliases basically borrowed from texdoctk.dat with some adaptations
 
