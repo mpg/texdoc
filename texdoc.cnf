@@ -25,25 +25,47 @@
 
 ### Viewer settings ###
 
-# Defaults are directly in texdoc.tlu.  Here are some examples.
+# Defaults depend on what is available on you system, as well as you desktop
+# environement.  Here are a few examples.
+#
 # %s is optional and stands for the filename.
-# 
+#
 # viewer_pdf = xpdf		# works
 # viewer_pdf = xpdf %s &	# works even better
 
-# If you want to enable support for zipped documentation (see comments in
-# texdoc.tlu), you may want to adapt viewer_* so that it starts a subshell:
+# If you want to enable support for zipped documentation (see below),
+# you may want to adapt viewer_* so that it starts a subshell:
 #
 # viewer_pdf = (xpdf %s) &
 #
 # Otherwise, the & will have no effect since the viewing command is followed by
 # some cleanup-commands for temporary files. For the same reason, %s must be the
 # last thing on your command line: (xpdf %s -option) will not work.
+#
+# WARNING: for zip support your viewer needs to be blocking, i.e. it must not
+# return immediately: otherwise the file will be delete too early.
+
+### Zipped documentation support ###
+
+# WARNING: support for zipped documents works only on Unix. Make sure that the
+# values of the associated options are adapted to your system.  Read the above
+# warning concerning viewers.
+
+# Built-in defaults (for reference):
+#
+# zipext_list   =       # (empty list)
+# rm_file       = rm -f
+# rm_dir        = rmdir
+#
+# For each "ext" in zipext_list, you must define a "unzip_ext" unzipper.
+# The unzipped data must be printed on stdout. Example:
+#
+# zipext_list = gz
+# unzip_gz = gzip -d -c
 
 ### Other settings ###
 
-# Here are the defaults settings as they are in texdoc.tlu
-# recalled here as example and reference
+# Built-in defaults (for reference):
 #
 # mode = view
 # interact_switch = true
@@ -51,7 +73,7 @@
 # ext_list = pdf, html, txt, ps, dvi,	# Note: empty string at end
 # badext_list = txt, 			# Note: empty string at end
 # verbosity_level = 2 	# Print: 0 nothing, 1 errors, 2 warnings, 3: infos
-# debug_list = 	# the empty list
+# debug_list = 		# the empty list
 # machine_switch = false
 
 ### Score ###
@@ -91,6 +113,10 @@ adjscore(latex) Content_LaTeX_Package_Demo = -10
 adjscore(latex) example_latex = -10
 adjscore(latex) test_latex = -10
 
+# it is also possible to set the score directly in alias directives
+# eg, fontinstallationguide is related to fontinst:
+alias(0.1) fontinst = fontinstallationguide
+
 ### Aliases ###
 
 ## Essential documentation
@@ -113,7 +139,7 @@ alias lshort-zh = lshort-zh-cn		# chinese
 alias lshort-nl = lshort-nl-1.3		# dutch
 alias lshort-en = lshort-english/lshort	# english (original)
 alias lshort-fi = lyhyt2e		# finnish
-alias lshort-fr = flshort-3.20		# french
+alias lshort-fr = lshort-fr		# french
 alias lshort-de = l2kurz		# german
 alias lshort-it = itlshort		# italian
 alias lshort-ja = jlshort		# japanese
@@ -147,6 +173,32 @@ alias etex = etex_man
 alias pdftex = pdftex-a
 alias xetex = XeTeX-reference
 alias luatex = luatexref-t
+
+# latex/basic classes
+alias article = classes
+alias report = classes
+alias book = classes
+#alias ltxguide = ???
+#alias minimal = ???
+adjscore(minimal) europecv = -1000 # false positive
+
+# latex/basic packages, grouped by dtx
+alias bezier = latex209
+alias fleqn = latex209
+alias leqno = latex209
+alias openbib = latex209
+alias t1enc = latex209
+alias fix-cm = fixltx2e
+alias flafter = source2e
+alias tracefnt = source2e
+alias fontenc = source2e
+alias textcomp = source2e
+alias(20) fontenc = encguide
+alias(20) textcomp = encguide
+alias makeidx = makeindx
+alias showidx = makeindx
+alias shortvrb = base/doc
+# TODO: try to avoid the huge amount of false positives for `doc' itself.
 
 # latex's required graphics bundle
 alias graphics = grfguide
@@ -217,11 +269,9 @@ alias caption-dev = caption.pdf
 # misc
 alias hyperref = hyperref/manual.pdf
 alias hyperref-dev = hyperref.pdf
-alias fontinst = fontinstallationguide
 alias psfrag = pfgguide
 alias bibtex = btxdoc
 alias IEEEtran = IEEEtran_HOWTO
-alias shortvrb = base/doc.pdf
 alias metapost = mpman
 alias iso = isoman
 alias pstricks = pstricks-doc
@@ -229,7 +279,6 @@ alias extramarks = fancyhdr/fancyhdr
 alias fonttable = fonttable/fonttable
 alias biocon = biocon/manual.pdf
 alias makeindex = makeindex/makeindex
-alias makeidx = makeindx
 alias ltablex = ltablex.sty
 alias comment = comment.sty
 alias xstring = xstring_doc_en
@@ -274,6 +323,7 @@ alias ofs-cz = ofsdoc
 alias petri-nets = pndoc
 alias pst-geo = pst-map3d-doc
 alias sanskrit = sktdoc
+alias german = gerdoc
 
 ## aliases basically borrowed from texdoctk.dat with some adaptations
 
@@ -311,7 +361,6 @@ alias metapost0 = metapost/base/mpintro
 alias metapost1 = metapost/base/mpman
 alias metapost2 = metapost/base/mpgraph
 alias metaobj = momanual
-alias pgf = pgfmanual
 alias tikz = pgfmanual
 alias treetex = tree_doc
 alias PSfrag = pfgguide
@@ -321,7 +370,6 @@ alias pbdiagram = pb-manual
 alias expressg = expeg
 alias texpower = texpower/manual
 alias prosper1 = prosper-tour
-alias beamer = beameruserguide
 alias ifmslide = ifmman
 alias arydshln = arydshln-man
 alias multirow = multirow/README
@@ -387,7 +435,6 @@ alias braket = braket.sty
 alias breakcites = breakcites.sty
 alias cancel = cancel.sty
 alias captdef = captdef.sty
-alias capt-of = capt-of.sty
 alias cases = cases.sty
 alias changepage = changepage.sty
 alias chbibref = chbibref.sty
@@ -443,9 +490,7 @@ alias thrmappendix = thrmappendix.sty
 alias titleref = titleref.sty
 alias topcapt = topcapt.sty
 alias truncate = truncate.sty
-alias ulem = ulem.sty
 alias underscore = underscore.sty
-alias url = url.sty
 alias varwidth = varwidth.sty
 alias verbasef = verbasef.sty
 alias verbdef = verbdef.sty

@@ -1,10 +1,26 @@
+Version 0.63
+------------
+
+Fix a bug on windows which prevented from viewing sty files.
+
+Version 0.62
+------------
+
+Support for zipped documentation is now an official option.
+Read the warnings before using it!
+
+Version 0.61
+------------
+
+Detect desktop environments (KDE4, KDE, GNOME, XFCE) for viewer selection.
+
 Version 0.60
 ------------
 
 Changed the search/alias/score logic. See section 2 of the manual for details,
 but here is a primer:
 - alias now /adds/ patterns to be search, it is no more a substitution
-- new scoring system, partially confugurable, with improved heuristics
+- new scoring system, partially configurable, with improved heuristics
 
 The beginning of the manual has been completely rewritten.
 
@@ -26,8 +42,10 @@ debugging levels.
 Version 0.47 (TeX Live 2009)
 ----------------------------
 
-Improve support for zipped documentation and comments about it in the default
-configuration file. (Thank Norbert Preining for his help.)
+Adapt for man pages named *.man1.pdf instead of *.pdf.
+(Temporary hack, done better since version 0.60.)
+
+Warning: zip support probably broken!
 
 Version 0.46
 ------------
@@ -49,6 +67,9 @@ Version 0.44
 
 Version 0.43
 ------------
+
+Improve support for zipped documentation and comments about it in the default
+configuration file. (Thank Norbert Preining for his help.)
 
 Various fixes, aliases updates as usual.
 

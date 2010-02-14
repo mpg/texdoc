@@ -108,6 +108,8 @@ end
 local suffixes = {
     'doc', '-doc', '_doc', '.doc', '/doc',
     'manual', '/manual', '-manual',
+    'userguide', '/user_guide',
+    '-guide',
     '-user',
     '-man',
 }
