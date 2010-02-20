@@ -337,13 +337,9 @@ end
 
 -- look in the tlpdb for doclines related to the patterns
 function get_doclist_tlpdb(patlist)
-    local tlpdb = assert(io.open(get_tlroot()..'/tlpkg/texlive.tlpdb'))
-    local tlpdb_content = tlpdb:read('*all')
-    tlpdb:close()
     local doclines
     local state = 'none'
-    -- TODO: wrong on windows
-    for _, line in ipairs(string.explode(tlpdb_content, '\n')) do
+    for line in io.lines(get_tlroot()..'/tlpkg/texlive.tlpdb') do
         -- process runfiles or docfiles lines
         if state == 'docfiles' then
             if not string.find(line, '^ ') then
@@ -401,7 +397,7 @@ function get_doclist(pattern)
     -- get results
     get_doclist_sty(sty)
     get_doclist_texdocs(normal)
-    --get_doclist_tlpdb(normal)
+    get_doclist_tlpdb(normal)
     -- finally, sort results
     sort_doclist(s_doclist, pattern)
     return s_doclist
