@@ -8,7 +8,7 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'os', 'lfs', 'kpse', 'io', 'setmetatable',
+    'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
     'win32_hook', 'parse_zip',
     'get_patterns', 'sort_doclist', 'docfile_quality',
     'config',
@@ -334,56 +334,74 @@ function get_tlroot()
     return tlroot
 end
 
--- look in the tlpdb for doclines related to the patterns
-function get_doclist_tlpdb(patlist)
-    local doclines
+do -- begin scope of tlp_from_runfile and tlp_doclist
+tlp_from_runfile = {} -- associates a tlp (TeX Live package) list to a
+    -- runfile name (entry for foo exists iff foo.(tex|sty|cls) is a runfile)
+tlp_doclist = {} -- a list of list of docfile objects indexed by tlp name
+
+-- populate tlp_from_runfile and tlp_doclist with information from tlpdb
+function get_tlpdb_info()
+    function get_tlpdb_info() end -- run only once
+    local curr_tlp
     local state = 'none'
     for line in io.lines(get_tlroot()..'/tlpkg/texlive.tlpdb') do
-        -- process runfiles or docfiles lines
-        if state == 'docfiles' then
+        if state == 'none' and string.find(line, '^name ') then
+            -- begin a new package
+            curr_tlp = string.lower(string.sub(line, 6, -1))
+            tlp_doclist[curr_tlp] = {}
+        elseif state == 'docfiles' then
             if not string.find(line, '^ ') then
                 state = 'none'
             else
-                table.insert(doclines, line)
+                file = string.lower(string.match(line, '^ ([^ ]*)'))
+                if check_ext(file) then
+                    -- we've got a docfile here, add it
+                    table.insert(tlp_doclist[curr_tlp], Docfile:new({
+                        name    = file,
+                        tree    = 0,
+                        meta    = string.match(line, '^ ([^ ]*) (.+)')
+                    }))
+                end
             end
         elseif state == 'runfiles' then
             if not string.find(line, '^ ') then
                 state = 'none'
             else
-                -- does the line match a pat in patlist?
-                local found = false
-                for _, pat in ipairs(patlist) do
-                    local l = #pat.name
-                    if string.sub(line, -5 - l, -4) == '/'..pat.name..'.' then
-                        local ext = string.sub(line, -3)
-                        if ext == 'sty' or ext == 'cls' then
-                            found = true
-                            break
-                        end
-                    end
-                end
-                -- if so, insert results in s_doclist
-                if found then
-                    for _, line in ipairs(doclines) do
-                        local l = string.match(line, '^ ([^ ]*)')
-                        s_doclist:add(Docfile:new({
-                            name    = l,
-                            tree    = 0,
-                        }))
-                    end
+                -- check for interesting runfiles
+                local e = string.sub(line, -4, -1)
+                if e == '.tex' or e == '.sty' or e == '.cls' then
+                    local f = string.match(line, '.*/(.*)%.')
+                    tlp_from_runfile[f] = tlp_from_runfile[f] or {}
+                    tlp_from_runfile[f][curr_tlp] = true
                 end
             end
         end
         -- update state
         if string.find(line, '^docfiles ') then
             state = 'docfiles'
-            doclines = {}
         elseif string.find(line, '^runfiles ') then
             state = 'runfiles'
         end
     end
 end
 
+function get_doclist_tlpdb(pattern)
+    get_tlpdb_info()
+    if tlp_from_runfile[pattern] then
+        for tlp in pairs(tlp_from_runfile[pattern]) do
+            for _, df in ipairs(tlp_doclist[tlp]) do
+                s_doclist:add(df)
+            end
+        end
+    end
+    if tlp_doclist[pattern] then
+        for _, df in ipairs(tlp_doclist[pattern]) do
+            s_doclist:add(df)
+        end
+    end
+end
+
+end --scope of tlp_from_runfile, tlp_doclist
 
 ------------------------------   main function   -------------------------------
 
@@ -396,7 +414,7 @@ function get_doclist(pattern)
     -- get results
     get_doclist_sty(sty)
     get_doclist_texdocs(normal)
-    get_doclist_tlpdb(normal)
+    get_doclist_tlpdb(pattern)
     -- finally, sort results
     sort_doclist(s_doclist, pattern)
     return s_doclist
