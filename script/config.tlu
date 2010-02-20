@@ -382,10 +382,10 @@ function desktop_environment_viewer()
         return '(gnome-open %s) &'
     end
     if not is_in_path('xprop') then return end
-    local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE')
+    local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE 2>/dev/null')
     local xprop_out = xprop_fh:read('*line')
     xprop_fh:close()
-    if string.find(xprop_out, '= "xfce4"$') then     -- xfce
+    if xprop_out and string.find(xprop_out, '= "xfce4"$') then     -- xfce
         return '(exo-open %s) &'
     end
 end

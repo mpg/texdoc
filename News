@@ -1,3 +1,9 @@
+Version 0.64
+------------
+
+Fix a crash when DISPLAY is unset on Unix by querying xprop more carefully.
+(Bug introduced in 0.61.)
+
 Version 0.63
 ------------
 
@@ -7,7 +13,7 @@ Version 0.62
 ------------
 
 Support for zipped documentation is now an official option.
-Read the warnings before using it!
+Please read the warnings before using it!
 
 Version 0.61
 ------------
