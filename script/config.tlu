@@ -5,6 +5,7 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+-- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
     'export_symbols',
@@ -19,7 +20,7 @@ load_env(L, {
 
 --------------------------   hide the config table   ---------------------------
 
--- config is read-only
+-- config is read-only (but not "deep" read-only)
 function set_read_only(table, name)
     assert(next(table) == nil,
         'Internal error: '..name..' should be empty at this point.')

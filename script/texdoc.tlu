@@ -20,6 +20,16 @@ Previous work in the public domain:
 - Original shell script by Thomas Esser, David Aspinall, and Simon Wilkinson.
 --]]
 
+----------------------   functions handling submodules   -----------------------
+
+-- texdoc is divided in submodules (files).
+-- Most submodules use a private environment: that is, the functions and
+-- variables defined in a file won't be globally visible, unless explicitly
+-- exported at the end of the file.
+-- Also, symbols from the global environment (hence from other submodules)
+-- aren't imported in the local environment, except if explicitly requested and
+-- a few default symbols.
+
 -- load a local environment, importing symbols from (this function's) _G
 -- usage: local L = {} load_env(L, {'a', 'b'})
 function load_env(l, symbols)
@@ -44,12 +54,15 @@ function export_symbols(l, symbols)
     end
 end
 
--- load a component of texdoc
-function texdoc_load(name)
+-- execute a submodule of texdoc
+function texdoc_do(name)
     local f = kpse.find_file('texdoc/'..name..'.tlu', 'texmfscripts')
     assert(f, 'Internal error: unable to find texdoc module '..name..'.')
     dofile(f)
 end
+
+
+------------------------   initilisation & main code   -------------------------
 
 -- initialize kpathsea
 kpse.set_program_name(arg[-1], 'texdoc')
@@ -59,17 +72,17 @@ kpse.set_program_name(arg[-1], 'texdoc')
 C = {}      -- constants
 config = {} -- configuration settings
 
--- actually load the components now
-texdoc_load('constants')
-texdoc_load('functions')
-texdoc_load('alias')
-texdoc_load('score')
-texdoc_load('config')
-texdoc_load('search')
-texdoc_load('view')
+-- actually load the submodules now
+texdoc_do('constants')
+texdoc_do('functions')
+texdoc_do('alias')
+texdoc_do('score')
+texdoc_do('config')
+texdoc_do('search')
+texdoc_do('view')
 
 -- execute main()
-texdoc_load('main')
+texdoc_do('main')
 
 -- the end
 os.exit(0)

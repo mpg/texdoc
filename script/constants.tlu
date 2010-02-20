@@ -5,6 +5,8 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
+-- Load a private environment.
+-- A name 'foo' defined here will be globally visible as 'C.foo', see EOF.
 local L = {}
 load_env(L, {
     'setmetatable', 'next', 'assert', 'error',
@@ -85,7 +87,9 @@ known_debugs = {
 
 place_holder = '%%s' -- used for viewer commands
 
--- make C a proxy to the local environment
+-- Make global C a read-only proxy to the local environment.
+-- Note this is not deep read-only: C.known_debugs is read-only, but
+-- C.known_debugs.version isn't, for instance.
 assert(next(C) == nil,
     'Internal error: table of constants should be empty at this point')
 setmetatable(C, {
