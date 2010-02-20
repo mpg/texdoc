@@ -326,6 +326,8 @@ alias petri-nets = pndoc
 alias pst-geo = pst-map3d-doc
 alias sanskrit = sktdoc
 alias german = gerdoc
+alias pst-eucl = pst-eucl/euclide_english
+alias pst-eucl-fr = pst-eucl/euclide
 
 ## aliases basically borrowed from texdoctk.dat with some adaptations
 
