@@ -33,6 +33,15 @@ Previous work in the public domain:
 -- load a local environment, importing symbols from (this function's) _G
 -- usage: local L = {} load_env(L, {'a', 'b'})
 function load_env(l, symbols)
+    local default = {
+        'export_symbols',
+        'string', 'table', 'pairs', 'ipairs', 'tonumber', 'tostring', 'next',
+        'assert', 'error', 'err_print', 'deb_print',
+        'C',
+    }
+    for _, symb in ipairs(default) do
+        l[symb] = _G[symb]
+    end
     local _, symb
     for _, symb in ipairs(symbols) do
         assert(_G[symb] ~= nil,

@@ -8,12 +8,10 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'export_symbols',
-    'os', 'string', 'table', 'lfs', 'kpse', 'io', 
-    'pairs', 'ipairs', 'assert', 'error', 'tostring', 'setmetatable',
-    'deb_print', 'err_print', 'win32_hook', 'parse_zip',
+    'os', 'lfs', 'kpse', 'io', 'setmetatable',
+    'win32_hook', 'parse_zip',
     'get_patterns', 'sort_doclist', 'docfile_quality',
-    'config', 'C',
+    'config',
 })
 
 -- shared by all functions in this file

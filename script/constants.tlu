@@ -9,9 +9,7 @@ See texdoc.tlu for details.
 -- A name 'foo' defined here will be globally visible as 'C.foo', see EOF.
 local L = {}
 load_env(L, {
-    'setmetatable', 'next', 'assert', 'error',
-    'arg',
-    'C',
+    'setmetatable', 'arg',
 })
 
 -- progname and version

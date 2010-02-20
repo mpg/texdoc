@@ -8,10 +8,7 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'export_symbols',
-    'string', 'io', 'os',
-    'pairs', 'ipairs',
-    'C',
+    'io', 'os',
     'config',
 })
 

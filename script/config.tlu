@@ -8,13 +8,8 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'export_symbols',
-    'string', 'table', 'os', 'kpse', 'lfs', 'io',
-    'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
-    'assert', 'error',
-    'err_print', 'win32_hook', 'deb_print',
-    'confline_to_alias', 'confline_to_score',
-    'C',
+    'os', 'kpse', 'lfs', 'io', 'setmetatable', 'print',
+    'win32_hook', 'confline_to_alias', 'confline_to_score',
     'config',
 })
 

@@ -8,13 +8,8 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'os',
-    'print', 'ipairs',
-    'arg',
-    'C',
-    'setup_config_and_alias',
-    'get_doclist',
-    'deliver_results',
+    'os', 'arg', 'print',
+    'setup_config_and_alias', 'get_doclist', 'deliver_results',
 })
 
 -- setup config options and aliases from various places

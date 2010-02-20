@@ -8,10 +8,7 @@ See texdoc.tlu for details.
 -- Load a local environment. See texdoc.tlu for details.
 local L = {}
 load_env(L, {
-    'export_symbols',
-    'string', 'table',
-    'pairs', 'ipairs', 'tostring', 'tonumber', 'assert',
-    'config', 'parse_zip', 'err_print', 'deb_print',
+    'config', 'parse_zip',
 })
 
 -- shared variables
