@@ -339,7 +339,6 @@ alias index = ind
 alias genfont1 = fntguide
 alias psnfss = psnfss2e
 alias astro = astrosym.txt
-alias braille = braille/summary
 alias brushscr = brushscr/AAA_readme
 alias ocherokee = cherokee
 alias cmsuper = cm-super/README
