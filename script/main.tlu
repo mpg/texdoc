@@ -9,11 +9,13 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'os', 'arg', 'print',
-    'setup_config_and_alias', 'get_doclist', 'deliver_results',
+    'setup_config_and_alias', 'init_databases',
+    'get_doclist', 'deliver_results',
 })
 
--- setup config options and aliases from various places
+-- get started
 setup_config_and_alias(arg)
+init_databases()
 
 -- make sure we actually have argument(s)
 if not arg[1] then

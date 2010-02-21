@@ -15,7 +15,7 @@ load_env(L, {
 })
 
 -- shared by all functions in this file
-local s_doclist
+local s_doclist -- the Doclist objet to be populated by various functions
 
 -----------------------   docfile and doclist objects   ------------------------
 
@@ -136,8 +136,8 @@ local doc_roots
 --     recursion_allowed    = <does path ends with // in TEXDOCS?>,
 -- }
 
--- set the doc_roots list from kpse's $TEXDOCS
-function get_texdocs ()
+-- populate the doc_roots filename databases
+function init_texdocs_database()
     doc_roots = {}
     local sep = (os.type == 'windows') and ';' or ':'
     local kpse_texdocs = kpse.expand_var("$TEXDOCS")
@@ -174,13 +174,11 @@ end
 
 -- return the real path from a texdocs tree number + relative path
 function texdocs_tree_to_path(tree, rel)
-    if doc_roots == nil then get_texdocs() end
     return win32_hook(doc_roots[tree].path..'/'..rel)
 end
 
 -- find docfiles in texdocs directories
 function get_doclist_texdocs(patlist)
-    if doc_roots == nil then get_texdocs() end
     for code, dr in ipairs(doc_roots) do
         if dr.db then scan_db(patlist, code, dr.db) end
     end
@@ -333,6 +331,8 @@ end
 
 --------------------------------   use tlpdb   ---------------------------------
 
+-- tlpdb mean TeX Live Package DataBase and tlp means TeX Live Package
+
 -- find the TeX Live root
 function get_tlroot()
     local tlroot = kpse.var_value('SELFAUTOPARENT')
@@ -341,13 +341,12 @@ function get_tlroot()
 end
 
 do -- begin scope of tlp_from_runfile and tlp_doclist
-tlp_from_runfile = {} -- associates a tlp (TeX Live package) list to a
-    -- runfile name (entry for foo exists iff foo.(tex|sty|cls) is a runfile)
-tlp_doclist = {} -- a list of list of docfile objects indexed by tlp name
+local tlp_from_runfile -- { [runfile_basename] = {tlp1, tlp2, ...}, ... }
+local tlp_doclist -- { [tlp_name] = { Docfile1, Docfile2, ...}, ... }
 
--- populate tlp_from_runfile and tlp_doclist with information from tlpdb
-function get_tlpdb_info()
-    function get_tlpdb_info() end -- run only once
+-- populate internal databases with information from tlpdb
+function init_tlp_database()
+    tlp_from_runfile, tlp_doclist = {}, {}
     local curr_tlp
     local state = 'none'
     for line in io.lines(get_tlroot()..'/tlpkg/texlive.tlpdb') do
@@ -392,7 +391,6 @@ function get_tlpdb_info()
 end
 
 function get_doclist_tlpdb(pattern)
-    get_tlpdb_info()
     if tlp_from_runfile[pattern] then
         for tlp in pairs(tlp_from_runfile[pattern]) do
             for _, df in ipairs(tlp_doclist[tlp]) do
@@ -410,6 +408,12 @@ end
 end --scope of tlp_from_runfile, tlp_doclist
 
 ------------------------------   main function   -------------------------------
+
+-- initialise the various databases (must be called first)
+function init_databases()
+    init_texdocs_database()
+    init_tlp_database()
+end
 
 -- find docfiles according to pattern
 function get_doclist(pattern)
@@ -442,5 +446,6 @@ end
 
 -- finally export a few symbols
 export_symbols(L, {
+    'init_databases',
     'get_doclist',
 })
