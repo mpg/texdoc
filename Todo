@@ -1,28 +1,35 @@
 Small items
 ===========
 
-Should review extensively case-sensitivity issues (alias, matches, etc.)
+Turn max_lines into a real config item.
+
+Deprecate alias_switch, -a, -A.
+
+Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 
 Big stuff planned
 =================
 
 Decide how and when tlpdb search should happen (performance issues).
-    - if tlpdb is found, use it (load it once, use tables later, like the
-      kpse-like part does, and unlike the current code does)
-        - rewrite for this with my own code (look for optimisations, and don't
-          forget to handle relocated packages)
-        - test Norbert's texlive.tlpdb.tlu once he fixed it, and compare
-          performance.
+    - if tlpdb is found, use it.
+        - adapt texlive/tlpdb.tlu to be usable (error handling). If the cache
+          thing works, use it. Otherwise, compare performance with my own
+        version.
     - otherwise, use a pre-hashed database (write a script to prepare it,
       ship it with TL: useless here but then downstream distros will get it).
     - see "caching" in the ideas section.
 
 Use meta-data from the tlpdb for scoring.
-    - for now, we may not need to use the metadata itself, only its presence
-    - but if we want to use it, we'll have to rely on heuristics (eg all get a
-      good score except 'readme')
+    - Idea: make the default score negetive, (-5 could do). Then all docfiles
+      with a tlpdb-style match only get a 0 score if they have metadata, unless
+    the metadata string contains details="readme (case-insensitive)
     - exclude bundles (a hard-coded list of bundles would be ok, but perhaps
-      putting it in texdoc.cnf is cleaner)
+      putting it in texdoc.cnf is cleaner) This may not be needed, depending on
+    how the scoring is made.
+
+Think about the output format for metadata.
+
+Write doc for this, esp. output format of -M.
 
 Once the search changes are done, make sure that each "real" .sty file gets a
 result with score >= 0. Write a script checking for that with an exclusion list
@@ -41,20 +48,19 @@ to read, like tlpdb. (Would also simplify the distribution of a pre-hashed db
 for downstream distros, and make the "custom code vs standard module for tlpdb
 reading" dilemna disappear.) Would work as follows:
     1. look for a cache in TEXMFVAR/some/location/to/be/determined
+        The cache could be a precompiled Lua file (.tlc).
     2. If non-existent or older than the reference files (texlive.tlpdb or
     various ls-R files, regenerate, else use it.
 Need to determine:
 - whether this is useful: at all, for tlpdb, for ls-R files...
 - what to do with unindexed directories if caching is used?
+Add a debug section for this.
 
 add support for shell-style globs (standard regex is probably too hard)
     Well, would anyone really use it? (would be for patterns in texdoc.cnf, not
     for texdoc arguments)
 
 write or use some GNU-like getopt_long
-
-display info from the tlpdb?
-    Could do it only in machine-readable mode for now...
 
 Ideas for later
 ===============
@@ -73,13 +79,15 @@ Do something with the description from the catalogue?
 Help maintainers standardise comments in order to allow for more accurate
 scoring/classification?
 
-Port on MikTeX ?
-----------------
+Port on MikTeX ???
+------------------
+
+Lots of TeX-live specific stuff (implicitly) embedded in various places...
 
 Add a function in texlua's kpse library returning all files for which a certain
 Lua function (given as argument) returns true. Use only it.
 
-What to do withh all the functions using tkpdb coming? Is it possible to use an
+What to do with all the functions using tlpdb coming? Is it possible to use an
 equivalent on MikTeX?
 
 Adapt to the different tree layout in MikTeX (TEXMFHOME etc don't exist).
