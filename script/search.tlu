@@ -75,26 +75,27 @@ function Docfile:new(info)
     setmetatable(df, self)
     -- get realpath, tree and prepare name
     df.tree = info.tree
+    local name = info.name
     if info.tree > 0 then
-        df.realpath = texdocs_tree_to_path(info.tree, info.name)
+        df.realpath = texdocs_tree_to_path(info.tree, name)
     elseif info.tree == 0 then
         df.realpath = get_tlroot()..'/'..info.name
-        info.name = string.gsub(info.name, '^texmf(-dist)?/doc/', '', 1)
+        name = string.gsub(name, '^texmf(-dist)?/doc/', '', 1)
     elseif info.tree == -1 then
-        df.realpath = info.name
+        df.realpath = name
     else
         error('Internal error: bad tree number')
     end
     -- remove first component of name if at least two directory levels
     if info.tree > -1 then
-        local name = string.match(info.name, '^..-/(.+/.+)$')
-        if name then
-            df.name = '/'..name
+        local shortname = string.match(name, '^..-/(.+/.+)$')
+        if shortname then
+            df.name = '/'..shortname
         else
-            df.name = info.name
+            df.name = name
         end
     else
-        df.name = info.name
+        df.name = name
     end
     -- initialise the list of matches
     if info.pattern then
