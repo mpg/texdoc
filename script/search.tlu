@@ -62,6 +62,8 @@ end
 --     name     = filename (used for scoring only)
 --     tree     = code of the tree, see below
 --     matches  = {pattern1, pattern2, ...}
+--     runtodoc = true if there is a runfile -> docfile association
+--     tlptodoc = true if there is a tlp name -> docfile association
 --     meta     = metadata from the ctalogue (tlpdb) as a plain string
 -- }
 -- if tree > 1, this is the index of the tree in TEXDOCS
@@ -74,7 +76,7 @@ Docfile.__index = Docfile
 -- create a new docfile objet using initilisation info
 -- fields : name (relative to tree), tree, pattern
 function Docfile:new(info)
-    df = {}
+    local df = {}
     setmetatable(df, self)
     -- get realpath, tree and prepare name
     df.tree = info.tree
@@ -112,6 +114,15 @@ function Docfile:new(info)
     else
         df.meta = s_meta[df.realpath]
     end
+    return df
+end
+
+-- copy a docfile, possibly adding some new fields, without any check
+function Docfile:copy(old, info)
+    local df = {}
+    setmetatable(df, self)
+    for k, v in pairs(old)  do df[k] = v end
+    for k, v in pairs(info) do df[k] = v end
     return df
 end
 
@@ -400,17 +411,24 @@ function init_tlp_database()
     end
 end
 
+-- get docfiles for pattern using specific tlpdb information
 function get_doclist_tlpdb(pattern)
+    -- runfile to tlp to docfile
     if tlp_from_runfile[pattern] then
         for tlp in pairs(tlp_from_runfile[pattern]) do
             for _, df in ipairs(tlp_doclist[tlp]) do
-                s_doclist:add(df)
+                s_doclist:add(Docfile:copy(df, {
+                    runtodoc = true,
+                }))
             end
         end
     end
+    -- tlp name to docfile
     if tlp_doclist[pattern] then
         for _, df in ipairs(tlp_doclist[pattern]) do
-            s_doclist:add(df)
+            s_doclist:add(Docfile:copy(df, {
+                tlptodoc = true,
+            }))
         end
     end
 end
