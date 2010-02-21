@@ -409,6 +409,17 @@ function init_tlp_database()
             state = 'runfiles'
         end
     end
+    remove_useless_tlp()
+end
+
+-- remove entries for tlp with any docfile
+function remove_useless_tlp()
+    for tlp, doclist in pairs(tlp_doclist) do
+        if #doclist == 0 then tlp_doclist[doclist] = nil end
+    end
+    for runfile, tlp in pairs(tlp_from_runfile) do
+        if not tlp_doclist[tlp] then tlp_from_runfile[runfile] = nil end
+    end
 end
 
 -- get docfiles for pattern using specific tlpdb information
