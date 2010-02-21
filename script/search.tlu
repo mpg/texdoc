@@ -14,8 +14,11 @@ load_env(L, {
     'config',
 })
 
+-- Warning: every single function here assumes init_databases() has been called.
+
 -- shared by all functions in this file
 local s_doclist -- the Doclist objet to be populated by various functions
+local s_meta -- {[realpath] = meta, ...} (populated by init_tlp_database)
 
 -----------------------   docfile and doclist objects   ------------------------
 
@@ -103,8 +106,12 @@ function Docfile:new(info)
     else
         df.matches = {}
     end
-    -- possibly get meta data
-    df.meta = info.meta
+    -- try to get meta information
+    if info.meta then
+        df.meta = info.meta
+    else
+        df.meta = s_meta[df.realpath]
+    end
     return df
 end
 
@@ -346,7 +353,7 @@ local tlp_doclist -- { [tlp_name] = { Docfile1, Docfile2, ...}, ... }
 
 -- populate internal databases with information from tlpdb
 function init_tlp_database()
-    tlp_from_runfile, tlp_doclist = {}, {}
+    tlp_from_runfile, tlp_doclist, s_meta = {}, {}, {}
     local curr_tlp
     local state = 'none'
     for line in io.lines(get_tlroot()..'/tlpkg/texlive.tlpdb') do
@@ -358,14 +365,17 @@ function init_tlp_database()
             if not string.find(line, '^ ') then
                 state = 'none'
             else
-                file = string.lower(string.match(line, '^ ([^ ]*)'))
-                if check_ext(file) then
+                local file = string.match(line, '^ ([^ ]*)')
+                local meta = string.match(line, '^ [^ ]* (.+)')
+                if check_ext(string.lower(file)) then
                     -- we've got a docfile here, add it
-                    table.insert(tlp_doclist[curr_tlp], Docfile:new({
+                    docfile = Docfile:new({
                         name    = file,
                         tree    = 0,
-                        meta    = string.match(line, '^ [^ ]* (.+)')
-                    }))
+                        meta    = meta,
+                    })
+                    table.insert(tlp_doclist[curr_tlp], docfile)
+                    s_meta[docfile.realpath] = meta
                 end
             end
         elseif state == 'runfiles' then
