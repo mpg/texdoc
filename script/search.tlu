@@ -55,9 +55,11 @@ function Doclist:stop()
 end
 
 -- docfile = {
+--     realpath = full path
 --     name     = filename (used for scoring only)
 --     tree     = code of the tree, see below
 --     matches  = {pattern1, pattern2, ...}
+--     meta     = metadata from the ctalogue (tlpdb) as a plain string
 -- }
 -- if tree > 1, this is the index of the tree in TEXDOCS
 -- if tree = 0, then name is relative to TLROOT (file found from tlpdb only)
@@ -100,6 +102,8 @@ function Docfile:new(info)
     else
         df.matches = {}
     end
+    -- possibly get meta data
+    df.meta = info.meta
     return df
 end
 
@@ -112,6 +116,7 @@ function Docfile:mergein(df)
     for _, m in ipairs(df.matches) do
         table.insert(self.matches, m)
     end
+    if df.meta and not self.meta then self.meta = df.meta end
 end
 
 -- from score.tlu
@@ -359,7 +364,7 @@ function get_tlpdb_info()
                     table.insert(tlp_doclist[curr_tlp], Docfile:new({
                         name    = file,
                         tree    = 0,
-                        meta    = string.match(line, '^ ([^ ]*) (.+)')
+                        meta    = string.match(line, '^ [^ ]* (.+)')
                     }))
                 end
             end
