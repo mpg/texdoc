@@ -7,13 +7,9 @@
 # the present file, please create a new one (you may want to copy/paste/edit
 # portions of the present file, or just read it for inspiration).
 #
-# The complete ordered list of configuration files read by texdoc is:
-#     TEXMFHOME/texdoc/texdoc-<arch>.cnf
-# (*) TEXMFHOME/texdoc/texdoc.cnf
-#     TEXMFLOCAL/texdoc/texdoc-<arch>.cnf
-#     TEXMFLOCAL/texdoc/texdoc.cnf
-# where <arch> stands for your architecture (eg, win32, i386-linux,
-# powerpc-darwin). If a value is set multiple times, first wins.
+# For system-wide confuguration or other uses, you may want to use the other
+# files listed, see the manual (texdoc texdoc) for details. The files are read
+# in the order they are printed. If a value is set multiple times, first wins.
 #
 # In those files, you can set your preferred viewer for various formats,
 # some nice names (alias) for specific documentation, and your preferred default
@@ -493,8 +489,11 @@ alias vrbexin = vrbexin.sty
 alias vruler = vruler.sty
 alias wrapfig = wrapfig.sty
 
-# the next line has no effect when this file is installed as
-# TEXMFMAIN/texdoc/texdoc.cnf but is useful when it is installed as
-# TEXMFHOME/texdoc/texdoc-dist.cnf for the purpose of installing a newer
-# version of texdoc in one's home (eg, running the development version)
+# The next line has no effect when this file is installed as the last
+# configuration file (default) but is useful when you install it as the "tricky"
+# configuration file (usually TEXMFHOME/texdoc/texdoc-dist.cnf) whose mere
+# existence is a hack to make it easier to run the the development version, see
+# <http://tug.org/texdoc/dev/>.
+#
+# It is strongly recommended NOT to use it in any other circumstance.
 lastfile_switch = true

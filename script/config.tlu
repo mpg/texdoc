@@ -281,8 +281,7 @@ function confline_to_config(line, file, pos)
     return false
 end
 
-
--- return a table with config file and if they exist
+-- return the list of configuration files and the index of the recommended file
 function get_config_files ()
     local platform = string.match (kpse.var_value ('SELFAUTOLOC'), '.*/(.*)$')
     local TEXMFHOME  = kpse.var_value ('TEXMFHOME')
@@ -294,8 +293,8 @@ function get_config_files ()
         TEXMFHOME  .. '/texdoc/texdoc-dist.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc-'..platform..'.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc.cnf',
-        TEXMFMAIN  .. '/texdoc/texdoc.cnf'
-    }
+        TEXMFMAIN  .. '/texdoc/texdoc.cnf',
+    }, 2
 end
 
 -- the config_files table is shared by the next two functions
@@ -304,14 +303,17 @@ local config_files = {}
 
 -- set config/aliases from all config files
 function setup_config_from_files ()
-    for i, file in ipairs (get_config_files ()) do
+    local file_list, good_index = get_config_files()
+    for i, file in ipairs (file_list) do
         local found = lfs.isfile(file)
+        local status = found and (config.lastfile_switch
+            and 'disabled' or 'active') or 'absent'
         config_files[i] = {
             path = file,
-            status = found and (config.lastfile_switch
-            and 'disabled' or 'active') or 'absent',
+            status = status,
+            good = (i == good_index),
         }
-        if config_files[i].status == 'active' then
+        if status == 'active' then
             read_config_file (file)
         end
     end
@@ -321,9 +323,9 @@ end
 function show_config_files (print_fun, prefix)
     print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
-        local home = prefix and
-        ((i==2) and "(*) " or "    ") -- home conffile is the 2nd
-        or ''
+        local home = prefix
+            and (file.good and "(*) " or "    ")
+            or ''
         print_fun (home..file.status..'\t'..win32_hook(file.path))
     end
     if prefix then

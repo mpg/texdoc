@@ -1,5 +1,5 @@
 % this is texdoc's user manual
-% written by Manuel Pégourié-Gonnard in 2008, 2009
+% written by Manuel Pégourié-Gonnard in 2008, 2010
 % distributed under the terms of GPL v3 or later
 
 %!TEX encoding=latin1
@@ -219,8 +219,8 @@ option. For this, see the next section.
 \subsection{Configuration files}\label{ss-quick-file}
 
 \texdoc use various configuration files, which you can see using the ©-f© or
-©--files© options. The second entry in this list is marked with a star ©(*)©:
-it is the file you should use for your personal preferences as a user; you may
+©--files© options. The entry marked with a star ©(*)©
+is the file you should use for your personal preferences as a user; you may
 need to create it (and the parents directories).
 
 In order to select you favorite mode, just insert a line ©mode = «yourmode»©
@@ -428,28 +428,22 @@ in the following order, where first value found is always used:
   \item Command-line options.
   \item Environment variables ending with ©_texdoc©.
   \item Other environment variables.
-  \item Values from configuration files, read in the following order:
-    \begin{enumerate}
-      \item ©TEXMFHOME/texdoc/texdoc-«platform».cnf©
-      \item ©TEXMFHOME/texdoc/texdoc.cnf©
-      \item ©TEXMFHOME/texdoc/texdoc-dist.cnf©
-      \item ©TEXMFLOCAL/texdoc/texdoc-«platform».cnf©
-      \item ©TEXMFLOCAL/texdoc/texdoc.cnf©
-      \item ©TEXMFMAIN/texdoc/texdoc.cnf©
-    \end{enumerate}
+  \item Values from configuration files, read in the same order as they are
+    printed by ©texdoc --files©.
   \item Hard-coded defaults that may depend on the current platform or the
     current value of another setting.
 \end{enumerate}
 
-For the configuration files, ©«platform»© stands for the name of the current
-platform, with names matching those of the directories in ©TEXLIVEROOT/bin©,
-and ©TEXMFHOME© and others are the kpse's values, see the kpathsea and web2c
-manuals. The name with ©«platform»© can be used on installation shared between
-many machines where, for example, not the same viewers are available. However,
-their use is not recommended in other situations. Finally, the special file
-©texdoc-dist.cnf© allows you to install a newer version of \texdoc (including
-its default config file) in your home: see \href{http://tug.org/texdoc/}{the
-  web page} for instructions on running \texdoc from the SVN.
+The list of configuration files may include entries which depend on the
+current platform, like ©texdoc-x86-64-linux.cnf© for instance. Those files are
+meant to be used in when a single \texlive installation is shared across
+machines with different architectures needing different settings. Their use is
+not recommended in any other situation.
+
+Finally, the special file ©texdoc-dist.cnf© allows you to install a newer
+version of \texdoc (including its default configuration file) in your home:
+see \href{http://tug.org/texdoc/dev/}{the web page} for instructions on
+running the development version.
 
 \subsection{Command-line options}\label{ss-cl}
 
