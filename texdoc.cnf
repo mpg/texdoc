@@ -278,13 +278,13 @@ alias extramarks = fancyhdr/fancyhdr
 alias fonttable = fonttable/fonttable
 alias biocon = biocon/manual.
 alias makeindex = makeindex/makeindex
-alias ltablex = ltablex.sty
-alias comment = comment.sty
 alias xstring = xstring_doc_en
 alias xstring-fr = xstring_doc_fr
 alias isomath = isomath.sty.pdf
-alias ucs = ucs/FAQ
 alias elsarticle = elsdoc
+alias 2in1 = twoinone
+alias afoot = arabtex-doc
+alias chngpage = changepage
 
 # cite package (from texlive.tlpdb listing for cite)
 alias cite = /cite/README
@@ -323,6 +323,7 @@ alias petri-nets = pndoc
 alias pst-geo = pst-map3d-doc
 alias sanskrit = sktdoc
 alias german = gerdoc
+alias ngerman = gerdoc
 alias pst-eucl = pst-eucl/euclide_english
 alias pst-eucl-fr = pst-eucl/euclide
 
@@ -403,32 +404,21 @@ alias cv = curve/curve
 alias preprint = preprint/00readme.txt
 alias sffms = sffms_manual
 
-## packages from ctan/macros/latex/contrib/misc
-# hope they all contain comments...
+## packages from ctan/macros/latex/contrib/misc or with doc in .sty only
 # anyway, this is quite bad and should be changed some day
 
-alias 2in1 = 2in1.sty
 alias 3parttable = 3parttable.sty
-alias a4wide = a4wide.sty
-alias a5comb = a5comb.sty
-alias acromake = acromake.sty
-alias advdate = advdate.sty
-alias anonchap = anonchap.sty
-alias askinclude = askinclude.sty
-alias authoraftertitle = authoraftertitle.sty
 alias bibcheck = bibcheck.sty
 alias block = block.sty
-alias bold-extra = bold-extra.sty
-alias boxedminipage = boxedminipage.sty
 alias braket = braket.sty
 alias breakcites = breakcites.sty
 alias cancel = cancel.sty
 alias captdef = captdef.sty
 alias cases = cases.sty
-alias changepage = changepage.sty
 alias chbibref = chbibref.sty
 alias chngcntr = chngcntr.sty
 alias circle = circle.sty
+alias comment = comment.sty
 alias concrete = concrete.sty
 alias dblfloatfix = dblfloatfix.sty
 alias endnotes = endnotes.sty
@@ -446,6 +436,7 @@ alias isonums = isonums.sty
 alias kix = kix.sty
 alias linsys = linsys.sty
 alias listing = listing.sty
+alias ltablex = ltablex.sty
 alias magaz = magaz.sty
 alias midpage = midpage.sty
 alias mitpress = mitpress.sty
