@@ -52,7 +52,12 @@ function set_config_element (key, value, context)
     -- detect the type of the key
     if string.match(key, '_list$') then
         -- coma-separated list
-        local values = string.explode(value, ',')
+        local values
+        if value == '' then
+            values = {}
+        else
+            values = string.explode(value, ',')
+        end
         local inverse = {}
         for i, j in ipairs(values) do -- sanitize values...
             j = string.gsub(j, '%s*$', '')
@@ -496,9 +501,10 @@ function setup_config_from_defaults()
         mode                = 'view',
         interact_switch     = 'true',
         machine_switch      = 'false',
-        verbosity_level     = C.def_verbosity,
         ext_list            = 'pdf, html, txt, ps, dvi, ',
         badext_list         = 'txt, ',
+        verbosity_level     = C.def_verbosity,
+        debug_list          = '',
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
@@ -539,7 +545,11 @@ function setup_config_and_alias(arg)
     if config.machine_switch == true then
         real_set_config('interact_switch', false)
     end
-    -- we were waiting for config.debug_list to be know to do this
+    -- debug implies verbose
+    if table.maxn(config.debug_list) > 0 then
+        real_set_config('verbosity_level', tonumber(C.max_verbosity))
+    end
+    -- we were waiting for config.debug_list to be known to do this
     show_config_files(function(s) deb_print('files', s) end)
 end
 
