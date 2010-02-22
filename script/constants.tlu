@@ -86,6 +86,10 @@ min_verbosity='0'
 max_verbosity='3'
 def_verbosity='2'
 
+exit_ok = 0
+--exit_error = 1 -- apparently hard-coded in Lua
+exit_usage = 2
+
 known_debugs = {
     version = {},
     files   = {},

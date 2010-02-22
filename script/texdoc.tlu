@@ -72,4 +72,4 @@ texdoc_load('view')
 texdoc_load('main')
 
 -- the end
-os.exit(0)
+os.exit(C.exit_ok)

@@ -22,7 +22,7 @@ setup_config_and_alias(arg)
 -- make sure we actually have argument(s)
 if not arg[1] then
     print(C.usage_msg)
-    os.exit(2)
+    os.exit(C.exit_usage)
 end
 
 -- main loop

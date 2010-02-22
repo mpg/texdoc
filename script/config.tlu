@@ -144,15 +144,15 @@ function setup_config_from_cl(arg)
         -- special options
         if (curr_arg == '-h') or (curr_arg == '--help') then
             print (C.usage_msg)
-            os.exit(0)
+            os.exit(C.exit_ok)
         elseif (curr_arg == '-V') or (curr_arg == '--version') then
             print (C.progname .. ' ' .. C.version )
-            os.exit(0)
+            os.exit(C.exit_ok)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
             print (C.progname .. ' ' .. C.version )
             setup_config_from_files ()
             show_config_files (print, true)
-            os.exit(0)
+            os.exit(C.exit_ok)
         -- options related to mode
         elseif (curr_arg == '-w') or (curr_arg == '--view') then
             set_config_elt('mode', 'view')
@@ -238,7 +238,7 @@ function setup_config_from_cl(arg)
         else
             err_print('error', "unknown option: "..curr_arg)
             err_print('error', C.error_msg)
-            os.exit(2)
+            os.exit(C.exit_usage)
         end
     end
 end
