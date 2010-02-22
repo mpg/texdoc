@@ -85,7 +85,7 @@ function try_viewing (view_command, viewer_replacement)
     else
         view_command = view_command..' '..viewer_replacement
     end
-    deb_print('view', 'View comand: '..view_command)
+    err_print('info', 'View comand: '..view_command)
     if not os.execute(view_command) then
         err_print('error', "Failed to execute '"..view_command.."'")
         return false
