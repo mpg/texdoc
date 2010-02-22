@@ -209,7 +209,6 @@ end
 
 -- scan a tree without ls-R file
 function scan_tree (patlist, code, base, cwd, recurse)
-    deb_print('filesea', "Entering directory: "..cwd)
     for file in lfs.dir(base..'/'..cwd) do
         if file ~= '.' and file ~= '..' then
             local f = (cwd == '') and file or cwd..'/'..file
@@ -221,7 +220,6 @@ function scan_tree (patlist, code, base, cwd, recurse)
             end
         end
     end
-    deb_print('filesea', "Leaving directory: "..cwd)
 end
 
 -- scan a ls-R file
@@ -245,9 +243,7 @@ function scan_lsr(patlist, code, cwd, shift)
                 isdoc = true
                 current_dir = string.sub (dir_line, l+1)
                 is_dir[current_dir] = true
-                deb_print('lsrsea', 'Scanning directory: '..current_dir)
             elseif isdoc then
-                deb_print('lsrsea', "Finished scanning: "..shift)
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
         elseif isdoc then

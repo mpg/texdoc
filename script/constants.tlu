@@ -46,7 +46,7 @@ With no NAME, print information about texdoc (--help, --version, --files).
 
   -e, --extensions=L    Set ext_list=L. (Deprecated.)
   -v, --verbosity=N     Set verbosity level to N.
-  -d, --debug[=list]    Debug selected items. (default all: very verbose)
+  -d, --debug[=list]    Debug selected items. (default: all)
 
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf, see output of the --files option.
@@ -90,9 +90,6 @@ known_debugs = {
     config  = {'files'},
     view    = {},
     texdocs = {},
-    filesea = {},
-    lsrsea  = {},
-    kpse    = {'texdocs', 'filesea', 'lsrsea'},
     score   = {},
 }
 
