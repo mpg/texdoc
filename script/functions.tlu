@@ -9,7 +9,7 @@ local L = {}
 load_env(L, {
     'export_symbols',
     'string', 'io', 'os',
-    'pairs', 'ipairs',
+    'pairs', 'ipairs', 'tonumber',
     'C',
     'config',
 })
@@ -29,7 +29,7 @@ end
 -- generic error display function (see the error_priority constant)
 function err_print (lvl, msg)
     -- be careful: maybe config.verbosity_level is not set yet
-    local verbosity_level = config.verbosity_level or 2
+    local verbosity_level = config.verbosity_level or tonumber(C.def_verbosity)
     if C.err_priority[lvl] <= verbosity_level then
         io.stderr:write ("texdoc "..lvl..": "..msg.."\n")
     end

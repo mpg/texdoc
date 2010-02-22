@@ -185,12 +185,30 @@ function setup_config_from_cl(arg)
         elseif string.match(curr_arg, '^%-%-debug=') then
             local value = string.gsub(curr_arg, '^%-%-debug=', '')
             set_config_elt('debug_list', value)
-        -- verbosity
+        -- quiet
+        elseif (curr_arg == '-q') or (curr_arg == '--quiet') then
+            set_config_elt('verbosity_level', C.min_verbosity)
+        -- verbose
+        elseif string.match(curr_arg, '^%-%-verbose') then
+            set_config_elt('verbosity_level', C.max_verbosity)
         elseif string.match(curr_arg, '^%-v') then
             local value = string.gsub(curr_arg, '^%-v=?', '')
-            set_config_elt('verbosity_level', value)
+            if value == '' then
+                set_config_elt('verbosity_level', C.max_verbosity)
+            else -- compatibility syntax
+                err_print('warning',
+                'The -v option does not accept arguments any more.')
+                err_print('warning',
+                'Please use the new syntax -v, --verbose (without argument).')
+                set_config_elt('verbosity_level', value)
+            end
         elseif string.match(curr_arg, '^%-%-verbosity') then
+            -- compatibility syntax
             local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
+            err_print('warning',
+            '--verbosity is deprecated and will be removed soon.')
+            err_print('warning',
+            'Please use the new syntax -v, --verbose (without argument).')
             set_config_elt('verbosity_level', value)
         -- extensions list (deprecated)
         elseif string.match(curr_arg, '^%-e') then
@@ -214,7 +232,7 @@ function setup_config_from_cl(arg)
         -- problem
         else
             err_print('error', "unknown option: "..curr_arg)
-            print (C.error_msg)
+            err_print('error', C.error_msg)
             os.exit(2)
         end
     end
@@ -478,7 +496,7 @@ function setup_config_from_defaults()
         mode                = 'view',
         interact_switch     = 'true',
         machine_switch      = 'false',
-        verbosity_level     = '2',
+        verbosity_level     = C.def_verbosity,
         ext_list            = 'pdf, html, txt, ps, dvi, ',
         badext_list         = 'txt, ',
     }

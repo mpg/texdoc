@@ -29,13 +29,12 @@ With no NAME, print information about texdoc (--help, --version, --files).
 
   -h, --help            Print this help message.
   -V, --version         Print the version number.
-  -f, --files           Print the name of the config files being used.
+  -f, --files           Print the list of configuration files used.
 
   -w, --view            Use view mode: start a viewer. (default)
   -m, --mixed           Use mixed mode (view or list).
   -l, --list            Use list mode: show a list of results.
   -s, --showall         Use showall mode: show also "bad" results.
-  -r, --regex           Use regex mode. (Deprecated.)
   -M, --machine         Machine-readable output (list or showall modes).
 
   -a, --alias           Use the alias table. (default)
@@ -44,9 +43,9 @@ With no NAME, print information about texdoc (--help, --version, --files).
   -i, --interact        Use interactive menus. (default)
   -I, --nointeract      Use plain lists, no interaction required.
 
-  -e, --extensions=L    Set ext_list=L. (Deprecated.)
-  -v, --verbosity=N     Set verbosity level to N.
-  -d, --debug[=list]    Debug selected items. (default: all)
+  -q, --quiet           Suppress warnings and most error messages.
+  -v, --verbose         Print additional information (eg, viewer command).
+  -d, --debug[=list]    Print debug info for selected items (default: all).
 
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf, see output of the --files option.
@@ -83,6 +82,9 @@ err_priority = {
     warning = 2,
     info    = 3,
 }
+min_verbosity='0'
+max_verbosity='3'
+def_verbosity='2'
 
 known_debugs = {
     version = {},
