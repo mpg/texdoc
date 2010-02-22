@@ -1,3 +1,17 @@
+Version 0.66
+------------
+
+Turn the -v=N, --verbosity=N command-line option into a pair of related options
+-v, --verbose and -q, --quiet (more standard, Karl's suggestion). Also remove
+uselessly verbose debug items so --debug is usable again.
+
+Rework help text (Karl's suggestion).
+
+Issue a warning about DISPLAY not being set on generic Unix before trying to
+start a viewer.
+
+Small internal clean-ups.
+
 Version 0.65
 ------------
 
@@ -27,7 +41,7 @@ Version 0.61
 Detect desktop environments (KDE4, KDE, GNOME, XFCE) for viewer selection.
 
 Version 0.60
-------------
+============
 
 Changed the search/alias/score logic. See section 2 of the manual for details,
 but here is a primer:
@@ -36,10 +50,10 @@ but here is a primer:
 
 The beginning of the manual has been completely rewritten.
 
-Bug have been fixed as usual, and probably some others introduced...
+Bugs have been fixed as usual, and probably some others introduced...
 
 Version 0.50
-------------
+============
 
 - New option for machine-readable output.
 - Bugfixes (esp. for zipped file support (Unix only)).
@@ -102,7 +116,7 @@ Documentation update.  Alias additions and fixes as usual. Various bugfixes.
 License switched to GPL.
 
 Version 0.4 (TeX Live 2008)
----------------------------
+===========================
 
 Use our own configuration files, not texmf.cnf. Rework the way viewers are
 handled, and add a few configuration options.

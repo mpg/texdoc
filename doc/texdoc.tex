@@ -163,7 +163,7 @@
 \subtitle{Find \& view documentation in \TeX\ Live}
 \author{\url{http://tug.org/texdoc/}\\
   Manuel Pégourié-Gonnard}
-\date{v0.62 2010-01-05}
+\date{v0.66 2010-02-22}
 
 \begin{document}
 \VerbatimFootnotes
@@ -501,12 +501,17 @@ option is deprecated and will likely be removed soon. It is recommended to set
 ©ext_list© in a configuration file instead. Please protest on the \tdml if you
 want to keep this command-line option.
 
-\begin{cmdsubsub}{-v, --verbosity}{cl-v}
-  -v=«n», --verbosity=«n»
+\begin{cmdsubsub}{-q, --quiet}{cl-q}
+  -q, --quiet
 \end{cmdsubsub}
 
-Set ©verbosity_level© to ©«n»©, see~\ref{cf-verbosity_level}. Be aware that you
-must avoid spaces on the command line, and the ©=© sign is optional.
+Set ©verbosity_level© to minimum, see~\ref{cf-verbosity_level}.
+
+\begin{cmdsubsub}{-v, --verbose}{cl-v}
+  -v, --verbose
+\end{cmdsubsub}
+
+Set ©verbosity_level© to maximum, see~\ref{cf-verbosity_level}.
 
 \begin{cmdsubsub}{-d, --debug}{cl-d}
   -d, -d=«list», --debug, --debug=«list»
@@ -661,17 +666,18 @@ shell construct.
   verbosity_level = «n»
 \end{cmdsubsub}
 
-Set the verbosity level to ©«n»©. 3 means errors, warnings and informational
-message will be printed (on stdout); 2 means only errors and warnings, 1 only
-errors and 0 nothing (not recommended).
+Set the verbosity level to ©«n»© (default: 2). 3 means errors, warnings and
+informational messages will be printed (on stderr); 2 means only errors and
+warnings, 1 only errors and 0 nothing except internal errors (obviously not
+recommended).
 
 \begin{cmdsubsub}{debug_list}{cf-debug_list}
   debug_list = «list»
 \end{cmdsubsub}
 
-Set the list of activated debug items (default: none). For a list of available
-items, see the source code, file ©constants.tlu©, variable ©known_debugs©.
-Debug information is printed on standard error.
+Set the list of activated debug items (default: none; if the option is used
+without arguments, the list defaults to all known debug items). Implies
+©--verbose©. Debug information is printed on standard error.
 
 \begin{cmdsubsub}{machine_switch}{cf-machine_switch}
   machine_switch = «true, false»
@@ -694,7 +700,7 @@ of the line, but the first 3 fields will remain unchanged.
   zipext_list = «list»
 \end{cmdsubsub}
 
-List of supported extension for zipped files (default: empty).  Allows
+List of supported extensions for zipped files (default: empty).  Allows
 compressed files with names like ©foobar.«zip»©, with ©«zip»© in the given
 ©«list»©, to be found and unzipped before the viewer is launched (the
 temporary file will be destroyed right after).
