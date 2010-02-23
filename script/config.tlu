@@ -449,6 +449,7 @@ function setup_config_from_defaults()
     else -- generic Unix
         set_config_ls {
             viewer_dvi      = guess_viewer {
+                {'xdvi',        '(xdvi %s) &'},
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kdvi',        '(kdvi %s) &'},
@@ -459,7 +460,6 @@ function setup_config_from_defaults()
                 {'dvilx',       '(dvilx %s) &'},
                 {'advi',        '(advi %s) &'},
                 {'xdvik-ja',    '(xdvik-ja %s) &'},
-                {'xdvi',        '(xdvi %s) &'},
                 {'see',         '(see %s) &'}
             },
             viewer_html     = guess_viewer {
@@ -475,18 +475,18 @@ function setup_config_from_defaults()
                 {'see',         'see'}
             },
             viewer_pdf      = guess_viewer {
+                {'xpdf',        '(xpdf %s) &'},
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kpdf',        '(kpdf %s) &'},
-                {'xpdf',        '(xpdf %s) &'},
                 {'acroread',    '(xpdf %s) &'},
                 {'see',         '(see %s) &'}
             },
             viewer_ps       = guess_viewer {
+                {'gv',          '(gv %s) &'},
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kghostview',  '(kghostview %s) &'},
-                {'gv',          '(gv %s) &'},
                 {'see',         '(see %s) &'}
             },
             viewer_txt      = guess_viewer {
