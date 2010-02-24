@@ -9,6 +9,7 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
+    'dofile', 'loadfile', 'setfenv',
     'win32_hook', 'parse_zip',
     'get_patterns', 'sort_doclist', 'docfile_quality',
     'config',
@@ -359,7 +360,7 @@ function get_tlroot()
 end
 
 do -- begin scope of tlp_from_runfile and tlp_doclist
-local tlp_from_runfile -- { [runfile_basename] = {tlp1, tlp2, ...}, ... }
+local tlp_from_runfile -- { [runfile_basename] = {tlp1 = true, ...}, ... }
 local tlp_doclist -- { [tlp_name] = { Docfile1, Docfile2, ...}, ... }
 
 -- populate internal databases with information from tlpdb
@@ -422,6 +423,53 @@ function remove_useless_tlp()
     end
 end
 
+-- print out data from tlpdb in dofile()-able form
+function print_out_tlpdb_data(filename)
+    local esc = function(s) return string.format('%q', tostring(s)) end
+    local fh = assert(io.open(filename, 'w'))
+    -- s_meta
+    fh:write('s_meta = {\n')
+    for k, v in pairs(s_meta) do
+        fh:write('  [', esc(k), '] = ', esc(v), ',\n')
+    end
+    fh:write('}\n')
+    -- tlp_from_runfile
+    fh:write('tlp_from_runfile = {\n')
+    for k, v in pairs(tlp_from_runfile) do
+        fh:write('  [', esc(k), '] = {')
+        for f in pairs(v) do fh:write('[', esc(f), ']=true,') end
+        fh:write('},\n')
+    end
+    fh:write('}\n')
+    -- tlp_doclist
+    fh:write('tlp_doclist = {\n')
+    for k, v in pairs(tlp_doclist) do
+        fh:write('  [', esc(k), '] = {\n')
+        for _, f in ipairs(v) do
+            fh:write('    Docfile:new({name=', esc(f.name), ', tree=0}),\n')
+        end
+        fh:write('  },\n')
+    end
+    fh:write('}\n')
+    fh:write('return s_meta, tlp_from_runfile, tlp_doclist\n')
+    fh:close()
+end
+
+-- get pre-hashed tlpdb info from a file
+function fast_init_tlp_database(filename)
+    local build_data = loadfile(filename)
+    local env = {}
+    env.Docfile = Docfile
+    setfenv(build_data, env)
+    s_meta = {}
+    s_meta, tlp_from_runfile, tlp_doclist = build_data()
+end
+
+-- dummy function for testing purpose
+function no_init_tlp_database(filename)
+    tlp_from_runfile, tlp_doclist, s_meta = {}, {}, {}
+end
+
 -- get docfiles for pattern using specific tlpdb information
 function get_doclist_tlpdb(pattern)
     -- runfile to tlp to docfile
@@ -452,6 +500,8 @@ end --scope of tlp_from_runfile, tlp_doclist
 function init_databases()
     init_texdocs_database()
     init_tlp_database()
+    -- fast_init_tlp_database('./test-tlpdb.lua')
+    -- print_out_tlpdb_data('./test-tlpdb.lua')
 end
 
 -- find docfiles according to pattern
