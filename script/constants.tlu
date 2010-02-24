@@ -23,9 +23,9 @@ usage_msg = [[
 Usage: texdoc [OPTION]... [NAME]...
 
 Try to find appropriate TeX documentation for the specified NAME(s).
-The default (view mode) is to display the documentation.
-
 With no NAME, print information about texdoc (--help, --version, --files).
+
+Current settings:
 
   -h, --help            Print this help message.
   -V, --version         Print the version number.
@@ -35,13 +35,13 @@ With no NAME, print information about texdoc (--help, --version, --files).
   -m, --mixed           Use mixed mode (view or list).
   -l, --list            Use list mode: show a list of results.
   -s, --showall         Use showall mode: show also "bad" results.
-  -M, --machine         Machine-readable output (list or showall modes).
-
-  -a, --alias           Use the alias table. (default)
-  -A, --noalias         Don't use the alias table.
 
   -i, --interact        Use interactive menus. (default)
   -I, --nointeract      Use plain lists, no interaction required.
+  -M, --machine         Machine-readable output for lists (implies -I).
+
+  -a, --alias           Use the alias table. (default)
+  -A, --noalias         Don't use the alias table.
 
   -q, --quiet           Suppress warnings and most error messages.
   -v, --verbose         Print additional information (eg, viewer command).
@@ -52,13 +52,14 @@ Files: <texmf>/texdoc/texdoc.cnf, see output of the --files option.
 Homepage: http://tug.org/texdoc/
 Manual: displayed by `texdoc texdoc'.]]
 
-error_msg = [[
-Try `texdoc --help' for a short help, `texdoc texdoc' for the user manual.]]
-notfound_msg = [[
-Sorry, no documentation found for PKGNAME.
-If you are unsure about the name, try searching CTAN's TeX catalogue at
-http://ctan.org/search.html#byDescription.]]
-notfound_msg_ph = 'PKGNAME'
+usage_settings_ph = 'Current settings:' -- keep ../doc/texdoc wrapper in sync!
+usage_settings = {
+    { name = 'mode', view = '--view', mixed = '--mixed', list = '--list',
+        showall = '--showall' },
+    { name = 'interact_switch',
+        [true] = '--interact', [false] = '--nointeract' },
+    { name = 'alias_switch', [true] = '--alias', [false] = '--noalias' },
+}
 
 known_options = {
     'viewer_.*',
@@ -76,6 +77,14 @@ known_options = {
     'unzip_.*',
     'zipext_list',
 }
+
+error_msg = [[
+Try `texdoc --help' for a short help, `texdoc texdoc' for the user manual.]]
+notfound_msg = [[
+Sorry, no documentation found for PKGNAME.
+If you are unsure about the name, try searching CTAN's TeX catalogue at
+http://ctan.org/search.html#byDescription.]]
+notfound_msg_ph = 'PKGNAME'
 
 err_priority = {
     error   = 1,

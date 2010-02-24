@@ -2,5 +2,7 @@
 
 # This fake texdoc is intended to try and make help2man happy
 
-texlua ../script/texdoc.tlu "$@" | sed -e 's/^\([^U][^-:]*:\) /\1\
+texlua ../script/texdoc.tlu "$@" | \
+    grep -v '^Current settings: ' | \
+    sed -e 's/^\([^U][^-:]*:\) /\1\
 \t/'

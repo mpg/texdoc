@@ -8,10 +8,11 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'os',
-    'print', 'ipairs',
+    'ipairs',
     'arg',
     'C',
     'setup_config_and_alias',
+    'print_usage',
     'get_doclist',
     'deliver_results',
 })
@@ -21,7 +22,7 @@ setup_config_and_alias(arg)
 
 -- make sure we actually have argument(s)
 if not arg[1] then
-    print(C.usage_msg)
+    print_usage()
     os.exit(C.exit_usage)
 end
 

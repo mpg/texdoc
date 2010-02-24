@@ -11,7 +11,7 @@ load_env(L, {
     'string', 'table', 'os', 'kpse', 'lfs', 'io',
     'ipairs', 'pairs', 'tonumber', 'tostring', 'setmetatable', 'next', 'print',
     'assert', 'error',
-    'err_print', 'win32_hook', 'deb_print',
+    'err_print', 'win32_hook', 'deb_print', 'print_usage',
     'confline_to_alias', 'confline_to_score',
     'C',
     'config',
@@ -49,6 +49,8 @@ function set_config_element (key, value, context)
     if not is_known then config_warn(key, nil, context, true) return end
     -- exit if key is already set (/!\ must test for nil, not false)
     if not (config[key] == nil) then return nil end
+    -- record the source of the setting
+    real_set_config(key..'_src', context.src)
     -- detect the type of the key
     if string.match(key, '_list$') then
         -- coma-separated list
@@ -143,7 +145,9 @@ function setup_config_from_cl(arg)
         curr_arg = table.remove(arg,1)
         -- special options
         if (curr_arg == '-h') or (curr_arg == '--help') then
-            print (C.usage_msg)
+            setup_config_from_files()
+            setup_config_from_defaults()
+            print_usage()
             os.exit(C.exit_ok)
         elseif (curr_arg == '-V') or (curr_arg == '--version') then
             print (C.progname .. ' ' .. C.version )
