@@ -522,10 +522,10 @@ end
 
 -- the default value of config.alias_switch depends on the mode as follows
 function alias_from_mode (mode) -- /!\ returns a string!
-    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then
-        return 'true'
-    else
+    if (mode == 'regex') then
         return 'false'
+    else
+        return 'true'
     end
 end
 
