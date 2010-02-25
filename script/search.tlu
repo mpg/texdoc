@@ -72,7 +72,11 @@ end
 -- tree = - 1 if and only if file is a sty file. Here name is absolute.
 
 local Docfile = {}
-Docfile.__index = Docfile
+function Docfile:__index(key)
+    if Docfile[key] then return Docfile[key] end
+    local getter = Docfile['get_'..key]
+    if getter then self[key] = getter return self[key] end
+end
 
 -- create a new docfile objet using initilisation info
 -- fields : name (relative to tree), tree, pattern
@@ -125,7 +129,7 @@ function Docfile:mergein(df)
 end
 
 -- from score.tlu
-Docfile.quality = docfile_quality
+Docfile.get_quality = docfile_quality
 
 ---------------------   manage TEXDOCS trees à la kpse   ----------------------
 

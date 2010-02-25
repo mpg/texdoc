@@ -103,7 +103,7 @@ function print_menu(name, doclist, showall)
             n = #doclist
         else
             n = 0
-            while doclist[n+1] and doclist[n+1]:quality() == 'good' do
+            while doclist[n+1] and doclist[n+1].quality == 'good' do
                 n = n + 1
             end
         end
@@ -119,8 +119,8 @@ function print_menu(name, doclist, showall)
     end
     local i, doc
     for i, doc in ipairs (doclist) do
-        if doc:quality() == 'killed' then break end
-        if doc:quality() ~= 'good' and not showall then break end
+        if doc.quality == 'killed' then break end
+        if doc.quality ~= 'good' and not showall then break end
         if config.machine_switch == true then
             print(name, doc.score, doc.realpath, doc.meta or '')
         else
@@ -143,7 +143,7 @@ end
 
 function deliver_results(name, doclist, many)
     -- ensure that results were found or apologize
-    if not doclist[1] or doclist[1]:quality() == 'killed' then
+    if not doclist[1] or doclist[1].quality == 'killed' then
         if not config.machine_switch then
             local msg = string.gsub(C.notfound_msg, C.notfound_msg_ph, name)
             print(msg) -- get rid of gsub's 2nd value
@@ -152,14 +152,14 @@ function deliver_results(name, doclist, many)
     end
     -- shall we show all of them or only the "good" ones?
     local showall = (config.mode == 'regex') or (config.mode == 'showall')
-    if not showall and doclist[1]:quality() ~= 'good' then
+    if not showall and doclist[1].quality ~= 'good' then
         showall = true
         err_print('info', 'No good result found, showing all results.')
     end
     -- view result or show menu based on mode and number of results
     if (config.mode == 'view')
         or config.mode == 'mixed' and (not doclist[2]
-            or (doclist[2]:quality() ~= 'good' and not showall)) then
+            or (doclist[2].quality ~= 'good' and not showall)) then
         view_doc(doclist[1])
     else
         if many and not config.machine_switch then 
