@@ -72,6 +72,7 @@ known_options = {
     'rm_file',
     'unzip_.*',
     'zipext_list',
+    'max_lines',
 }
 
 error_msg = [[

@@ -1,8 +1,6 @@
 Small items
 ===========
 
-Turn max_lines into a real config item.
-
 Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 
 Big stuff planned

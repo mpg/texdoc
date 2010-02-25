@@ -516,6 +516,7 @@ function setup_config_from_defaults()
         badext_list         = 'txt, ',
         verbosity_level     = C.def_verbosity,
         debug_list          = '',
+        max_lines           = '20',
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
