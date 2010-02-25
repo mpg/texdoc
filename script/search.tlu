@@ -11,7 +11,7 @@ load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
     'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
     'win32_hook', 'parse_zip',
-    'get_patterns', 'sort_doclist', 'docfile_quality',
+    'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos',
     'config',
 })
 
@@ -132,7 +132,7 @@ end
 
 -- normalise a name from the tlpdb (use for s_meta indexes)
 function reloc_tlpdb_path(name)
-    return (string.gsub(name, '^texmf[^/]*/doc/', '', 1))
+    return string.gsub(name, '^texmf[^/]*/doc/', '', 1)
 end
 
 -- return normalised name
@@ -154,6 +154,11 @@ function Docfile:get_shortname()
     return '/'..name
 end
 
+-- return the base name
+function Docfile:get_basename()
+    return string.gsub(self.name, '.*/', '', 1)
+end
+
 -- for interface consistency, matches should always be a table, never nil
 function Docfile:get_matches()
     return {}
@@ -161,6 +166,11 @@ end
 
 -- from score.tlu
 Docfile.get_quality = docfile_quality
+
+-- from score.tlu
+function Docfile:get_ext_pos()
+    return ext_pos(self.basename)
+end
 
 ---------------------   manage TEXDOCS trees à la kpse   ----------------------
 

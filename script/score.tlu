@@ -59,10 +59,10 @@ end
 function set_score(df, original_kw)
     -- scoring is irrelevant in regex mode
     if config.mode == 'regex' then df.score = 0 return end
-    deb_print('score', 'Start scoring '..df.realpath)
-    deb_print('score', 'Name used: '..df.name)
     -- scoring is case-insenstitive (patterns are already lowercased)
-    local name = string.lower(df.name)
+    local name = string.lower(df.shortname)
+    deb_print('score', 'Start scoring '..df.realpath)
+    deb_print('score', 'Name used: '..name)
     -- get score from patterns
     local score = 0
     for _, pat in ipairs(df.matches) do
@@ -189,30 +189,21 @@ end
 -- compare two docfile's: (see search.tlu for structure)
 -- 1. by score
 -- 2. then by extensions (ordered as in ext_list),
--- 3. then by tree,
--- 4. then lexicographically by filename.
+-- 3. then lexicographically by filename.
+-- 4. then by tree.
 -- return true if a is better than b
 function docfile_order (a, b)
-    if a.score > b.score then
-        return true
-    elseif a.score < b.score then
-        return false
-    else
-        a.ext_pos = a.ext_pos or ext_pos(a.name)
-        b.ext_pos = b.ext_pos or ext_pos(b.name)
-        if a.ext_pos < b.ext_pos then
-            return true
-        elseif a.ext_pos > b.ext_pos then
-            return false
-        elseif a.tree > b.tree then
-            return true
-        elseif a.tree < b.tree then
-            return false
-        else
-            return (a.name < b.name)
-        end
+    if     a.score > b.score        then return true
+    elseif a.score < b.score        then return false
+    elseif a.ext_pos < b.ext_pos    then return true
+    elseif a.ext_pos > b.ext_pos    then return false
+    elseif a.basename < b.basename  then return true
+    elseif a.basename > b.basename  then return false
+    else return (a.tree > b.tree)
     end
 end
+
+-----------------------------   public functions   -----------------------------
 
 -- returns the index of the most specific extension of file in ext_list,
 -- or config.ext_list_max + 1
@@ -236,8 +227,6 @@ function ext_pos(file)
     return pos or (config.ext_list_max + 1)
 end
 
------------------------------   public functions   -----------------------------
-
 -- return the "quality" of docfile
 function docfile_quality(df)
     if df.score > 0 then
@@ -260,5 +249,6 @@ end
 export_symbols(L, {
     'sort_doclist',
     'docfile_quality',
+    'ext_pos',
     'confline_to_score',
 })
