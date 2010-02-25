@@ -9,7 +9,7 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
-    'dofile', 'loadfile', 'setfenv',
+    'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
     'win32_hook', 'parse_zip',
     'get_patterns', 'sort_doclist', 'docfile_quality',
     'config',
@@ -19,17 +19,19 @@ load_env(L, {
 
 -- shared by all functions in this file
 local s_doclist -- the Doclist objet to be populated by various functions
-local s_meta -- {[realpath] = meta, ...} (populated by init_tlp_database)
+local s_meta -- {[normname] = meta, ...} (populated by init_tlp_database)
 
 -----------------------   docfile and doclist objects   ------------------------
 
--- doclist = {
---     [1] = docfile1, [2] = docfiles2, ...,
---     inv = { realpath1 = index1, ... }
--- }
---
--- The inv subtable is such that for all i
--- doclist.inv(doclist[i].realpath) == i
+--[[
+doclist = {
+    [1] = docfile1, [2] = docfiles2, ...,
+    inv = { realpath1 = index1, ... }
+}
+
+The inv subtable is such that for all i
+doclist.inv(doclist[i].realpath) == i
+--]]
 
 local Doclist = {}
 Doclist.__index = Doclist
@@ -58,74 +60,103 @@ function Doclist:stop()
     self.inv = nil
 end
 
--- docfile = {
---     realpath = full path
---     name     = filename (used for scoring only)
---     tree     = code of the tree, see below
---     matches  = {pattern1, pattern2, ...}
---     runtodoc = true if there is a runfile -> docfile association
---     tlptodoc = true if there is a tlp name -> docfile association
---     meta     = metadata from the ctalogue (tlpdb) as a plain string
--- }
--- if tree > 1, this is the index of the tree in TEXDOCS
--- if tree = 0, then name is relative to TLROOT (file found from tlpdb only)
--- tree = - 1 if and only if file is a sty file. Here name is absolute.
+--[[
+docfile = {
+    -- name and tree are mendatory
+    name     = filename (used for scoring only)
+    tree     = code of the tree, see below
+    -- at least one of the following fields should exist
+    matches  = {pattern1, pattern2, ...}
+    runtodoc = true if there is a runfile -> docfile association
+    tlptodoc = true if there is a tlp name -> docfile association
+    -- those are virtual members, see below
+    meta     = metadata from the catalogue (tlpdb) as a plain string
+    realpath = full path
+}
+if tree > 1, this is the index of the tree in TEXDOCS
+if tree = 0, then name is relative to TLROOT (file found from tlpdb only)
+tree = - 1 if and only if file is a sty file. Here name is absolute.
+--]]
 
+-- Docfile objects inherit members from Docfile
+-- and have virtual members implemented by get_<member>() methods
+-- for best cache performance, getters should not return nil
 local Docfile = {}
 function Docfile:__index(key)
     if Docfile[key] then return Docfile[key] end
     local getter = Docfile['get_'..key]
-    if getter then self[key] = getter return self[key] end
+    if getter then
+        rawset(self, key, getter(self))
+        return rawget(self, key)
+    end
 end
 
 -- create a new docfile objet using initilisation info
--- fields : name (relative to tree), tree, pattern
+-- required fields: name, tree
 function Docfile:new(info)
     local df = {}
     setmetatable(df, self)
-    -- get realpath, tree and prepare name
-    df.tree = info.tree
-    local name = info.name
-    if info.tree > 0 then
-        df.realpath = texdocs_tree_to_path(info.tree, name)
-    elseif info.tree == 0 then
-        df.realpath = get_tlroot()..'/'..info.name
-        name = string.gsub(name, '^texmf(-dist)?/doc/', '', 1)
-    elseif info.tree == -1 then
-        df.realpath = name
-    else
-        error('Internal error: bad tree number')
-    end
-    -- remove first component of name if at least two directory levels
-    if info.tree > -1 then
-        local shortname = string.match(name, '^..-/(.+/.+)$')
-        if shortname then
-            df.name = '/'..shortname
+    for k, v in pairs(info) do
+        if k == 'pattern' then
+            df.matches = { info.pattern }
         else
-            df.name = name
+            df[k] = v
         end
-    else
-        df.name = name
-    end
-    -- initialise the list of matches
-    if info.pattern then
-        df.matches = { info.pattern }
-    else
-        df.matches = {}
     end
     return df
 end
 
--- merge a second docfile objet into self
+-- merge a second docfile objet in, assuming it represents the same file
 function Docfile:mergein(df)
-    if df.tree > self.tree then
-        self.name = df.name
-        self.tree = df.tree
+    for k, v in pairs(df) do
+        if k == 'matches' then
+            for _, m in ipairs(df.matches or {}) do
+                table.insert(self.matches, m)
+            end
+        else
+            self[k] = v
+        end
     end
-    for _, m in ipairs(df.matches) do
-        table.insert(self.matches, m)
+end
+
+-- return the full path to the file
+function Docfile:get_realpath()
+    if self.tree > 0 then 
+        return texdocs_tree_to_path(self.tree, self.name)
+    elseif self.tree == 0 then
+        return get_tlroot()..'/'..self.name
+    else
+        return self.name
     end
-    if df.meta and not self.meta then self.meta = df.meta end
+end
+
+-- normalise a name from the tlpdb (use for s_meta indexes)
+function reloc_tlpdb_path(name)
+    return (string.gsub(name, '^texmf[^/]*/doc/', '', 1))
+end
+
+-- return normalised name
+function Docfile:get_normname()
+    return (self.tree == 0) and reloc_tlpdb_path(self.name) or self.name
+end
+
+-- retrieve the associated meta information
+function Docfile:get_meta()
+    return s_meta[self.normname] or false
+end
+
+-- return the short name used for scoring
+function Docfile:get_shortname()
+    if self.tree == -1 then return self.name end
+    local name = self.normname
+    -- remove first component of name if at least two directory levels
+    name = string.match(name, '^..-/(.+/.+)$') or name
+    return '/'..name
+end
+
+-- for interface consistency, matches should always be a table, never nil
+function Docfile:get_matches()
+    return {}
 end
 
 -- from score.tlu
@@ -371,7 +402,7 @@ function init_tlp_database()
                 if check_ext(string.lower(file)) then
                     -- we've got a docfile here, add it
                     table.insert(tlp_doclist[curr_tlp], file)
-                    s_meta[file] = meta
+                    s_meta[reloc_tlpdb_path(file)] = meta
                 end
             end
         elseif state == 'runfiles' then
