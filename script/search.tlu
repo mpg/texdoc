@@ -177,13 +177,12 @@ end
 do -- scope of doc_roots
 local doc_roots
 
--- doc_roots is a Lua version of kpse's TEXDOCS
--- structure of the doc_roots variable:
--- doc_roots[i] = {
---     path                 = <path>,
---     index_mandatory      = <does path begin with !! in TEXDOCS?>
---     recursion_allowed    = <does path ends with // in TEXDOCS?>,
--- }
+--[[
+doc_roots[i] = {
+    path    = initial path,
+    db      = { [file1] = basename1, [file2] = basename2, ... },
+}
+--]]
 
 -- populate the doc_roots filename databases
 function init_texdocs_database()
@@ -212,9 +211,9 @@ function init_texdocs_database()
                 'texdocs[%d] using index: %s (shift=%s)', i, root, shift))
             db = init_lsr_db(root, shift)
         elseif not index_mandatory and lfs.isdir(path) then
-            db = init_tree_db(path, recursion_allowed)
             deb_print('texdocs', string.format(
                 'texdocs[%d] using filesystem search', i))
+            db = init_tree_db(path, recursion_allowed)
         end
         -- register this in docroots
         doc_roots[i] = { path = path, db = db }
@@ -235,7 +234,7 @@ end
 
 end -- scope of doc_roots
 
--- find a ls-R file in a parent directory an return it or nil
+-- find a ls-R file in a parent directory and return it or nil
 function lsr_root (path)
     if not lfs.isdir (path) then return end
     local root, shift = path, ''
@@ -277,7 +276,7 @@ function init_lsr_db(root, shift)
             end
         elseif isdoc then
             local file = current_dir..'/'..line
-            db[file] = line
+            if check_ext(line) then db[file] = line end
         end
     end
     lsr:close()
@@ -294,7 +293,7 @@ function init_tree_db(base, recurse)
                 if lfs.isdir(base..'/'..f) then
                     if recurse then init_tree_db_rec(f) end
                 else
-                    db[f] = file
+                    if check_ext(file) then db[f] = file end
                 end
             end
         end
@@ -343,18 +342,15 @@ function process_file(patlist, file, pathfile, code)
     for _, pattern in ipairs(patlist) do
         if string.find(string.lower(pathfile), string.lower(pattern.name),
                 1, config.mode ~= 'regex') then
-            local good_ext = check_ext(file)
-            if good_ext then
-                local info = {
-                    name    = pathfile,
-                    tree    = code,
-                    pattern = pattern,
-                }
-                if docfile then
-                    docfile:mergein(Docfile:new(info))
-                else
-                    docfile = Docfile:new(info)
-                end
+            local info = {
+                name    = pathfile,
+                tree    = code,
+                pattern = pattern,
+            }
+            if docfile then
+                docfile:mergein(Docfile:new(info))
+            else
+                docfile = Docfile:new(info)
             end
         end
     end
@@ -409,7 +405,7 @@ function init_tlp_database()
             else
                 local file = string.match(line, '^ ([^ ]*)')
                 local meta = string.match(line, '^ [^ ]* (.+)')
-                if check_ext(string.lower(file)) then
+                if check_ext(file) then
                     -- we've got a docfile here, add it
                     table.insert(tlp_doclist[curr_tlp], file)
                     s_meta[reloc_tlpdb_path(file)] = meta
