@@ -109,21 +109,6 @@ function Docfile:new(info)
     else
         df.matches = {}
     end
-    -- try to get meta information
-    if info.meta then
-        df.meta = info.meta
-    else
-        df.meta = s_meta[df.realpath]
-    end
-    return df
-end
-
--- copy a docfile, possibly adding some new fields, without any check
-function Docfile:copy(old, info)
-    local df = {}
-    setmetatable(df, self)
-    for k, v in pairs(old)  do df[k] = v end
-    for k, v in pairs(info) do df[k] = v end
     return df
 end
 
@@ -361,7 +346,7 @@ end
 
 do -- begin scope of tlp_from_runfile and tlp_doclist
 local tlp_from_runfile -- { [runfile_basename] = {tlp1 = true, ...}, ... }
-local tlp_doclist -- { [tlp_name] = { Docfile1, Docfile2, ...}, ... }
+local tlp_doclist -- { [tlp_name] = { relname1, relname2, ...}, ... }
 
 -- populate internal databases with information from tlpdb
 function init_tlp_database()
@@ -381,13 +366,8 @@ function init_tlp_database()
                 local meta = string.match(line, '^ [^ ]* (.+)')
                 if check_ext(string.lower(file)) then
                     -- we've got a docfile here, add it
-                    docfile = Docfile:new({
-                        name    = file,
-                        tree    = 0,
-                        meta    = meta,
-                    })
-                    table.insert(tlp_doclist[curr_tlp], docfile)
-                    s_meta[docfile.realpath] = meta
+                    table.insert(tlp_doclist[curr_tlp], file)
+                    s_meta[file] = meta
                 end
             end
         elseif state == 'runfiles' then
@@ -446,7 +426,7 @@ function print_out_tlpdb_data(filename)
     for k, v in pairs(tlp_doclist) do
         fh:write('  [', esc(k), '] = {\n')
         for _, f in ipairs(v) do
-            fh:write('    Docfile:new({name=', esc(f.name), ', tree=0}),\n')
+            fh:write('    ', esc(f) ,',\n')
         end
         fh:write('  },\n')
     end
@@ -457,12 +437,7 @@ end
 
 -- get pre-hashed tlpdb info from a file
 function fast_init_tlp_database(filename)
-    local build_data = loadfile(filename)
-    local env = {}
-    env.Docfile = Docfile
-    setfenv(build_data, env)
-    s_meta = {}
-    s_meta, tlp_from_runfile, tlp_doclist = build_data()
+    s_meta, tlp_from_runfile, tlp_doclist = dofile(filename)
 end
 
 -- dummy function for testing purpose
@@ -475,19 +450,23 @@ function get_doclist_tlpdb(pattern)
     -- runfile to tlp to docfile
     if tlp_from_runfile[pattern] then
         for tlp in pairs(tlp_from_runfile[pattern]) do
-            for _, df in ipairs(tlp_doclist[tlp]) do
-                s_doclist:add(Docfile:copy(df, {
-                    runtodoc = true,
-                }))
+            for _, file in ipairs(tlp_doclist[tlp]) do
+                s_doclist:add(Docfile:new{
+                    name        = file,
+                    tree        = 0,
+                    runtodoc    = true,
+                })
             end
         end
     end
     -- tlp name to docfile
     if tlp_doclist[pattern] then
-        for _, df in ipairs(tlp_doclist[pattern]) do
-            s_doclist:add(Docfile:copy(df, {
-                tlptodoc = true,
-            }))
+        for _, file in ipairs(tlp_doclist[pattern]) do
+            s_doclist:add(Docfile:new{
+                name            = file,
+                tree            = 0,
+                tlptodoc        = true,
+            })
         end
     end
 end
@@ -499,6 +478,7 @@ end --scope of tlp_from_runfile, tlp_doclist
 -- initialise the various databases (must be called first)
 function init_databases()
     init_texdocs_database()
+    -- no_init_tlp_database()
     init_tlp_database()
     -- fast_init_tlp_database('./test-tlpdb.lua')
     -- print_out_tlpdb_data('./test-tlpdb.lua')
