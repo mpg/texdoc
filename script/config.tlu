@@ -86,6 +86,17 @@ function set_config_element (key, value, context)
     else -- string
         real_set_config(key, value)
     end
+    -- alias_switch is depecated
+    if key == 'alias_switch' and context.src ~= 'def' then
+        err_print('warning',
+        'Command-line options -a, --alias, -A, --noalias, as well as')
+        err_print('warning',
+        'configuration item alias_switch, are deprecated')
+        err_print('warning',
+        'and will soon be removed.')
+        err_print('warning',
+        'Please protest on the texdoc mailing list if you need it.')
+    end
     -- special case: if we just set debug_list, print version info now
     if key == 'debug_list' then
         deb_print('version', C.fullname..' version '..C.version)

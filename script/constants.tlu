@@ -40,9 +40,6 @@ Current settings:
   -I, --nointeract      Use plain lists, no interaction required.
   -M, --machine         Machine-readable output for lists (implies -I).
 
-  -a, --alias           Use the alias table. (default)
-  -A, --noalias         Don't use the alias table.
-
   -q, --quiet           Suppress warnings and most error messages.
   -v, --verbose         Print additional information (eg, viewer command).
   -d, --debug[=list]    Print debug info for selected items (default: all).
@@ -58,7 +55,6 @@ usage_settings = {
         showall = '--showall' },
     { name = 'interact_switch',
         [true] = '--interact', [false] = '--nointeract' },
-    { name = 'alias_switch', [true] = '--alias', [false] = '--noalias' },
 }
 
 known_options = {
