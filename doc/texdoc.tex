@@ -207,7 +207,8 @@ Usually, \texdoc shows you only results it considers relevant. If there are no
 using the ``showall'' mode. (This implies using a menu rather than starting a
 viewer.)
 
-You can select with command-line options: use ©texdoc «option» «name»© with
+You can select the mode with command-line options: use 
+©texdoc «option» «name»© with
 one of the following options: ©-w© or ©--view© for view mode, ©-m© or
 ©--mixed© for mixed mode, ©-l© or ©--list© for list mode, ©-s© or ©--showall©
 for showall mode.
@@ -317,7 +318,7 @@ about how a file can match keyword first (all matching is case-insensitive):
     (there is no space in file names in \TeX\ Live) and a subword is a
     substring both ends of which are a word boundary.
   \item The keyword can match ``exactly'' the file name: that is, the file
-    name is the keyword + and extension.
+    name is the keyword plus an extension.
 \end{enumerate}
 
 \subsection{Alias directives}\label{ss-alias}
@@ -357,10 +358,6 @@ default configuration, they will add up. You can prevent the default aliases
 from begin applied for a particular keyword by saying ©stopalias «keyword»© in
 your personal configuration file. It will keep the aliases defined before
 this directive (if any) and prevent all further aliasing on this keyword.
-
-If, for some reason, you want to prevent any alias from begin used for one
-particular session of texdoc, you can use the ©-A© or ©--noalias© command-line
-option (see~\ref{cl-a}).
 
 \subsection{Score directives}\label{ss-score}
 
@@ -456,35 +453,28 @@ item.
   -h, --help
 \end{cmdsubsub}
 
-Shows a quick help message (namely a list of command-line options) and exits
+Show a quick help message (namely a list of command-line options) and exit
 successfully.
 
 \begin{cmdsubsub}{-V, --version}{cl-V}
   -V, --version
 \end{cmdsubsub}
 
-Show the current version of the program and exits successfully.
+Show the current version of the program and exit successfully.
 
 \begin{cmdsubsub}{-f, --files}{cl-f}
   -f, --files
 \end{cmdsubsub}
 
-Shows the list of the configuration files for the current installation and
+Show the list of the configuration files for the current installation and
 platform, with their status (active, not found, or disabled
-(see~\ref{cf-lastfile_switch})) and exits successfully.
+(see~\ref{cf-lastfile_switch})) and exit successfully.
 
-\begin{cmdsubsub}{-w, -l, -m, -s, -r, --view, --list, --mixed, --showall,
-    --regex}{cl-mode}
-  -w, --view, -l, --list, -m, --mixed, -s, --showall, -r, --regex
+\begin{cmdsubsub}{-w, -l, -m, -s, --view, --list, --mixed, --showall}{cl-mode}
+  -w, --view, -l, --list, -m, --mixed, -s, --showall
 \end{cmdsubsub}
 
-\hfill Set ©mode© to the given value, see~\ref{cf-mode}.
-
-\begin{cmdsubsub}{-a, -A, --alias, --noalias}{cl-a}
-  -a, --alias, -A, --noalias
-\end{cmdsubsub}
-
-Set ©alias_switch© true (resp. false), see~\ref{cf-alias_switch}
+Set ©mode© to the given value, see~\ref{cf-mode}.
 
 \begin{cmdsubsub}{-i, -I, --interact, --nointeract}{cl-i}
   -i, --interact, -I, --nointeract
@@ -492,14 +482,11 @@ Set ©alias_switch© true (resp. false), see~\ref{cf-alias_switch}
 
 Set ©interact_switch© to true (resp. false), see~\ref{cf-interact_switch}.
 
-\begin{cmdsubsub}{-e, --extensions}{cl-e}
-  -e=«l», --extensions=«l»
+\begin{cmdsubsub}{-M, --machine}{cl-M}
+  -M, --machine
 \end{cmdsubsub}
 
-Set ©ext_list©, see~\ref{cf-ext_list}. \textbf{Warning}: this command-line
-option is deprecated and will likely be removed soon. It is recommended to set
-©ext_list© in a configuration file instead. Please protest on the \tdml if you
-want to keep this command-line option.
+Set ©machine_switch© to true, see~\ref{cf-machine_switch}.
 
 \begin{cmdsubsub}{-q, --quiet}{cl-q}
   -q, --quiet
@@ -519,12 +506,6 @@ Set ©verbosity_level© to maximum, see~\ref{cf-verbosity_level}.
 
 Set ©debug_list©, see~\ref{cf-debug_list}. If not list is given, activates all
 available debug items.
-
-\begin{cmdsubsub}{-M, --machine}{cl-M}
-  -M, --machine
-\end{cmdsubsub}
-
-Set ©machine_switch© to true, see~\ref{cf-machine_switch}.
 
 \subsection{Environment variables}\label{ss-envvar}
 
@@ -584,15 +565,10 @@ except when the name of the ©«configuration item»© ends with:
 In these cases, an improper ©«value»© will raise a warning too.
 
 \begin{cmdsubsub}{mode}{cf-mode}
-  mode = «view, list, mixed, showall, regex»
+  mode = «view, list, mixed, showall»
 \end{cmdsubsub}
-Set the  mode to the given value.  Default is ©view©. All mode except regex
+Set the  mode to the given value.  Default is ©view©. The various modes
 have been presented in~\ref{ss-modes}.
-
-In regex mode, the given name is interpreted as a Lua regex, and only files
-whose full name (including path) matches it are found. Alias and score
-mechanisms are disabled.  \textbf{Warning}: this mode is deprecated and will
-likely be removed soon.  Please protest on the \tdml if you want it to stay.
 
 \begin{cmdsubsub}{interact}{cf-interact_switch}
   interact_switch = «true, false»
@@ -630,15 +606,14 @@ recognised:
 There is a very special case: if the searched ©«name»© has ©.sty© extension,
 \texdoc enters a special search mode for ©.sty© files (not located in the same
 place as real documentation files) for this ©«name»©, indepandantly of the
-current value of ©ext_list© and ©mode© (unless it is the ©regex© mode). In an
-ideal world, this wouldn't be necessary since every sty file would have a
-proper documentation in pdf, html or plain text, but\dots
+current value of ©ext_list© and ©mode©. In an ideal world, this wouldn't be
+necessary since every sty file would have a proper documentation in pdf, html
+or plain text, but\dots
 
-For each ©«ext»© in ©ext_list© there should be a corresponding
-©viewer_«ext»© value set.  Defaults are defined corresponding to the default
-©ext_list©, but you can add values if you want.  For example, if you want
-\texdoc to be able to find man pages and display them with the ©man© command,
-you can use
+For each ©«ext»© in ©ext_list© there should be a corresponding ©viewer_«ext»©
+value set.  Defaults are defined corresponding to the default ©ext_list©, but
+you can add values if you want.  For example, if you want \texdoc to be able
+to find man pages and display them with the ©man© command, you can use
 \begin{htcode}
   ext_list = pdf, html, 1, 5, txt, dvi, ps,
   viewer_1 = man
