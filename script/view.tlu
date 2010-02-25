@@ -82,7 +82,15 @@ function try_viewing (view_command, viewer_replacement)
     else
         view_command = view_command..' '..viewer_replacement
     end
-    deb_print('view', 'View comand: '..view_command)
+    -- try to catch problems with missing DISPLAY on Unix
+    if os.type == 'unix' and not (os.name == 'macosx')
+            and os.getenv('DISPLAY') == nil then
+        err_print('warning',
+        "DISPLAY is not set. Things may go wrong with you viewer.")
+        err_print('warning',
+        "Try --list if you want results to be listed, not displayed.")
+    end
+    err_print('info', 'View comand: '..view_command)
     if not os.execute(view_command) then
         err_print('error', "Failed to execute '"..view_command.."'")
         return false

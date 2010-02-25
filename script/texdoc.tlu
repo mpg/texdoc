@@ -94,4 +94,4 @@ texdoc_do('view')
 texdoc_do('main')
 
 -- the end
-os.exit(0)
+os.exit(C.exit_ok)

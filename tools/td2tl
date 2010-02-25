@@ -126,7 +126,8 @@ while (my ($s, $d) = each %files) {
 }
 
 # print some information
-print "Done. In order to commit, use:\ncd $texlive_path\nsvn ci ";
-print join(' ', keys %touched_dir), "\n";
+chdir $texlive_path or die "Failed to chdir $texlive_path: $!\n";
+my $svn_cl = "svn ci " . join(' ', keys %touched_dir);
+exec $svn_cl or die "boo";
 
 __END__

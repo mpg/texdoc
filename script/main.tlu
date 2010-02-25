@@ -19,8 +19,8 @@ init_databases()
 
 -- make sure we actually have argument(s)
 if not arg[1] then
-    print(C.usage_msg)
-    os.exit(2)
+    print_usage()
+    os.exit(C.exit_usage)
 end
 
 -- main loop

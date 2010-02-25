@@ -9,7 +9,7 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'os', 'kpse', 'lfs', 'io', 'setmetatable', 'print',
-    'win32_hook', 'confline_to_alias', 'confline_to_score',
+    'win32_hook', 'confline_to_alias', 'confline_to_score', 'print_usage',
     'config',
 })
 
@@ -45,10 +45,17 @@ function set_config_element (key, value, context)
     if not is_known then config_warn(key, nil, context, true) return end
     -- exit if key is already set (/!\ must test for nil, not false)
     if not (config[key] == nil) then return nil end
+    -- record the source of the setting
+    real_set_config(key..'_src', context.src)
     -- detect the type of the key
     if string.match(key, '_list$') then
         -- coma-separated list
-        local values = string.explode(value, ',')
+        local values
+        if value == '' then
+            values = {}
+        else
+            values = string.explode(value, ',')
+        end
         local inverse = {}
         for i, j in ipairs(values) do -- sanitize values...
             j = string.gsub(j, '%s*$', '')
@@ -134,16 +141,18 @@ function setup_config_from_cl(arg)
         curr_arg = table.remove(arg,1)
         -- special options
         if (curr_arg == '-h') or (curr_arg == '--help') then
-            print (C.usage_msg)
-            os.exit(0)
+            setup_config_from_files()
+            setup_config_from_defaults()
+            print_usage()
+            os.exit(C.exit_ok)
         elseif (curr_arg == '-V') or (curr_arg == '--version') then
             print (C.progname .. ' ' .. C.version )
-            os.exit(0)
+            os.exit(C.exit_ok)
         elseif (curr_arg == '-f') or (curr_arg == '--files') then
             print (C.progname .. ' ' .. C.version )
             setup_config_from_files ()
             show_config_files (print, true)
-            os.exit(0)
+            os.exit(C.exit_ok)
         -- options related to mode
         elseif (curr_arg == '-w') or (curr_arg == '--view') then
             set_config_elt('mode', 'view')
@@ -181,12 +190,30 @@ function setup_config_from_cl(arg)
         elseif string.match(curr_arg, '^%-%-debug=') then
             local value = string.gsub(curr_arg, '^%-%-debug=', '')
             set_config_elt('debug_list', value)
-        -- verbosity
+        -- quiet
+        elseif (curr_arg == '-q') or (curr_arg == '--quiet') then
+            set_config_elt('verbosity_level', C.min_verbosity)
+        -- verbose
+        elseif string.match(curr_arg, '^%-%-verbose') then
+            set_config_elt('verbosity_level', C.max_verbosity)
         elseif string.match(curr_arg, '^%-v') then
             local value = string.gsub(curr_arg, '^%-v=?', '')
-            set_config_elt('verbosity_level', value)
+            if value == '' then
+                set_config_elt('verbosity_level', C.max_verbosity)
+            else -- compatibility syntax
+                err_print('warning',
+                'The -v option does not accept arguments any more.')
+                err_print('warning',
+                'Please use the new syntax -v, --verbose (without argument).')
+                set_config_elt('verbosity_level', value)
+            end
         elseif string.match(curr_arg, '^%-%-verbosity') then
+            -- compatibility syntax
             local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
+            err_print('warning',
+            '--verbosity is deprecated and will be removed soon.')
+            err_print('warning',
+            'Please use the new syntax -v, --verbose (without argument).')
             set_config_elt('verbosity_level', value)
         -- extensions list (deprecated)
         elseif string.match(curr_arg, '^%-e') then
@@ -210,8 +237,8 @@ function setup_config_from_cl(arg)
         -- problem
         else
             err_print('error', "unknown option: "..curr_arg)
-            print (C.error_msg)
-            os.exit(2)
+            err_print('error', C.error_msg)
+            os.exit(C.exit_usage)
         end
     end
 end
@@ -277,8 +304,7 @@ function confline_to_config(line, file, pos)
     return false
 end
 
-
--- return a table with config file and if they exist
+-- return the list of configuration files and the index of the recommended file
 function get_config_files ()
     local platform = string.match (kpse.var_value ('SELFAUTOLOC'), '.*/(.*)$')
     local TEXMFHOME  = kpse.var_value ('TEXMFHOME')
@@ -290,8 +316,8 @@ function get_config_files ()
         TEXMFHOME  .. '/texdoc/texdoc-dist.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc-'..platform..'.cnf',
         TEXMFLOCAL .. '/texdoc/texdoc.cnf',
-        TEXMFMAIN  .. '/texdoc/texdoc.cnf'
-    }
+        TEXMFMAIN  .. '/texdoc/texdoc.cnf',
+    }, 2
 end
 
 -- the config_files table is shared by the next two functions
@@ -300,14 +326,17 @@ local config_files = {}
 
 -- set config/aliases from all config files
 function setup_config_from_files ()
-    for i, file in ipairs (get_config_files ()) do
+    local file_list, good_index = get_config_files()
+    for i, file in ipairs (file_list) do
         local found = lfs.isfile(file)
+        local status = found and (config.lastfile_switch
+            and 'disabled' or 'active') or 'absent'
         config_files[i] = {
             path = file,
-            status = found and (config.lastfile_switch
-            and 'disabled' or 'active') or 'absent',
+            status = status,
+            good = (i == good_index),
         }
-        if config_files[i].status == 'active' then
+        if status == 'active' then
             read_config_file (file)
         end
     end
@@ -317,9 +346,9 @@ end
 function show_config_files (print_fun, prefix)
     print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
-        local home = prefix and
-        ((i==2) and "(*) " or "    ") -- home conffile is the 2nd
-        or ''
+        local home = prefix
+            and (file.good and "(*) " or "    ")
+            or ''
         print_fun (home..file.status..'\t'..win32_hook(file.path))
     end
     if prefix then
@@ -378,10 +407,10 @@ function desktop_environment_viewer()
         return '(gnome-open %s) &'
     end
     if not is_in_path('xprop') then return end
-    local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE')
+    local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE 2>/dev/null')
     local xprop_out = xprop_fh:read('*line')
     xprop_fh:close()
-    if string.find(xprop_out, '= "xfce4"$') then     -- xfce
+    if xprop_out and string.find(xprop_out, '= "xfce4"$') then     -- xfce
         return '(exo-open %s) &'
     end
 end
@@ -420,6 +449,7 @@ function setup_config_from_defaults()
     else -- generic Unix
         set_config_ls {
             viewer_dvi      = guess_viewer {
+                {'xdvi',        '(xdvi %s) &'},
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kdvi',        '(kdvi %s) &'},
@@ -430,7 +460,6 @@ function setup_config_from_defaults()
                 {'dvilx',       '(dvilx %s) &'},
                 {'advi',        '(advi %s) &'},
                 {'xdvik-ja',    '(xdvik-ja %s) &'},
-                {'xdvi',        '(xdvi %s) &'},
                 {'see',         '(see %s) &'}
             },
             viewer_html     = guess_viewer {
@@ -446,18 +475,18 @@ function setup_config_from_defaults()
                 {'see',         'see'}
             },
             viewer_pdf      = guess_viewer {
+                {'xpdf',        '(xpdf %s) &'},
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kpdf',        '(kpdf %s) &'},
-                {'xpdf',        '(xpdf %s) &'},
                 {'acroread',    '(xpdf %s) &'},
                 {'see',         '(see %s) &'}
             },
             viewer_ps       = guess_viewer {
+                {'gv',          '(gv %s) &'},
                 {'evince',      '(evince %s) &'},
                 {'okular',      '(okular %s) &'},
                 {'kghostview',  '(kghostview %s) &'},
-                {'gv',          '(gv %s) &'},
                 {'see',         '(see %s) &'}
             },
             viewer_txt      = guess_viewer {
@@ -472,9 +501,10 @@ function setup_config_from_defaults()
         mode                = 'view',
         interact_switch     = 'true',
         machine_switch      = 'false',
-        verbosity_level     = '2',
         ext_list            = 'pdf, html, txt, ps, dvi, ',
         badext_list         = 'txt, ',
+        verbosity_level     = C.def_verbosity,
+        debug_list          = '',
     }
     -- must be set after mode!
     set_config_elt ('alias_switch', alias_from_mode(config.mode))
@@ -488,10 +518,10 @@ end
 
 -- the default value of config.alias_switch depends on the mode as follows
 function alias_from_mode (mode) -- /!\ returns a string!
-    if (mode == 'view') or (mode == 'mixed') or (mode == 'list') then
-        return 'true'
-    else
+    if (mode == 'regex') then
         return 'false'
+    else
+        return 'true'
     end
 end
 
@@ -515,7 +545,11 @@ function setup_config_and_alias(arg)
     if config.machine_switch == true then
         real_set_config('interact_switch', false)
     end
-    -- we were waiting for config.debug_list to be know to do this
+    -- debug implies verbose
+    if table.maxn(config.debug_list) > 0 then
+        real_set_config('verbosity_level', tonumber(C.max_verbosity))
+    end
+    -- we were waiting for config.debug_list to be known to do this
     show_config_files(function(s) deb_print('files', s) end)
 end
 

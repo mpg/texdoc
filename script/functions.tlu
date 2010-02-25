@@ -8,7 +8,7 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'io', 'os',
+    'io', 'os', 'print',
     'config',
 })
 
@@ -27,7 +27,7 @@ end
 -- generic error display function (see the error_priority constant)
 function err_print (lvl, msg)
     -- be careful: maybe config.verbosity_level is not set yet
-    local verbosity_level = config.verbosity_level or 2
+    local verbosity_level = config.verbosity_level or tonumber(C.def_verbosity)
     if C.err_priority[lvl] <= verbosity_level then
         io.stderr:write ("texdoc "..lvl..": "..msg.."\n")
     end
@@ -89,10 +89,32 @@ function parse_zip(file)
     return file, nil
 end
 
+-- print a usage message, with the proper 'active values' line
+function print_usage()
+    local default, files = {}, {}
+    for _, param in ipairs(C.usage_settings) do
+        local display = param[config[param.name]]
+        if config[param.name..'_src'] == 'def' then
+            table.insert(default, display)
+        elseif config[param.name..'_src'] == 'file' then
+            table.insert(files, display)
+        end
+    end
+    def = table.concat(default, ', ')
+    conf = table.concat(files, ', ')
+    if not (def == '')  then def = def..' (default)' end
+    if not (conf == '') then conf = conf..' (user config)' end
+    local sep = (def == '' or conf == '') and '' or '; '
+    local settings = C.usage_settings_ph..' '..def..sep..conf..'.'
+    local usage_msg = string.gsub(C.usage_msg, C.usage_settings_ph, settings)
+    print(usage_msg)
+end
+
 -- finally export a few symbols
 export_symbols(L, {
     'err_print',
     'deb_print',
     'win32_hook',
     'parse_zip',
+    'print_usage',
 })

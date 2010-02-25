@@ -110,6 +110,7 @@ local suffixes = {
     '-guide',
     '-user',
     '-man',
+    'notes',
 }
 
 -- compute a heuristic score 0 <= s < 10 
