@@ -441,10 +441,14 @@ end
 -- remove entries for tlp with any docfile
 function remove_useless_tlp()
     for tlp, doclist in pairs(tlp_doclist) do
-        if #doclist == 0 then tlp_doclist[doclist] = nil end
+        if #doclist == 0 then tlp_doclist[tlp] = nil end
     end
-    for runfile, tlp in pairs(tlp_from_runfile) do
-        if not tlp_doclist[tlp] then tlp_from_runfile[runfile] = nil end
+    for runfile, tlp_set in pairs(tlp_from_runfile) do
+        for tlp in pairs(tlp_set) do
+            if not tlp_doclist[tlp] then
+                tlp_from_runfile[runfile][tlp] = nil
+            end
+        end
     end
 end
 
