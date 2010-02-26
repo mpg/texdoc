@@ -497,7 +497,7 @@ function get_tlpinfo_from_tlpdb(filename)
     remove_useless_tlp()
 end
 
--- remove entries for tlp with any docfile
+-- remove entries for tlp without any docfile
 function remove_useless_tlp()
     for tlp, doclist in pairs(tlp_doclist) do
         if #doclist == 0 then tlp_doclist[tlp] = nil end
@@ -513,37 +513,33 @@ end
 
 -- print out data from tlpdb in dofile()-able form
 function print_out_tlpinfo(filename)
-    local esc = function(s) return string.format('%q', tostring(s)) end
     local fh = assert(io.open(filename, 'w'))
+    local function printf(s, ...) fh:write(string.format(s, ...)) end
     -- s_meta
-    fh:write('local s_meta = {\n')
+    printf('local s_meta = {\n')
     for k, v in pairs(s_meta) do
-        fh:write('  [', esc(k), '] = {')
-        for i, j in pairs(v) do
-            fh:write('[', esc(i), '] = ', esc(j), ', ')
-        end
-        fh:write('},\n')
+        printf('  [%q] = {', k)
+        for i, j in pairs(v) do printf('[%q] = %q, ', i, j) end
+        printf('},\n')
     end
-    fh:write('}\n')
+    printf('}\n')
     -- tlp_from_runfile
-    fh:write('local tlp_from_runfile = {\n')
+    printf('local tlp_from_runfile = {\n')
     for k, v in pairs(tlp_from_runfile) do
-        fh:write('  [', esc(k), '] = {')
-        for f in pairs(v) do fh:write('[', esc(f), ']=true,') end
-        fh:write('},\n')
+        printf('  [%q] = {', k)
+        for f in pairs(v) do printf('[%q]=true,', f) end
+        printf('},\n')
     end
-    fh:write('}\n')
+    printf('}\n')
     -- tlp_doclist
-    fh:write('local tlp_doclist = {\n')
+    printf('local tlp_doclist = {\n')
     for k, v in pairs(tlp_doclist) do
-        fh:write('  [', esc(k), '] = {\n')
-        for _, f in ipairs(v) do
-            fh:write('    ', esc(f) ,',\n')
-        end
-        fh:write('  },\n')
+        printf('  [%q] = {\n', k)
+        for _, f in ipairs(v) do printf('    %q,\n', f) end
+        printf('  },\n')
     end
-    fh:write('}\n')
-    fh:write('return s_meta, tlp_from_runfile, tlp_doclist\n')
+    printf('}\n')
+    printf('return s_meta, tlp_from_runfile, tlp_doclist\n')
     fh:close()
 end
 
