@@ -63,18 +63,26 @@ end
 --[[
 docfile = {
     -- name and tree are mendatory
-    name     = filename (used for scoring only)
-    tree     = code of the tree, see below
+    name      = filename (used for scoring only)
+    tree      = code of the tree, see below
     -- at least one of the following fields should exist
-    matches  = {pattern1, pattern2, ...}
-    runtodoc = true if there is a runfile -> docfile association
-    tlptodoc = true if there is a tlp name -> docfile association
+    matches   = {pattern1, pattern2, ...} or {}
+    runtodoc  = true if there is a runfile -> docfile association
+    tlptodoc  = true if there is a tlp name -> docfile association
     -- those are virtual members, see below
-    meta     = metadata from the catalogue (tlpdb) as a plain string
-    realpath = full path
+    realpath  = full path
+    normname  = nomrmalised (path removed up to the 'doc' component)
+    shortname = short name used for scoring
+    basename  = basename
+    lang      = language tag from the catalogue metadata
+    details   = details tag from the catalogue metadata
+    quality   = 'good', 'bad', or 'killed' depending on score
+    ext_pos   = position of the extension in ext_list
+    -- set for elements of a list as a side effect of sort_doclist()
+    score     = score
 }
 if tree > 1, this is the index of the tree in TEXDOCS
-if tree = 0, then name is relative to TLROOT (file found from tlpdb only)
+if tree = 0, then name is relative to TLROOT
 tree = - 1 if and only if file is a sty file. Here name is absolute.
 --]]
 
