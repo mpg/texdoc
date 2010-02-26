@@ -140,9 +140,16 @@ function Docfile:get_normname()
     return (self.tree == 0) and reloc_tlpdb_path(self.name) or self.name
 end
 
--- retrieve the associated meta information
-function Docfile:get_meta()
-    return s_meta[self.normname] or false
+-- retrieve the lang from meta
+function Docfile:get_lang()
+    local meta = s_meta[self.normname]
+    return meta and (meta.lang or false) or false
+end
+
+-- retrieve the details from meta
+function Docfile:get_details()
+    local meta = s_meta[self.normname]
+    return meta and (meta.details or false) or false
 end
 
 -- return the short name used for scoring
@@ -406,7 +413,14 @@ function init_tlp_database()
                 if check_ext(file) then
                     -- we've got a docfile here, add it
                     table.insert(tlp_doclist[curr_tlp], file)
-                    s_meta[reloc_tlpdb_path(file)] = meta
+                    if meta then
+                        local details = string.match(meta, 'details="([^"]+)"')
+                        local lang = string.match(meta, 'language="([^"]+)"')
+                        s_meta[reloc_tlpdb_path(file)] = {
+                            details = details,
+                            lang = lang,
+                        }
+                    end
                 end
             end
         elseif state == 'runfiles' then
@@ -453,7 +467,11 @@ function print_out_tlpdb_data(filename)
     -- s_meta
     fh:write('s_meta = {\n')
     for k, v in pairs(s_meta) do
-        fh:write('  [', esc(k), '] = ', esc(v), ',\n')
+        fh:write('  [', esc(k), '] = {')
+        for i, j in pairs(v) do
+            fh:write('[', esc(i), '] = ', esc(j), ', ')
+        end
+        fh:write('},\n')
     end
     fh:write('}\n')
     -- tlp_from_runfile
@@ -481,11 +499,6 @@ end
 -- get pre-hashed tlpdb info from a file
 function fast_init_tlp_database(filename)
     s_meta, tlp_from_runfile, tlp_doclist = dofile(filename)
-end
-
--- dummy function for testing purpose
-function no_init_tlp_database(filename)
-    tlp_from_runfile, tlp_doclist, s_meta = {}, {}, {}
 end
 
 -- get docfiles for pattern using specific tlpdb information
@@ -521,7 +534,6 @@ end --scope of tlp_from_runfile, tlp_doclist
 -- initialise the various databases (must be called first)
 function init_databases()
     init_texdocs_database()
-    -- no_init_tlp_database()
     init_tlp_database()
     -- fast_init_tlp_database('./test-tlpdb.lua')
     -- print_out_tlpdb_data('./test-tlpdb.lua')

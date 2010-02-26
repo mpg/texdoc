@@ -130,11 +130,15 @@ function print_menu(name, doclist, showall)
         if doc.quality == 'killed' then break end
         if doc.quality ~= 'good' and not showall then break end
         if config.machine_switch == true then
-            print(name, doc.score, doc.realpath, doc.meta or '')
+            print(name, doc.score, doc.realpath, doc.lang or '', doc.details or '')
         else
-            local line = doc.realpath
-                .. (doc.meta and  ' '..doc.meta or '')
-            print(string.format('%2d %s', i, line))
+            print(string.format('%2d %s', i, doc.realpath))
+            if doc.details or doc.lang then
+                local line = '   = '
+                if doc.lang then line = line..'['..doc.lang..'] ' end
+                if doc.details then line = line..doc.details end
+                print(line)
+            end
         end
     end
     if config.interact_switch then

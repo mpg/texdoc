@@ -15,8 +15,6 @@ Decide how and when tlpdb search should happen (performance issues).
       ship it with TL: useless here but then downstream distros will get it).
     - see "caching" in the ideas section.
 
-Think about the output format for metadata.
-
 Write doc for this, esp. output format of -M.
 
 Once the search changes are done, make sure that each "real" .sty file gets a
