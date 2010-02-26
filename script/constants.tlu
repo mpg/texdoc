@@ -103,6 +103,7 @@ known_debugs = {
     view    = {},
     texdocs = {},
     score   = {},
+    tlpdb   = {}
 }
 
 place_holder = '%%s' -- used for viewer commands

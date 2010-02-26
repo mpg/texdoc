@@ -398,16 +398,40 @@ function get_tlroot()
     return tlroot
 end
 
-do -- begin scope of tlp_from_runfile and tlp_doclist
+-- return true if cache exists and is newer than original, false otherwise
+function good_cache(cache, ori)
+    local cache_date = lfs.attributes(cache, 'modification')
+    if not cache_date then return false end
+    local ori_date = assert(lfs.attributes(ori, 'modification'))
+    return cache_date > ori_date
+end
+
+-- get tlpinfo tables initialised by whatever mean
+function init_tlp_database()
+    local cache_file = './test-tlpdb.lua'
+    local texlive_tlpdb = get_tlroot()..'/tlpkg/texlive.tlpdb'
+    assert(lfs.isfile(texlive_tlpdb), 'Internal error: no tlpdb found')
+    if good_cache(cache_file, texlive_tlpdb) then
+        deb_print('tlpdb', 'Using cached data from '..cache_file)
+        get_tlpinfo_from_cache(cache_file)
+    else
+        deb_print('tlpdb', 'Getting data from tlpdb file '..texlive_tlpdb)
+        get_tlpinfo_from_tlpdb(texlive_tlpdb)
+        deb_print('tlpdb', 'Writing data in cache file '..cache_file)
+        print_out_tlpinfo(cache_file)
+    end
+end
+
+do -- begin scope of tlpinfo tables
 local tlp_from_runfile -- { [runfile_basename] = {tlp1 = true, ...}, ... }
 local tlp_doclist -- { [tlp_name] = { relname1, relname2, ...}, ... }
 
--- populate internal databases with information from tlpdb
-function init_tlp_database()
-    tlp_from_runfile, tlp_doclist, s_meta = {}, {}, {}
+-- populate tlpinfo tables using the given texlive.tlpdb
+function get_tlpinfo_from_tlpdb(filename)
+    s_meta, tlp_from_runfile, tlp_doclist = {}, {}, {}
     local curr_tlp
     local state = 'none'
-    for line in io.lines(get_tlroot()..'/tlpkg/texlive.tlpdb') do
+    for line in io.lines(filename) do
         if state == 'none' and string.find(line, '^name ') then
             -- begin a new package
             curr_tlp = string.lower(string.sub(line, 6, -1))
@@ -469,7 +493,7 @@ function remove_useless_tlp()
 end
 
 -- print out data from tlpdb in dofile()-able form
-function print_out_tlpdb_data(filename)
+function print_out_tlpinfo(filename)
     local esc = function(s) return string.format('%q', tostring(s)) end
     local fh = assert(io.open(filename, 'w'))
     -- s_meta
@@ -504,8 +528,8 @@ function print_out_tlpdb_data(filename)
     fh:close()
 end
 
--- get pre-hashed tlpdb info from a file
-function fast_init_tlp_database(filename)
+-- get pre-hashed tlpdb info from a cache file
+function get_tlpinfo_from_cache(filename)
     s_meta, tlp_from_runfile, tlp_doclist = dofile(filename)
 end
 
@@ -535,7 +559,7 @@ function get_doclist_tlpdb(pattern)
     end
 end
 
-end --scope of tlp_from_runfile, tlp_doclist
+end --scope of tlpinfo table
 
 ------------------------------   main function   -------------------------------
 
@@ -543,8 +567,6 @@ end --scope of tlp_from_runfile, tlp_doclist
 function init_databases()
     init_texdocs_database()
     init_tlp_database()
-    -- fast_init_tlp_database('./test-tlpdb.lua')
-    -- print_out_tlpdb_data('./test-tlpdb.lua')
 end
 
 -- find docfiles according to pattern
