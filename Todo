@@ -6,47 +6,45 @@ Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 Big stuff planned
 =================
 
-Decide how and when tlpdb search should happen (performance issues).
-    - if tlpdb is found, use it.
-        - adapt texlive/tlpdb.tlu to be usable (error handling). If the cache
-          thing works, use it. Otherwise, compare performance with my own
-        version.
-    - otherwise, use a pre-hashed database (write a script to prepare it,
-      ship it with TL: useless here but then downstream distros will get it).
-    - see "caching" in the ideas section.
+Make the necessary arrangements for shipping metadata with texdoc on TL.
+    - adjust the code so that it loads the file just before reading the actual
+      tlpdb
+    - write some script or anything to have this generated (see "downstream")
+
+Downstream: arrange for downstream distros to have the tlpinfo too.
+    - write some script to generate a "cache" to ship with texdoc
+    - adjust the code for using it if no tlpdb file is found
+    - fix Docfile.realpath for this. Problems with 'texmf-dist/doc' in the name
+      of the file, too.
 
 Write doc for this, esp. output format of -M.
 
-Once the search changes are done, make sure that each "real" .sty file gets a
-result with score >= -5. Write a script checking for that with an exclusion list
-(eg beamertheme*.sty). At this point, see:
-http://tug.org/mailman/htdig/tex-live/2009-October/023395.html
-
 Write a script for alias validation (write it in Lua using the texdoc code,
 trying to reverse engineer the score results from a Perl script is too hard and
-too likely to break).
+too likely to break). Goals:
+1. detect aliases that don't give results
+2. detect which aliases are useless in that they don't change the (first, or list
+  of) results
+Looks like 2 is a superset of 1, isn't it?
+
+Write a coverage checking script? What would be its exact goals? May want to
+discuss this with Phlipp S.
 
 Misc ideas
 ==========
 
-Add caching support à la ConTeXt-fonts? Could be useful for files which are long
-to read, like tlpdb. (Would also simplify the distribution of a pre-hashed db
-for downstream distros, and make the "custom code vs standard module for tlpdb
-reading" dilemna disappear.) Would work as follows:
-    1. look for a cache in TEXMFVAR/some/location/to/be/determined
-        The cache could be a precompiled Lua file (.tlc).
-    2. If non-existent or older than the reference files (texlive.tlpdb or
-    various ls-R files, regenerate, else use it.
-Need to determine:
-- whether this is useful: at all, for tlpdb, for ls-R files...
-- what to do with unindexed directories if caching is used?
-Add a debug section for this.
+tlpdb cache should check if ext_list has change, in theory. Is it worth it in
+practice?
 
-add support for shell-style globs (standard regex is probably too hard)
+Caching: now used only for tlpdb. Is it worth using it for ls-R files?
+Configuration files?
+
+Add support for shell-style globs (standard regex is probably too hard)
     Well, would anyone really use it? (would be for patterns in texdoc.cnf, not
     for texdoc arguments)
 
-write or use some GNU-like getopt_long
+Write or use some GNU-like getopt_long
+-> alt-getopt looks ok
 
 Ideas for later
 ===============
@@ -55,7 +53,8 @@ Using the catalogue
 -------------------
 
 Use language information from the catalogue/tlpdb. (Next big item after the
-search stuff.)
+search stuff.) If no lang info from catalogue, might try guessing based on
+filename, but is it worth it?
 
 Obsolescence information could be useful (Phil's suggestion), but may be hard to
 obtain (not in the tlpdb)...
