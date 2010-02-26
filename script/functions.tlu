@@ -24,6 +24,17 @@ else
     end
 end
 
+-- remove the last direcory component of a path
+if os.type == 'windows' then
+    function path_parent(path)
+        return string.match(path, '^(.*)[\\/]')
+    end
+else
+    function path_parent(path)
+        return string.match(path, '^(.*)/')
+    end
+end
+
 -- generic error display function (see the error_priority constant)
 function err_print (lvl, msg)
     -- be careful: maybe config.verbosity_level is not set yet
@@ -117,4 +128,5 @@ export_symbols(L, {
     'win32_hook',
     'parse_zip',
     'print_usage',
+    'path_parent',
 })

@@ -10,7 +10,7 @@ local L = {}
 load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
     'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
-    'win32_hook', 'parse_zip',
+    'win32_hook', 'parse_zip', 'path_parent',
     'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos',
     'config',
 })
@@ -406,11 +406,24 @@ function good_cache(cache, ori)
     return cache_date > ori_date
 end
 
+-- make sure a given directory exists, or return nil plus an error string
+function mkdir_p(dir)
+    if lfs.isdir(dir) then return true end
+    local parent = path_parent(dir)
+    if parent then
+        local ok, msg = mkdir_p(parent)
+        if not ok then return nil, msg end
+    end
+    return lfs.mkdir(dir)
+end
+
 -- get tlpinfo tables initialised by whatever mean
 function init_tlp_database()
-    local cache_file = './test-tlpdb.lua'
+    local TEXMFVAR = kpse.var_value('TEXMFVAR')
+    local cache_file = TEXMFVAR..'/'..C.cache_name
     local texlive_tlpdb = get_tlroot()..'/tlpkg/texlive.tlpdb'
     assert(lfs.isfile(texlive_tlpdb), 'Internal error: no tlpdb found')
+    -- is the cache usable?
     if good_cache(cache_file, texlive_tlpdb) then
         deb_print('tlpdb', 'Using cached data from '..cache_file)
         get_tlpinfo_from_cache(cache_file)
@@ -418,7 +431,13 @@ function init_tlp_database()
         deb_print('tlpdb', 'Getting data from tlpdb file '..texlive_tlpdb)
         get_tlpinfo_from_tlpdb(texlive_tlpdb)
         deb_print('tlpdb', 'Writing data in cache file '..cache_file)
-        print_out_tlpinfo(cache_file)
+        local ok, msg = mkdir_p(path_parent(cache_file))
+        if not ok then
+            err_print('warning', 'Failed to create cache in '..cache_file..':')
+            err_print('warning', msg)
+        else
+            print_out_tlpinfo(cache_file)
+        end
     end
 end
 

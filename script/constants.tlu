@@ -106,6 +106,9 @@ known_debugs = {
     tlpdb   = {}
 }
 
+-- name of the cache file, relative to TEXMVAR
+cache_name = 'texdoc/cache-tlpdb.lua'
+
 place_holder = '%%s' -- used for viewer commands
 
 -- Make global C a read-only proxy to the local environment.
