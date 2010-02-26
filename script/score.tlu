@@ -84,7 +84,7 @@ function set_score(df, original_kw)
     if df.tree > -1 and spec_adjscore[original_kw] then
         for pat, val in pairs(spec_adjscore[original_kw]) do
             if val and is_subword(name, pat) then
-                if score > 0 or val < 0 then score = score + val end
+                score = score + val
                 deb_print('score', string.format(
                     "Adjust by '%d' from specific pattern '%s'", val, pat))
             end
