@@ -15,20 +15,12 @@ Decide how and when tlpdb search should happen (performance issues).
       ship it with TL: useless here but then downstream distros will get it).
     - see "caching" in the ideas section.
 
-Use meta-data from the tlpdb for scoring.
-    - Idea: make the default score negetive, (-5 could do). Then all docfiles
-      with a tlpdb-style match only get a 0 score if they have metadata, unless
-    the metadata string contains details="readme (case-insensitive)
-    - exclude bundles (a hard-coded list of bundles would be ok, but perhaps
-      putting it in texdoc.cnf is cleaner) This may not be needed, depending on
-    how the scoring is made.
-
 Think about the output format for metadata.
 
 Write doc for this, esp. output format of -M.
 
 Once the search changes are done, make sure that each "real" .sty file gets a
-result with score >= 0. Write a script checking for that with an exclusion list
+result with score >= -5. Write a script checking for that with an exclusion list
 (eg beamertheme*.sty). At this point, see:
 http://tug.org/mailman/htdig/tex-live/2009-October/023395.html
 

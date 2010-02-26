@@ -78,6 +78,14 @@ function set_score(df, original_kw)
         if s > score then score = s end
     end
     deb_print('score', 'Max pattern score: '..tostring(score))
+    -- get score from tlp associations
+    if score == -10 and df.tlptodoc then score = -2 end
+    if score == -10 and df.runtodoc then score = -6 end
+    -- bonus for metadata
+    if df.meta and
+        not string.find(string.lower(df.meta), 'details="readme') then
+        score = score + 3
+    end
     -- adjust from keyword-specific tables
     if df.tree > -1 and spec_adjscore[original_kw] then
         for pat, val in pairs(spec_adjscore[original_kw]) do
