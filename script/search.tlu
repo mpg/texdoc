@@ -148,10 +148,8 @@ end
 -- return the short name used for scoring
 function Docfile:get_shortname()
     if self.tree == -1 then return self.name end
-    local name = self.normname
     -- remove first component of name if at least two directory levels
-    name = string.match(name, '^..-/(.+/.+)$') or name
-    return '/'..name
+    return string.match(self.normname, '^..-/(.+/.+)$') or sel.normname
 end
 
 -- return the base name

@@ -64,9 +64,9 @@ function set_score(df, original_kw)
     deb_print('score', 'Start scoring '..df.realpath)
     deb_print('score', 'Name used: '..name)
     -- get score from patterns
-    local score = 0
+    local score = -10
     for _, pat in ipairs(df.matches) do
-        local s = 0
+        local s = -10
         local p = string.lower(pat.name)
         if pat.original then
             s = df.tree > -1 and heuristic_score(name, p) or 1
@@ -113,19 +113,13 @@ local suffixes = {
     'notes',
 }
 
--- compute a heuristic score 0 <= s < 10 
+-- compute a heuristic score -10 <= s < 10
 function heuristic_score(file, pat)
     deb_print('score', 'Start heuristic scoring with pattern: '..pat)
-    -- if extension is bad, score is 0
-    local ext = config.ext_list[ext_pos(file)]
-    if ext and config.badext_list_inv[ext] then
-        deb_print('score', 'Bad extension, heuristic score 0')
-        return 0
-    end
     -- score management
-    local score = 0
-    local function upscore(s, reason)
-        if s > score then
+    local score = -10
+    local function upscore(s, reason, force)
+        if s > score or force then
             score = s
             deb_print('score', 'New heuristic score: '..tostring(s)
                 ..'. Reason: '..reason)
@@ -149,9 +143,13 @@ function heuristic_score(file, pat)
             end
         end
     end
+    -- if extension is bad, score is < 0
+    local ext = config.ext_list[ext_pos(file)]
+    if ext and config.badext_list_inv[ext] and score > 0 then
+        upscore(-1, 'bad extension', true)
+    end
     -- bonus for being in the right directory
-    if score > 0 and not slash
-        and string.find('/'..file, '/'..pat..'/', 1, true) then
+    if string.find('/'..file, '/'..pat..'/', 1, true) and not slash then
         upscore(score + 0.5, 'directory bonus')
     end
     -- done
