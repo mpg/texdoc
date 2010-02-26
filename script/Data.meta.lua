@@ -2196,3 +2196,4 @@ local s_meta = {
   ["latex/algorithms/README"] = {["details"] = "Readme", },
   ["latex/float/README"] = {["details"] = "Package Readme", },
 }
+return s_meta

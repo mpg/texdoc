@@ -7,13 +7,10 @@ Big stuff planned
 =================
 
 Make the necessary arrangements for shipping metadata with texdoc on TL.
-    - adjust the code so that it loads the file just before reading the actual
-      tlpdb
     - write some script or anything to have this generated (see "downstream")
 
 Downstream: arrange for downstream distros to have the tlpinfo too.
     - write some script to generate a "cache" to ship with texdoc
-    - adjust the code for using it if no tlpdb file is found
     - fix Docfile.realpath for this. Problems with 'texmf-dist/doc' in the name
       of the file, too.
 
@@ -25,6 +22,7 @@ too likely to break). Goals:
 1. detect aliases that don't give results
 2. detect which aliases are useless in that they don't change the (first, or list
   of) results
+3. special-case for .sty aliases: they are ok only if there is no other result.
 Looks like 2 is a superset of 1, isn't it?
 
 Write a coverage checking script? What would be its exact goals? May want to

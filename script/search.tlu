@@ -448,6 +448,7 @@ local tlp_doclist -- { [tlp_name] = { relname1, relname2, ...}, ... }
 -- populate tlpinfo tables using the given texlive.tlpdb
 function get_tlpinfo_from_tlpdb(filename)
     s_meta, tlp_from_runfile, tlp_doclist = {}, {}, {}
+    get_meta_hack()
     local curr_tlp
     local state = 'none'
     for line in io.lines(filename) do
@@ -546,6 +547,12 @@ end
 -- get pre-hashed tlpdb info from a cache file
 function get_tlpinfo_from_cache(filename)
     s_meta, tlp_from_runfile, tlp_doclist = dofile(filename)
+end
+
+-- get pre-hashed meta from a file
+function get_meta_hack()
+    local f = assert(kpse.find_file('texdoc/Data.meta.lua', 'texmfscripts'))
+    s_meta = dofile(f)
 end
 
 -- get docfiles for pattern using specific tlpdb information
