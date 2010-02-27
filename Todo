@@ -8,15 +8,6 @@ Big stuff planned
 
 Review/update doc.
 
-Write a script for alias validation (write it in Lua using the texdoc code,
-trying to reverse engineer the score results from a Perl script is too hard and
-too likely to break). Goals:
-1. detect aliases that don't give results
-2. detect which aliases are useless in that they don't change the (first, or list
-  of) results
-3. special-case for .sty aliases: they are ok only if there is no other result.
-Looks like 2 is a superset of 1, isn't it?
-
 Write a coverage checking script? What would be its exact goals? May want to
 discuss this with Phlipp S.
 

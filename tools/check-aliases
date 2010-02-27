@@ -1,0 +1,68 @@
+#!/usr/bin/perl
+
+# Check aliases in texdoc configuration.
+#
+# Two points are checked:
+# 1. Aliases should modify the (ordered list of results) or they are useless.
+# 2. A sty file should always be alone in the list of results.
+#
+# Checks using the texdoc from the given TL installation.
+# This script manipulates the environment to make sure the right versions of the
+# varsious tools an configuration files are used, but the real job is done by
+# texdoc/main.tlu.
+#
+# Manuel Pégourié-Gonnard, 2010. WTFPL v2.
+
+my $usage = <<USAGE;
+Usage: $0 [--td=texdoc-path] [--tl=texlive_path] [--force-wrong-branch]
+USAGE
+
+use warnings 'FATAL' => 'all';
+use strict;
+use utf8;
+use open qw(:std utf8);
+use Getopt::Long;
+
+# defaults
+my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : $ENV{TEXDOCDEV};
+my $texlive_path = $ENV{TLROOT} ? "$ENV{TLROOT}/bin/x86_64-linux" : undef;
+my $force_wrong_branch = 0;
+
+# get options
+GetOptions(
+    'td=s' => \$texdoc_path,
+    'tl=s' => \$texlive_path,
+    'force-wrong-branch' => \$force_wrong_branch,
+) or die "Unkown option.\n$usage";
+
+# some more derived path
+my $texdoc_scriptdir = "$texdoc_path/script";
+
+# check the paths
+-d $texdoc_scriptdir or die "Bad texdoc_path";
+-d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
+
+# check that we are in the right branch
+if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
+    my $git_head = <$git_head_fh>;
+    close $git_head_fh;
+    my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
+    $git_branch_name ||= '(no branch)';
+    ($git_branch_name eq 'texlive') or $force_wrong_branch
+        or die "Current branch is $git_branch_name!\n";
+} elsif (not $force_wrong_branch ) {
+    die "Not updating from a git repository.\n";
+}
+
+# make sure the tools/files we want are used
+$ENV{PATH} = "$texlive_path:$ENV{PATH}"; # use texlive svn
+$ENV{TEXMFHOME} = '/none/such'; # kill personal configuration
+
+# use texdoc from the repo, plus a hacked main.tlu
+my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu";
+$ENV{TEXMFSCRIPTS} = "$texdoc_path/tools/ca:$texdoc_scriptdir:";
+
+# call the tricked texdoc to do the actual job
+exec $texdoc
+
+__END__

@@ -1,0 +1,61 @@
+-- tricky main() in order to check the aliases using texdoc itself
+--
+-- Manuel Pégourié-Gonnard, 2010. WTFPL v2.
+
+-- Load a private environment for this submodule (see texdoc.tlu).
+local L = {}
+load_env(L, {
+    'os', 'arg', 'print',
+    'setup_config_and_alias', 'init_databases',
+    'get_doclist', 'deliver_results', 'aliased_names',
+})
+
+-- return true iff the two doclists are essentially equal
+function dl_equal(a, b)
+    if #a ~= #b then return false end
+    for i = 1, #a do
+        if a[i].realpath ~= b[i].realpath then return false end
+    end
+    return true
+end
+
+-- return true iff there is a sty in a and something in b
+function sty_not_alone(a, b)
+    if #b == 0 then return false end
+    for _, df in ipairs(a) do
+        if df.realpath:match('%.sty$') then
+            return true
+        end
+    end
+    return false
+end
+
+-- get started
+setup_config_and_alias(arg)
+init_databases()
+
+-- check all aliased names
+local useless = {}
+local badsty = {}
+for name in aliased_names() do
+    local with = get_doclist(name)
+    local without = get_doclist(name, true)
+    if dl_equal(with, without) then
+        table.insert(useless, name)
+    end
+    if sty_not_alone(with, without) then
+        table.insert(badsty, name)
+    end
+end
+
+-- print out the results
+if #useless then
+    print 'Useless aliases:'
+    for _, a in ipairs(useless) do print('  '..a) end
+end
+if #badsty then
+    print 'Bad sty aliases:'
+    for _, a in ipairs(badsty) do print('  '..a) end
+end
+
+os.exit(0)
