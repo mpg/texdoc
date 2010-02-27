@@ -10,7 +10,7 @@ local L = {}
 load_env(L, {
     'os', 'arg', 'print',
     'setup_config_and_alias', 'init_databases',
-    'get_doclist', 'deliver_results',
+    'get_doclist', 'deliver_results', 'aliased_names',
 })
 
 -- get started

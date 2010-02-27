@@ -11,13 +11,17 @@ load_env(L, {
     'config',
 })
 
--- structure of an alias entry
--- 
--- aliasentry = {
---   name   = <string> pattern to be matched,
---   score  = <number> associated score (may be nil),
---   original = <boolean> is this the original keyword?,
--- }
+--[[ structure of the alias table
+
+alias = { name1 = aliasentry1, ... }
+
+aliasentry = {
+  name   = <string> pattern to be matched,
+  score  = <number or nil> associated score (may be nil),
+  original = <true or nil> is this the original keyword?,
+}
+score == nil means to use the default score (defined in score.tlu)
+--]]
 
 -- alias is local to this file
 local alias = {}
@@ -51,9 +55,10 @@ function stop_alias(key)
 end
 
 -- get patterns for a name
-function get_patterns(name)
+function get_patterns(name, no_alias)
     local n = string.lower(name)
-    if config.mode ~= 'regex' and config.alias_switch and alias[n] then
+    if config.mode ~= 'regex' and config.alias_switch
+        and not no_alias and alias[n] then
         return alias[n]
     else
         return { make_alias(name, false) }
@@ -85,8 +90,16 @@ function confline_to_alias(line, file, pos)
     return false
 end
 
+-- iterator over the list of keys in the alias table
+function aliased_names()
+    return function(_, cur)
+        return (next(alias, cur))
+    end
+end
+
 -- finally export a few symbols
 export_symbols(L, {
     'confline_to_alias',
     'get_patterns',
+    'aliased_names',
 })

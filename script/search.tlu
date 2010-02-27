@@ -609,9 +609,9 @@ function init_databases()
 end
 
 -- find docfiles according to pattern
-function get_doclist(pattern)
+function get_doclist(pattern, no_alias)
     -- get patterns (inc. aliases)
-    local normal, sty = normal_vs_sty(get_patterns(pattern))
+    local normal, sty = normal_vs_sty(get_patterns(pattern, no_alias))
     -- initialise result list
     s_doclist = Doclist:new()
     -- get results
