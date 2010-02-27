@@ -20,6 +20,7 @@ load_env(L, {
 -- shared by all functions in this file
 local s_doclist -- the Doclist objet to be populated by various functions
 local s_meta -- {[normname] = meta, ...} (populated by init_tlp_database)
+local vanilla -- is this a vanilla TL or a re-package one without tlpdb?
 
 -----------------------   docfile and doclist objects   ------------------------
 
@@ -45,6 +46,7 @@ end
 
 -- add a docfile to a list
 function Doclist:add(df)
+    if not df.realpath then return end -- useful if vanilla == false
     local index = self.inv[df.realpath]
     if index then
         self[index]:mergein(df)
@@ -132,7 +134,11 @@ function Docfile:get_realpath()
     if self.tree > 0 then 
         return texdocs_tree_to_path(self.tree, self.name)
     elseif self.tree == 0 then
-        return get_tlroot()..'/'..self.name
+        if vanilla then
+            return get_tlroot()..'/'..self.name
+        else
+            return kpse.find_file(self.normname, 'TeX system documentation')
+        end
     else
         return self.name
     end
@@ -422,22 +428,27 @@ function init_tlp_database()
     local TEXMFVAR = kpse.var_value('TEXMFVAR')
     local cache_file = TEXMFVAR..'/'..C.cache_name
     local texlive_tlpdb = get_tlroot()..'/tlpkg/texlive.tlpdb'
-    assert(lfs.isfile(texlive_tlpdb), 'Internal error: no tlpdb found')
-    -- is the cache usable?
-    if good_cache(cache_file, texlive_tlpdb) then
-        deb_print('tlpdb', 'Using cached data from '..cache_file)
-        get_tlpinfo_from_cache(cache_file)
-    else
-        deb_print('tlpdb', 'Getting data from tlpdb file '..texlive_tlpdb)
-        get_tlpinfo_from_tlpdb(texlive_tlpdb)
-        deb_print('tlpdb', 'Writing data in cache file '..cache_file)
-        local ok, msg = mkdir_p(path_parent(cache_file))
-        if not ok then
-            err_print('warning', 'Failed to create cache in '..cache_file..':')
-            err_print('warning', msg)
+    vanilla = lfs.isfile(texlive_tlpdb)
+    if vanilla then
+        if good_cache(cache_file, texlive_tlpdb) then
+            deb_print('tlpdb', 'Using cached data from '..cache_file)
+            get_tlpinfo_from_cache(cache_file)
         else
-            print_out_tlpinfo(cache_file)
+            deb_print('tlpdb', 'Getting data from tlpdb file '..texlive_tlpdb)
+            get_tlpinfo_from_tlpdb(texlive_tlpdb)
+            deb_print('tlpdb', 'Writing data in cache file '..cache_file)
+            local ok, msg = mkdir_p(path_parent(cache_file))
+            if not ok then
+                err_print('warning',
+                'Failed to create cache file in '..cache_file..':')
+                err_print('warning', msg)
+            else
+                print_out_tlpinfo(cache_file)
+            end
         end
+    else
+        deb_print('tlpdb', 'Using shipped tlpdb data.')
+        get_tlpinfo_from_dist()
     end
 end
 
@@ -551,8 +562,14 @@ end
 
 -- get pre-hashed meta from a file
 function get_meta_hack()
-    local f = assert(kpse.find_file('texdoc/Data.meta.lua', 'texmfscripts'))
+    local f = assert(kpse.find_file(C.data_meta_name, 'texmfscripts'))
     s_meta = dofile(f)
+end
+
+-- get pre-hashed tlpdb info from a pseudo-cache file
+function get_tlpinfo_from_dist()
+    local f = assert(kpse.find_file(C.data_tlpdb_name, 'texmfscripts'))
+    s_meta, tlp_from_runfile, tlp_doclist = dofile(f)
 end
 
 -- get docfiles for pattern using specific tlpdb information

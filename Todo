@@ -11,8 +11,6 @@ Make the necessary arrangements for shipping metadata with texdoc on TL.
 
 Downstream: arrange for downstream distros to have the tlpinfo too.
     - write some script to generate a "cache" to ship with texdoc
-    - fix Docfile.realpath for this. Problems with 'texmf-dist/doc' in the name
-      of the file, too.
 
 Write doc for this, esp. output format of -M.
 
@@ -31,7 +29,7 @@ discuss this with Phlipp S.
 Misc ideas
 ==========
 
-tlpdb cache should check if ext_list has change, in theory. Is it worth it in
+tlpdb cache should check if ext_list has changed, in theory. Is it worth it in
 practice?
 
 Caching: now used only for tlpdb. Is it worth using it for ls-R files?

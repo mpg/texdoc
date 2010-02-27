@@ -106,8 +106,10 @@ known_debugs = {
     tlpdb   = {}
 }
 
--- name of the cache file, relative to TEXMVAR
-cache_name = 'texdoc/cache-tlpdb.lua'
+-- various cache or non-cache files
+cache_name = 'texdoc/cache-tlpdb.lua' -- relative to TEXMFVAR
+data_meta_name = 'texdoc/Data.meta.lua'
+data_tlpdb_name = 'texdoc/Data.tlpdb.lua'
 
 place_holder = '%%s' -- used for viewer commands
 
