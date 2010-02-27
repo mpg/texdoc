@@ -170,7 +170,7 @@ end
 function Docfile:get_shortname()
     if self.tree == -1 then return self.name end
     -- remove first component of name if at least two directory levels
-    return string.match(self.normname, '^..-/(.+/.+)$') or sel.normname
+    return string.match(self.normname, '^..-/(.+/.+)$') or self.normname
 end
 
 -- return the base name
