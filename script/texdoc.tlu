@@ -65,11 +65,10 @@ end
 
 -- execute a submodule of texdoc
 function texdoc_do(name)
-    local f = kpse.find_file('texdoc/'..name..'.tlu', 'texmfscripts')
+    local f = kpse.find_file(name..'.tlu', 'texmfscripts')
     assert(f, 'Internal error: unable to find texdoc module '..name..'.')
     dofile(f)
 end
-
 
 ------------------------   initilisation & main code   -------------------------
 
