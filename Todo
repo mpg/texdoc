@@ -6,13 +6,7 @@ Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 Big stuff planned
 =================
 
-Make the necessary arrangements for shipping metadata with texdoc on TL.
-    - write some script or anything to have this generated (see "downstream")
-
-Downstream: arrange for downstream distros to have the tlpinfo too.
-    - write some script to generate a "cache" to ship with texdoc
-
-Write doc for this, esp. output format of -M.
+Review/update doc.
 
 Write a script for alias validation (write it in Lua using the texdoc code,
 trying to reverse engineer the score results from a Perl script is too hard and
@@ -30,7 +24,7 @@ Misc ideas
 ==========
 
 tlpdb cache should check if ext_list has changed, in theory. Is it worth it in
-practice?
+practice? I'll do it if someone complains...
 
 Caching: now used only for tlpdb. Is it worth using it for ls-R files?
 Configuration files?
@@ -41,6 +35,11 @@ Add support for shell-style globs (standard regex is probably too hard)
 
 Write or use some GNU-like getopt_long
 -> alt-getopt looks ok
+
+[internal] Adapt the alias structure to remember which one is the original. Then, the
+skpse-like search routine can select only exact matches for this one. Also, the
+scoring routine wouldn't need the original keyword as an argument anymore. Then
+the Docfile object could have a .score virtual member.
 
 Ideas for later
 ===============
@@ -68,10 +67,10 @@ Lots of TeX-live specific stuff (implicitly) embedded in various places...
 Add a function in texlua's kpse library returning all files for which a certain
 Lua function (given as argument) returns true. Use only it.
 
-What to do with all the functions using tlpdb coming? Is it possible to use an
+What to do with all the functions using tlpdb? Is it possible to use an
 equivalent on MikTeX?
 
 Adapt to the different tree layout in MikTeX (TEXMFHOME etc don't exist).
 
-May maintain two versions as branches?
+May maintain two versions as branches???
 

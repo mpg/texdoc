@@ -39,7 +39,7 @@ local s_meta = {
   ["latex/splitindex/README"] = {["details"] = "Readme", },
   ["latex/eukdate/README"] = {["details"] = "Readme", },
   ["latex/beamerposter/beamerposter.pdf"] = {["details"] = "Package documentation (PDF)", },
-  ["support/asymptote-by-example-zh-cn/asymptote-by-example-zh-cn.pdf"] = {["details"] = "The document itself", ["lang"] = "zh", },
+  ["fonts/fouriernc/test_fouriernc.pdf"] = {["details"] = "FourierNC test example:", },
   ["latex/r_und_s/README"] = {["details"] = "Readme", },
   ["metapost/textpath/README"] = {["details"] = "README file", },
   ["generic/pstricks-add/README"] = {["details"] = "Package README", },
@@ -55,6 +55,7 @@ local s_meta = {
   ["latex/vhistory/README"] = {["details"] = "Readme", },
   ["latex/xkeyval/README"] = {["details"] = "Package README", },
   ["xelatex/xetex-itrans/README"] = {["details"] = "Readme", },
+  ["fonts/concmath/concmath.pdf"] = {["details"] = "Package documentation", },
   ["latex/cryst/cryst1.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
   ["latex/geometry/geometry.pdf"] = {["details"] = "Users' manual", },
   ["latex/changebar/00readme.txt"] = {["details"] = "Readme", },
@@ -83,7 +84,7 @@ local s_meta = {
   ["latex/functan/README"] = {["details"] = "Readme", },
   ["latex/powerdot-FUBerlin/exampleClass.pdf"] = {["details"] = "Example of use of the class", },
   ["xelatex/bidi/README"] = {["details"] = "Readme", },
-  ["latex/boites/README"] = {["details"] = "Readme", },
+  ["generic/pst-jtree/pst-jtree-doc.pdf"] = {["details"] = "Package documentation", },
   ["metapost/automata/example.pdf"] = {["details"] = "Example of use", },
   ["latex/eltex/man_en.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["latex/qstest/makematch.pdf"] = {["details"] = "makematch Package documentation", },
@@ -91,7 +92,7 @@ local s_meta = {
   ["latex/microtype/microtype.pdf"] = {["details"] = "Package documentation", },
   ["latex/tabvar/README"] = {["details"] = "Readme", },
   ["latex/pagenote/pagenote.pdf"] = {["details"] = "Package documentation", },
-  ["latex/forarray/README.txt"] = {["details"] = "Readme", },
+  ["latex/fancynum/fancynum.pdf"] = {["details"] = "Package documentation", },
   ["latex/papertex/example/example.pdf"] = {["details"] = "Example newspaper page", },
   ["latex/latexcheat-esmx/README"] = {["details"] = "Readme", ["lang"] = "es", },
   ["latex/pagerange/README"] = {["details"] = "Readme", },
@@ -165,7 +166,7 @@ local s_meta = {
   ["latex/supertabular/README"] = {["details"] = "Package documentation", },
   ["latex/wadalab/wadalab-sampler.pdf"] = {["details"] = "Font sampler", },
   ["latex/pauldoc/pauldoc.pdf"] = {["details"] = "Benutzerdoku:", ["lang"] = "de", },
-  ["latex/schemabloc/README"] = {["details"] = "Readme", },
+  ["latex/colorwav/README"] = {["details"] = "Readme", },
   ["latex/isomath/isomath.sty.html"] = {["details"] = "Package documentation", },
   ["latex/mailmerge/README"] = {["details"] = "Readme", },
   ["latex/bardiag/README"] = {["details"] = "Readme", },
@@ -223,7 +224,7 @@ local s_meta = {
   ["latex/beamerposter/README"] = {["details"] = "Readme", },
   ["context/third/letter/README"] = {["details"] = "Readme", },
   ["latex/codepage/frintro.pdf"] = {["details"] = "Introduction to package", ["lang"] = "fr", },
-  ["latex/getfiledate/getfiledate-guide.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/rsfs/README"] = {["details"] = "Readme", },
   ["latex/ionumbers/README"] = {["details"] = "Readme", },
   ["latex/polynom/polydemo.pdf"] = {["details"] = "Example of package use", },
   ["latex/hrlatex/hrlatex.pdf"] = {["details"] = "Package documentation:", ["lang"] = "hr", },
@@ -234,14 +235,14 @@ local s_meta = {
   ["latex/srcltx/README"] = {["details"] = "Package Readme", },
   ["latex/formular/formular.pdf"] = {["details"] = "Package documentation", },
   ["latex/blindtext/blindtext.pdf"] = {["details"] = "Package documentation", },
-  ["latex/ametsoc/amspaper2col.pdf"] = {["details"] = "Two column package documentation (as sample paper)", },
+  ["latex/dateiliste/dateiliste.pdf"] = {["details"] = "Benutzerdoku:", ["lang"] = "de", },
   ["latex/afthesis/README"] = {["details"] = "Readme", },
   ["latex/spanish/doc/spanish.pdf"] = {["details"] = "Package documentation", },
   ["latex/ucdavisthesis/Example/ucdavisthesis_example_main.pdf"] = {["details"] = "Example of output", },
   ["latex/amsaddr/amsaddr.pdf"] = {["details"] = "Package documentation", },
   ["context/third/simplefonts/README"] = {["details"] = "Readme (German)", ["lang"] = "de", },
   ["latex/spverbatim/README"] = {["details"] = "Readme", },
-  ["latex/errata/README"] = {["details"] = "Readme", },
+  ["latex/epspdfconversion/README"] = {["details"] = "Readme", },
   ["latex/pecha/README"] = {["details"] = "Package README", },
   ["latex/york-thesis/york-thesis.pdf"] = {["details"] = "Package documentation", },
   ["fonts/feyn/README"] = {["details"] = "Package Readme", },
@@ -275,13 +276,13 @@ local s_meta = {
   ["latex/anonchap/anonchap.pdf"] = {["details"] = "Package documentation", },
   ["metapost/makecirc/MakeCirc.pdf"] = {["details"] = "Package documentation in Spanish:", ["lang"] = "es", },
   ["latex/xyling/xyli-doc.pdf"] = {["details"] = "Package documentation", ["lang"] = "en", },
-  ["latex/dateiliste/README"] = {["details"] = "Readme", },
+  ["latex/asaetr/asaetr.pdf"] = {["details"] = "Package documentation", },
   ["latex/lcd/00readme"] = {["details"] = "Package README", },
   ["bibtex/ijqc/README"] = {["details"] = "Package Readme", },
   ["latex/onlyamsmath/onlyamsmath.pdf"] = {["details"] = "Package documentation", },
   ["latex/ecv/template/CV-template_de.pdf"] = {["details"] = "Template (German)", ["lang"] = "de", },
   ["latex/petiteannonce/petiteannonceexample.pdf"] = {["details"] = "Example of use", },
-  ["generic/mkjobtexmf/mkjobtexmf.pdf"] = {["details"] = "Package documentation", },
+  ["generic/babel/00readme.txt"] = {["details"] = "Readme", },
   ["latex/lshort-finnish/README"] = {["details"] = "Readme", },
   ["latex/cursor/cursor.pdf"] = {["details"] = "Samples of use (with source)", },
   ["latex/g-brief/g-brief.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
@@ -302,7 +303,7 @@ local s_meta = {
   ["generic/pst-spectra/README"] = {["details"] = "Package README", },
   ["fonts/chemarrow/README"] = {["details"] = "Package README", ["lang"] = "en", },
   ["latex/lsc/lsc.pdf"] = {["details"] = "Package documentation", },
-  ["metapost/bpolynomial/README"] = {["details"] = "Readme", },
+  ["plain/impatient-fr/README"] = {["details"] = "Basic project information", },
   ["generic/pst-2dplot/pst-2dplot-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/dramatist/dramatist.pdf"] = {["details"] = "Package documentation", },
   ["latex/calrsfs/calrsfs.pdf"] = {["details"] = "Package documentation", },
@@ -318,7 +319,7 @@ local s_meta = {
   ["latex/edmargin/README"] = {["details"] = "Readme", },
   ["latex/hhtensor/hhtensor.pdf"] = {["details"] = "Package documentation", },
   ["latex/ccfonts/ccfonts.pdf"] = {["details"] = "Package documentation", },
-  ["latex/hyperref/README.pdf"] = {["details"] = "Readme, hyper-crossreferenced", },
+  ["latex/contour/README"] = {["details"] = "Package Readme", },
   ["latex/fmtcount/fmtcount-manual.html"] = {["details"] = "Package documentation (HTML)", },
   ["generic/hyph-utf8/README"] = {["details"] = "Readme", },
   ["latex/ctex/README"] = {["details"] = "Readme", },
@@ -382,7 +383,7 @@ local s_meta = {
   ["latex/poemscol/poemscol.pdf"] = {["details"] = "Documented source", },
   ["latex/minutes/README"] = {["details"] = "Readme", },
   ["latex/pspicture/README"] = {["details"] = "Package Readme", },
-  ["latex/liturg/liturg.pdf"] = {["details"] = "Package documentation", },
+  ["latex/exp-testopt/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
   ["generic/epsf/README"] = {["details"] = "Readme", },
   ["latex/bbding/bbding.pdf"] = {["details"] = "Package documentation", },
   ["latex/eskdx/README"] = {["details"] = "Package README", },
@@ -395,7 +396,7 @@ local s_meta = {
   ["latex/bbold/bbold.pdf"] = {["details"] = "Package documentation", },
   ["latex/dinbrief/liesmich"] = {["details"] = "Package Readme", ["lang"] = "de", },
   ["latex/spotcolor/readme.pdf"] = {["details"] = "Package documentation", },
-  ["latex/lps/README"] = {["details"] = "Readme", },
+  ["metapost/expressg/expressg.pdf"] = {["details"] = "Package documentation", },
   ["latex/sectionbox/README"] = {["details"] = "Readme", },
   ["latex/thesis-titlepage-fhac/fhACtitlepage.pdf"] = {["details"] = "Package documentation", },
   ["fonts/memdesign/memdesign.pdf"] = {["details"] = "The document itself", },
@@ -439,7 +440,7 @@ local s_meta = {
   ["latex/iso10303/stepman.pdf"] = {["details"] = "Package manual", },
   ["latex/footmisc/footmisc.pdf"] = {["details"] = "Package documentation", },
   ["latex/exercise/exercise.pdf"] = {["details"] = "Package documentation", },
-  ["latex/emptypage/emptypage.pdf"] = {["details"] = "Package documentation", },
+  ["latex/diagmac2/doc/diagmactest.pdf"] = {["details"] = "Example output", },
   ["latex/chembst/README"] = {["details"] = "Readme", },
   ["latex/tree-dvips/tree-manual.pdf"] = {["details"] = "Manual for tree-dvips", },
   ["generic/around-the-bend/README"] = {["details"] = "Readme", },
@@ -463,7 +464,7 @@ local s_meta = {
   ["latex/fancyref/fancyref.pdf"] = {["details"] = "Package documentation", },
   ["latex/cv/README"] = {["details"] = "Readme", },
   ["latex/psbao/README"] = {["details"] = "Readme", },
-  ["latex/nostarch/nssample.pdf"] = {["details"] = "Sample book", },
+  ["generic/dirtree/dirtree.pdf"] = {["details"] = "Package documentation", },
   ["latex/latex-course/LaTeX-Course.pdf"] = {["details"] = "The course itself", },
   ["latex/image-gallery/gallery-example.pdf"] = {["details"] = "Example output", },
   ["latex/munich/documenation_munich_Bibtex_style.pdf"] = {["details"] = "Package documentation", },
@@ -484,7 +485,7 @@ local s_meta = {
   ["latex/fonttable/README"] = {["details"] = "Readme", },
   ["metapost/makecirc/MakeCirc-en.pdf"] = {["details"] = "Package documentation in English:", ["lang"] = "en", },
   ["latex/textpos/README"] = {["details"] = "Package README", },
-  ["latex/digiconfigs/README"] = {["details"] = "Readme", },
+  ["latex/bullcntr/README"] = {["details"] = "Readme", },
   ["latex/pdfx/pdfx.pdf"] = {["details"] = "Package documentation", },
   ["context/third/lettrine/lettrine-doc.pdf"] = {["details"] = "MAPS paper about the package", },
   ["latex/combine/combine.pdf"] = {["details"] = "Package documentation", },
@@ -494,16 +495,16 @@ local s_meta = {
   ["generic/arrayjob/arrayjob.pdf"] = {["details"] = "Package documentation", },
   ["latex/visualfaq/troubleshoot-vlf.pdf"] = {["details"] = "Dealing with visual FAQ problems:", },
   ["latex/ifplatform/README"] = {["details"] = "Readme", },
-  ["latex/diagnose/README"] = {["details"] = "Package Readme", },
+  ["latex/ean13isbn/README"] = {["details"] = "Readme", },
   ["latex/bibarts/bibarts.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
   ["support/asymptote-manual-zh-cn/asymptote-manual-zh-cn.pdf"] = {["details"] = "The document itself", ["lang"] = "zh", },
   ["latex/guitlogo/README"] = {["details"] = "Package README", ["lang"] = "it", },
-  ["latex/endfloat/endfloat.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/boisik/example/table.pdf"] = {["details"] = "Font table", },
   ["latex/feynmf/manual.ps"] = {["details"] = "Package documentation", },
   ["latex/lettre/README"] = {["details"] = "Readme", },
   ["latex/fancyhdr/fancyhdr.pdf"] = {["details"] = "Users' manual (English)", },
   ["dvipdfm/dvipdfm.pdf"] = {["details"] = "Program documentation", },
-  ["latex/footnpag/README"] = {["details"] = "Readme", },
+  ["latex/binomexp/README"] = {["details"] = "Readme", },
   ["latex/l2tabu/README"] = {["details"] = "Readme", },
   ["latex/Tabbing/Tabbing.pdf"] = {["details"] = "Package documentation", },
   ["latex/psfrag-italian/itpfgguide.pdf"] = {["details"] = "The document itself", },
@@ -542,7 +543,7 @@ local s_meta = {
   ["latex/clefval/exemple.pdf"] = {["details"] = "Package examples of use (French)", ["lang"] = "fr", },
   ["latex/erdc/erdc.pdf"] = {["details"] = "Package documentation", },
   ["latex/stage/README"] = {["details"] = "Package README", },
-  ["latex/figsize/figsize.pdf"] = {["details"] = "Package documentation", },
+  ["latex/gb4e/gb4e-doc.pdf"] = {["details"] = "Package description", },
   ["latex/parrun/parrun.pdf"] = {["details"] = "Package documentation", },
   ["latex/mmap/README"] = {["details"] = "Readme", },
   ["latex/frontespizio/frontespizio.pdf"] = {["details"] = "Package documentation", ["lang"] = "it", },
@@ -575,10 +576,10 @@ local s_meta = {
   ["latex/booktabs/booktabs.pdf"] = {["details"] = "Package documentation", },
   ["latex/pdfscreen/manual-print.pdf"] = {["details"] = "Manual, for printing", },
   ["latex/ryethesis/ryethesis.pdf"] = {["details"] = "Package documentation", },
-  ["latex/shuffle/shuffle.pdf"] = {["details"] = "Package documentation", },
+  ["metapost/automata/README"] = {["details"] = "Readme", },
   ["latex/fouridx/README"] = {["details"] = "Readme", },
   ["latex/biblatex/README"] = {["details"] = "Readme", },
-  ["latex/elsevier/instructions-harv.pdf"] = {["details"] = "Instructions for use, harvard-style citations", ["lang"] = "en", },
+  ["fonts/auncial-new/tryauncial.pdf"] = {["details"] = "Font sample, etc.", },
   ["context/third/french/french-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/mfpic4ode/demo/demo.pdf"] = {["details"] = "Examples of use", },
   ["latex/bold-extra/bold-extra.pdf"] = {["details"] = "Package documentation", },
@@ -589,7 +590,7 @@ local s_meta = {
   ["latex/mxd/README"] = {["details"] = "Readme", },
   ["latex/dotseqn/readme"] = {["details"] = "Readme", },
   ["latex/makeplot/README"] = {["details"] = "Readme", },
-  ["latex/germkorr/germkorr.pdf"] = {["details"] = "Package documentation", },
+  ["latex/csquotes/csquotes.pdf"] = {["details"] = "Tutorial on use of the package", },
   ["latex/l2picfaq/l2picfaq.pdf"] = {["details"] = "The document itself", ["lang"] = "de", },
   ["latex/svn-prov/svn-prov.pdf"] = {["details"] = "Package documentation", },
   ["latex/shorttoc/00readme"] = {["details"] = "Package README", },
@@ -652,7 +653,7 @@ local s_meta = {
   ["latex/movie15/README"] = {["details"] = "README file", },
   ["latex/engpron/engpron-ex-en.pdf"] = {["details"] = "Usage example (English)", ["lang"] = "en", },
   ["latex/minipage-marginpar/minipage-marginpar.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
-  ["latex/eskd/README"] = {["details"] = "Package README", },
+  ["latex/appendix/README"] = {["details"] = "Package Readme", },
   ["latex/labbook/labbook.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["latex/mh/README"] = {["details"] = "Readme", },
   ["latex/keyreader/keyreader-guide.pdf"] = {["details"] = "Package documentation", },
@@ -697,7 +698,7 @@ local s_meta = {
   ["latex/bibleref/bibleref.pdf"] = {["details"] = "Package documentation", },
   ["latex/uaclasses/README"] = {["details"] = "Readme", },
   ["latex/docmute/docmute.pdf"] = {["details"] = "Package documentation", },
-  ["latex/circ/README"] = {["details"] = "Readme", },
+  ["latex/forarray/forarray.pdf"] = {["details"] = "Package documentation", },
   ["latex/footbib/README"] = {["details"] = "Readme", },
   ["latex/showexpl/README"] = {["details"] = "README file", },
   ["latex/12many/12many.pdf"] = {["details"] = "Package documentation", },
@@ -727,7 +728,7 @@ local s_meta = {
   ["latex/curve/curve.pdf"] = {["details"] = "Package documentation", },
   ["plain/newsletr/newsletr.txt"] = {["details"] = "Help for newsletr format", },
   ["latex/confproc/confproc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/aiaa/aiaa.pdf"] = {["details"] = "Package documentation", },
+  ["latex/anyfontsize/anyfontsize.pdf"] = {["details"] = "Package documentation", },
   ["latex/nicetext/makedoc.pdf"] = {["details"] = "Makedoc documentation", },
   ["latex/recipe/README"] = {["details"] = "Readme", },
   ["latex/nicetext/wikicheat.pdf"] = {["details"] = "Cheatsheet for the wiki package", },
@@ -739,7 +740,7 @@ local s_meta = {
   ["fonts/inconsolata/inconsolata.pdf"] = {["details"] = "Package documentation and font tables", },
   ["latex/braket/braket.pdf"] = {["details"] = "Package documentation", },
   ["latex/moreverb/moreverb.pdf"] = {["details"] = "Package documentation", },
-  ["latex/hepunits/README"] = {["details"] = "Readme", },
+  ["latex/fancyvrb/fancyvrb.pdf"] = {["details"] = "Package documentation", },
   ["latex/engpron/engpron-en.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["latex/tikz-timing/tikz-timing.pdf"] = {["details"] = "Package documentation", },
   ["latex/thmtools/thmtools.pdf"] = {["details"] = "Package documentation", },
@@ -761,7 +762,7 @@ local s_meta = {
   ["xelatex/mathspec/mathspec.pdf"] = {["details"] = "Package documentation", },
   ["latex/ifplatform/ifplatform.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-am/README"] = {["details"] = "Readme", },
-  ["fonts/gfsporson/README"] = {["details"] = "Readme", },
+  ["fonts/fontname/fontname.html"] = {["details"] = "Outline of the mapping scheme (HTML)", },
   ["latex/greektex/greektexdoc.pdf"] = {["details"] = "Package documentation", ["lang"] = "el", },
   ["generic/pst-bar/pst-bar-doc.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["latex/censor/censor.pdf"] = {["details"] = "Package documentation", },
@@ -788,7 +789,7 @@ local s_meta = {
   ["latex/simplecv/testcv.pdf"] = {["details"] = "Sample of use", },
   ["latex/changepage/changepage.pdf"] = {["details"] = "Package documentation", },
   ["latex/keycommand/keycommand.pdf"] = {["details"] = "Package documentation", },
-  ["fonts/allrunes/README"] = {["details"] = "Package Readme", },
+  ["latex/docmfp/README"] = {["details"] = "Package Readme", },
   ["metapost/base/source-manual/README"] = {["details"] = "Readme", },
   ["generic/elhyphen/README"] = {["details"] = "Readme", },
   ["latex/algorithmicx/algorithmicx.pdf"] = {["details"] = "Package documentation", },
@@ -808,10 +809,10 @@ local s_meta = {
   ["latex/jpsj/injpsj2.pdf"] = {["details"] = "Instructions for authors", },
   ["latex/jurarsp/jurarsp.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
   ["latex/listings-ext/listings-ext.pdf"] = {["details"] = "Package documentation", },
-  ["latex/circ/circ.pdf"] = {["details"] = "Package documentation", },
+  ["latex/emp/emp.pdf"] = {["details"] = "Documented source", },
   ["latex/swebib/README"] = {["details"] = "Readme", },
   ["generic/pst-solides3d/doc/pst-solides3d-doc-exemples.pdf"] = {["details"] = "Examples of use (French)", ["lang"] = "fr", },
-  ["latex/pdfmarginpar/README"] = {["details"] = "Readme", },
+  ["latex/hepunits/hepunits.pdf"] = {["details"] = "Package documentation", },
   ["latex/ar/ar.txt"] = {["details"] = "README", },
   ["latex/pst-calendar/README"] = {["details"] = "Readme", },
   ["generic/tex-ewd/README"] = {["details"] = "Readme", },
@@ -902,7 +903,7 @@ local s_meta = {
   ["fonts/accfonts/README"] = {["details"] = "Package Readme and documentation", },
   ["fonts/doublestroke/dsdoc.pdf"] = {["details"] = "Package documentation", },
   ["latex/mciteplus/mciteplus_doc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/hepnames/README"] = {["details"] = "Readme", },
+  ["latex/nicetext/fifinddo.pdf"] = {["details"] = "Fifinddo documentation", },
   ["generic/pst-abspos/pst-abspos-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/ESIEEcv/ESIEEcv.pdf"] = {["details"] = "Package documentation", },
   ["latex/ledmac/ledmac.pdf"] = {["details"] = "Package documentation", },
@@ -990,7 +991,7 @@ local s_meta = {
   ["xelatex/fontwrap/README"] = {["details"] = "Readme", },
   ["latex/xpackages/xbase/xparse.pdf"] = {["details"] = "Package documentation: xparse", },
   ["generic/encxvlna/encxvlna.pdf"] = {["details"] = "Package documentation", },
-  ["latex/seqsplit/seqsplit.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-diffraction/pst-diffraction-docE.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["latex/chess-problem-diagrams/diagram.pdf"] = {["details"] = "Package documentation", },
   ["latex/eqexam/README"] = {["details"] = "Readme", },
   ["latex/cmdstring/cmdstring.pdf"] = {["details"] = "Package documentation", },
@@ -1017,7 +1018,7 @@ local s_meta = {
   ["latex/faktor/faktor.pdf"] = {["details"] = "Benutzerdoku:", ["lang"] = "de", },
   ["latex/dk-bib/dk-bib.pdf"] = {["details"] = "Package documentation", },
   ["latex/cases/cases.pdf"] = {["details"] = "Package documentation", },
-  ["latex/aeguill/guil-test2.pdf"] = {["details"] = "Available guillemet glyphs", },
+  ["latex/graphicx-psmin/graphicx-psmin.pdf"] = {["details"] = "Package documentation", },
   ["latex/collref/collref.pdf"] = {["details"] = "Package documentation", },
   ["latex/ifmslide/README"] = {["details"] = "Readme", },
   ["metapost/metago/README"] = {["details"] = "Readme", },
@@ -1050,7 +1051,7 @@ local s_meta = {
   ["latex/ntgclass/classdoc.pdf"] = {["details"] = "Introduction to the classes", },
   ["luatex/luaotfload/README"] = {["details"] = "Readme", },
   ["latex/sciwordconv/README"] = {["details"] = "Readme", },
-  ["latex/eskdx/manual/eskdx.pdf"] = {["details"] = "Package documentation", ["lang"] = "ru", },
+  ["latex/cd-cover/README"] = {["details"] = "Readme", },
   ["latex/dotseqn/dotseqn.pdf"] = {["details"] = "Package documentation", },
   ["latex/bbm-macros/bbm.pdf"] = {["details"] = "Package documentation", },
   ["latex/listings/listings.pdf"] = {["details"] = "Package documentation", },
@@ -1117,7 +1118,7 @@ local s_meta = {
   ["latex/subfig/subfig.pdf"] = {["details"] = "Package documentation", },
   ["latex/syntax/README"] = {["details"] = "Package README", ["lang"] = "de", },
   ["latex/biblatex-contrib/biblatex-nature/style-nature.pdf"] = {["details"] = "Examples of use", },
-  ["latex/dlfltxb/dlfltxbmisc.pdf"] = {["details"] = "dlfltxbmisc package documentation", },
+  ["latex/nddiss/nddiss2e.pdf"] = {["details"] = "Package documentation", },
   ["latex/flashmovie/README"] = {["details"] = "Readme", },
   ["generic/fltpoint/fltpoint.pdf"] = {["details"] = "Package documentation", },
   ["latex/feynmf/README"] = {["details"] = "Package Readme", },
@@ -1129,7 +1130,7 @@ local s_meta = {
   ["latex/intro-scientific/README"] = {["details"] = "Readme", },
   ["latex/shipunov/README"] = {["details"] = "Readme", ["lang"] = "en", },
   ["latex/bookest/bookestdoc-en.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
-  ["latex/IEEEtran/IEEEtran_HOWTO.pdf"] = {["details"] = "Package documentation", },
+  ["latex/codepage/README"] = {["details"] = "Readme", ["lang"] = "en", },
   ["latex/tikz-inet/tikz-inet-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/semioneside/semioneside.pdf"] = {["details"] = "Package documentation", },
   ["latex/uiucthesis/uiucthesis.pdf"] = {["details"] = "Package documentation", },
@@ -1164,7 +1165,7 @@ local s_meta = {
   ["generic/fenixpar/README"] = {["details"] = "Readme", },
   ["latex/metre/demo.pdf"] = {["details"] = "Example of usage", },
   ["latex/euenc/README"] = {["details"] = "Readme", },
-  ["latex/filecontents/README"] = {["details"] = "Package Readme", },
+  ["support/asymptote-faq-zh-cn/asymptote-faq-zh-cn.pdf"] = {["details"] = "The document itself", ["lang"] = "zh", },
   ["generic/pst-lens/README"] = {["details"] = "Readme", },
   ["latex/lshort-mongol/README"] = {["details"] = "Readme", },
   ["generic/variations/docvariations.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
@@ -1186,7 +1187,7 @@ local s_meta = {
   ["latex/engpron/engpron.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
   ["latex/umich-thesis/README"] = {["details"] = "Readme", },
   ["latex/docmute/README"] = {["details"] = "Readme", },
-  ["fonts/antt/AntykwaTorunska-doc-pl-2_03.pdf"] = {["details"] = "Documentation in Polish:", ["lang"] = "pl", },
+  ["latex/chletter/chletterdoc.pdf"] = {["details"] = "Package documentation", },
   ["latex/thumby/thumby.pdf"] = {["details"] = "Package documentation", },
   ["latex/spanish-mx/README"] = {["details"] = "Readme", },
   ["fonts/xq/README"] = {["details"] = "Package README", },
@@ -1199,7 +1200,8 @@ local s_meta = {
   ["latex/termlist/README"] = {["details"] = "Readme", },
   ["latex/latexcheat-ptbr/README-ptbr"] = {["details"] = "Readme (in Brazilian Portuguese)", ["lang"] = "pt", },
   ["latex/pmgraph/pmgraph.pdf"] = {["details"] = "Package documentation", },
-  ["latex/europecv/examples/minimal.pdf"] = {["details"] = "Simple example of use:", },
+  ["fonts/concmath-fonts/README"] = {["details"] = "Package Readme", },
+  ["latex/fancyhdr/README"] = {["details"] = "Readme", },
   ["latex/makeplot/makeplot.pdf"] = {["details"] = "Package documentation", },
   ["latex/twoup/README"] = {["details"] = "Package Readme", },
   ["latex/units/units.pdf"] = {["details"] = "Package documentation", },
@@ -1229,7 +1231,7 @@ local s_meta = {
   ["latex/circuitikz/README"] = {["details"] = "Readme", },
   ["latex/braille/summary.pdf"] = {["details"] = "Package documentation (PDF)", },
   ["latex/xpackages/xtras/l3keys2e.pdf"] = {["details"] = "Package documentation: l3keys2e", },
-  ["latex/eltex/pri_cz.pdf"] = {["details"] = "Package documentation (Czech)", ["lang"] = "cs", },
+  ["latex/cm-lgc/README"] = {["details"] = "Bundle Readme", },
   ["latex/examdesign/examdesign.pdf"] = {["details"] = "Package documentation", },
   ["latex/qtree/qtreenotes.pdf"] = {["details"] = "Package documentation:", ["lang"] = "en", },
   ["latex/ut-thesis/README"] = {["details"] = "Readme", },
@@ -1265,16 +1267,16 @@ local s_meta = {
   ["latex/hvindex/README"] = {["details"] = "Readme", },
   ["latex/cursolatex/cursolatex.pdf"] = {["lang"] = "pt", },
   ["latex/onrannual/README"] = {["details"] = "Readme", },
-  ["generic/pst-grad/pst-grad-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/hepnames/README"] = {["details"] = "Readme", },
   ["latex/zwgetfdate/zwgetfdate.pdf"] = {["details"] = "Package documentation", },
   ["latex/zhspacing/README"] = {["details"] = "Readme", },
   ["fonts/zhmetrics/README"] = {["details"] = "Readme", },
   ["latex/york-thesis/README"] = {["details"] = "Package Readme", },
   ["latex/lshort-ukr/lshort-ukr.pdf"] = {["details"] = "The document itself", },
-  ["latex/oubraces/oubraces.pdf"] = {["details"] = "Package documentation", },
+  ["latex/index/README"] = {["details"] = "Package Readme", },
   ["latex/fix2col/README"] = {["details"] = "Readme", },
   ["latex/yagusylo/yagusylo-en.pdf"] = {["details"] = "User documentation (English)", ["lang"] = "en", },
-  ["latex/hyphenat/README"] = {["details"] = "Readme", },
+  ["latex/cd-cover/cd-cover.pdf"] = {["details"] = "Package documentation", },
   ["latex/yagusylo/README"] = {["details"] = "Readme", ["lang"] = "en", },
   ["fonts/arev/arevdoc.pdf"] = {["details"] = "Package documentation", },
   ["latex/l2tabu-spanish/l2tabues.pdf"] = {["details"] = "The document itself", ["lang"] = "es", },
@@ -1289,9 +1291,9 @@ local s_meta = {
   ["latex/nrc/authors.txt"] = {["details"] = "Notes for authors", },
   ["latex/xtab/xtab.pdf"] = {["details"] = "Package documentation", },
   ["latex/xtab/README"] = {["details"] = "Readme", },
-  ["latex/amsldoc-vn/amsldoc-print-vi.pdf"] = {["details"] = "For printing", ["lang"] = "vi", },
+  ["latex/ccaption/ccaption.pdf"] = {["details"] = "Package documentation", },
   ["latex/aastex/README"] = {["details"] = "Readme", },
-  ["latex/textpos/examples/README"] = {["details"] = "Package README", },
+  ["latex/eqparbox/README"] = {["details"] = "Readme", },
   ["generic/xstring/README"] = {["details"] = "Readme", },
   ["latex/marginnote/marginnote.pdf"] = {["details"] = "Package documentation", },
   ["latex/xskak/README"] = {["details"] = "Readme", },
@@ -1302,7 +1304,7 @@ local s_meta = {
   ["latex/xoptarg/xoptarg.pdf"] = {["details"] = "Package documentation", },
   ["latex/leaflet/leaflet.pdf"] = {["details"] = "Documented source", },
   ["latex/directory/directory.pdf"] = {["details"] = "Package documentation", },
-  ["latex/colorwav/README"] = {["details"] = "Readme", },
+  ["latex/pbox/pbox.pdf"] = {["details"] = "Package documentation", },
   ["fonts/dozenal/README"] = {["details"] = "Readme", },
   ["latex/xnewcommand/README"] = {["details"] = "Readme", },
   ["generic/pst-fill/README"] = {["details"] = "Package README", },
@@ -1328,11 +1330,11 @@ local s_meta = {
   ["xetex/xesearch/README"] = {["details"] = "Readme", },
   ["latex/photo/photo.pdf"] = {["details"] = "Package documentation", },
   ["xelatex/xepersian/README"] = {["details"] = "Readme", },
-  ["latex/semantic/semantic.pdf"] = {["details"] = "Package documentation", },
+  ["latex/examplep/README"] = {["details"] = "Readme", },
   ["xelatex/xeindex/README"] = {["details"] = "Readme", },
   ["xelatex/xecyr/xecyr-doc-ru.pdf"] = {["details"] = "Package documentation (Russian)", ["lang"] = "ru", },
   ["xelatex/xecolour/README"] = {["details"] = "Readme", },
-  ["latex/animate/animate.pdf"] = {["details"] = "Package documentation", },
+  ["latex/cooking/cooking.pdf"] = {["details"] = "Package documentation", },
   ["xelatex/xecjk/xeCJK.pdf"] = {["details"] = "Package documentation (in both English and Chinese)", },
   ["latex/curve/README"] = {["details"] = "Readme", },
   ["latex/jura/jura.pdf"] = {["details"] = "Class documentation:", ["lang"] = "de", },
@@ -1346,26 +1348,26 @@ local s_meta = {
   ["latex/xcolor/xcolor2.pdf"] = {["details"] = "Examples of usage with pstricks:", },
   ["latex/xargs/xargs-fr.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
   ["latex/lshort-thai/lsh132.pdf"] = {["details"] = "The document itself", },
-  ["latex/tablenotes/mynotes.pdf"] = {["details"] = "Readme", },
+  ["generic/pst-eucl/README"] = {["details"] = "Readme", },
   ["fonts/cmll/cmll.pdf"] = {["details"] = "Package documentation", },
-  ["support/texdiff/README"] = {["details"] = "Readme", },
+  ["support/texcount/README"] = {["details"] = "Readme", },
   ["latex/widetable/README"] = {["details"] = "Readme", },
   ["latex/webguide/webguide.pdf"] = {["details"] = "Package document, as PDF", },
-  ["latex/arsclassica/README"] = {["details"] = "Readme", },
+  ["generic/pst-text/pst-text-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/ecv/ecv.pdf"] = {["details"] = "Package documentation", },
   ["latex/anyfontsize/README"] = {["details"] = "Readme", },
   ["latex/warpcol/README"] = {["details"] = "Package Readme", },
-  ["latex/diagmac2/doc/diagmactest.pdf"] = {["details"] = "Example output", },
+  ["latex/uaclasses/my-example.pdf"] = {["details"] = "my-thesis example", },
   ["latex/vxu/actawex.pdf"] = {["details"] = "Documentation (actawex)", },
   ["latex/vwcol/README"] = {["details"] = "Readme", },
   ["latex/gu/README"] = {["details"] = "Package README", },
   ["support/patgen2-tutorial/patgen2.pdf"] = {["details"] = "The document itself", ["lang"] = "en", },
   ["latex/tengwarscript/tengfonts.pdf"] = {["details"] = "Font sampler:", },
   ["latex/ijmart/ijmart.pdf"] = {["details"] = "Package documentation", },
-  ["latex/bigints/README"] = {["details"] = "Readme", },
-  ["fonts/rsfs/README"] = {["details"] = "Readme", },
+  ["latex/smalltableof/README"] = {["details"] = "Readme", },
+  ["latex/listings-ext/README"] = {["details"] = "Readme", },
   ["latex/mciteplus/README"] = {["details"] = "Readme", },
-  ["fonts/gfscomplutum/README"] = {["details"] = "Readme", },
+  ["latex/bgreek/bgman.pdf"] = {["details"] = "Package documentation", },
   ["generic/vntex/vn-min.pdf"] = {["details"] = "Minimal steps to typeset Vietnamese", ["lang"] = "en", },
   ["latex/isomath/isomath-test.pdf"] = {["details"] = "Example of appearance", },
   ["latex/vmargin/vmargin.pdf"] = {["details"] = "Package documentation", },
@@ -1375,31 +1377,31 @@ local s_meta = {
   ["latex/visualfaq/visualFAQ.pdf"] = {["details"] = "The visual FAQ itself:", },
   ["latex/gcard/README"] = {["details"] = "Readme", },
   ["latex/multibib/multibib.pdf"] = {["details"] = "Package documentation", },
-  ["latex/changelayout/README"] = {["details"] = "Readme", },
+  ["latex/itnumpar/README"] = {["details"] = "Readme", },
   ["generic/components-of-TeX/README"] = {["details"] = "Package README", },
   ["latex/nih/example-biosketch.pdf"] = {["details"] = "Example -- an NIH biographical sketch", },
   ["latex/adrlist/README"] = {["details"] = "Readme", },
   ["latex/verse/README"] = {["details"] = "Readme", },
-  ["fonts/skaknew/fonttables.pdf"] = {["details"] = "Font tables", },
+  ["latex/siunitx/README"] = {["details"] = "Readme", },
   ["latex/authoraftertitle/authoraftertitle.pdf"] = {["details"] = "Package documentation", },
   ["latex/amslatex-primer/README"] = {["details"] = "Readme", },
   ["latex/verbatimcopy/verbatimcopy.pdf"] = {["details"] = "Package documentation", },
   ["latex/verbatimcopy/README"] = {["details"] = "Readme", },
-  ["latex/graphicx-psmin/graphicx-psmin.pdf"] = {["details"] = "Package documentation", },
+  ["latex/euproposal/README"] = {["details"] = "Readme", },
   ["xelatex/bidi/bidi-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/emptypage/README"] = {["details"] = "Readme", },
   ["latex/memoir/README"] = {["details"] = "Readme", },
   ["latex/verbatimbox/README"] = {["details"] = "Readme", },
-  ["latex/coverpage/SimpleSample.pdf"] = {["details"] = "Simple sample:", },
+  ["latex/clefval/README"] = {["details"] = "Package README", },
   ["fonts/venturisadf/README"] = {["details"] = "Readme", },
   ["latex/vector/vector.pdf"] = {["details"] = "Package documentation", },
   ["latex/vector/README"] = {["details"] = "Readme", },
   ["latex/amsmath/diffs-m.txt"] = {["details"] = "Differences from previous versions", ["lang"] = "en", },
-  ["latex/cooking/cooking.pdf"] = {["details"] = "Package documentation", },
+  ["latex/pdfmarginpar/README"] = {["details"] = "Readme", },
   ["latex/etextools/README"] = {["details"] = "Readme", },
   ["latex/diagmac2/README"] = {["details"] = "Readme", },
   ["generic/vaucanson-g/README"] = {["details"] = "Readme", },
-  ["latex/silence/silence-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/siggraph/README"] = {["details"] = "Readme", },
   ["generic/pst-spectra/pst-spectra.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
   ["latex/listliketab/README"] = {["details"] = "Package Readme", },
   ["latex/varindex/README"] = {["details"] = "Readme", },
@@ -1416,7 +1418,7 @@ local s_meta = {
   ["latex/urlbst/urlbst.html"] = {["details"] = "Package documentation (HTML format)", },
   ["latex/url/url.pdf"] = {["details"] = "Package documentation", },
   ["generic/musixtex/musixdoc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/dlfltxb/dlfltxbcodetips.pdf"] = {["details"] = "dlfltxbcodetips package documentation", },
+  ["fonts/tipa/tipaman.pdf"] = {["details"] = "Package manual", },
   ["generic/wsuipa/README"] = {["details"] = "Package Readme", },
   ["latex/undertilde/undertilde.pdf"] = {["details"] = "Package documentation", },
   ["latex/underlin/underlin.pdf"] = {["details"] = "Package documentation", },
@@ -1425,8 +1427,8 @@ local s_meta = {
   ["latex/umthesis/README"] = {["details"] = "Readme", },
   ["latex/umlaute/umlaute.pdf"] = {["details"] = "Package documentation", },
   ["latex/uml/uml.pdf"] = {["details"] = "Package documentation", },
+  ["latex/ulqda/README"] = {["details"] = "Readme", },
   ["latex/bibleref/bibleref-manual.html"] = {["details"] = "Package documentation (as a web page)", },
-  ["latex/listings-ext/README"] = {["details"] = "Readme", },
   ["latex/mattens/mattens.pdf"] = {["details"] = "Package documentation", },
   ["latex/eskd/eskd.pdf"] = {["details"] = "Package documentation", },
   ["generic/vntex/vntex-man.pdf"] = {["details"] = "Package manual", ["lang"] = "vi", },
@@ -1434,81 +1436,81 @@ local s_meta = {
   ["latex/abstract/README"] = {["details"] = "Readme", },
   ["latex/mftinc/mftinc.pdf"] = {["details"] = "Package documentation", },
   ["latex/philosophersimprint/sample.pdf"] = {["details"] = "Sample of usage", },
-  ["latex/ulqda/README"] = {["details"] = "Readme", },
   ["latex/mwcls/README"] = {["details"] = "Package README", ["lang"] = "en", },
   ["generic/ukrhyph/rules60.pdf"] = {["details"] = "Old hyphenation rules", ["lang"] = "uk", },
-  ["latex/schemabloc/schemabloc.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
+  ["latex/schemabloc/README"] = {["details"] = "Readme", },
   ["latex/uiucthesis/thesis-ex.pdf"] = {["details"] = "Example of use", },
+  ["context/third/simplefonts/simplefonts.pdf"] = {["details"] = "Command summary", },
   ["generic/pst-vue3d/README"] = {["details"] = "Readme", },
   ["latex/binomexp/binomexp.pdf"] = {["details"] = "Package documentation", },
   ["latex/syllogism/README"] = {["details"] = "Readme", },
-  ["latex/SIunits/README"] = {["details"] = "Readme", },
-  ["latex/cjk/doc/chinese/README"] = {["details"] = "Readme file", },
-  ["latex/MemoirChapStyles/README"] = {["details"] = "Readme", },
-  ["latex/proba/proba.pdf"] = {["details"] = "Package documentation", },
   ["latex/uebungsblatt/README"] = {["details"] = "README", ["lang"] = "de", },
+  ["latex/SIunits/README"] = {["details"] = "Readme", },
+  ["latex/MemoirChapStyles/README"] = {["details"] = "Readme", },
+  ["latex/cjk/doc/chinese/README"] = {["details"] = "Readme file", },
+  ["latex/errata/README"] = {["details"] = "Readme", },
   ["latex/aiaa/pre2004/aiaa.pdf"] = {["details"] = "Package documentation", },
   ["latex/ucs/ucs.pdf"] = {["details"] = "Package documentation", },
   ["latex/dinbrief/readme"] = {["details"] = "Package Readme", ["lang"] = "en", },
+  ["latex/ucs/languages.pdf"] = {["details"] = "Languages supported", },
+  ["latex/nrc/README"] = {["details"] = "Readme", },
   ["plain/impatient/book.pdf"] = {["details"] = "A copy of the book (English)", ["lang"] = "en", },
-  ["latex/graphicx-psmin/README"] = {["details"] = "Package README", },
-  ["latex/texshade/tsfaq.pdf"] = {["details"] = "FAQs about TeXshaded", ["lang"] = "en", },
   ["latex/endnotes/endnotes.pdf"] = {["details"] = "Package documentation", },
   ["latex/polynom/README"] = {["details"] = "Readme", },
   ["latex/keycommand/keycommand-example.pdf"] = {["details"] = "Example of usage", },
-  ["latex/ucs/languages.pdf"] = {["details"] = "Languages supported", },
+  ["latex/graphicx-psmin/README"] = {["details"] = "Package README", },
   ["latex/numname/README"] = {["details"] = "Readme", },
-  ["latex/ucs/FAQ"] = {["details"] = "Frequently Asked Questions", },
+  ["latex/texshade/tsfaq.pdf"] = {["details"] = "FAQs about TeXshaded", ["lang"] = "en", },
   ["context/third/typearea/typearea-demo.pdf"] = {["details"] = "Package demo", },
   ["latex/datatool/README"] = {["details"] = "Readme", },
   ["latex/chessfss/README"] = {["details"] = "Readme", },
-  ["latex/ucdavisthesis/README"] = {["details"] = "Readme", },
+  ["latex/tapir/readme.pdf"] = {["details"] = "Package documentation", },
   ["latex/booklet/booklet.pdf"] = {["details"] = "Package documentation", },
+  ["latex/ucs/FAQ"] = {["details"] = "Frequently Asked Questions", },
+  ["latex/ucdavisthesis/README"] = {["details"] = "Readme", },
+  ["latex/tablenotes/mynotes.pdf"] = {["details"] = "Readme", },
   ["latex/spreadtab/spreadtab_doc_en.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
-  ["latex/chessboard/README"] = {["details"] = "Readme", },
-  ["generic/pst-jtree/pst-jtree-doc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/uaclasses/my-example.pdf"] = {["details"] = "my-thesis example", },
   ["latex/wallpaper/README"] = {["details"] = "Readme", },
-  ["latex/cd-cover/cd-cover.pdf"] = {["details"] = "Package documentation", },
-  ["latex/biblatex-contrib/biblatex-chem/README"] = {["details"] = "Readme", },
-  ["latex/idxlayout/README"] = {["details"] = "Readme", },
+  ["latex/chessboard/README"] = {["details"] = "Readme", },
+  ["fonts/antt/AntykwaTorunska-doc-pl-2_03.pdf"] = {["details"] = "Documentation in Polish:", ["lang"] = "pl", },
+  ["support/asymptote-by-example-zh-cn/asymptote-by-example-zh-cn.pdf"] = {["details"] = "The document itself", ["lang"] = "zh", },
   ["latex/codepage/codepage.pdf"] = {["details"] = "Package documentation", ["lang"] = "en", },
-  ["latex/toolbox/README"] = {["details"] = "Readme", },
+  ["latex/arabi/README"] = {["details"] = "Readme", },
   ["latex/typehtml/README"] = {["details"] = "Readme", },
-  ["latex/hyperref/README"] = {["details"] = "Readme", },
+  ["latex/biblatex-contrib/biblatex-chem/README"] = {["details"] = "Readme", },
   ["generic/pst-3d/README"] = {["details"] = "Readme", },
   ["latex/dyntree/README"] = {["details"] = "Readme", },
   ["latex/psfrag/announce.txt"] = {["details"] = "Release notice", },
   ["latex/tocvsec2/README"] = {["details"] = "Readme", },
-  ["latex/pgfopts/README"] = {["details"] = "Readme", },
+  ["latex/idxlayout/README"] = {["details"] = "Readme", },
   ["latex/twoup/twoup.pdf"] = {["details"] = "Package documentation", },
-  ["fonts/fouriernc/test_fouriernc.pdf"] = {["details"] = "FourierNC test example:", },
+  ["latex/hyperref/README"] = {["details"] = "Readme", },
+  ["latex/pgfopts/README"] = {["details"] = "Readme", },
   ["latex/twoinone/twoinone.pdf"] = {["details"] = "Package documentation", },
-  ["context/third/context-notes-zh-cn/ctxnotes.pdf"] = {["details"] = "The document itself", },
-  ["plain/metatex/README"] = {["details"] = "Readme", },
   ["latex/turnstile/README"] = {["details"] = "Readme", },
+  ["context/third/context-notes-zh-cn/ctxnotes.pdf"] = {["details"] = "The document itself", },
   ["latex/minitoc/minitoc.pdf"] = {["details"] = "Package documentation, in English", ["lang"] = "en", },
   ["generic/ifxetex/README"] = {["details"] = "Readme", },
   ["latex/todonotes/todonotes.pdf"] = {["details"] = "Package documentation", },
   ["latex/lshort-persian/README"] = {["details"] = "Readme", },
   ["latex/directory/README"] = {["details"] = "Package Readme", },
   ["metapost/metaobj/README"] = {["details"] = "Readme", },
-  ["latex/psbao/psbaomanual.pdf"] = {["details"] = "Package manual", },
+  ["plain/metatex/README"] = {["details"] = "Readme", },
   ["latex/pgfplots/pgfplotsexample.pdf"] = {["details"] = "LaTeX Examples", },
-  ["latex/frankenstein/README"] = {["details"] = "Bundle README", },
-  ["latex/environ/README"] = {["details"] = "Readme", },
   ["latex/tugboat/ltubguid.pdf"] = {["details"] = "Instructions for authors", ["lang"] = "en", },
-  ["fonts/esint-type1/README"] = {["details"] = "Readme", },
+  ["latex/environ/README"] = {["details"] = "Readme", },
+  ["latex/frankenstein/README"] = {["details"] = "Bundle README", },
+  ["generic/pst-lens/pst-lens.pdf"] = {["details"] = "Package documentation", },
   ["latex/nostarch/README"] = {["details"] = "Readme", },
+  ["fonts/esint-type1/README"] = {["details"] = "Readme", },
   ["latex/datetime/README"] = {["details"] = "Package README", },
-  ["latex/fn2end/fn2end.pdf"] = {["details"] = "Package documentation", },
   ["latex/tufte-latex/README"] = {["details"] = "Readme", },
-  ["metapost/automata/README"] = {["details"] = "Readme", },
+  ["latex/acronym/README"] = {["details"] = "Package Readme", },
   ["latex/trivfloat/README"] = {["details"] = "Readme", },
   ["latex/europecv/europecv.pdf"] = {["details"] = "Class documentation:", },
-  ["latex/subfigure/README"] = {["details"] = "Readme", },
+  ["latex/stdpage/stdpage.pdf"] = {["details"] = "Package documentation", },
   ["latex/trfsigns/README"] = {["details"] = "Package Readme", },
-  ["fonts/boisik/example/table.pdf"] = {["details"] = "Font table", },
+  ["latex/lps/README"] = {["details"] = "Readme", },
   ["latex/chembst/chembst.pdf"] = {["details"] = "Package documentation", },
   ["fonts/lfb/example.pdf"] = {["details"] = "Example of text in lfb", ["lang"] = "el", },
   ["latex/translator/README"] = {["details"] = "Readme", },
@@ -1517,35 +1519,35 @@ local s_meta = {
   ["latex/algorithm2e/algorithm2e.pdf"] = {["details"] = "Package documentation", },
   ["latex/trajan/README"] = {["details"] = "Readme", },
   ["latex/ctex-faq/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
-  ["generic/pst-ob3d/pst-ob3d.pdf"] = {["details"] = "Package documentation", },
+  ["latex/tocbibind/README"] = {["details"] = "Readme", },
   ["latex/paper/paper.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
-  ["latex/custom-bib/merlin.pdf"] = {["details"] = "Master style file documentation", },
   ["latex/totpages/README"] = {["details"] = "Readme", },
-  ["latex/breakurl/breakurl.pdf"] = {["details"] = "Package documentation", },
+  ["latex/custom-bib/merlin.pdf"] = {["details"] = "Master style file documentation", },
+  ["latex/ijmart/README"] = {["details"] = "Readme", },
   ["latex/toptesi/toptesi-doc.pdf"] = {["details"] = "Package documentation", ["lang"] = "it", },
   ["latex/lsc/README"] = {["details"] = "Readme", },
   ["latex/active-conf/README"] = {["details"] = "Readme", },
-  ["latex/arabi/README"] = {["details"] = "Readme", },
-  ["latex/capt-of/capt-of.pdf"] = {["details"] = "Package documentation", },
-  ["latex/textpos/textpos.html"] = {["details"] = "Version history, etc. (HTML)", },
+  ["latex/toolbox/README"] = {["details"] = "Readme", },
   ["latex/todonotes/README"] = {["details"] = "Readme", },
+  ["latex/textpos/textpos.html"] = {["details"] = "Version history, etc. (HTML)", },
+  ["latex/capt-of/capt-of.pdf"] = {["details"] = "Package documentation", },
   ["latex/stellenbosch/README"] = {["details"] = "Bundle README", ["lang"] = "en", },
-  ["latex/tocvsec2/tocvsec2.pdf"] = {["details"] = "Package documentation", },
+  ["latex/rcs-multi/README"] = {["details"] = "Readme", },
   ["latex/dotarrow/DotArrow.pdf"] = {["details"] = "Package documentation", },
   ["latex/babelbib/babelbib.pdf"] = {["details"] = "Package documentation", },
   ["latex/lcyw/README"] = {["details"] = "Readme", },
-  ["generic/shade/description.pdf"] = {["details"] = "Description of the algorithm:", ["lang"] = "en", },
+  ["latex/tocvsec2/tocvsec2.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-node/pst-node-doc.pdf"] = {["details"] = "Package documentation (English)", },
   ["context/third/context-top-ten/cmds.pdf"] = {["details"] = "The document itself", },
   ["xelatex/fontwrap/fontwrap.pdf"] = {["details"] = "Package documentation", },
-  ["latex/ltxnew/README"] = {["details"] = "Readme", },
   ["latex/lcg/lcg.pdf"] = {["details"] = "Package documentation", },
   ["latex/floatrow/floatrow-rus.pdf"] = {["details"] = "Package documentation (Russian)", ["lang"] = "ru", },
-  ["latex/engtlc/README"] = {["details"] = "Readme", },
+  ["latex/ltxnew/README"] = {["details"] = "Readme", },
   ["latex/renditions/README"] = {["details"] = "Readme", },
   ["eplain/doc/eplain.pdf"] = {["details"] = "Package documentation", },
   ["generic/es-tex-faq/FAQ-CervanTeX.html"] = {["details"] = "The document itself (HTML)", ["lang"] = "es", },
   ["latex/commath/README"] = {["details"] = "Readme", },
-  ["latex/tocbibind/README"] = {["details"] = "Readme", },
+  ["latex/engtlc/README"] = {["details"] = "Readme", },
   ["xelatex/arabxetex/README"] = {["details"] = "Readme", },
   ["latex/lineno/lnosuppl.pdf"] = {["details"] = "Supplementary files as pdf:", },
   ["latex/tkz-linknodes/doc/TKZdoc-linknodes-us.pdf"] = {["details"] = "Package documentation", ["lang"] = "en", },
@@ -1554,217 +1556,217 @@ local s_meta = {
   ["latex/fancytooltips/fancytooltips.pdf"] = {["details"] = "Package documentation", },
   ["fonts/fge/README"] = {["details"] = "Readme", },
   ["latex/supertabular/supertabular.pdf"] = {["details"] = "Package documentation", },
-  ["latex/biblist/README"] = {["details"] = "Readme", },
+  ["latex/hyperref/README.pdf"] = {["details"] = "Readme, hyper-crossreferenced", },
   ["metapost/drv/drv-guide.pdf"] = {["details"] = "User guide", },
   ["latex/anysize/README"] = {["details"] = "Package Readme", },
-  ["latex/appendix/README"] = {["details"] = "Package Readme", },
+  ["latex/biblist/README"] = {["details"] = "Readme", },
   ["latex/inlinedef/inlinedef.pdf"] = {["details"] = "Package documentation", },
-  ["latex/flippdf/README"] = {["details"] = "Readme", },
-  ["latex/first-latex-doc/first-latex-doc.pdf"] = {["details"] = "The document itself", },
-  ["latex/IEEEtran/README"] = {["details"] = "Readme", },
+  ["latex/boolexpr/boolexpr.pdf"] = {["details"] = "Package documentation", },
   ["latex/titlesec/README"] = {["details"] = "Readme", },
+  ["latex/IEEEtran/README"] = {["details"] = "Readme", },
+  ["latex/first-latex-doc/first-latex-doc.pdf"] = {["details"] = "The document itself", },
   ["latex/acronym/acronym.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pgf/README"] = {["details"] = "Readme", },
+  ["latex/titlepic/README"] = {["details"] = "Readme", },
   ["latex/combine/README"] = {["details"] = "Package Readme", },
   ["latex/fnbreak/fnbreak.pdf"] = {["details"] = "Package documentation", },
   ["latex/codedoc/README"] = {["details"] = "Readme", },
-  ["latex/titlepic/README"] = {["details"] = "Readme", },
+  ["latex/boites/README"] = {["details"] = "Readme", },
   ["fonts/kixfont/kixtable.pdf"] = {["details"] = "Font table", },
-  ["latex/cjk/doc/cjk/README"] = {["details"] = "Readme file", },
-  ["latex/script/script2e.txt"] = {["details"] = "Readme", ["lang"] = "de", },
   ["latex/gmdoc/README"] = {["details"] = "README", },
+  ["latex/script/script2e.txt"] = {["details"] = "Readme", ["lang"] = "de", },
+  ["latex/pbsheet/pbsheet.pdf"] = {["details"] = "Package documentation", },
   ["latex/unroman/unroman.pdf"] = {["details"] = "Package documentation", },
   ["latex/l2picfaq/README"] = {["details"] = "Package README", ["lang"] = "de", },
-  ["latex/pbsheet/pbsheet.pdf"] = {["details"] = "Package documentation", },
   ["latex/pbox/README"] = {["details"] = "Readme", },
-  ["fonts/tipa/tipaman.pdf"] = {["details"] = "Package manual", },
+  ["latex/curves/curves.pdf"] = {["details"] = "Package documentation", },
+  ["latex/lshort-french/lshort-fr.pdf"] = {["details"] = "The document itself", ["lang"] = "fr", },
   ["latex/mh/empheq.pdf"] = {["details"] = "Package documentation -- empheq", },
   ["latex/tkz-orm/README"] = {["details"] = "Readme", },
   ["latex/spreadtab/spreadtab_doc_fr.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
-  ["latex/curves/curves.pdf"] = {["details"] = "Package documentation", },
+  ["latex/fn2end/fn2end.pdf"] = {["details"] = "Package documentation", },
   ["latex/cooking/README"] = {["details"] = "Package Readme", },
   ["latex/crosswrd/README"] = {["details"] = "Readme", },
-  ["latex/lshort-french/lshort-fr.pdf"] = {["details"] = "The document itself", ["lang"] = "fr", },
+  ["latex/currvita/README"] = {["details"] = "Package Readme", },
   ["latex/tufte-latex/sample-book.pdf"] = {["details"] = "Sample book", },
   ["latex/figsize/README"] = {["details"] = "Package Readme", },
-  ["latex/currvita/README"] = {["details"] = "Package Readme", },
-  ["support/asymptote-faq-zh-cn/asymptote-faq-zh-cn.pdf"] = {["details"] = "The document itself", ["lang"] = "zh", },
   ["latex/tikz-qtree/tikz-qtree-manual.pdf"] = {["details"] = "Package documentation", },
+  ["latex/tikz-qtree/README"] = {["details"] = "Readme", },
+  ["latex/dotarrow/README"] = {["details"] = "Readme", },
   ["latex/cdpbundl/00readme.txt"] = {["details"] = "Basic introduction", },
   ["latex/leftidx/leftidx.pdf"] = {["details"] = "Package documentation", },
   ["context/third/typearea/typearea-doc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/tikz-qtree/README"] = {["details"] = "Readme", },
-  ["latex/dotarrow/README"] = {["details"] = "Readme", },
+  ["generic/tex-refs/tex-refs.html"] = {["details"] = "The references themselves", },
   ["latex/dox/README"] = {["details"] = "Readme", },
+  ["latex/complexity/README"] = {["details"] = "Readme", },
   ["latex/ecv/template/CV-template_en.pdf"] = {["details"] = "Template (English)", ["lang"] = "en", },
   ["latex/facsimile/facsimile.pdf"] = {["details"] = "Package documentation", },
-  ["latex/complexity/README"] = {["details"] = "Readme", },
+  ["latex/float/README"] = {["details"] = "Package Readme", },
   ["latex/lshort-turkish/lshort-tr.pdf"] = {["details"] = "The document itself", ["lang"] = "tr", },
-  ["plain/texbytopic/README"] = {["details"] = "Readme", },
-  ["latex/niceframe/niceframe.pdf"] = {["details"] = "Package documentation", },
-  ["latex/svn-multi/svn-multi.pdf"] = {["details"] = "Package documentation", },
-  ["latex/ijmart/ijmsample.pdf"] = {["details"] = "Sample paper", },
   ["latex/examdesign/README"] = {["details"] = "Package README", },
-  ["latex/etaremune/etaremune.pdf"] = {["details"] = "Package documentation", },
-  ["latex/cellspace/cellspace.pdf"] = {["details"] = "Package documentation", },
-  ["latex/nih/example-nih-cls.pdf"] = {["details"] = "Example -- the class in normal use", },
-  ["latex/capt-of/README"] = {["details"] = "Readme", },
+  ["latex/niceframe/niceframe.pdf"] = {["details"] = "Package documentation", },
   ["latex/thuthesis/example/main.pdf"] = {["details"] = "Example of use", },
+  ["latex/ijmart/ijmsample.pdf"] = {["details"] = "Sample paper", },
   ["latex/fmp/fmp.pdf"] = {["details"] = "Package documentation", },
   ["context/third/context-notes-zh-cn/README"] = {["details"] = "Readme", },
   ["latex/fancybox/fancybox.pdf"] = {["details"] = "Documentation -- Box tips and tricks:", },
+  ["latex/nih/example-nih-cls.pdf"] = {["details"] = "Example -- the class in normal use", },
+  ["latex/capt-of/README"] = {["details"] = "Readme", },
   ["latex/apa/apacls.txt"] = {["details"] = "Outline of the class", },
-  ["latex/cd/cd.pdf"] = {["details"] = "Package documentation", },
   ["latex/lineno/lineno.pdf"] = {["details"] = "Package documentation:", },
+  ["latex/thumb/README"] = {["details"] = "Package Readme", },
+  ["latex/psu-thesis/mssample.pdf"] = {["details"] = "MS thesis layout demonstration", },
+  ["latex/threeparttablex/README"] = {["details"] = "Readme", },
+  ["latex/cd/cd.pdf"] = {["details"] = "Package documentation", },
+  ["latex/etoolbox/etoolbox.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-pdgr/pst-pdgr.pdf"] = {["details"] = "Package documentation", },
   ["latex/lshort-bulgarian/lshort-bg.pdf"] = {["details"] = "The document itself", ["lang"] = "bg", },
-  ["latex/thumb/README"] = {["details"] = "Package Readme", },
-  ["latex/psu-thesis/phdsample.pdf"] = {["details"] = "PhD thesis layout demonstration", },
-  ["latex/threeparttablex/README"] = {["details"] = "Readme", },
-  ["latex/chapterfolder/chapterfolder.pdf"] = {["details"] = "Package documentation", },
-  ["latex/tapir/readme.pdf"] = {["details"] = "Package documentation", },
+  ["latex/talk/README"] = {["details"] = "Readme", },
+  ["generic/pgf/README"] = {["details"] = "Readme", },
   ["latex/thesis-titlepage-fhac/README"] = {["details"] = "README file", },
-  ["latex/psu-thesis/README"] = {["details"] = "Readme", },
+  ["latex/chapterfolder/chapterfolder.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pstricks-add/pstricks-add-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/enumitem/enumitem.pdf"] = {["details"] = "Package documentation", },
-  ["generic/xstring/xstring_doc_en.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
+  ["latex/textpos/examples/README"] = {["details"] = "Package README", },
   ["latex/extpfeil/extpfeil.pdf"] = {["details"] = "Benutzerdoku", ["lang"] = "de", },
-  ["latex/gloss/README"] = {["details"] = "Package Readme", },
-  ["latex/eqparbox/README"] = {["details"] = "Readme", },
+  ["generic/xstring/xstring_doc_en.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["fonts/gfsdidot/README"] = {["details"] = "Readme", },
-  ["latex/csquotes/README"] = {["details"] = "Package README", },
   ["latex/textopo/textopo.txt"] = {["details"] = "Notes on the distribution", },
   ["latex/engrec/engrec.pdf"] = {["details"] = "Package documentation", },
-  ["latex/bgreek/bgman.pdf"] = {["details"] = "Package documentation", },
+  ["latex/cjk/doc/cjk/README"] = {["details"] = "Readme file", },
+  ["latex/csquotes/README"] = {["details"] = "Package README", },
+  ["latex/textcase/textcase.pdf"] = {["details"] = "Package documentation", },
   ["latex/nicetext/README"] = {["details"] = "Readme", },
   ["latex/aeguill/README"] = {["details"] = "Readme", },
   ["latex/answers/answers.pdf"] = {["details"] = "Package documentation", },
-  ["latex/textcase/textcase.pdf"] = {["details"] = "Package documentation", },
-  ["latex/preview/README"] = {["details"] = "Readme", },
   ["latex/textcase/README"] = {["details"] = "Readme", },
   ["latex/texshade/texshade.pdf"] = {["details"] = "Package documentation", ["lang"] = "en", },
+  ["latex/seqsplit/seqsplit.pdf"] = {["details"] = "Package documentation", },
+  ["latex/preview/README"] = {["details"] = "Readme", },
   ["latex/nicetext/niceverb.pdf"] = {["details"] = "Niceverb documentation", },
   ["latex/cmdtrack/cmdtrack.pdf"] = {["details"] = "Package documentation", },
-  ["latex/pinlabel/pinlabdoc.pdf"] = {["details"] = "Package documentation", },
   ["latex/texments/texments.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-coil/README"] = {["details"] = "Package README", },
-  ["generic/pst-diffraction/pst-diffraction-docE.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
-  ["latex/contour/contour.pdf"] = {["details"] = "Package documentation", },
+  ["latex/pinlabel/pinlabdoc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/refstyle/refstyle.pdf"] = {["details"] = "Users manual:", },
   ["fonts/cmcyr/README"] = {["details"] = "Readme", },
-  ["latex/widetable/widetable.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-coil/README"] = {["details"] = "Package README", },
+  ["support/texdiff/README"] = {["details"] = "Readme", },
+  ["latex/contour/contour.pdf"] = {["details"] = "Package documentation", },
   ["support/texcount/TeXcount.pdf"] = {["details"] = "Package documentation", },
-  ["metapost/metauml/README"] = {["details"] = "Readme", },
-  ["support/texcount/README"] = {["details"] = "Readme", },
+  ["latex/widetable/widetable.pdf"] = {["details"] = "Package documentation", },
   ["plain/texbytopic/TeXbyTopic.pdf"] = {["details"] = "The book itself", },
+  ["metapost/metauml/README"] = {["details"] = "Readme", },
+  ["plain/texbytopic/README"] = {["details"] = "Readme", },
+  ["latex/tex-label/tex-label-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/akletter/letterdoc.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
   ["latex/ltxnew/ltxnew.pdf"] = {["details"] = "Package documentation", },
-  ["generic/tex-refs/tex-refs.html"] = {["details"] = "The references themselves", },
   ["latex/easylist/README"] = {["details"] = "Bundle readme", },
-  ["latex/tex-label/tex-label-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/tex-label/README"] = {["details"] = "Readme", },
   ["pdftex/manual/README"] = {["details"] = "Readme", },
+  ["latex/getfiledate/getfiledate-guide.pdf"] = {["details"] = "Package documentation", },
   ["latex/lshort-persian/lshort.pdf"] = {["details"] = "The document itself", ["lang"] = "fa", },
-  ["latex/glossaries/glossary2glossaries.pdf"] = {["details"] = "How to upgrade from glossary.sty (PDF)", },
   ["latex/tensor/tensor.pdf"] = {["details"] = "Package documentation", },
-  ["latex/fancyhdr/README"] = {["details"] = "Readme", },
+  ["latex/glossaries/glossary2glossaries.pdf"] = {["details"] = "How to upgrade from glossary.sty (PDF)", },
+  ["latex/eskdx/manual/eskdx.pdf"] = {["details"] = "Package documentation", ["lang"] = "ru", },
+  ["latex/tengwarscript/tengtest.pdf"] = {["details"] = "Crib sheet and tests:", },
   ["latex/chletter/README"] = {["details"] = "Readme", },
   ["latex/colorinfo/README"] = {["details"] = "Readme", },
   ["latex/arsclassica/Italian/ArsClassica.pdf"] = {["details"] = "Package documentation (Italian)", ["lang"] = "it", },
   ["latex/xnewcommand/xnewcommand.pdf"] = {["details"] = "Package documentation", },
   ["fonts/dingbat/README"] = {["details"] = "Readme", },
-  ["latex/tengwarscript/tengtest.pdf"] = {["details"] = "Crib sheet and tests:", },
-  ["latex/pbox/pbox.pdf"] = {["details"] = "Package documentation", },
   ["latex/ted/README"] = {["details"] = "Readme", },
-  ["latex/attachfile/README"] = {["details"] = "Readme", },
+  ["latex/examplep/eurotex_2005_examplep.pdf"] = {["details"] = "Article from EuroTeX 2005 talk", },
+  ["latex/tdclock/tdclock-doc.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-bezier/pst-bezier-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/spotcolor/README"] = {["details"] = "Readme", },
   ["context/third/mathsets/README"] = {["details"] = "Readme", },
   ["latex/bez123/bez123.pdf"] = {["details"] = "Package documentation", },
-  ["latex/sdrt/sdrt-doc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/tdclock/tdclock-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/tabulary/tabulary.pdf"] = {["details"] = "Package documentation", },
+  ["latex/apa/README"] = {["details"] = "Readme", },
   ["latex/fullblck/fullblck.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-bezier/pst-bezier-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/tabularew/README"] = {["details"] = "Readme", },
   ["latex/expl3/README"] = {["details"] = "Bundle README", },
   ["generic/pst-qtree/pst-qtree-manual.pdf"] = {["details"] = "Package documentation", },
-  ["latex/talk/README"] = {["details"] = "Readme", },
-  ["latex/apa/README"] = {["details"] = "Readme", },
-  ["latex/bigfoot/bigfoot.pdf"] = {["details"] = "Package documentation", },
-  ["latex/tabulary/tabulary.pdf"] = {["details"] = "Package documentation", },
-  ["latex/codepage/LISEZMOI"] = {["details"] = "Readme", ["lang"] = "fr", },
-  ["latex/tabularew/README"] = {["details"] = "Readme", },
   ["latex/AkkTeX/README"] = {["details"] = "Bundle README", },
+  ["latex/tabularcalc/README"] = {["details"] = "Readme", },
+  ["latex/bigfoot/bigfoot.pdf"] = {["details"] = "Package documentation", },
+  ["latex/mattens/mattens_sample.pdf"] = {["details"] = "Sample of use", },
+  ["latex/codepage/LISEZMOI"] = {["details"] = "Readme", ["lang"] = "fr", },
+  ["latex/MemoirChapStyles/MemoirChapStyles.pdf"] = {["details"] = "The document itself", },
+  ["latex/tableaux/exemples.pdf"] = {["details"] = "Further examples (comments in French)", ["lang"] = "fr", },
   ["latex/engpron/README"] = {["details"] = "Readme", ["lang"] = "en", },
   ["generic/tds/tds.pdf"] = {["details"] = "The standard specification", },
-  ["latex/tabularcalc/README"] = {["details"] = "Readme", },
-  ["fonts/txfontsb/README"] = {["details"] = "Readme", },
-  ["latex/mattens/mattens_sample.pdf"] = {["details"] = "Sample of use", },
-  ["latex/unitsdef/unitsdef.pdf"] = {["details"] = "Package documentation", },
-  ["latex/tableaux/exemples.pdf"] = {["details"] = "Further examples (comments in French)", ["lang"] = "fr", },
   ["latex/synproof/synproof-doc.pdf"] = {["details"] = "Package documentation", },
-  ["context/third/account/README"] = {["details"] = "Readme", },
-  ["latex/comprehensive/README"] = {["details"] = "Package README", },
-  ["latex/ncclatex/README"] = {["details"] = "Readme", },
+  ["fonts/txfontsb/README"] = {["details"] = "Readme", },
+  ["latex/psbao/psbaomanual.pdf"] = {["details"] = "Package manual", },
+  ["latex/unitsdef/unitsdef.pdf"] = {["details"] = "Package documentation", },
   ["latex/caption/caption-eng.pdf"] = {["details"] = "English documentation", ["lang"] = "en", },
   ["latex/svn-prov/README"] = {["details"] = "Readme", },
-  ["latex/octavo/README"] = {["details"] = "Readme", },
+  ["latex/svn-multi/svn-multi.pdf"] = {["details"] = "Package documentation", },
   ["latex/arydshln/arydshln-man.pdf"] = {["details"] = "User manual:", },
+  ["latex/ncclatex/README"] = {["details"] = "Readme", },
   ["latex/svn/svn.pdf"] = {["details"] = "Package documentation", },
+  ["latex/svn/README"] = {["details"] = "Package README", },
+  ["latex/octavo/README"] = {["details"] = "Readme", },
+  ["latex/amsldoc-vn/amsldoc-print-vi.pdf"] = {["details"] = "For printing", ["lang"] = "vi", },
+  ["latex/svgcolor/README"] = {["details"] = "Readme", },
   ["generic/xstring/xstring_doc_fr.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
   ["latex/boites/boites_exemples.pdf"] = {["details"] = "(Contrived) examples of use", },
-  ["latex/svn/README"] = {["details"] = "Package README", },
-  ["latex/l2tabu-it/l2tabuit.pdf"] = {["details"] = "The document itself", ["lang"] = "it", },
-  ["latex/ccaption/ccaption.pdf"] = {["details"] = "Package documentation", },
-  ["latex/multiobjective/README"] = {["details"] = "Readme", },
-  ["latex/svgcolor/README"] = {["details"] = "Readme", },
   ["latex/computational-complexity/cc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/l2tabu-it/l2tabuit.pdf"] = {["details"] = "The document itself", ["lang"] = "it", },
   ["latex/sudokubundle/sudokubundle.pdf"] = {["details"] = "Package documentation", },
-  ["latex/courier-scaled/README"] = {["details"] = "Readme", },
+  ["latex/multiobjective/README"] = {["details"] = "Readme", },
+  ["latex/randbild/README"] = {["details"] = "Readme (bilingual)", },
   ["latex/sudoku/sudoku.pdf"] = {["details"] = "Package documentation", },
-  ["latex/altfont/README"] = {["details"] = "Readme", },
+  ["latex/courier-scaled/README"] = {["details"] = "Readme", },
   ["latex/sudoku/README"] = {["details"] = "Readme", },
+  ["latex/schemabloc/schemabloc.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
+  ["latex/altfont/README"] = {["details"] = "Readme", },
+  ["latex/subfigure/subfigure.pdf"] = {["details"] = "Package documentation", },
   ["generic/enctex/encdoc.pdf"] = {["details"] = "Reference manual:", ["lang"] = "cs", },
   ["latex/amsrefs/amsrdoc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/subfigure/subfigure.pdf"] = {["details"] = "Package documentation", },
+  ["latex/subfigure/README"] = {["details"] = "Readme", },
   ["latex/cooltooltips/README"] = {["details"] = "Readme", },
   ["latex/changepage/README"] = {["details"] = "Readme", },
   ["luatex/luatextra/README"] = {["details"] = "Readme", },
   ["latex/colorwav/colorwav.pdf"] = {["details"] = "Package documentation", },
   ["fonts/mxedruli/mxeddoc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/cd-cover/README"] = {["details"] = "Readme", },
   ["latex/subfig/README"] = {["details"] = "Readme", },
-  ["support/asymptote-manual-zh-cn/README"] = {["details"] = "Readme", },
   ["latex/subeqn/subeqn.pdf"] = {["details"] = "Package documentation", },
+  ["support/asymptote-manual-zh-cn/README"] = {["details"] = "Readme", },
   ["latex/noitcrul/noitcrul.pdf"] = {["details"] = "Benutzerdoku:", ["lang"] = "de", },
   ["metapost/suanpan/README"] = {["details"] = "Readme", },
   ["latex/stubs/stubs_ex.pdf"] = {["details"] = "Example of use", },
+  ["latex/mathpazo/pazotest.pdf"] = {["details"] = "Font tables:", },
   ["latex/cell/README"] = {["details"] = "Readme", },
-  ["latex/anyfontsize/anyfontsize.pdf"] = {["details"] = "Package documentation", },
+  ["latex/endfloat/endfloat.pdf"] = {["details"] = "Package documentation", },
+  ["latex/addlines/README"] = {["details"] = "Readme", },
   ["latex/auto-pst-pdf/README"] = {["details"] = "Package Readme", },
-  ["latex/stdpage/stdpage.pdf"] = {["details"] = "Package documentation", },
   ["latex/stdpage/README"] = {["details"] = "Package README", },
-  ["latex/disser/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
-  ["metapost/mpman-ru/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
+  ["latex/comprehensive/README"] = {["details"] = "Package README", },
+  ["latex/elsevier/instructions-harv.pdf"] = {["details"] = "Instructions for use, harvard-style citations", ["lang"] = "en", },
   ["latex/memoir/memman.pdf"] = {["details"] = "Basic user manual", },
-  ["latex/exp-testopt/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
+  ["latex/cryst/README"] = {["details"] = "Readme", },
   ["latex/amsrefs/amsrefs.pdf"] = {["details"] = "Documented source", },
   ["latex/exam/README"] = {["details"] = "Package Readme", },
-  ["latex/achemso/achemso.pdf"] = {["details"] = "Package documentation", },
+  ["generic/midnight/midnight.pdf"] = {["details"] = "Package documentation", },
   ["otherformats/startex/base/guide.pdf"] = {["details"] = "Beginner's guide", },
   ["latex/nomencl/README"] = {["details"] = "Readme", },
   ["latex/makebox/makebox.pdf"] = {["details"] = "Package documentation", },
-  ["latex/ccaption/README"] = {["details"] = "Readme", },
+  ["latex/achemso/achemso.pdf"] = {["details"] = "Package documentation", },
   ["latex/stage/stage-documentation.pdf"] = {["details"] = "Package documentation", },
   ["latex/hanging/hanging.pdf"] = {["details"] = "Package documentation", },
-  ["latex/dateiliste/dateiliste.pdf"] = {["details"] = "Benutzerdoku:", ["lang"] = "de", },
+  ["latex/ccaption/README"] = {["details"] = "Readme", },
   ["latex/spverbatim/spverbatim.pdf"] = {["details"] = "Package documentation", },
   ["fonts/lh/README"] = {["details"] = "Readme", },
   ["latex/dnaseq/dnaseq.pdf"] = {["details"] = "Package documentation", },
-  ["latex/changes/changes.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
+  ["latex/ametsoc/amspaper2col.pdf"] = {["details"] = "Two column package documentation (as sample paper)", },
   ["latex/knittingpattern/README"] = {["details"] = "Readme", },
+  ["latex/changes/changes.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
   ["latex/menu/menu.pdf"] = {["details"] = "Package documentation", },
   ["latex/isodate/testdate.pdf"] = {["details"] = "Test document showing styles", },
   ["plain/mkpattern/mkpatter.pdf"] = {["details"] = "Package documentation", },
-  ["latex/epspdfconversion/README"] = {["details"] = "Readme", },
-  ["latex/latexcheat-ptbr/latexsheet-ptbr.pdf"] = {["details"] = "The document itself", ["lang"] = "pt", },
-  ["latex/csquotes/csquotes.pdf"] = {["details"] = "Tutorial on use of the package", },
+  ["latex/sidecap/README"] = {["details"] = "Readme", },
+  ["latex/bigints/README"] = {["details"] = "Readme", },
   ["latex/tabularew/tabularew.pdf"] = {["details"] = "Package documentation", },
   ["latex/inversepath/README"] = {["details"] = "Readme", },
   ["latex/ed/ed.pdf"] = {["details"] = "Package documentation", },
@@ -1773,113 +1775,113 @@ local s_meta = {
   ["latex/listliketab/listliketab.pdf"] = {["details"] = "Package documentation", },
   ["latex/mafr/docmafr.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
   ["latex/classicthesis/README"] = {["details"] = "Package README", },
-  ["latex/docmfp/README"] = {["details"] = "Package Readme", },
-  ["latex/powerdot-FUBerlin/README"] = {["details"] = "Readme", },
   ["latex/apa/apacls.html"] = {["details"] = "Class documentation", },
-  ["latex/draftcopy/draftcopy.pdf"] = {["details"] = "Package documentation", },
-  ["latex/smalltableof/README"] = {["details"] = "Readme", },
+  ["latex/powerdot-FUBerlin/README"] = {["details"] = "Readme", },
   ["latex/gmdoc/gmdoc.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-fractal/pst-fractal-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/leading/leading.pdf"] = {["details"] = "Package documentation", },
   ["support/findhyph/README"] = {["details"] = "Readme", },
+  ["fonts/skaknew/fonttables.pdf"] = {["details"] = "Font tables", },
+  ["generic/pst-fractal/pst-fractal-doc.pdf"] = {["details"] = "Package documentation", },
+  ["support/pkfix-helper/encoding-samples.pdf"] = {["details"] = "Encoding tables and how to use them", },
   ["latex/verbdef/verbdef.pdf"] = {["details"] = "Package documentation", },
-  ["latex/fancynum/fancynum.pdf"] = {["details"] = "Package documentation", },
-  ["latex/glossaries/glossaries.pdf"] = {["details"] = "Package documentation (PDF)", },
-  ["latex/mh/mhsetup.pdf"] = {["details"] = "Package documentation -- mhsetup", },
-  ["latex/siunitx/README"] = {["details"] = "Readme", },
   ["latex/simplewick/simplewick.pdf"] = {["details"] = "Package documentation", },
-  ["latex/boolexpr/boolexpr.pdf"] = {["details"] = "Package documentation", },
-  ["latex/cachepic/README"] = {["details"] = "Readme", },
+  ["fonts/gentium/GENTIUM-FAQ.txt"] = {["details"] = "FAQ", },
+  ["latex/mh/mhsetup.pdf"] = {["details"] = "Package documentation -- mhsetup", },
+  ["fonts/gfsporson/README"] = {["details"] = "Readme", },
   ["latex/simplecv/README"] = {["details"] = "Readme", },
+  ["latex/silence/silence-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/cachepic/README"] = {["details"] = "Readme", },
+  ["latex/silence/README"] = {["details"] = "Readme", },
   ["latex/varsfromjobname/varsfromjobname.pdf"] = {["details"] = "Package documentation", },
   ["fonts/chemarrow/chemarrow-de.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
-  ["latex/silence/README"] = {["details"] = "Readme", },
-  ["latex/siggraph/README"] = {["details"] = "Readme", },
-  ["latex/sidecap/README"] = {["details"] = "Readme", },
+  ["latex/latexcheat-ptbr/latexsheet-ptbr.pdf"] = {["details"] = "The document itself", ["lang"] = "pt", },
+  ["latex/shuffle/shuffle.pdf"] = {["details"] = "Package documentation", },
   ["latex/abstract/abstract.pdf"] = {["details"] = "Package documentation", },
+  ["latex/attachfile/README"] = {["details"] = "Readme", },
   ["latex/sidecap/sidecap.pdf"] = {["details"] = "Package documentation", },
   ["latex/shuffle/README"] = {["details"] = "Readme", },
   ["latex/showlabels/showlabels.pdf"] = {["details"] = "Package documentation (PDF)", },
+  ["generic/pst-3dplot/README"] = {["details"] = "Readme", },
   ["latex/ebsthesis/ebsthesis.pdf"] = {["details"] = "Package documentation", },
-  ["latex/examplep/eurotex_2005_examplep.pdf"] = {["details"] = "Article from EuroTeX 2005 talk", },
   ["fonts/cbfonts/README"] = {["details"] = "Readme", },
   ["latex/arcs/README"] = {["details"] = "Package README", },
   ["latex/perltex/perltex.pdf"] = {["details"] = "Package documentation", },
   ["latex/bookest/README"] = {["details"] = "Readme", },
-  ["latex/aiaa/README"] = {["details"] = "Package README", },
+  ["latex/dateiliste/README"] = {["details"] = "Readme", },
   ["latex/show2e/README"] = {["details"] = "Readme", },
+  ["latex/aiaa/README"] = {["details"] = "Package README", },
   ["latex/shorttoc/shorttoc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/asaetr/asaetr.pdf"] = {["details"] = "Package documentation", },
   ["latex/mh/xfrac.pdf"] = {["details"] = "Package documentation -- xfrac", },
   ["latex/dateiliste/README-de"] = {["details"] = "Readme", ["lang"] = "de", },
   ["latex/ryethesis/README"] = {["details"] = "Readme", },
-  ["generic/babel/00readme.txt"] = {["details"] = "Readme", },
+  ["latex/ntheorem/README"] = {["details"] = "Readme", },
   ["latex/aguplus/aguplus.pdf"] = {["details"] = "Package documentation", },
   ["latex/fixfoot/fixfoot.pdf"] = {["details"] = "Package documentation", },
+  ["latex/dlfltxb/dlfltxbmisc.pdf"] = {["details"] = "dlfltxbmisc package documentation", },
   ["fonts/Type1fonts/README"] = {["details"] = "Readme", },
-  ["latex/ntheorem/README"] = {["details"] = "Readme", },
   ["fonts/venturisadf/venturisadf.pdf"] = {["details"] = "Documentation: installation and use", },
   ["latex/ibycus-babel/README"] = {["details"] = "Readme", },
-  ["latex/examplep/README"] = {["details"] = "Readme", },
-  ["fonts/semaphor/README"] = {["details"] = "Readme", },
+  ["latex/coverpage/SimpleSample.pdf"] = {["details"] = "Simple sample:", },
+  ["generic/shade/description.pdf"] = {["details"] = "Description of the algorithm:", ["lang"] = "en", },
   ["xelatex/xeindex/xeindex.pdf"] = {["details"] = "Package documentation", },
-  ["latex/cryst/README"] = {["details"] = "Readme", },
+  ["latex/envlab/elguide.pdf"] = {["details"] = "User guide", },
   ["latex/menu/README"] = {["details"] = "Readme", },
   ["latex/a5comb/a5comb.pdf"] = {["details"] = "Package documentation", },
   ["latex/epsdice/epsdice.pdf"] = {["details"] = "Package Documentation", },
+  ["latex/qtree/qarrows.pdf"] = {["details"] = "Use of tree-dvips with qtree:", ["lang"] = "en", },
+  ["fonts/semaphor/README"] = {["details"] = "Readme", },
+  ["latex/semantic/semantic.pdf"] = {["details"] = "Package documentation", },
   ["latex/sectsty/sectsty.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-eucl/README"] = {["details"] = "Readme", },
-  ["latex/mh/mathtools.pdf"] = {["details"] = "Package documentation -- mathtools", },
-  ["latex/extpfeil/README"] = {["details"] = "Readme", },
   ["latex/swimgraf/swimgraf.pdf"] = {["details"] = "Package documentation", },
   ["latex/blowup/blowup.pdf"] = {["details"] = "Package documentation", },
+  ["latex/sdrt/sdrt-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/mh/mathtools.pdf"] = {["details"] = "Package documentation -- mathtools", },
+  ["latex/hvindex/hvindex.pdf"] = {["details"] = "Package documentation", },
+  ["latex/extpfeil/README"] = {["details"] = "Readme", },
   ["latex/barcodes/eandoc.pdf"] = {["details"] = "Package documentation", },
   ["latex/datatool/datatool.pdf"] = {["details"] = "Package documentation", },
-  ["latex/codepage/README"] = {["details"] = "Readme", ["lang"] = "en", },
+  ["latex/IEEEtran/IEEEtran_HOWTO.pdf"] = {["details"] = "Package documentation", },
   ["latex/scalebar/scalebar_examples.pdf"] = {["details"] = "Package usage guide and examples", },
   ["latex/scalebar/README"] = {["details"] = "Package README", },
+  ["latex/digiconfigs/README"] = {["details"] = "Readme", },
+  ["latex/paper/README"] = {["details"] = "Readme", },
   ["bibtex/abstyles/abstdok.pdf"] = {["details"] = "Outline of the family", ["lang"] = "de", },
   ["generic/es-tex-faq/FAQ-CervanTeX.pdf"] = {["details"] = "The document itself (PDF)", ["lang"] = "es", },
-  ["latex/pb-diagram/README"] = {["details"] = "Readme", },
   ["latex/sauterfonts/README"] = {["details"] = "Readme", },
   ["latex/sageep/sample.pdf"] = {["details"] = "Formatted sample", },
-  ["latex/paper/README"] = {["details"] = "Readme", },
   ["latex/sageep/sageep.pdf"] = {["details"] = "Package documentation", },
-  ["latex/emp/emp.pdf"] = {["details"] = "Documented source", },
+  ["latex/gaceta/README"] = {["details"] = "Readme", },
+  ["latex/glossaries/glossaries-manual.html"] = {["details"] = "Package documentation (HTML)", },
   ["latex/apacite/README"] = {["details"] = "Package Readme", },
   ["latex/romannum/romannum.pdf"] = {["details"] = "Package documentation", },
-  ["latex/bussproofs/testbp2.pdf"] = {["details"] = "Test/example of use", },
-  ["latex/gaceta/README"] = {["details"] = "Readme", },
-  ["latex/robustindex/README"] = {["details"] = "Readme", },
-  ["latex/contour/README"] = {["details"] = "Package Readme", },
-  ["latex/robustcommand/README"] = {["details"] = "Readme", },
   ["fonts/nkarta/README"] = {["details"] = "Readme", },
   ["latex/rtklage/README"] = {["lang"] = "de", },
-  ["latex/renditions/renditions.pdf"] = {["details"] = "Package documentation", },
+  ["latex/robustindex/README"] = {["details"] = "Readme", },
   ["latex/guitlogo/guit.pdf"] = {["details"] = "Package documentation", ["lang"] = "it", },
-  ["generic/musixtex/README"] = {["details"] = "Package documentation", },
+  ["latex/bussproofs/testbp2.pdf"] = {["details"] = "Test/example of use", },
   ["latex/acmconf/acmconf.pdf"] = {["details"] = "Package documentation", },
-  ["latex/refstyle/refstyle.pdf"] = {["details"] = "Users manual:", },
+  ["latex/robustcommand/README"] = {["details"] = "Readme", },
   ["latex/makecell/makecell.pdf"] = {["details"] = "Package documentation", ["lang"] = "en", },
-  ["latex/refman/refman.pdf"] = {["details"] = "Package documentation", },
+  ["latex/renditions/renditions.pdf"] = {["details"] = "Package documentation", },
   ["latex/intro-scientific/scidoc.pdf"] = {["details"] = "The document itself", },
   ["latex/afthesis/usethesis.pdf"] = {["details"] = "Package documentation", },
-  ["latex/macqassign/README"] = {["details"] = "Readme", },
-  ["latex/refman/layout_e.pdf"] = {["details"] = "Changing the layout with LaTeX", ["lang"] = "en", },
+  ["generic/musixtex/README"] = {["details"] = "Package documentation", },
+  ["latex/refman/refman.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-eps/README"] = {["details"] = "Package README", },
   ["latex/thuthesis/thuthesis.pdf"] = {["details"] = "Package documentation", },
   ["latex/spreadtab/README"] = {["details"] = "Readme", },
-  ["generic/pst-3dplot/README"] = {["details"] = "Readme", },
+  ["latex/refman/layout_e.pdf"] = {["details"] = "Changing the layout with LaTeX", ["lang"] = "en", },
+  ["latex/macqassign/README"] = {["details"] = "Readme", },
   ["latex/refman/layout_d.pdf"] = {["details"] = "Layout-Anderungen mit LaTeX", ["lang"] = "de", },
-  ["latex/refcheck/refdemo.pdf"] = {["details"] = "Package demo", },
   ["latex/everypage/everypage.pdf"] = {["details"] = "Package documentation", },
-  ["latex/recipecard/recipecard.pdf"] = {["details"] = "Package documentation", },
+  ["latex/refcheck/refdemo.pdf"] = {["details"] = "Package demo", },
   ["latex/notes/notes.pdf"] = {["details"] = "Package documentation", },
   ["latex/acmconf/README"] = {["details"] = "Readme", },
-  ["latex/rcsinfo/rcsinfo.pdf"] = {["details"] = "Package documentation", },
+  ["latex/recipecard/recipecard.pdf"] = {["details"] = "Package documentation", },
   ["latex/bclogo/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
   ["latex/poemscol/README"] = {["details"] = "Readme", },
+  ["latex/rcsinfo/rcsinfo.pdf"] = {["details"] = "Package documentation", },
   ["latex/12many/README"] = {["details"] = "Readme", },
-  ["latex/rcs-multi/README"] = {["details"] = "Readme", },
   ["latex/rcsinfo/README"] = {["details"] = "Readme", },
   ["latex/eqlist/README"] = {["details"] = "Readme", },
   ["latex/rcs/rcs-user.pdf"] = {["details"] = "User documentation", },
@@ -1887,314 +1889,314 @@ local s_meta = {
   ["latex/boites/boites.pdf"] = {["details"] = "English translation", },
   ["latex/caption/caption-deu.pdf"] = {["details"] = "German documentation", ["lang"] = "de", },
   ["latex/webguide/webguide.html"] = {["details"] = "Package document, as HTML", },
+  ["latex/arsclassica/README"] = {["details"] = "Readme", },
   ["latex/barcodes/README"] = {["details"] = "Package Readme", },
-  ["generic/pst-tree/pst-tree-doc.pdf"] = {["details"] = "Package manual", },
-  ["latex/randbild/README"] = {["details"] = "Readme (bilingual)", },
+  ["latex/qsymbols/qsymbols.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-diffraction/README"] = {["details"] = "Readme", },
   ["latex/kerntest/kerntest.pdf"] = {["details"] = "Package documentation", },
   ["latex/harmony/README"] = {["details"] = "Readme", },
   ["latex/lshort-mongol/lshort-mn.pdf"] = {["details"] = "The document itself", ["lang"] = "mn", },
-  ["latex/qtree/qarrows.pdf"] = {["details"] = "Use of tree-dvips with qtree:", ["lang"] = "en", },
+  ["latex/qsymbols/README"] = {["details"] = "Readme", },
   ["latex/constants/README"] = {["details"] = "Readme", },
   ["plain/typespec/TypeSpec.pdf"] = {["details"] = "Package outline and some samplers", },
   ["latex/philex/README"] = {["details"] = "Readme", },
-  ["latex/qsymbols/qsymbols.pdf"] = {["details"] = "Package documentation", },
-  ["latex/qsymbols/README"] = {["details"] = "Readme", },
   ["latex/qstest/README"] = {["details"] = "Readme", },
-  ["latex/psu-thesis/mssample.pdf"] = {["details"] = "MS thesis layout demonstration", },
-  ["support/latexmk/README"] = {["details"] = "Readme", },
+  ["latex/psu-thesis/phdsample.pdf"] = {["details"] = "PhD thesis layout demonstration", },
   ["latex/psu-thesis/manual.pdf"] = {["details"] = "Package manual", },
-  ["support/asymptote-faq-zh-cn/README"] = {["details"] = "Readme", },
-  ["generic/pstricks-add/pstricks-add-doc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/chngcntr/chngcntr.pdf"] = {["details"] = "Package documentation", },
-  ["fonts/cm-super/README"] = {["details"] = "Bundle Readme", },
-  ["latex/hhtensor/README"] = {["details"] = "Package Readme", },
+  ["latex/psu-thesis/README"] = {["details"] = "Readme", },
+  ["support/latexmk/README"] = {["details"] = "Readme", },
   ["latex/pstool/README"] = {["details"] = "Readme", },
+  ["support/asymptote-faq-zh-cn/README"] = {["details"] = "Readme", },
+  ["fonts/cm-super/README"] = {["details"] = "Bundle Readme", },
+  ["latex/chngcntr/chngcntr.pdf"] = {["details"] = "Package documentation", },
   ["latex/pst2pdf/README"] = {["details"] = "Readme", },
+  ["latex/hhtensor/README"] = {["details"] = "Package Readme", },
+  ["generic/pst-tree/pst-tree-doc.pdf"] = {["details"] = "Package manual", },
+  ["latex/flippdf/flippdf.pdf"] = {["details"] = "Package documentation", },
   ["latex/rangen/README"] = {["details"] = "Readme", },
-  ["latex/binomexp/README"] = {["details"] = "Readme", },
+  ["generic/pst-text/README"] = {["details"] = "Package README", },
   ["latex/paralist/paralist.pdf"] = {["details"] = "Package documentation", },
   ["latex/epsdice/README"] = {["details"] = "Readme", },
   ["latex/adrconv/adrguide.pdf"] = {["details"] = "Package introduction", ["lang"] = "de", },
-  ["generic/pst-text/pst-text-doc.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-math/README"] = {["details"] = "Readme", },
   ["latex/newspaper/README"] = {["details"] = "Readme", },
   ["latex/eltex/README"] = {["details"] = "Readme", },
-  ["generic/pst-text/README"] = {["details"] = "Package README", },
+  ["generic/pst-soroban/pst-soroban-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/newlfm/README"] = {["details"] = "Readme", },
   ["latex/clefval/example.pdf"] = {["details"] = "Package example of use (English)", },
-  ["generic/pst-node/pst-node-doc.pdf"] = {["details"] = "Package documentation (English)", },
-  ["generic/pst-soroban/pst-soroban-doc.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-solides3d/doc/pst-solides3d-doc-grille-parallelepiped.pdf"] = {["details"] = "Using grids and parallelopipeds (French)", ["lang"] = "fr", },
-  ["latex/clefval/README"] = {["details"] = "Package README", },
-  ["latex/lshort-bulgarian/README"] = {["details"] = "Readme", },
-  ["latex/chletter/chletterdoc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/flippdf/README"] = {["details"] = "Readme", },
+  ["fonts/antt/AntykwaTorunska-doc-en-2_03.pdf"] = {["details"] = "Documentation in English:", ["lang"] = "en", },
   ["generic/pst-solides3d/README"] = {["details"] = "Readme", },
-  ["latex/addlines/README"] = {["details"] = "Readme", },
-  ["latex/mathpazo/pazotest.pdf"] = {["details"] = "Font tables:", },
+  ["latex/elbioimp/README"] = {["details"] = "Readme", },
   ["latex/latexdiff/README"] = {["details"] = "Package Readme", },
-  ["generic/midnight/midnight.pdf"] = {["details"] = "Package documentation", },
-  ["generic/enctex/encdoc-e.pdf"] = {["details"] = "Reference manual (in English):", ["lang"] = "en", },
   ["latex/pst-pdf/README"] = {["details"] = "README file", },
+  ["generic/pst-pad/pst-pad-docDE.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
+  ["generic/pst-ob3d/pst-ob3d.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-node/more_docs/psmatrix-docDE.pdf"] = {["details"] = "Documentation of \\psmatrix (German)", },
+  ["generic/pst-mirror/pst-mirror-doc.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
+  ["generic/enctex/encdoc-e.pdf"] = {["details"] = "Reference manual (in English):", ["lang"] = "en", },
+  ["latex/microtype/README"] = {["details"] = "Package README", },
   ["latex/hyphenat/hyphenat.pdf"] = {["details"] = "Package documentation", },
   ["latex/liturg/README"] = {["details"] = "Readme", },
-  ["generic/pst-pad/pst-pad-docDE.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
+  ["latex/dtxtut/dtxtut.pdf"] = {["details"] = "Readme", },
   ["generic/pst-support/README"] = {["details"] = "Readme", },
-  ["generic/pst-node/more_docs/psmatrix-docDE.pdf"] = {["details"] = "Documentation of \\psmatrix (German)", },
-  ["latex/microtype/README"] = {["details"] = "Package README", },
+  ["latex/europecv/examples/minimal.pdf"] = {["details"] = "Simple example of use:", },
+  ["latex/cjk/README"] = {["details"] = "Readme file", },
   ["latex/juraabbrev/README"] = {["details"] = "Readme", },
   ["latex/apa/apaenum.txt"] = {["details"] = "Outline of list facilities", },
   ["latex/galois/galois.pdf"] = {["details"] = "Package description", },
-  ["generic/pst-mirror/pst-mirror-doc.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
+  ["generic/pst-light3d/pst-light3d-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/eulervm/eulervm.pdf"] = {["details"] = "Package documentation", },
   ["latex/hexgame/hexgame.pdf"] = {["details"] = "Package documentation", },
   ["latex/cmdstring/README"] = {["details"] = "Readme", },
   ["latex/comma/comma.pdf"] = {["details"] = "Package documentation", },
   ["latex/tikz-timing/README"] = {["details"] = "Readme", },
   ["context/third/typescripts/README"] = {["details"] = "Readme", },
-  ["generic/pst-math/README"] = {["details"] = "Readme", },
-  ["latex/latex-veryshortguide/veryshortguide.pdf"] = {["details"] = "The document itself", },
-  ["latex/cjk/README"] = {["details"] = "Readme file", },
-  ["generic/pst-light3d/pst-light3d-doc.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-lens/pst-lens.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-labo/pst-labo-docFR.pdf"] = {["details"] = "French documentation:", },
-  ["latex/animate/README"] = {["details"] = "Readme", },
+  ["latex/latex-veryshortguide/veryshortguide.pdf"] = {["details"] = "The document itself", },
   ["generic/pst-labo/pst-labo-docEN.pdf"] = {["details"] = "English documentation:", },
   ["latex/arydshln/arydshln.pdf"] = {["details"] = "Manual, including code listing:", },
+  ["generic/pst-grad/pst-grad-doc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/foekfont/README"] = {["details"] = "Package README", },
+  ["latex/animate/README"] = {["details"] = "Readme", },
+  ["context/third/account/README"] = {["details"] = "Readme", },
+  ["latex/figsize/figsize.pdf"] = {["details"] = "Package documentation", },
   ["latex/tablists/README"] = {["details"] = "README file", },
   ["context/third/degrade/degrade-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/zwpagelayout/README"] = {["details"] = "Readme", },
   ["latex/greekdates/greekdates.pdf"] = {["details"] = "Package documentation", },
   ["latex/textfit/README"] = {["details"] = "Readme", },
-  ["fonts/fontname/fontname.html"] = {["details"] = "Outline of the mapping scheme (HTML)", },
-  ["latex/cm-lgc/README"] = {["details"] = "Bundle Readme", },
-  ["latex/advdate/advdate.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-thick/pst-thick-doc.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
-  ["fonts/gentium/GENTIUM-FAQ.txt"] = {["details"] = "FAQ", },
-  ["latex/mciteplus/mciteplus_code.txt"] = {["details"] = "Details for modifying .bst code", },
-  ["latex/titling/README"] = {["details"] = "Readme", },
-  ["latex/MemoirChapStyles/MemoirChapStyles.pdf"] = {["details"] = "The document itself", },
   ["generic/pst-eps/pst-eps-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/algorithmicx/README"] = {["details"] = "Package README", },
-  ["generic/pst-pad/README"] = {["details"] = "Readme", },
-  ["latex/epigraph/README"] = {["details"] = "Readme", },
-  ["generic/pst-thick/README"] = {["details"] = "Readme", },
-  ["latex/flippdf/flippdf.pdf"] = {["details"] = "Package documentation", },
-  ["xelatex/fontspec/fontspec.pdf"] = {["details"] = "Package documentation", },
+  ["latex/advdate/advdate.pdf"] = {["details"] = "Package documentation", },
+  ["generic/pst-thick/pst-thick-doc.pdf"] = {["details"] = "Package documentation", ["lang"] = "fr", },
   ["generic/pst-diffraction/pst-diffraction-docFR.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
-  ["latex/layouts/README"] = {["details"] = "Readme", },
-  ["latex/popupmenu/README"] = {["details"] = "Readme", },
-  ["latex/gmutils/README"] = {["details"] = "README", },
+  ["latex/mciteplus/mciteplus_code.txt"] = {["details"] = "Details for modifying .bst code", },
+  ["latex/titling/README"] = {["details"] = "Readme", },
   ["generic/pst-diffraction/pst-diffraction-docDE.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
   ["generic/pst-dbicons/pst-dbicons.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-dbicons/README"] = {["details"] = "Package README", },
+  ["generic/pst-pad/README"] = {["details"] = "Readme", },
+  ["latex/epigraph/README"] = {["details"] = "Readme", },
+  ["generic/pst-thick/README"] = {["details"] = "Readme", },
   ["fonts/boisik/example/boisik.pdf"] = {["details"] = "Brief outline, in the font", },
+  ["xelatex/fontspec/fontspec.pdf"] = {["details"] = "Package documentation", },
   ["latex/isodoc/isodoc.pdf"] = {["details"] = "Package documentation", },
-  ["generic/pst-fr3d/pst-fr3d.pdf"] = {["details"] = "Package documentation", },
+  ["latex/layouts/README"] = {["details"] = "Readme", },
+  ["latex/popupmenu/README"] = {["details"] = "Readme", },
+  ["latex/gmutils/README"] = {["details"] = "README", },
+  ["latex/aeguill/guil-test2.pdf"] = {["details"] = "Available guillemet glyphs", },
   ["latex/pecha/pecha_docu.pdf"] = {["details"] = "Package documentation", },
-  ["latex/plweb/README"] = {["details"] = "Readme", },
-  ["fonts/fge/fge-doc.pdf"] = {["details"] = "Package documentation", },
-  ["latex/eCards/eCardsman.pdf"] = {["details"] = "Package documentation (for screen)", },
+  ["latex/draftcopy/draftcopy.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-bspline/README"] = {["details"] = "Readme", },
   ["generic/pst-barcode/README"] = {["details"] = "Readme", },
-  ["fonts/gnu-freefont/README"] = {["details"] = "Readme", },
+  ["generic/pst-fr3d/pst-fr3d.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-bar/README"] = {["details"] = "Readme", },
+  ["latex/plweb/README"] = {["details"] = "Readme", },
+  ["latex/eltex/pri_cz.pdf"] = {["details"] = "Package documentation (Czech)", ["lang"] = "cs", },
+  ["latex/eCards/eCardsman.pdf"] = {["details"] = "Package documentation (for screen)", },
+  ["latex/parallel/parallel.pdf"] = {["details"] = "Package documentation", },
+  ["latex/psfrag/pfgguide.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
+  ["latex/animate/animate.pdf"] = {["details"] = "Package documentation", },
+  ["latex/gu/gudoc.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
   ["plain/metatex/mtpaper.pdf"] = {["details"] = "Package documentation", },
   ["latex/verbatimbox/verbatimbox_example.pdf"] = {["details"] = "Example of use", },
-  ["latex/parallel/parallel.pdf"] = {["details"] = "Package documentation", },
+  ["latex/program/README"] = {["details"] = "Readme", },
   ["latex/pgfplots/pgfplots.pdf"] = {["details"] = "Package manual", },
-  ["latex/psfrag/pfgguide.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
-  ["latex/gu/gudoc.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
-  ["latex/euproposal/README"] = {["details"] = "Readme", },
+  ["latex/probsoln/probsoln-manual.html"] = {["details"] = "Package documentation (HTML)", },
+  ["latex/proba/proba.pdf"] = {["details"] = "Package documentation", },
+  ["latex/jurabib/docs/german/jbgerdoc.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
   ["latex/alterqcm/README"] = {["details"] = "Readme", ["lang"] = "en", },
   ["latex/randbild/randbild.pdf"] = {["details"] = "Benutzerdoku:", ["lang"] = "de", },
-  ["latex/program/README"] = {["details"] = "Readme", },
-  ["latex/probsoln/probsoln-manual.html"] = {["details"] = "Package documentation (HTML)", },
-  ["latex/uiucthesis/README"] = {["details"] = "Readme", },
-  ["latex/ecclesiastic/README"] = {["details"] = "Readme", },
-  ["latex/jurabib/docs/german/jbgerdoc.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
   ["fonts/marvosym/marvodoc.pdf"] = {["details"] = "Font tables, etc.", },
+  ["latex/ebezier/ebezier.pdf"] = {["details"] = "Package documentation", },
+  ["latex/uiucthesis/README"] = {["details"] = "Readme", },
+  ["latex/breakcites/breakcites.pdf"] = {["details"] = "Package documentation", },
+  ["latex/emptypage/emptypage.pdf"] = {["details"] = "Package documentation", },
+  ["latex/hepunits/README"] = {["details"] = "Readme", },
   ["latex/algorithms/algorithms.pdf"] = {["details"] = "Package documentation", ["lang"] = "en", },
   ["latex/estcpmm/estcpmm.pdf"] = {["details"] = "Package documentation", },
-  ["latex/ebezier/ebezier.pdf"] = {["details"] = "Package documentation", },
-  ["generic/dirtree/dirtree.pdf"] = {["details"] = "Package documentation", },
-  ["context/third/simplefonts/simplefonts.pdf"] = {["details"] = "Command summary", },
-  ["latex/hepunits/hepunits.pdf"] = {["details"] = "Package documentation", },
-  ["latex/extract/README"] = {["details"] = "Package README", },
-  ["latex/permute/permute.pdf"] = {["details"] = "Package documentation", },
   ["latex/plates/plates.pdf"] = {["details"] = "Package documentation", },
   ["fonts/free-math-font-survey/survey.pdf"] = {["details"] = "The survey, as a PDF file", ["lang"] = "en", },
-  ["latex/dk-bib/README"] = {["details"] = "Readme", },
+  ["latex/gastex/README"] = {["details"] = "Package Readme", },
   ["latex/plari/plari.pdf"] = {["details"] = "Package documentation", },
-  ["support/pkfix-helper/encoding-samples.pdf"] = {["details"] = "Encoding tables and how to use them", },
+  ["latex/extract/README"] = {["details"] = "Package README", },
+  ["latex/permute/permute.pdf"] = {["details"] = "Package documentation", },
   ["latex/pigpen/README"] = {["details"] = "Readme", },
   ["latex/dtxtut/README"] = {["details"] = "Package documentation", },
+  ["latex/dk-bib/README"] = {["details"] = "Readme", },
   ["latex/flowfram/samples/news.pdf"] = {["details"] = "Sample - news sheet", },
-  ["latex/epigraph/epigraph.pdf"] = {["details"] = "Package documentation", },
-  ["fonts/cbfonts/grmn1000table.pdf"] = {["details"] = "Sample font table", },
   ["latex/philosophersimprint/philosophersimprint.pdf"] = {["details"] = "Package documentation", },
-  ["latex/fonttable/fonttable.pdf"] = {["details"] = "Package documentation", },
   ["latex/lshort-korean/lshort-kr.pdf"] = {["details"] = "The document itself", ["lang"] = "ko", },
-  ["latex/isorot/README"] = {["details"] = "Package Readme", },
-  ["latex/etoolbox/etoolbox.pdf"] = {["details"] = "Package documentation", },
-  ["latex/codedoc/CodeDoc-manual.pdf"] = {["details"] = "Package manual", },
-  ["latex/latex2e-help-texinfo/latex2e.pdf"] = {["details"] = "PDF conversion of the source", },
   ["plain/pgfplots/pgfplotsexample.pdf"] = {["details"] = "Plain TeX Examples", },
   ["latex/pgfopts/pgfopts-manual.pdf"] = {["details"] = "Package manual", },
+  ["latex/epigraph/epigraph.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/cbfonts/grmn1000table.pdf"] = {["details"] = "Sample font table", },
+  ["latex/hyphenat/README"] = {["details"] = "Readme", },
+  ["latex/fonttable/fonttable.pdf"] = {["details"] = "Package documentation", },
   ["fonts/feyn/exercise-font.pdf"] = {["details"] = "Font details", },
+  ["latex/isorot/README"] = {["details"] = "Package Readme", },
+  ["fonts/gnu-freefont/README"] = {["details"] = "Readme", },
+  ["latex/codedoc/CodeDoc-manual.pdf"] = {["details"] = "Package manual", },
+  ["latex/latex2e-help-texinfo/latex2e.pdf"] = {["details"] = "PDF conversion of the source", },
   ["latex/expl3/source3.pdf"] = {["details"] = "The LaTeX3 Sources", },
-  ["latex/pdfpages/pdfpages.pdf"] = {["details"] = "Package documentation", },
   ["metapost/bpolynomial/bpolynomial.pdf"] = {["details"] = "Package documentation", },
   ["latex/latex-doc-ptr/latex-doc-ptr.pdf"] = {["details"] = "The document itself", },
   ["latex/lastpage/lastpage.pdf"] = {["details"] = "Package documentation", },
+  ["latex/pdfpages/pdfpages.pdf"] = {["details"] = "Package documentation", },
   ["latex/errata/errata.pdf"] = {["details"] = "Package documentation", },
   ["latex/glossaries/README"] = {["details"] = "Readme", },
-  ["latex/etoolbox/README"] = {["details"] = "Readme", },
   ["latex/ametsoc/README"] = {["details"] = "Readme", },
   ["latex/dichokey/dichokey.pdf"] = {["details"] = "Package documentation", },
-  ["generic/vaucanson-g/VCManual.pdf"] = {["details"] = "Package documentation", },
   ["pdftex/manual/pdftex-a.pdf"] = {["details"] = "User manual", },
+  ["latex/etoolbox/README"] = {["details"] = "Readme", },
   ["latex/pdfslide/demo.pdf"] = {["details"] = "Narrative demonstration of the package", },
   ["latex/pdfscreen/manual-screen.pdf"] = {["details"] = "Manual, for screen viewing", },
-  ["latex/bullcntr/README"] = {["details"] = "Readme", },
-  ["latex/foekfont/foekfont.pdf"] = {["details"] = "Package documentation", },
+  ["generic/vaucanson-g/VCManual.pdf"] = {["details"] = "Package documentation", },
+  ["latex/germkorr/germkorr.pdf"] = {["details"] = "Package documentation", },
   ["latex/pdf-forms-tutorial-de/README"] = {["details"] = "Readme", },
   ["latex/engpron/engpron-ex-fr.pdf"] = {["details"] = "Usage example (French)", ["lang"] = "fr", },
   ["latex/fancynum/README"] = {["details"] = "Package README", },
+  ["latex/foekfont/foekfont.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/gfscomplutum/README"] = {["details"] = "Readme", },
+  ["latex/pb-diagram/README"] = {["details"] = "Readme", },
+  ["latex/esdiff/esdiff.pdf"] = {["details"] = "Package documentation", },
   ["latex/trsym/README"] = {["details"] = "Readme", },
   ["fonts/libris/README"] = {["details"] = "Readme", },
   ["latex/fnbreak/README"] = {["details"] = "Readme", },
   ["latex/termlist/termlist.pdf"] = {["details"] = "Package documentation", },
   ["latex/savetrees/README"] = {["details"] = "Package README", },
-  ["latex/esdiff/esdiff.pdf"] = {["details"] = "Package documentation", },
-  ["latex/ean13isbn/README"] = {["details"] = "Readme", },
   ["latex/dprogress/dprogress.pdf"] = {["details"] = "Package documentation", },
+  ["latex/footnpag/README"] = {["details"] = "Readme", },
+  ["bibtex/iopart-num/README"] = {["details"] = "Readme", },
   ["latex/isodate/isodate.pdf"] = {["details"] = "Package documentation", },
   ["latex/booktabs/README"] = {["details"] = "Readme", },
-  ["latex/nddiss/nddiss2e.pdf"] = {["details"] = "Package documentation", },
-  ["bibtex/iopart-num/README"] = {["details"] = "Readme", },
   ["latex/fncychap/fncychap.pdf"] = {["details"] = "Package documentation, with examples", },
+  ["fonts/fge/fge-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/overpic/README"] = {["details"] = "Readme (English)", },
+  ["latex/oubraces/oubraces.pdf"] = {["details"] = "Package documentation", },
   ["latex/yfonts/readme"] = {["details"] = "Readme", },
-  ["latex/index/README"] = {["details"] = "Package Readme", },
-  ["fonts/metafont-beginners/metafont-for-beginners.pdf"] = {["details"] = "The introductory document itself:", ["lang"] = "en", },
   ["latex/oldstyle/oldstyle.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/metafont-beginners/metafont-for-beginners.pdf"] = {["details"] = "The introductory document itself:", ["lang"] = "en", },
   ["latex/makebarcode/makebarcode.pdf"] = {["details"] = "Package documentation", },
   ["latex/oberdiek/oberdiek.pdf"] = {["details"] = "Table of contents of the bundle", },
   ["latex/grid/grid.pdf"] = {["details"] = "Package documentation", },
+  ["latex/gloss/README"] = {["details"] = "Package Readme", },
   ["metapost/textpath/textpath.pdf"] = {["details"] = "Package documentation", },
-  ["latex/nrc/README"] = {["details"] = "Readme", },
+  ["latex/nostarch/nssample.pdf"] = {["details"] = "Sample book", },
   ["latex/fouridx/fouridx.pdf"] = {["details"] = "Package documentation", },
   ["latex/nonfloat/nonfloat.pdf"] = {["details"] = "Package documentation (German)", ["lang"] = "de", },
   ["latex/ntgclass/rapdoc.pdf"] = {["details"] = "The rapport classes", ["lang"] = "nl", },
   ["latex/custom-bib/makebst.pdf"] = {["details"] = "Package documentation", },
   ["generic/mathdots/mathdots.pdf"] = {["details"] = "Package documentation", },
   ["latex/a4wide/a4wide.pdf"] = {["details"] = "Package documentation", },
-  ["latex/nicetext/fifinddo.pdf"] = {["details"] = "Fifinddo documentation", },
-  ["support/mkgrkindex/mkgrkindex.pdf"] = {["details"] = "Package documentation", },
-  ["latex/flashcards/flashcards.pdf"] = {["details"] = "Package documentation", },
   ["latex/newlfm/newlfm.pdf"] = {["details"] = "Package documentation", },
-  ["latex/gb4e/gb4e-doc.pdf"] = {["details"] = "Package description", },
+  ["support/mkgrkindex/mkgrkindex.pdf"] = {["details"] = "Package documentation", },
+  ["latex/ginpenc/ginpenc.pdf"] = {["details"] = "Package documentation", },
   ["latex/newfile/README"] = {["details"] = "Readme", },
   ["latex/listofsymbols/listofsymbols.pdf"] = {["details"] = "Package documentation", },
   ["latex/namespc/namespc.pdf"] = {["details"] = "Package documentation", },
+  ["latex/draftcopy/README"] = {["details"] = "Readme", },
+  ["latex/nag/README"] = {["details"] = "Readme", },
   ["metapost/dviincl/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
   ["latex/caption/caption.pdf"] = {["details"] = "Documented source (English)", ["lang"] = "en", },
   ["latex/coolstr/coolstr.pdf"] = {["details"] = "Package documentation", },
   ["generic/mfpic/mfpic-doc.pdf"] = {["details"] = "Mfpic manual", ["lang"] = "en", },
-  ["latex/elbioimp/README"] = {["details"] = "Readme", },
-  ["latex/draftcopy/README"] = {["details"] = "Readme", },
-  ["latex/nag/README"] = {["details"] = "Readme", },
+  ["metapost/mpman-ru/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
+  ["latex/first-latex-doc/README"] = {["details"] = "Readme", },
+  ["latex/ecclesiastic/README"] = {["details"] = "Readme", },
   ["latex/ucthesis/README"] = {["details"] = "Readme and basic documentation", },
   ["fonts/bera/bera.pdf"] = {["details"] = "Font samples", },
   ["latex/pseudocode/pseudocode.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-gr3d/README"] = {["details"] = "Readme", },
   ["latex/stdclsdv/README"] = {["details"] = "Readme", },
-  ["latex/first-latex-doc/README"] = {["details"] = "Readme", },
-  ["metapost/expressg/expressg.pdf"] = {["details"] = "Package documentation", },
+  ["latex/lshort-bulgarian/README"] = {["details"] = "Readme", },
+  ["latex/moderncv/examples/template_en_casual_blue.pdf"] = {["details"] = "Example: casual style", },
   ["latex/leading/README"] = {["details"] = "Readme", },
-  ["latex/emulateapj/README"] = {["details"] = "Readme", },
+  ["latex/moderncv/README"] = {["details"] = "Readme", },
   ["latex/lshort-french/README"] = {["details"] = "Readme", },
   ["latex/struktex/struktex.de.pdf"] = {["details"] = "Package documentation", ["lang"] = "de", },
-  ["fonts/auncial-new/tryauncial.pdf"] = {["details"] = "Font sample, etc.", },
-  ["generic/pst-solides3d/doc-en/pst-solides3d-doc-EN.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
-  ["latex/moderncv/examples/template_en_casual_blue.pdf"] = {["details"] = "Example: casual style", },
-  ["latex/moderncv/README"] = {["details"] = "Readme", },
-  ["latex/dtxtut/dtxtut.pdf"] = {["details"] = "Readme", },
   ["generic/mkjobtexmf/mkjobtexmf.txt"] = {["details"] = "Readme", },
-  ["fonts/antt/AntykwaTorunska-doc-en-2_03.pdf"] = {["details"] = "Documentation in English:", ["lang"] = "en", },
+  ["generic/pst-solides3d/doc-en/pst-solides3d-doc-EN.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
+  ["generic/mkjobtexmf/mkjobtexmf.pdf"] = {["details"] = "Package documentation", },
   ["latex/minutes/minutes.pdf"] = {["details"] = "Package documentation", },
+  ["latex/algorithms/README"] = {["details"] = "Readme", },
+  ["metapost/bpolynomial/README"] = {["details"] = "Readme", },
   ["latex/minitoc/README"] = {["details"] = "Readme", ["lang"] = "en", },
+  ["latex/glossaries/glossaries.pdf"] = {["details"] = "Package documentation (PDF)", },
   ["latex/gaceta/plantilla-articulo-de-seccion.pdf"] = {["details"] = "Example 2: how to write an article", ["lang"] = "es", },
   ["latex/cachepic/cachepic.pdf"] = {["details"] = "Package documentation", },
   ["latex/bgreek/README"] = {["details"] = "Readme", },
   ["latex/lps/lps.pdf"] = {["details"] = "Package documentation", },
+  ["latex/complexity/complexity.pdf"] = {["details"] = "Package documentation", },
   ["support/asymptote-by-example-zh-cn/README"] = {["details"] = "Readme", },
   ["latex/harvard/harvard.pdf"] = {["details"] = "Package documentation", },
-  ["latex/complexity/complexity.pdf"] = {["details"] = "Package documentation", },
-  ["latex/forarray/forarray.pdf"] = {["details"] = "Package documentation", },
-  ["bibtex/ijqc/xampl.pdf"] = {["details"] = "Example output", },
+  ["latex/forarray/README.txt"] = {["details"] = "Readme", },
   ["generic/mfpic/mfpguide.pdf"] = {["details"] = "Short introduction", ["lang"] = "en", },
-  ["latex/ellipsis/ellipsis.pdf"] = {["details"] = "Package documentation", },
+  ["bibtex/ijqc/xampl.pdf"] = {["details"] = "Example output", },
+  ["latex/liturg/liturg.pdf"] = {["details"] = "Package documentation", },
   ["latex/metalogo/metalogo.pdf"] = {["details"] = "Package documentation", },
+  ["latex/bytefield/example.pdf"] = {["details"] = "Examples of use", },
   ["latex/elbioimp/elbioimp.pdf"] = {["details"] = "Package documentation", },
   ["latex/chemstyle/chemstyle.pdf"] = {["details"] = "Package documentation", },
   ["latex/csbulletin/README"] = {["details"] = "Readme", },
   ["latex/blkarray/blkarray.pdf"] = {["details"] = "Package documentation", },
   ["fonts/mathabx/mathtest.pdf"] = {["details"] = "Package documentation, including font lists", },
   ["latex/dlfltxb/dlfltxbmarkup-showkeys.pdf"] = {["details"] = "dlfltxbmarkup key description summary", },
-  ["latex/itnumpar/README"] = {["details"] = "Readme", },
+  ["latex/itnumpar/itnumpar.pdf"] = {["details"] = "Package documentation", },
   ["fonts/skaknew/README"] = {["details"] = "Readme", },
-  ["latex/ed/README"] = {["details"] = "Readme", },
   ["latex/mafr/README"] = {["details"] = "Package README", ["lang"] = "en", },
   ["luatex/luamplib/luamplib.pdf"] = {["details"] = "Package documentation", },
   ["latex/bibleref/README"] = {["details"] = "Readme", },
+  ["latex/etaremune/etaremune.pdf"] = {["details"] = "Package documentation", },
   ["latex/ticket/README"] = {["details"] = "Package Readme", },
-  ["latex/hepnames/hepnicenames.pdf"] = {["details"] = "Enumeration of available nicenames", },
+  ["latex/eskd/README"] = {["details"] = "Package README", },
   ["latex/IEEEconf/README"] = {["details"] = "Readme", },
   ["latex/titlesec/titlesec.pdf"] = {["details"] = "Package documentation", },
   ["latex/censor/README"] = {["details"] = "Readme", },
   ["fonts/malayalam/README"] = {["details"] = "Readme", },
   ["latex/showlabels/showlabels.html"] = {["details"] = "Package documentation (HTML)", },
-  ["latex/acronym/README"] = {["details"] = "Package Readme", },
-  ["latex/exp-testopt/exp-testopt.pdf"] = {["details"] = "Package documentation (Esperanto)", ["lang"] = "eo", },
+  ["latex/ellipsis/ellipsis.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/eurosym/README"] = {["details"] = "Readme", },
   ["latex/ccfonts/readme"] = {["details"] = "Readme", },
-  ["latex/leading/leading.pdf"] = {["details"] = "Package documentation", },
+  ["latex/exp-testopt/exp-testopt.pdf"] = {["details"] = "Package documentation (Esperanto)", ["lang"] = "eo", },
   ["latex/lcd/example.pdf"] = {["details"] = "Examples", },
-  ["latex/hvindex/hvindex.pdf"] = {["details"] = "Package documentation", },
   ["support/latexmk/latexmk.txt"] = {["details"] = "Manpage, text format", },
+  ["latex/akletter/lettereng.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
   ["latex/iso/isoman.pdf"] = {["details"] = "Package manual", },
   ["fonts/libris/ylyr8a.pfb.pdf"] = {["details"] = "Sample font table", },
-  ["latex/akletter/lettereng.pdf"] = {["details"] = "Package documentation (English)", ["lang"] = "en", },
+  ["latex/emulateapj/README"] = {["details"] = "Readme", },
   ["latex/verse/verse.pdf"] = {["details"] = "Package documentation", },
   ["latex/minitoc/minitoc-fr.pdf"] = {["details"] = "Package documentation, in French", ["lang"] = "fr", },
-  ["latex/envlab/elguide.pdf"] = {["details"] = "User guide", },
-  ["latex/foekfont/README"] = {["details"] = "Package README", },
+  ["latex/cellspace/cellspace.pdf"] = {["details"] = "Package documentation", },
+  ["latex/ed/README"] = {["details"] = "Readme", },
   ["fonts/stmaryrd/README"] = {["details"] = "Original README:", },
   ["generic/pst-sigsys/pst-sigsys-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/namespc/README"] = {["details"] = "Readme", },
-  ["latex/itnumpar/itnumpar.pdf"] = {["details"] = "Package documentation", },
-  ["plain/impatient-fr/README"] = {["details"] = "Basic project information", },
+  ["latex/circ/README"] = {["details"] = "Readme", },
+  ["latex/breakurl/breakurl.pdf"] = {["details"] = "Package documentation", },
   ["generic/pst-math/pst-math-doc.pdf"] = {["details"] = "Package documentation", },
   ["latex/totcount/README"] = {["details"] = "Readme", },
-  ["latex/ijmart/README"] = {["details"] = "Readme", },
+  ["latex/aiaa/aiaa.pdf"] = {["details"] = "Package documentation", },
   ["fonts/cm-super/FAQ"] = {["details"] = "Frequently Asked Questions", },
   ["latex/bbm-macros/README"] = {["details"] = "Readme", },
-  ["latex/fancyvrb/fancyvrb.pdf"] = {["details"] = "Package documentation", },
-  ["latex/bytefield/example.pdf"] = {["details"] = "Examples of use", },
-  ["latex/breakcites/breakcites.pdf"] = {["details"] = "Package documentation", },
+  ["latex/diagnose/README"] = {["details"] = "Package Readme", },
+  ["latex/disser/README"] = {["details"] = "Readme (English)", ["lang"] = "en", },
+  ["latex/hepnames/hepnicenames.pdf"] = {["details"] = "Enumeration of available nicenames", },
+  ["latex/filecontents/README"] = {["details"] = "Package Readme", },
+  ["latex/flashcards/flashcards.pdf"] = {["details"] = "Package documentation", },
+  ["fonts/allrunes/README"] = {["details"] = "Package Readme", },
   ["generic/dehyph-exptl/projektbeschreibung.pdf"] = {["details"] = "Project outline", ["lang"] = "de", },
-  ["latex/glossaries/glossaries-manual.html"] = {["details"] = "Package documentation (HTML)", },
-  ["latex/gastex/README"] = {["details"] = "Package Readme", },
-  ["latex/ginpenc/ginpenc.pdf"] = {["details"] = "Package documentation", },
   ["latex/sageep/README"] = {["details"] = "Readme", },
   ["latex/lshort-italian/itlshort.pdf"] = {["details"] = "The document itself", ["lang"] = "it", },
   ["latex/tableaux/tableau.pdf"] = {["details"] = "Package documentation (French)", ["lang"] = "fr", },
   ["latex/spanish/README"] = {["details"] = "Readme", },
-  ["latex/asyfig/asyfig.pdf"] = {["details"] = "Package documentation", },
+  ["latex/dlfltxb/dlfltxbcodetips.pdf"] = {["details"] = "dlfltxbcodetips package documentation", },
   ["latex/extract/extract.pdf"] = {["details"] = "Package documentation", },
-  ["fonts/eurosym/README"] = {["details"] = "Readme", },
-  ["latex/algorithms/README"] = {["details"] = "Readme", },
-  ["latex/float/README"] = {["details"] = "Package Readme", },
+  ["latex/asyfig/asyfig.pdf"] = {["details"] = "Package documentation", },
+  ["latex/circ/circ.pdf"] = {["details"] = "Package documentation", },
+  ["latex/changelayout/README"] = {["details"] = "Readme", },
 }
 local tlp_from_runfile = {
   [""] = {["tools"]=true,},
@@ -6885,6 +6887,15 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/fontinst/talks/et99-font-tutorial.pdf",
     "texmf/doc/man/man1/fontinst.man1.pdf",
   },
+  ["latex2man"] = {
+    "texmf-dist/doc/support/latex2man/CHANGES",
+    "texmf-dist/doc/support/latex2man/INSTALL",
+    "texmf-dist/doc/support/latex2man/Makefile",
+    "texmf-dist/doc/support/latex2man/README",
+    "texmf-dist/doc/support/latex2man/latex2man.html",
+    "texmf-dist/doc/support/latex2man/latex2man.pdf",
+    "texmf-dist/doc/support/latex2man/latex2man.txt",
+  },
   ["etex"] = {
     "texmf-dist/doc/etex/base/NTS-FAQ",
     "texmf-dist/doc/etex/base/etex_man.pdf",
@@ -7222,10 +7233,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/minitoc/wallonie.pdf",
     "texmf-dist/doc/latex/minitoc/xmk",
   },
-  ["latexcheat-ptbr"] = {
-    "texmf-dist/doc/latex/latexcheat-ptbr/README-ptbr",
-    "texmf-dist/doc/latex/latexcheat-ptbr/latexsheet-ptbr.pdf",
-  },
   ["polytable"] = {
     "texmf-dist/doc/latex/polytable/README",
   },
@@ -7268,6 +7275,16 @@ local tlp_doclist = {
   },
   ["chicago-annote"] = {
     "texmf-dist/doc/bibtex/chicago-annote/README",
+  },
+  ["hepthesis"] = {
+    "texmf-dist/doc/latex/hepthesis/ChangeLog",
+    "texmf-dist/doc/latex/hepthesis/README",
+    "texmf-dist/doc/latex/hepthesis/TODO",
+    "texmf-dist/doc/latex/hepthesis/example/Makefile",
+    "texmf-dist/doc/latex/hepthesis/example/ckmfitter-alpha-combined.pdf",
+    "texmf-dist/doc/latex/hepthesis/example/example.pdf",
+    "texmf-dist/doc/latex/hepthesis/example/lhcb-detector-cross-section.pdf",
+    "texmf-dist/doc/latex/hepthesis/hepthesis.pdf",
   },
   ["modref"] = {
     "texmf-dist/doc/latex/modref/README",
@@ -7401,23 +7418,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/renditions/README",
     "texmf-dist/doc/latex/renditions/renditions.pdf",
   },
-  ["eemeir"] = {
-    "texmf-dist/doc/latex/eemeir/README",
-    "texmf-dist/doc/latex/eemeir/eemeir.pdf",
-  },
-  ["12many"] = {
-    "texmf-dist/doc/latex/12many/12many.pdf",
-    "texmf-dist/doc/latex/12many/README",
-  },
   ["algorithmicx"] = {
     "texmf-dist/doc/latex/algorithmicx/README",
     "texmf-dist/doc/latex/algorithmicx/algorithmicx.pdf",
   },
   ["vpe"] = {
     "texmf-dist/doc/latex/vpe/vpe.txt",
-  },
-  ["carolmin-ps"] = {
-    "texmf-dist/doc/fonts/carolmin-ps/README",
   },
   ["drv"] = {
     "texmf-dist/doc/metapost/drv/README",
@@ -7442,10 +7448,6 @@ local tlp_doclist = {
   },
   ["pst-support"] = {
     "texmf-dist/doc/generic/pst-support/README",
-  },
-  ["icsv"] = {
-    "texmf-dist/doc/latex/icsv/README",
-    "texmf-dist/doc/latex/icsv/icsv.pdf",
   },
   ["memoir"] = {
     "texmf-dist/doc/latex/memoir/Makeidxglo",
@@ -7514,10 +7516,6 @@ local tlp_doclist = {
   ["arrayjob"] = {
     "texmf-dist/doc/generic/arrayjob/README",
     "texmf-dist/doc/generic/arrayjob/arrayjob.pdf",
-  },
-  ["cmarrows"] = {
-    "texmf-dist/doc/metapost/cmarrows/README",
-    "texmf-dist/doc/metapost/cmarrows/cmarrows.pdf",
   },
   ["bullcntr"] = {
     "texmf-dist/doc/latex/bullcntr/00readme.txt",
@@ -8363,10 +8361,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/sdrt/README",
     "texmf-dist/doc/latex/sdrt/sdrt-doc.pdf",
   },
-  ["bibtex8"] = {
-    "texmf/doc/bibtex8/00readme.txt",
-    "texmf/doc/bibtex8/HISTORY",
-    "texmf/doc/bibtex8/csfile.txt",
+  ["asymptote-by-example-zh-cn"] = {
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/README",
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/asymptote-by-example-zh-cn.pdf",
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/cleantmp",
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/makepdf",
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/tiling.pdf",
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/xiantu-ancient.pdf",
+    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/xiantu.pdf",
   },
   ["akktex"] = {
     "texmf-dist/doc/latex/AkkTeX/README",
@@ -8500,10 +8502,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/minibox/README",
     "texmf-dist/doc/latex/minibox/minibox.pdf",
   },
-  ["cbcoptic"] = {
-    "texmf-dist/doc/latex/cbcoptic/README",
-    "texmf-dist/doc/latex/cbcoptic/coptfont.pdf",
-    "texmf-dist/doc/latex/cbcoptic/testcopOK.pdf",
+  ["fixfoot"] = {
+    "texmf-dist/doc/latex/fixfoot/README",
+    "texmf-dist/doc/latex/fixfoot/fixfoot.pdf",
   },
   ["splines"] = {
     "texmf-dist/doc/metapost/splines/README",
@@ -8661,10 +8662,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/bibexport/README",
     "texmf-dist/doc/latex/bibexport/bibexport.pdf",
   },
-  ["catechis"] = {
-    "texmf-dist/doc/latex/catechis/README",
-    "texmf-dist/doc/latex/catechis/catechis.pdf",
-  },
   ["spreadtab"] = {
     "texmf-dist/doc/latex/spreadtab/README",
     "texmf-dist/doc/latex/spreadtab/spreadtab_doc_en.pdf",
@@ -8703,14 +8700,18 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/zwpagelayout/coversample.pdf",
     "texmf-dist/doc/latex/zwpagelayout/zwpagelayout.pdf",
   },
-  ["a0poster"] = {
-    "texmf-dist/doc/latex/a0poster/a0.pdf",
-    "texmf-dist/doc/latex/a0poster/a0_eng.pdf",
-  },
   ["zwgetfdate"] = {
     "texmf-dist/doc/latex/zwgetfdate/License.txt",
     "texmf-dist/doc/latex/zwgetfdate/README",
     "texmf-dist/doc/latex/zwgetfdate/zwgetfdate.pdf",
+  },
+  ["a0poster"] = {
+    "texmf-dist/doc/latex/a0poster/a0.pdf",
+    "texmf-dist/doc/latex/a0poster/a0_eng.pdf",
+  },
+  ["zhspacing"] = {
+    "texmf-dist/doc/latex/zhspacing/README",
+    "texmf-dist/doc/latex/zhspacing/zhs-man.pdf",
   },
   ["pst-uml"] = {
     "texmf-dist/doc/generic/pst-uml/Changes",
@@ -8719,9 +8720,9 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-uml/pst-uml-encapsuled-pdf-fig.pdf",
     "texmf-dist/doc/generic/pst-uml/pst-uml-exemples.pdf",
   },
-  ["zhspacing"] = {
-    "texmf-dist/doc/latex/zhspacing/README",
-    "texmf-dist/doc/latex/zhspacing/zhs-man.pdf",
+  ["yfonts"] = {
+    "texmf-dist/doc/latex/yfonts/liesmich",
+    "texmf-dist/doc/latex/yfonts/readme",
   },
   ["mkjobtexmf"] = {
     "texmf-dist/doc/generic/mkjobtexmf/README",
@@ -8729,9 +8730,6 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/mkjobtexmf/mkjobtexmf.pdf",
     "texmf-dist/doc/generic/mkjobtexmf/mkjobtexmf.txt",
     "texmf/doc/man/man1/mkjobtexmf.man1.pdf",
-  },
-  ["yhmath"] = {
-    "texmf-dist/doc/latex/yhmath/yhmath.pdf",
   },
   ["sciwordconv"] = {
     "texmf-dist/doc/latex/sciwordconv/README",
@@ -8758,6 +8756,15 @@ local tlp_doclist = {
   },
   ["gastex"] = {
     "texmf-dist/doc/latex/gastex/README",
+  },
+  ["labbook"] = {
+    "texmf-dist/doc/latex/labbook/README",
+    "texmf-dist/doc/latex/labbook/labboode.pdf",
+    "texmf-dist/doc/latex/labbook/labbook.pdf",
+  },
+  ["york-thesis"] = {
+    "texmf-dist/doc/latex/york-thesis/README",
+    "texmf-dist/doc/latex/york-thesis/york-thesis.pdf",
   },
   ["onrannual"] = {
     "texmf-dist/doc/latex/onrannual/README",
@@ -8788,16 +8795,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/crosswrd/README",
     "texmf-dist/doc/latex/crosswrd/crosswrd.pdf",
   },
-  ["york-thesis"] = {
-    "texmf-dist/doc/latex/york-thesis/README",
-    "texmf-dist/doc/latex/york-thesis/york-thesis.pdf",
+  ["yhmath"] = {
+    "texmf-dist/doc/latex/yhmath/yhmath.pdf",
   },
   ["zhmetrics"] = {
     "texmf-dist/doc/fonts/zhmetrics/README",
-  },
-  ["yfonts"] = {
-    "texmf-dist/doc/latex/yfonts/liesmich",
-    "texmf-dist/doc/latex/yfonts/readme",
   },
   ["yannisgr"] = {
     "texmf-dist/doc/plain/yannisgr/00changes.txt",
@@ -8805,14 +8807,25 @@ local tlp_doclist = {
     "texmf-dist/doc/plain/yannisgr/monsyl.txt",
     "texmf-dist/doc/plain/yannisgr/tomakeformat.txt",
   },
+  ["yafoot"] = {
+    "texmf-dist/doc/latex/yafoot/README",
+    "texmf-dist/doc/latex/yafoot/yafoot-man.dvi",
+  },
   ["facsimile"] = {
     "texmf-dist/doc/latex/facsimile/README",
     "texmf-dist/doc/latex/facsimile/example.dvi",
     "texmf-dist/doc/latex/facsimile/facsimile.pdf",
   },
-  ["yafoot"] = {
-    "texmf-dist/doc/latex/yafoot/README",
-    "texmf-dist/doc/latex/yafoot/yafoot-man.dvi",
+  ["xypic"] = {
+    "texmf-dist/doc/generic/xypic/CATALOG",
+    "texmf-dist/doc/generic/xypic/COPYING",
+    "texmf-dist/doc/generic/xypic/INSTALL",
+    "texmf-dist/doc/generic/xypic/MANIFEST",
+    "texmf-dist/doc/generic/xypic/README",
+    "texmf-dist/doc/generic/xypic/TRAILER",
+    "texmf-dist/doc/generic/xypic/VERSIONS",
+    "texmf-dist/doc/generic/xypic/xyguide.pdf",
+    "texmf-dist/doc/generic/xypic/xyrefer.pdf",
   },
   ["texdraw"] = {
     "texmf-dist/doc/support/texdraw/texdraw.pdf",
@@ -8835,17 +8848,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ocr-latex/README",
     "texmf-dist/doc/latex/ocr-latex/ocr.pdf",
   },
-  ["xypic"] = {
-    "texmf-dist/doc/generic/xypic/CATALOG",
-    "texmf-dist/doc/generic/xypic/COPYING",
-    "texmf-dist/doc/generic/xypic/INSTALL",
-    "texmf-dist/doc/generic/xypic/MANIFEST",
-    "texmf-dist/doc/generic/xypic/README",
-    "texmf-dist/doc/generic/xypic/TRAILER",
-    "texmf-dist/doc/generic/xypic/VERSIONS",
-    "texmf-dist/doc/generic/xypic/xyguide.pdf",
-    "texmf-dist/doc/generic/xypic/xyrefer.pdf",
-  },
   ["xwatermark"] = {
     "texmf-dist/doc/latex/xwatermark/Graphics/xwatermarkpic.pdf",
     "texmf-dist/doc/latex/xwatermark/README",
@@ -8859,6 +8861,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/xtab/README",
     "texmf-dist/doc/latex/xtab/xtab.pdf",
   },
+  ["xstring"] = {
+    "texmf-dist/doc/generic/xstring/README",
+    "texmf-dist/doc/generic/xstring/test_etex.pdf",
+    "texmf-dist/doc/generic/xstring/test_latex.pdf",
+    "texmf-dist/doc/generic/xstring/xstring_doc_en.pdf",
+    "texmf-dist/doc/generic/xstring/xstring_doc_fr.pdf",
+  },
   ["belleek"] = {
     "texmf-dist/doc/fonts/belleek/README",
   },
@@ -8867,15 +8876,11 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-infixplot/pst-infixplot-doc.ps",
     "texmf-dist/doc/generic/pst-infixplot/pst-infixplot.pdf",
   },
-  ["xstring"] = {
-    "texmf-dist/doc/generic/xstring/README",
-    "texmf-dist/doc/generic/xstring/test_etex.pdf",
-    "texmf-dist/doc/generic/xstring/test_latex.pdf",
-    "texmf-dist/doc/generic/xstring/xstring_doc_en.pdf",
-    "texmf-dist/doc/generic/xstring/xstring_doc_fr.pdf",
-  },
   ["xskak"] = {
     "texmf-dist/doc/latex/xskak/README",
+  },
+  ["quotchap"] = {
+    "texmf-dist/doc/latex/quotchap/document.pdf",
   },
   ["cell"] = {
     "texmf-dist/doc/latex/cell/README",
@@ -8890,12 +8895,14 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-gr3d/README",
     "texmf-dist/doc/generic/pst-gr3d/pst-gr3d.pdf",
   },
+  ["altfont"] = {
+    "texmf-dist/doc/latex/altfont/README",
+    "texmf-dist/doc/latex/altfont/altfont.pdf",
+    "texmf-dist/doc/latex/altfont/psfont.pdf",
+  },
   ["pagecont"] = {
     "texmf-dist/doc/latex/pagecont/README",
     "texmf-dist/doc/latex/pagecont/pagecont.pdf",
-  },
-  ["rectopma"] = {
-    "texmf-dist/doc/latex/rectopma/TestTitle.dvi",
   },
   ["textpos"] = {
     "texmf-dist/doc/latex/textpos/LICENCE",
@@ -8927,11 +8934,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/greenpoint/ChangeLog",
     "texmf-dist/doc/fonts/greenpoint/README",
   },
-  ["bytefield"] = {
-    "texmf-dist/doc/latex/bytefield/README",
-    "texmf-dist/doc/latex/bytefield/bytefield.pdf",
-    "texmf-dist/doc/latex/bytefield/example.pdf",
-  },
   ["localloc"] = {
     "texmf-dist/doc/latex/localloc/localloc.dvi",
   },
@@ -8947,28 +8949,35 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/clefval/example.pdf",
     "texmf-dist/doc/latex/clefval/exemple.pdf",
   },
-  ["eurosym"] = {
-    "texmf-dist/doc/fonts/eurosym/COPYING",
-    "texmf-dist/doc/fonts/eurosym/Changes",
-    "texmf-dist/doc/fonts/eurosym/Makefile",
-    "texmf-dist/doc/fonts/eurosym/README",
-    "texmf-dist/doc/fonts/eurosym/doc/Makefile",
-    "texmf-dist/doc/fonts/eurosym/makemfs",
-    "texmf-dist/doc/fonts/eurosym/rundvips",
-    "texmf-dist/doc/fonts/eurosym/runlatex",
-    "texmf-dist/doc/fonts/eurosym/src/Makefile",
-  },
   ["hrlatex"] = {
     "texmf-dist/doc/latex/hrlatex/README",
     "texmf-dist/doc/latex/hrlatex/hrlatex.pdf",
   },
-  ["ntheorem"] = {
-    "texmf-dist/doc/latex/ntheorem/README",
-    "texmf-dist/doc/latex/ntheorem/ntheorem.pdf",
+  ["ntgclass"] = {
+    "texmf-dist/doc/latex/ntgclass/00readme.txt",
+    "texmf-dist/doc/latex/ntgclass/a4.pdf",
+    "texmf-dist/doc/latex/ntgclass/artdoc.pdf",
+    "texmf-dist/doc/latex/ntgclass/brief.pdf",
+    "texmf-dist/doc/latex/ntgclass/briefdoc.pdf",
+    "texmf-dist/doc/latex/ntgclass/catalog.txt",
+    "texmf-dist/doc/latex/ntgclass/changes.txt",
+    "texmf-dist/doc/latex/ntgclass/classdoc.pdf",
+    "texmf-dist/doc/latex/ntgclass/manifest.txt",
+    "texmf-dist/doc/latex/ntgclass/ntgclass.pdf",
+    "texmf-dist/doc/latex/ntgclass/rapdoc.pdf",
   },
   ["figsize"] = {
     "texmf-dist/doc/latex/figsize/README",
     "texmf-dist/doc/latex/figsize/figsize.pdf",
+  },
+  ["subfig"] = {
+    "texmf-dist/doc/latex/subfig/README",
+    "texmf-dist/doc/latex/subfig/subfig.pdf",
+  },
+  ["pst-am"] = {
+    "texmf-dist/doc/generic/pst-am/Changes",
+    "texmf-dist/doc/generic/pst-am/README",
+    "texmf-dist/doc/generic/pst-am/pst-am-doc.pdf",
   },
   ["seqsplit"] = {
     "texmf-dist/doc/latex/seqsplit/README",
@@ -8987,14 +8996,21 @@ local tlp_doclist = {
     "texmf-dist/doc/otherformats/xmltex/base/manual.html",
     "texmf-dist/doc/otherformats/xmltex/base/readme.txt",
   },
-  ["simplecv"] = {
-    "texmf-dist/doc/latex/simplecv/README",
-    "texmf-dist/doc/latex/simplecv/testcv.pdf",
+  ["texlive.infra"] = {
+    "texmf/doc/man/man1/tlmgr.man1.pdf",
+    "tlpkg/README",
   },
-  ["pst-am"] = {
-    "texmf-dist/doc/generic/pst-am/Changes",
-    "texmf-dist/doc/generic/pst-am/README",
-    "texmf-dist/doc/generic/pst-am/pst-am-doc.pdf",
+  ["lshort-spanish"] = {
+    "texmf-dist/doc/latex/lshort-spanish/fuente/CAMBIOS",
+    "texmf-dist/doc/latex/lshort-spanish/fuente/MANIFEST",
+    "texmf-dist/doc/latex/lshort-spanish/fuente/Makefile",
+    "texmf-dist/doc/latex/lshort-spanish/lshort.pdf",
+  },
+  ["xlop"] = {
+    "texmf-dist/doc/generic/xlop/README",
+    "texmf-dist/doc/generic/xlop/XLOP03",
+    "texmf-dist/doc/generic/xlop/fr-user.pdf",
+    "texmf-dist/doc/generic/xlop/history.txt",
   },
   ["gnu-freefont"] = {
     "texmf-dist/doc/fonts/gnu-freefont/AUTHORS",
@@ -9004,15 +9020,12 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/gnu-freefont/INSTALL",
     "texmf-dist/doc/fonts/gnu-freefont/README",
   },
-  ["xlop"] = {
-    "texmf-dist/doc/generic/xlop/README",
-    "texmf-dist/doc/generic/xlop/XLOP03",
-    "texmf-dist/doc/generic/xlop/fr-user.pdf",
-    "texmf-dist/doc/generic/xlop/history.txt",
-  },
   ["xkeyval"] = {
     "texmf-dist/doc/latex/xkeyval/README",
     "texmf-dist/doc/latex/xkeyval/xkeyval.pdf",
+  },
+  ["frletter"] = {
+    "texmf-dist/doc/latex/frletter/README",
   },
   ["esint-type1"] = {
     "texmf-dist/doc/fonts/esint-type1/README",
@@ -9028,13 +9041,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/lshort-turkish/README",
     "texmf-dist/doc/latex/lshort-turkish/lshort-tr.pdf",
   },
+  ["burmese"] = {
+    "texmf-dist/doc/fonts/burmese/burmguide.pdf",
+  },
   ["fonttable"] = {
     "texmf-dist/doc/latex/fonttable/README",
     "texmf-dist/doc/latex/fonttable/fonttable.pdf",
-  },
-  ["texmate"] = {
-    "texmf-dist/doc/latex/texmate/README",
-    "texmf-dist/doc/latex/texmate/texmate2manual.pdf",
   },
   ["disser"] = {
     "texmf-dist/doc/latex/disser/ChangeLog",
@@ -9056,17 +9068,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/dtxgallery/rearrange.pdf",
     "texmf-dist/doc/latex/dtxgallery/single-source.pdf",
   },
+  ["tikz-timing"] = {
+    "texmf-dist/doc/latex/tikz-timing/README",
+    "texmf-dist/doc/latex/tikz-timing/tikz-timing.pdf",
+  },
   ["context-mathsets"] = {
     "texmf-dist/doc/context/third/mathsets/README",
     "texmf-dist/doc/context/third/mathsets/mathsets-doc.pdf",
   },
-  ["arydshln"] = {
-    "texmf-dist/doc/latex/arydshln/README",
-    "texmf-dist/doc/latex/arydshln/arydshln-man.pdf",
-    "texmf-dist/doc/latex/arydshln/arydshln.pdf",
-  },
-  ["elvish"] = {
-    "texmf-dist/doc/fonts/elvish/README",
+  ["doi"] = {
+    "texmf-dist/doc/latex/doi/README",
   },
   ["rjlparshap"] = {
     "texmf-dist/doc/latex/rjlparshap/README",
@@ -9113,14 +9124,14 @@ local tlp_doclist = {
   ["xgreek"] = {
     "texmf-dist/doc/xelatex/xgreek/xgreek.pdf",
   },
-  ["midnight"] = {
-    "texmf-dist/doc/generic/midnight/README",
-    "texmf-dist/doc/generic/midnight/midnight.pdf",
-  },
   ["xfor"] = {
     "texmf-dist/doc/latex/xfor/CHANGES",
     "texmf-dist/doc/latex/xfor/README",
     "texmf-dist/doc/latex/xfor/xfor.pdf",
+  },
+  ["midnight"] = {
+    "texmf-dist/doc/generic/midnight/README",
+    "texmf-dist/doc/generic/midnight/midnight.pdf",
   },
   ["xetexfontinfo"] = {
     "texmf-dist/doc/xetex/xetexfontinfo/README",
@@ -9132,11 +9143,30 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/combine/README",
     "texmf-dist/doc/latex/combine/combine.pdf",
   },
-  ["tugboat"] = {
-    "texmf-dist/doc/latex/tugboat/README",
-    "texmf-dist/doc/latex/tugboat/ltubguid.pdf",
-    "texmf-dist/doc/latex/tugboat/manifest.txt",
-    "texmf-dist/doc/latex/tugboat/tugboat.pdf",
+  ["tufte-latex"] = {
+    "texmf-dist/doc/latex/tufte-latex/History.txt",
+    "texmf-dist/doc/latex/tufte-latex/Manifest.txt",
+    "texmf-dist/doc/latex/tufte-latex/README",
+    "texmf-dist/doc/latex/tufte-latex/graphics/be-contents.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/be-title.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/ei-contents.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/ei-title.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/helix.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/hilbertcurves.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/sine.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/vdqi-contents.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/vdqi-title.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/ve-contents.pdf",
+    "texmf-dist/doc/latex/tufte-latex/graphics/ve-title.pdf",
+    "texmf-dist/doc/latex/tufte-latex/sample-book.pdf",
+    "texmf-dist/doc/latex/tufte-latex/sample-handout.pdf",
+  },
+  ["free-math-font-survey"] = {
+    "texmf-dist/doc/fonts/free-math-font-survey/README",
+    "texmf-dist/doc/fonts/free-math-font-survey/source/Makefile",
+    "texmf-dist/doc/fonts/free-math-font-survey/source/fixepsbbox",
+    "texmf-dist/doc/fonts/free-math-font-survey/survey.html",
+    "texmf-dist/doc/fonts/free-math-font-survey/survey.pdf",
   },
   ["duerer-latex"] = {
     "texmf-dist/doc/latex/duerer-latex/README",
@@ -9156,11 +9186,11 @@ local tlp_doclist = {
   ["xetex-pstricks"] = {
     "texmf-dist/doc/xetex/xetex-pstricks/README",
   },
-  ["gustprog"] = {
-    "texmf-dist/doc/support/gustprog/README",
-  },
   ["xetex-itrans"] = {
     "texmf-dist/doc/xelatex/xetex-itrans/README",
+  },
+  ["gustprog"] = {
+    "texmf-dist/doc/support/gustprog/README",
   },
   ["ftnxtra"] = {
     "texmf-dist/doc/latex/ftnxtra/README",
@@ -9172,26 +9202,17 @@ local tlp_doclist = {
   ["betababel"] = {
     "texmf-dist/doc/latex/betababel/betatest.pdf",
   },
-  ["unroman"] = {
-    "texmf-dist/doc/latex/unroman/README",
-    "texmf-dist/doc/latex/unroman/unroman.pdf",
-  },
   ["xesearch"] = {
     "texmf-dist/doc/xetex/xesearch/README",
     "texmf-dist/doc/xetex/xesearch/xesearch.pdf",
   },
+  ["thumb"] = {
+    "texmf-dist/doc/latex/thumb/README",
+    "texmf-dist/doc/latex/thumb/thumb.pdf",
+  },
   ["context-account"] = {
     "texmf-dist/doc/context/third/account/README",
     "texmf-dist/doc/context/third/account/account-doc.pdf",
-  },
-  ["abbr"] = {
-    "texmf-dist/doc/generic/abbr/README",
-  },
-  ["tkz-tab"] = {
-    "texmf-dist/doc/latex/tkz-tab/TKZdoc-tab.pdf",
-    "texmf-dist/doc/latex/tkz-tab/readme-us.txt",
-    "texmf-dist/doc/latex/tkz-tab/sign-latin1.pdf",
-    "texmf-dist/doc/latex/tkz-tab/var-latin1.pdf",
   },
   ["xecyr"] = {
     "texmf-dist/doc/xelatex/xecyr/README",
@@ -9206,6 +9227,15 @@ local tlp_doclist = {
     "texmf-dist/doc/xelatex/xecyr/xecyr-ex5-ru-x.pdf",
     "texmf-dist/doc/xelatex/xecyr/xecyr-ex6-ru-x.pdf",
     "texmf-dist/doc/xelatex/xecyr/xecyr-ex7-ru-x.pdf",
+  },
+  ["abbr"] = {
+    "texmf-dist/doc/generic/abbr/README",
+  },
+  ["tkz-tab"] = {
+    "texmf-dist/doc/latex/tkz-tab/TKZdoc-tab.pdf",
+    "texmf-dist/doc/latex/tkz-tab/readme-us.txt",
+    "texmf-dist/doc/latex/tkz-tab/sign-latin1.pdf",
+    "texmf-dist/doc/latex/tkz-tab/var-latin1.pdf",
   },
   ["xecolour"] = {
     "texmf-dist/doc/xelatex/xecolour/README",
@@ -9225,13 +9255,22 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/forarray/forarray-test.pdf",
     "texmf-dist/doc/latex/forarray/forarray.pdf",
   },
-  ["elbioimp"] = {
-    "texmf-dist/doc/latex/elbioimp/README",
-    "texmf-dist/doc/latex/elbioimp/elbioimp.pdf",
+  ["moderncv"] = {
+    "texmf-dist/doc/latex/moderncv/CHANGELOG",
+    "texmf-dist/doc/latex/moderncv/KNOWN_BUGS",
+    "texmf-dist/doc/latex/moderncv/README",
+    "texmf-dist/doc/latex/moderncv/examples/letter.pdf",
+    "texmf-dist/doc/latex/moderncv/examples/template_en_casual_blue.pdf",
+    "texmf-dist/doc/latex/moderncv/examples/template_en_classic_green.pdf",
   },
   ["metre"] = {
     "texmf-dist/doc/latex/metre/demo.pdf",
     "texmf-dist/doc/latex/metre/metre.pdf",
+  },
+  ["xdvi"] = {
+    "texmf/doc/man/man1/t1mapper.man1.pdf",
+    "texmf/doc/man/man1/xdvi.man1.pdf",
+    "texmf/doc/man/man1/xdvizilla.man1.pdf",
   },
   ["newfile"] = {
     "texmf-dist/doc/latex/newfile/README",
@@ -9241,10 +9280,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/euro/euro.pdf",
     "texmf-dist/doc/latex/euro/euro.txt",
   },
-  ["xdvi"] = {
-    "texmf/doc/man/man1/t1mapper.man1.pdf",
-    "texmf/doc/man/man1/xdvi.man1.pdf",
-    "texmf/doc/man/man1/xdvizilla.man1.pdf",
+  ["xdoc"] = {
+    "texmf-dist/doc/latex/xdoc/README",
+    "texmf-dist/doc/latex/xdoc/docindex.pdf",
+    "texmf-dist/doc/latex/xdoc/xdoc2.pdf",
+    "texmf-dist/doc/latex/xdoc/xdocdemo.pdf",
   },
   ["miller"] = {
     "texmf-dist/doc/latex/miller/ChangeLog",
@@ -9265,39 +9305,36 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/vxu/actawex.pdf",
     "texmf-dist/doc/latex/vxu/rfmsi.pdf",
   },
-  ["xdoc"] = {
-    "texmf-dist/doc/latex/xdoc/README",
-    "texmf-dist/doc/latex/xdoc/docindex.pdf",
-    "texmf-dist/doc/latex/xdoc/xdoc2.pdf",
-    "texmf-dist/doc/latex/xdoc/xdocdemo.pdf",
-  },
-  ["comment"] = {
-    "texmf-dist/doc/latex/comment/README",
-    "texmf-dist/doc/latex/comment/comment.pdf",
-  },
-  ["eltex"] = {
-    "texmf-dist/doc/latex/eltex/README",
-    "texmf-dist/doc/latex/eltex/man_en.pdf",
-    "texmf-dist/doc/latex/eltex/pri_cz.pdf",
-  },
   ["xcolor"] = {
     "texmf-dist/doc/latex/xcolor/ChangeLog",
     "texmf-dist/doc/latex/xcolor/README",
     "texmf-dist/doc/latex/xcolor/xcolor.pdf",
     "texmf-dist/doc/latex/xcolor/xcolor2.pdf",
   },
+  ["comment"] = {
+    "texmf-dist/doc/latex/comment/README",
+    "texmf-dist/doc/latex/comment/comment.pdf",
+  },
+  ["context-degrade"] = {
+    "texmf-dist/doc/context/third/degrade/degrade-demo.pdf",
+    "texmf-dist/doc/context/third/degrade/degrade-doc.pdf",
+  },
   ["xargs"] = {
     "texmf-dist/doc/latex/xargs/README",
     "texmf-dist/doc/latex/xargs/xargs-fr.pdf",
     "texmf-dist/doc/latex/xargs/xargs.pdf",
   },
-  ["syntax"] = {
-    "texmf-dist/doc/latex/syntax/README",
-    "texmf-dist/doc/latex/syntax/syntaxintro.pdf",
-    "texmf-dist/doc/latex/syntax/syntaxtest.pdf",
+  ["nrc"] = {
+    "texmf-dist/doc/latex/nrc/README",
+    "texmf-dist/doc/latex/nrc/authors.txt",
+    "texmf-dist/doc/latex/nrc/userguide.pdf",
   },
   ["wrapfig"] = {
     "texmf-dist/doc/latex/wrapfig/multiple-span.txt",
+  },
+  ["wordlike"] = {
+    "texmf-dist/doc/latex/wordlike/README",
+    "texmf-dist/doc/latex/wordlike/wordlike.pdf",
   },
   ["nih"] = {
     "texmf-dist/doc/latex/nih/README",
@@ -9320,19 +9357,18 @@ local tlp_doclist = {
     "texmf-dist/doc/context/third/context-top-ten/src/slide-bg.pdf",
     "texmf-dist/doc/context/third/context-top-ten/src/title-slide.pdf",
   },
-  ["wordlike"] = {
-    "texmf-dist/doc/latex/wordlike/README",
-    "texmf-dist/doc/latex/wordlike/wordlike.pdf",
-  },
   ["wnri"] = {
     "texmf-dist/doc/latex/wnri/wnritest.dvi",
-  },
-  ["play"] = {
-    "texmf-dist/doc/latex/play/README",
   },
   ["wintools.win32"] = {
     "texmf/doc/gzip/gzip.html",
     "texmf/doc/gzip/gzip.pdf",
+  },
+  ["play"] = {
+    "texmf-dist/doc/latex/play/README",
+  },
+  ["context-lilypond"] = {
+    "texmf-dist/doc/context/third/lilypond/t-lilypond.pdf",
   },
   ["webguide"] = {
     "texmf-dist/doc/latex/webguide/README",
@@ -9351,13 +9387,6 @@ local tlp_doclist = {
   ["emulateapj"] = {
     "texmf-dist/doc/latex/emulateapj/README",
     "texmf-dist/doc/latex/emulateapj/sample.pdf",
-  },
-  ["pst-cox"] = {
-    "texmf-dist/doc/generic/pst-cox/README",
-    "texmf-dist/doc/generic/pst-cox/gpl.txt",
-    "texmf-dist/doc/generic/pst-cox/lgpl.txt",
-    "texmf-dist/doc/generic/pst-cox/pst-coxcoor/pst-coxcoor_doc.pdf",
-    "texmf-dist/doc/generic/pst-cox/pst-coxeterp/pst-coxeterp_doc.pdf",
   },
   ["archaic"] = {
     "texmf-dist/doc/fonts/archaic/aramaic-README",
@@ -9428,33 +9457,22 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/arabtex/tetex.txt",
     "texmf-dist/doc/latex/arabtex/uighur.ps",
   },
+  ["texlive-cz"] = {
+    "texmf/doc/texlive/texlive-cz/Makefile",
+    "texmf/doc/texlive/texlive-cz/texlive-cz.html",
+    "texmf/doc/texlive/texlive-cz/texlive-cz.pdf",
+  },
   ["latexcheat-esmx"] = {
     "texmf-dist/doc/latex/latexcheat-esmx/README",
     "texmf-dist/doc/latex/latexcheat-esmx/latexsheet-esmx.pdf",
   },
-  ["texlive-de"] = {
-    "texmf/doc/texlive/texlive-de/Makefile",
-    "texmf/doc/texlive/texlive-de/texlive-de.html",
-    "texmf/doc/texlive/texlive-de/texlive-de.pdf",
+  ["protocol"] = {
+    "texmf-dist/doc/latex/protocol/README",
+    "texmf-dist/doc/latex/protocol/protocol.pdf",
   },
   ["web"] = {
     "texmf/doc/man/man1/tangle.man1.pdf",
     "texmf/doc/man/man1/weave.man1.pdf",
-  },
-  ["fancytooltips"] = {
-    "texmf-dist/doc/latex/fancytooltips/README",
-    "texmf-dist/doc/latex/fancytooltips/examples/example-dvips.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/example-min-dvips.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/example-min.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/example.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/tecna2.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/logo.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/tooltips2html.html",
-    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/tooltips2html.pdf",
-    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/tooltips2html2.html",
-    "texmf-dist/doc/latex/fancytooltips/examples/tooltipy.pdf",
-    "texmf-dist/doc/latex/fancytooltips/fancytooltips.pdf",
-    "texmf-dist/doc/latex/fancytooltips/tip.pdf",
   },
   ["amsfonts"] = {
     "texmf-dist/doc/fonts/amsfonts/00README",
@@ -9467,24 +9485,27 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/amsfonts/eufrak.pdf",
     "texmf-dist/doc/fonts/amsfonts/euscript.pdf",
   },
-  ["vntex"] = {
-    "texmf-dist/doc/generic/vntex/INSTALL",
-    "texmf-dist/doc/generic/vntex/NEWS",
-    "texmf-dist/doc/generic/vntex/vn-fonts-print.pdf",
-    "texmf-dist/doc/generic/vntex/vn-fonts.pdf",
-    "texmf-dist/doc/generic/vntex/vn-min-print.pdf",
-    "texmf-dist/doc/generic/vntex/vn-min.pdf",
-    "texmf-dist/doc/generic/vntex/vntex-man-print.pdf",
-    "texmf-dist/doc/generic/vntex/vntex-man.pdf",
-    "texmf-dist/doc/generic/vntex/vntex-print.pdf",
-    "texmf-dist/doc/generic/vntex/vntex-update-maps",
-    "texmf-dist/doc/generic/vntex/vntex.pdf",
+  ["romannum"] = {
+    "texmf-dist/doc/latex/romannum/README",
+    "texmf-dist/doc/latex/romannum/romannum.pdf",
+  },
+  ["vmargin"] = {
+    "texmf-dist/doc/latex/vmargin/vmargin.pdf",
   },
   ["probsoln"] = {
     "texmf-dist/doc/latex/probsoln/CHANGES",
     "texmf-dist/doc/latex/probsoln/README",
     "texmf-dist/doc/latex/probsoln/probsoln-manual.html",
     "texmf-dist/doc/latex/probsoln/probsoln.pdf",
+  },
+  ["wadalab"] = {
+    "texmf-dist/doc/fonts/wadalab/dgj/README",
+    "texmf-dist/doc/fonts/wadalab/dmj/README",
+    "texmf-dist/doc/fonts/wadalab/mc2j/README",
+    "texmf-dist/doc/fonts/wadalab/mcj/README",
+    "texmf-dist/doc/fonts/wadalab/mr2j/README",
+    "texmf-dist/doc/fonts/wadalab/mrj/README",
+    "texmf-dist/doc/latex/wadalab/wadalab-sampler.pdf",
   },
   ["foekfont"] = {
     "texmf-dist/doc/latex/foekfont/README",
@@ -9498,14 +9519,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/boolexpr/README",
     "texmf-dist/doc/latex/boolexpr/boolexpr.pdf",
   },
-  ["wadalab"] = {
-    "texmf-dist/doc/fonts/wadalab/dgj/README",
-    "texmf-dist/doc/fonts/wadalab/dmj/README",
-    "texmf-dist/doc/fonts/wadalab/mc2j/README",
-    "texmf-dist/doc/fonts/wadalab/mcj/README",
-    "texmf-dist/doc/fonts/wadalab/mr2j/README",
-    "texmf-dist/doc/fonts/wadalab/mrj/README",
-    "texmf-dist/doc/latex/wadalab/wadalab-sampler.pdf",
+  ["fmtcount"] = {
+    "texmf-dist/doc/latex/fmtcount/CHANGES",
+    "texmf-dist/doc/latex/fmtcount/README",
+    "texmf-dist/doc/latex/fmtcount/fmtcount-manual.html",
+    "texmf-dist/doc/latex/fmtcount/fmtcount.pdf",
   },
   ["vwcol"] = {
     "texmf-dist/doc/latex/vwcol/README",
@@ -9523,13 +9541,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/knittingpattern/introduction.pdf",
     "texmf-dist/doc/latex/knittingpattern/template.pdf",
   },
-  ["mfware"] = {
-    "texmf/doc/man/man1/gftodvi.man1.pdf",
-    "texmf/doc/man/man1/gftopk.man1.pdf",
-    "texmf/doc/man/man1/gftype.man1.pdf",
-    "texmf/doc/man/man1/mft.man1.pdf",
-    "texmf/doc/man/man1/pktogf.man1.pdf",
-    "texmf/doc/man/man1/pktype.man1.pdf",
+  ["icsv"] = {
+    "texmf-dist/doc/latex/icsv/README",
+    "texmf-dist/doc/latex/icsv/icsv.pdf",
   },
   ["ae"] = {
     "texmf-dist/doc/fonts/ae/COPYING",
@@ -9545,35 +9559,24 @@ local tlp_doclist = {
   ["ogham"] = {
     "texmf-dist/doc/latex/ogham/testfont.pdf",
   },
-  ["spotcolor"] = {
-    "texmf-dist/doc/latex/spotcolor/README",
-    "texmf-dist/doc/latex/spotcolor/readme.pdf",
-  },
-  ["dottex"] = {
-    "texmf-dist/doc/latex/dottex/README",
-    "texmf-dist/doc/latex/dottex/dottex.pdf",
-    "texmf-dist/doc/latex/dottex/gpl.txt",
+  ["lettrine"] = {
+    "texmf-dist/doc/latex/lettrine/README",
+    "texmf-dist/doc/latex/lettrine/W.pdf",
+    "texmf-dist/doc/latex/lettrine/demo-de.pdf",
+    "texmf-dist/doc/latex/lettrine/demo.pdf",
+    "texmf-dist/doc/latex/lettrine/lettrine.pdf",
   },
   ["covington"] = {
     "texmf-dist/doc/latex/covington/covington.dvi",
   },
-  ["amsmath-it"] = {
-    "texmf-dist/doc/latex/amsmath-it/diffs-m_it.txt",
-  },
-  ["braille"] = {
-    "texmf-dist/doc/latex/braille/README",
-    "texmf-dist/doc/latex/braille/braille.html",
-    "texmf-dist/doc/latex/braille/summary.pdf",
-  },
   ["armenian"] = {
     "texmf-dist/doc/fonts/armenian/readme.txt",
   },
+  ["advdate"] = {
+    "texmf-dist/doc/latex/advdate/advdate.pdf",
+  },
   ["harvmac"] = {
     "texmf-dist/doc/plain/harvmac/README",
-  },
-  ["ed"] = {
-    "texmf-dist/doc/latex/ed/README",
-    "texmf-dist/doc/latex/ed/ed.pdf",
   },
   ["voss-de"] = {
     "texmf-dist/doc/generic/voss-de/InlineMath/Changes",
@@ -9587,16 +9590,51 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/voss-de/mathCol/README",
     "texmf-dist/doc/generic/voss-de/mathCol/mathCol.pdf",
   },
-  ["cd"] = {
-    "texmf-dist/doc/latex/cd/README",
-    "texmf-dist/doc/latex/cd/cd.pdf",
+  ["ed"] = {
+    "texmf-dist/doc/latex/ed/README",
+    "texmf-dist/doc/latex/ed/ed.pdf",
   },
   ["volumes"] = {
     "texmf-dist/doc/latex/volumes/README",
     "texmf-dist/doc/latex/volumes/volumes.pdf",
   },
-  ["vmargin"] = {
-    "texmf-dist/doc/latex/vmargin/vmargin.pdf",
+  ["cd"] = {
+    "texmf-dist/doc/latex/cd/README",
+    "texmf-dist/doc/latex/cd/cd.pdf",
+  },
+  ["vntex"] = {
+    "texmf-dist/doc/generic/vntex/INSTALL",
+    "texmf-dist/doc/generic/vntex/NEWS",
+    "texmf-dist/doc/generic/vntex/vn-fonts-print.pdf",
+    "texmf-dist/doc/generic/vntex/vn-fonts.pdf",
+    "texmf-dist/doc/generic/vntex/vn-min-print.pdf",
+    "texmf-dist/doc/generic/vntex/vn-min.pdf",
+    "texmf-dist/doc/generic/vntex/vntex-man-print.pdf",
+    "texmf-dist/doc/generic/vntex/vntex-man.pdf",
+    "texmf-dist/doc/generic/vntex/vntex-print.pdf",
+    "texmf-dist/doc/generic/vntex/vntex-update-maps",
+    "texmf-dist/doc/generic/vntex/vntex.pdf",
+  },
+  ["psutils"] = {
+    "texmf/doc/man/man1/epsffit.man1.pdf",
+    "texmf/doc/man/man1/extractres.man1.pdf",
+    "texmf/doc/man/man1/fixdlsrps.man1.pdf",
+    "texmf/doc/man/man1/fixfmps.man1.pdf",
+    "texmf/doc/man/man1/fixmacps.man1.pdf",
+    "texmf/doc/man/man1/fixpsditps.man1.pdf",
+    "texmf/doc/man/man1/fixpspps.man1.pdf",
+    "texmf/doc/man/man1/fixscribeps.man1.pdf",
+    "texmf/doc/man/man1/fixtpps.man1.pdf",
+    "texmf/doc/man/man1/fixwfwps.man1.pdf",
+    "texmf/doc/man/man1/fixwpps.man1.pdf",
+    "texmf/doc/man/man1/fixwwps.man1.pdf",
+    "texmf/doc/man/man1/includeres.man1.pdf",
+    "texmf/doc/man/man1/psbook.man1.pdf",
+    "texmf/doc/man/man1/psmerge.man1.pdf",
+    "texmf/doc/man/man1/psnup.man1.pdf",
+    "texmf/doc/man/man1/psresize.man1.pdf",
+    "texmf/doc/man/man1/psselect.man1.pdf",
+    "texmf/doc/man/man1/pstops.man1.pdf",
   },
   ["movie15"] = {
     "texmf-dist/doc/latex/movie15/3dsystem.pdf",
@@ -9606,12 +9644,6 @@ local tlp_doclist = {
   },
   ["moresize"] = {
     "texmf-dist/doc/latex/moresize/msizetst.dvi",
-  },
-  ["fmtcount"] = {
-    "texmf-dist/doc/latex/fmtcount/CHANGES",
-    "texmf-dist/doc/latex/fmtcount/README",
-    "texmf-dist/doc/latex/fmtcount/fmtcount-manual.html",
-    "texmf-dist/doc/latex/fmtcount/fmtcount.pdf",
   },
   ["keystroke"] = {
     "texmf-dist/doc/latex/keystroke/README",
@@ -9631,9 +9663,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/bclogo/brace.pdf",
     "texmf-dist/doc/latex/bclogo/losanges.pdf",
     "texmf-dist/doc/latex/bclogo/spir.pdf",
-  },
-  ["frletter"] = {
-    "texmf-dist/doc/latex/frletter/README",
   },
   ["ms"] = {
     "texmf-dist/doc/latex/ms/count1to.pdf",
@@ -9674,13 +9703,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/hep/ChangeLog",
     "texmf-dist/doc/latex/hep/README",
   },
+  ["vita"] = {
+    "texmf-dist/doc/latex/vita/00Content",
+  },
   ["show2e"] = {
     "texmf-dist/doc/latex/show2e/README",
     "texmf-dist/doc/latex/show2e/show2e-fr.pdf",
     "texmf-dist/doc/latex/show2e/show2e.pdf",
-  },
-  ["vita"] = {
-    "texmf-dist/doc/latex/vita/00Content",
   },
   ["visualfaq"] = {
     "texmf-dist/doc/latex/visualfaq/README",
@@ -9711,6 +9740,10 @@ local tlp_doclist = {
   ["currvita"] = {
     "texmf-dist/doc/latex/currvita/README",
     "texmf-dist/doc/latex/currvita/currvita.pdf",
+  },
+  ["verse"] = {
+    "texmf-dist/doc/latex/verse/README",
+    "texmf-dist/doc/latex/verse/verse.pdf",
   },
   ["pgf-soroban"] = {
     "texmf-dist/doc/latex/pgf-soroban/Changes",
@@ -9796,16 +9829,6 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/tex4ht/mn8.html",
     "texmf-dist/doc/generic/tex4ht/mn9.html",
   },
-  ["verse"] = {
-    "texmf-dist/doc/latex/verse/README",
-    "texmf-dist/doc/latex/verse/verse.pdf",
-  },
-  ["elsevier"] = {
-    "texmf-dist/doc/latex/elsevier/CHANGES",
-    "texmf-dist/doc/latex/elsevier/README",
-    "texmf-dist/doc/latex/elsevier/instructions-harv.pdf",
-    "texmf-dist/doc/latex/elsevier/instructions-num.pdf",
-  },
   ["verbatimcopy"] = {
     "texmf-dist/doc/latex/verbatimcopy/README",
     "texmf-dist/doc/latex/verbatimcopy/verbatimcopy.pdf",
@@ -9820,13 +9843,6 @@ local tlp_doclist = {
   ["venn"] = {
     "texmf-dist/doc/metapost/venn/README",
   },
-  ["arphic"] = {
-    "texmf-dist/doc/fonts/arphic/arphic-sampler.pdf",
-    "texmf-dist/doc/fonts/arphic/bkaiu/README",
-    "texmf-dist/doc/fonts/arphic/bsmiu/README",
-    "texmf-dist/doc/fonts/arphic/gbsnu/README",
-    "texmf-dist/doc/fonts/arphic/gkaiu/README",
-  },
   ["velthuis"] = {
     "texmf-dist/doc/generic/velthuis/README",
     "texmf-dist/doc/generic/velthuis/changes",
@@ -9838,6 +9854,13 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/velthuis/vedasample.pdf",
     "texmf-dist/doc/generic/velthuis/xetex-examples.pdf",
     "texmf-dist/doc/generic/velthuis/xetex-misspaal.pdf",
+  },
+  ["arphic"] = {
+    "texmf-dist/doc/fonts/arphic/arphic-sampler.pdf",
+    "texmf-dist/doc/fonts/arphic/bkaiu/README",
+    "texmf-dist/doc/fonts/arphic/bsmiu/README",
+    "texmf-dist/doc/fonts/arphic/gbsnu/README",
+    "texmf-dist/doc/fonts/arphic/gkaiu/README",
   },
   ["vector"] = {
     "texmf-dist/doc/latex/vector/README",
@@ -9857,10 +9880,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/binomexp/README",
     "texmf-dist/doc/latex/binomexp/binomexp.pdf",
   },
-  ["juraabbrev"] = {
-    "texmf-dist/doc/latex/juraabbrev/README",
-    "texmf-dist/doc/latex/juraabbrev/juraabbrev.pdf",
-  },
   ["variations"] = {
     "texmf-dist/doc/generic/variations/ALIRE",
     "texmf-dist/doc/generic/variations/COPYING",
@@ -9876,34 +9895,38 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/utopia/LICENSE-utopia.txt",
     "texmf-dist/doc/fonts/utopia/README-utopia.txt",
   },
+  ["ut-thesis"] = {
+    "texmf-dist/doc/latex/ut-thesis/README",
+  },
   ["gmdoc"] = {
     "texmf-dist/doc/latex/gmdoc/README",
     "texmf-dist/doc/latex/gmdoc/gmdoc.pdf",
-  },
-  ["ut-thesis"] = {
-    "texmf-dist/doc/latex/ut-thesis/README",
   },
   ["ushort"] = {
     "texmf-dist/doc/latex/ushort/README",
     "texmf-dist/doc/latex/ushort/ushort.pdf",
     "texmf-dist/doc/latex/ushort/ushort.txt",
   },
-  ["skak"] = {
-    "texmf-dist/doc/latex/skak/README",
-    "texmf-dist/doc/latex/skak/informator.pdf",
-    "texmf-dist/doc/latex/skak/makefile",
-    "texmf-dist/doc/latex/skak/refman.pdf",
-    "texmf-dist/doc/latex/skak/skakdoc.pdf",
-    "texmf-dist/doc/latex/skak/tuggame.pdf",
+  ["tamethebeast"] = {
+    "texmf-dist/doc/bibtex/tamethebeast/CHANGES",
+    "texmf-dist/doc/bibtex/tamethebeast/Makefile",
+    "texmf-dist/doc/bibtex/tamethebeast/README",
+    "texmf-dist/doc/bibtex/tamethebeast/ttb_en.pdf",
+  },
+  ["siunitx"] = {
+    "texmf-dist/doc/latex/siunitx/README",
+    "texmf-dist/doc/latex/siunitx/siunitx.pdf",
+  },
+  ["getfiledate"] = {
+    "texmf-dist/doc/latex/getfiledate/README",
+    "texmf-dist/doc/latex/getfiledate/getfiledate-guide.pdf",
   },
   ["graphics-pln"] = {
     "texmf-dist/doc/plain/graphics-pln/00readme.txt",
   },
-  ["gfsartemisia"] = {
-    "texmf-dist/doc/fonts/gfsartemisia/OFL-FAQ.txt",
-    "texmf-dist/doc/fonts/gfsartemisia/OFL.txt",
-    "texmf-dist/doc/fonts/gfsartemisia/README",
-    "texmf-dist/doc/fonts/gfsartemisia/gfsartemisia.pdf",
+  ["unroman"] = {
+    "texmf-dist/doc/latex/unroman/README",
+    "texmf-dist/doc/latex/unroman/unroman.pdf",
   },
   ["estcpmm"] = {
     "texmf-dist/doc/latex/estcpmm/README",
@@ -9917,11 +9940,6 @@ local tlp_doclist = {
   },
   ["xetex"] = {
     "texmf-dist/doc/xetex/base/XeTeX-notes.pdf",
-  },
-  ["image-gallery"] = {
-    "texmf-dist/doc/latex/image-gallery/README",
-    "texmf-dist/doc/latex/image-gallery/gallery-example.pdf",
-    "texmf-dist/doc/latex/image-gallery/mypics.txt",
   },
   ["gfsbodoni"] = {
     "texmf-dist/doc/fonts/gfsbodoni/OFL-FAQ.txt",
@@ -9940,11 +9958,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/units/README",
     "texmf-dist/doc/latex/units/units.pdf",
   },
-  ["antiqua"] = {
-    "texmf-dist/doc/fonts/antiqua/antiqua.txt",
-  },
   ["undertilde"] = {
     "texmf-dist/doc/latex/undertilde/undertilde.pdf",
+  },
+  ["antiqua"] = {
+    "texmf-dist/doc/fonts/antiqua/antiqua.txt",
   },
   ["underlin"] = {
     "texmf-dist/doc/latex/underlin/underlin.pdf",
@@ -9969,31 +9987,15 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ulsy/README",
     "texmf-dist/doc/latex/ulsy/ulsy.pdf",
   },
+  ["dpfloat"] = {
+    "texmf-dist/doc/latex/dpfloat/README",
+    "texmf-dist/doc/latex/dpfloat/dpfloat.pdf",
+  },
   ["gfsdidot"] = {
     "texmf-dist/doc/fonts/gfsdidot/OFL-FAQ.txt",
     "texmf-dist/doc/fonts/gfsdidot/OFL.txt",
     "texmf-dist/doc/fonts/gfsdidot/README",
     "texmf-dist/doc/fonts/gfsdidot/gfsdidot.pdf",
-  },
-  ["latexmk"] = {
-    "texmf-dist/doc/support/latexmk/CHANGES",
-    "texmf-dist/doc/support/latexmk/COPYING",
-    "texmf-dist/doc/support/latexmk/INSTALL",
-    "texmf-dist/doc/support/latexmk/README",
-    "texmf-dist/doc/support/latexmk/example_rcfiles/README",
-    "texmf-dist/doc/support/latexmk/example_rcfiles/pdflatexmkrc",
-    "texmf-dist/doc/support/latexmk/extra-scripts/README1",
-    "texmf-dist/doc/support/latexmk/extra-scripts/dvipdfm_call",
-    "texmf-dist/doc/support/latexmk/extra-scripts/dvipdfmx_call",
-    "texmf-dist/doc/support/latexmk/extra-scripts/kickxdvi",
-    "texmf-dist/doc/support/latexmk/extra-scripts/l1",
-    "texmf-dist/doc/support/latexmk/extra-scripts/l2",
-    "texmf-dist/doc/support/latexmk/extra-scripts/pst2pdf_for_latexmk",
-    "texmf-dist/doc/support/latexmk/extra-scripts/pst2pdf_for_latexmk_README.txt",
-    "texmf-dist/doc/support/latexmk/extra-scripts/startacroread",
-    "texmf-dist/doc/support/latexmk/latexmk.pdf",
-    "texmf-dist/doc/support/latexmk/latexmk.txt",
-    "texmf/doc/man/man1/latexmk.man1.pdf",
   },
   ["cool"] = {
     "texmf-dist/doc/latex/cool/Content_LaTeX_Package_Demo.pdf",
@@ -10047,26 +10049,22 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/paresse/paresse-fr.pdf",
     "texmf-dist/doc/latex/paresse/paresse.pdf",
   },
-  ["harpoon"] = {
-    "texmf-dist/doc/latex/harpoon/harpoon.dvi",
-  },
   ["uhc"] = {
     "texmf-dist/doc/fonts/uhc/umj/README",
+  },
+  ["harpoon"] = {
+    "texmf-dist/doc/latex/harpoon/harpoon.dvi",
   },
   ["uebungsblatt"] = {
     "texmf-dist/doc/latex/uebungsblatt/README",
     "texmf-dist/doc/latex/uebungsblatt/history.txt",
     "texmf-dist/doc/latex/uebungsblatt/uebungsblatt-doc.pdf",
   },
-  ["detex"] = {
-    "texmf/doc/man/man1/detex.man1.pdf",
-  },
   ["ucthesis"] = {
     "texmf-dist/doc/latex/ucthesis/README",
   },
-  ["float"] = {
-    "texmf-dist/doc/latex/float/README",
-    "texmf-dist/doc/latex/float/float.pdf",
+  ["detex"] = {
+    "texmf/doc/man/man1/detex.man1.pdf",
   },
   ["ucs"] = {
     "texmf-dist/doc/latex/ucs/FAQ",
@@ -10077,6 +10075,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ucs/languages.pdf",
     "texmf-dist/doc/latex/ucs/ltxmacrs.txt",
     "texmf-dist/doc/latex/ucs/ucs.pdf",
+  },
+  ["float"] = {
+    "texmf-dist/doc/latex/float/README",
+    "texmf-dist/doc/latex/float/float.pdf",
+  },
+  ["ucdavisthesis"] = {
+    "texmf-dist/doc/latex/ucdavisthesis/Example/ucdavisthesis_example_figure.pdf",
+    "texmf-dist/doc/latex/ucdavisthesis/Example/ucdavisthesis_example_main.pdf",
+    "texmf-dist/doc/latex/ucdavisthesis/README",
+    "texmf-dist/doc/latex/ucdavisthesis/ucdavisthesis.pdf",
   },
   ["context"] = {
     "texmf-dist/doc/context/bib/bibmod-doc.pdf",
@@ -10143,12 +10151,6 @@ local tlp_doclist = {
     "texmf/doc/man/man1/textools.man1.pdf",
     "texmf/doc/man/man1/texutil.man1.pdf",
   },
-  ["ucdavisthesis"] = {
-    "texmf-dist/doc/latex/ucdavisthesis/Example/ucdavisthesis_example_figure.pdf",
-    "texmf-dist/doc/latex/ucdavisthesis/Example/ucdavisthesis_example_main.pdf",
-    "texmf-dist/doc/latex/ucdavisthesis/README",
-    "texmf-dist/doc/latex/ucdavisthesis/ucdavisthesis.pdf",
-  },
   ["uaclasses"] = {
     "texmf-dist/doc/latex/uaclasses/README",
     "texmf-dist/doc/latex/uaclasses/my-example.pdf",
@@ -10174,10 +10176,28 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/confproc/example/papers/p_009.pdf",
     "texmf-dist/doc/latex/confproc/example/pictures/ex_1stpage.pdf",
   },
-  ["germkorr"] = {
-    "texmf-dist/doc/latex/germkorr/COPYING",
-    "texmf-dist/doc/latex/germkorr/README",
-    "texmf-dist/doc/latex/germkorr/germkorr.pdf",
+  ["latexmk"] = {
+    "texmf-dist/doc/support/latexmk/CHANGES",
+    "texmf-dist/doc/support/latexmk/COPYING",
+    "texmf-dist/doc/support/latexmk/INSTALL",
+    "texmf-dist/doc/support/latexmk/README",
+    "texmf-dist/doc/support/latexmk/example_rcfiles/README",
+    "texmf-dist/doc/support/latexmk/example_rcfiles/pdflatexmkrc",
+    "texmf-dist/doc/support/latexmk/extra-scripts/README1",
+    "texmf-dist/doc/support/latexmk/extra-scripts/dvipdfm_call",
+    "texmf-dist/doc/support/latexmk/extra-scripts/dvipdfmx_call",
+    "texmf-dist/doc/support/latexmk/extra-scripts/kickxdvi",
+    "texmf-dist/doc/support/latexmk/extra-scripts/l1",
+    "texmf-dist/doc/support/latexmk/extra-scripts/l2",
+    "texmf-dist/doc/support/latexmk/extra-scripts/pst2pdf_for_latexmk",
+    "texmf-dist/doc/support/latexmk/extra-scripts/pst2pdf_for_latexmk_README.txt",
+    "texmf-dist/doc/support/latexmk/extra-scripts/startacroread",
+    "texmf-dist/doc/support/latexmk/latexmk.pdf",
+    "texmf-dist/doc/support/latexmk/latexmk.txt",
+    "texmf/doc/man/man1/latexmk.man1.pdf",
+  },
+  ["typedref"] = {
+    "texmf-dist/doc/latex/typedref/example.dvi",
   },
   ["biblatex"] = {
     "texmf-dist/doc/latex/biblatex/README",
@@ -10221,8 +10241,8 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/biblatex/examples/82-style-debug.pdf",
     "texmf-dist/doc/latex/biblatex/resources/bibtoolrsc",
   },
-  ["typedref"] = {
-    "texmf-dist/doc/latex/typedref/example.dvi",
+  ["elvish"] = {
+    "texmf-dist/doc/fonts/elvish/README",
   },
   ["latex2e-help-texinfo"] = {
     "texmf-dist/doc/latex/latex2e-help-texinfo/ChangeLog",
@@ -10233,11 +10253,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/latex2e-help-texinfo/latex2e.pdf",
     "texmf-dist/doc/latex/latex2e-help-texinfo/latex2e.txt",
   },
-  ["gfsneohellenic"] = {
-    "texmf-dist/doc/fonts/gfsneohellenic/OFL-FAQ.txt",
-    "texmf-dist/doc/fonts/gfsneohellenic/OFL.txt",
-    "texmf-dist/doc/fonts/gfsneohellenic/README",
-    "texmf-dist/doc/fonts/gfsneohellenic/gfsneohellenic.pdf",
+  ["twoup"] = {
+    "texmf-dist/doc/latex/twoup/README",
+    "texmf-dist/doc/latex/twoup/twoup.pdf",
   },
   ["rotating"] = {
     "texmf-dist/doc/latex/rotating/README",
@@ -10247,16 +10265,18 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/cm/README",
     "texmf-dist/doc/fonts/cm/README-cmps.txt",
   },
-  ["twoup"] = {
-    "texmf-dist/doc/latex/twoup/README",
-    "texmf-dist/doc/latex/twoup/twoup.pdf",
-  },
   ["turnstile"] = {
     "texmf-dist/doc/latex/turnstile/README",
     "texmf-dist/doc/latex/turnstile/turnstile-en.pdf",
     "texmf-dist/doc/latex/turnstile/turnstile-pt.pdf",
     "texmf-dist/doc/latex/turnstile/turnstile_article.pdf",
     "texmf-dist/doc/latex/turnstile/turnstile_artigo.pdf",
+  },
+  ["tugboat"] = {
+    "texmf-dist/doc/latex/tugboat/README",
+    "texmf-dist/doc/latex/tugboat/ltubguid.pdf",
+    "texmf-dist/doc/latex/tugboat/manifest.txt",
+    "texmf-dist/doc/latex/tugboat/tugboat.pdf",
   },
   ["ieeetran"] = {
     "texmf-dist/doc/latex/IEEEtran/IEEEtran_HOWTO.pdf",
@@ -10269,35 +10289,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/IEEEtran/testflow_ctl_LTR.pdf",
     "texmf-dist/doc/latex/IEEEtran/testflow_doc.pdf",
   },
-  ["tufte-latex"] = {
-    "texmf-dist/doc/latex/tufte-latex/History.txt",
-    "texmf-dist/doc/latex/tufte-latex/Manifest.txt",
-    "texmf-dist/doc/latex/tufte-latex/README",
-    "texmf-dist/doc/latex/tufte-latex/graphics/be-contents.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/be-title.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/ei-contents.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/ei-title.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/helix.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/hilbertcurves.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/sine.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/vdqi-contents.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/vdqi-title.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/ve-contents.pdf",
-    "texmf-dist/doc/latex/tufte-latex/graphics/ve-title.pdf",
-    "texmf-dist/doc/latex/tufte-latex/sample-book.pdf",
-    "texmf-dist/doc/latex/tufte-latex/sample-handout.pdf",
-  },
   ["guitar"] = {
     "texmf-dist/doc/latex/guitar/guitar.txt",
   },
-  ["picinpar"] = {
-    "texmf-dist/doc/latex/picinpar/picinpar.dvi",
-  },
   ["concmath"] = {
     "texmf-dist/doc/fonts/concmath/CATALOGUE",
-    "texmf-dist/doc/fonts/concmath/Makefile",
     "texmf-dist/doc/fonts/concmath/README",
-    "texmf-dist/doc/latex/concmath/concmath.dvi",
+    "texmf-dist/doc/fonts/concmath/concmath.pdf",
   },
   ["pagenote"] = {
     "texmf-dist/doc/latex/pagenote/README",
@@ -10305,23 +10303,6 @@ local tlp_doclist = {
   },
   ["em"] = {
     "texmf-dist/doc/latex/em/em.txt",
-  },
-  ["pst-spectra"] = {
-    "texmf-dist/doc/generic/pst-spectra/README",
-    "texmf-dist/doc/generic/pst-spectra/pst-spectra.pdf",
-    "texmf-dist/doc/generic/pst-spectra/pst-spectraEN.pdf",
-  },
-  ["cm-super"] = {
-    "texmf-dist/doc/fonts/cm-super/COPYING",
-    "texmf-dist/doc/fonts/cm-super/ChangeLog",
-    "texmf-dist/doc/fonts/cm-super/FAQ",
-    "texmf-dist/doc/fonts/cm-super/INSTALL",
-    "texmf-dist/doc/fonts/cm-super/README",
-    "texmf-dist/doc/fonts/cm-super/TODO",
-  },
-  ["savetrees"] = {
-    "texmf-dist/doc/latex/savetrees/README",
-    "texmf-dist/doc/latex/savetrees/savetrees.pdf",
   },
   ["ttfutils"] = {
     "texmf/doc/man/man1/ttf2afm.man1.pdf",
@@ -10339,13 +10320,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/bizcard/bizcard.pdf",
     "texmf-dist/doc/latex/bizcard/bizex.pdf",
   },
-  ["trimspaces"] = {
-    "texmf-dist/doc/latex/trimspaces/README",
-    "texmf-dist/doc/latex/trimspaces/trimspaces.pdf",
-  },
   ["trivfloat"] = {
     "texmf-dist/doc/latex/trivfloat/README",
     "texmf-dist/doc/latex/trivfloat/trivfloat.pdf",
+  },
+  ["trimspaces"] = {
+    "texmf-dist/doc/latex/trimspaces/README",
+    "texmf-dist/doc/latex/trimspaces/trimspaces.pdf",
   },
   ["treetex"] = {
     "texmf-dist/doc/plain/treetex/epodd.dvi",
@@ -10356,6 +10337,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/tree-dvips/Readme",
     "texmf-dist/doc/latex/tree-dvips/lingmacros-manual.pdf",
     "texmf-dist/doc/latex/tree-dvips/tree-manual.pdf",
+  },
+  ["translator"] = {
+    "texmf-dist/doc/latex/translator/ChangeLog",
+    "texmf-dist/doc/latex/translator/FILES",
+    "texmf-dist/doc/latex/translator/README",
+    "texmf-dist/doc/latex/translator/translator-manual-en.pdf",
   },
   ["bosisio"] = {
     "texmf-dist/doc/latex/bosisio/README",
@@ -10383,16 +10370,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/floatrow/floatrow-rus.pdf",
     "texmf-dist/doc/latex/floatrow/floatrow.pdf",
   },
-  ["translator"] = {
-    "texmf-dist/doc/latex/translator/ChangeLog",
-    "texmf-dist/doc/latex/translator/FILES",
-    "texmf-dist/doc/latex/translator/README",
-    "texmf-dist/doc/latex/translator/translator-manual-en.pdf",
-  },
   ["trajan"] = {
     "texmf-dist/doc/latex/trajan/README",
     "texmf-dist/doc/latex/trajan/trajan.pdf",
     "texmf-dist/doc/latex/trajan/trytrajan.pdf",
+  },
+  ["tpslifonts"] = {
+    "texmf-dist/doc/latex/tpslifonts/00readme.txt",
+    "texmf-dist/doc/latex/tpslifonts/0install.txt",
   },
   ["abstyles"] = {
     "texmf-dist/doc/bibtex/abstyles/README",
@@ -10402,17 +10387,8 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/drac/drac-fr.pdf",
     "texmf-dist/doc/latex/drac/drac.pdf",
   },
-  ["tpslifonts"] = {
-    "texmf-dist/doc/latex/tpslifonts/00readme.txt",
-    "texmf-dist/doc/latex/tpslifonts/0install.txt",
-  },
-  ["comprehensive"] = {
-    "texmf-dist/doc/latex/comprehensive/README",
-    "texmf-dist/doc/latex/comprehensive/SYMLIST",
-    "texmf-dist/doc/latex/comprehensive/source/Makefile",
-    "texmf-dist/doc/latex/comprehensive/source/makefakeMnSymbol",
-    "texmf-dist/doc/latex/comprehensive/symbols-a4.pdf",
-    "texmf-dist/doc/latex/comprehensive/symbols-letter.pdf",
+  ["phyzzx"] = {
+    "texmf-dist/doc/otherformats/phyzzx/base/phyzdoc.dvi",
   },
   ["synttree"] = {
     "texmf-dist/doc/latex/synttree/README",
@@ -10424,6 +10400,11 @@ local tlp_doclist = {
     "texmf/doc/man/man1/texlua.man1.pdf",
     "texmf/doc/man/man1/texluac.man1.pdf",
   },
+  ["layouts"] = {
+    "texmf-dist/doc/latex/layouts/README",
+    "texmf-dist/doc/latex/layouts/layman.pdf",
+    "texmf-dist/doc/latex/layouts/layouts.pdf",
+  },
   ["exp-testopt"] = {
     "texmf-dist/doc/latex/exp-testopt/README",
     "texmf-dist/doc/latex/exp-testopt/exp-testopt.pdf",
@@ -10432,9 +10413,28 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ptptex/README",
     "texmf-dist/doc/latex/ptptex/manptp.pdf",
   },
-  ["minipage-marginpar"] = {
-    "texmf-dist/doc/latex/minipage-marginpar/README",
-    "texmf-dist/doc/latex/minipage-marginpar/minipage-marginpar.pdf",
+  ["latex-graphics-companion"] = {
+    "texmf-dist/doc/latex/latex-graphics-companion/Makefile",
+    "texmf-dist/doc/latex/latex-graphics-companion/README",
+  },
+  ["pstricks"] = {
+    "texmf-dist/doc/generic/pstricks/Changes",
+    "texmf-dist/doc/generic/pstricks/pst-doc.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-docfull.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-news05.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-news06.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-news08.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-news09.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-news10.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-quickref.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-user.pdf",
+    "texmf-dist/doc/generic/pstricks/pst-usrfull.pdf",
+    "texmf-dist/doc/generic/pstricks/pstnews1-10.pdf",
+    "texmf-dist/doc/generic/pstricks/pstnews1-11.pdf",
+    "texmf-dist/doc/generic/pstricks/pstnews1-12.pdf",
+    "texmf-dist/doc/generic/pstricks/pstnews97-15.pdf",
+    "texmf-dist/doc/generic/pstricks/pstricks-doc.pdf",
+    "texmf-dist/doc/generic/pstricks/test-pst.pdf",
   },
   ["ieeeconf"] = {
     "texmf-dist/doc/latex/IEEEconf/IEEEconf.pdf",
@@ -10452,16 +10452,16 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-bezier/README",
     "texmf-dist/doc/generic/pst-bezier/pst-bezier-doc.pdf",
   },
-  ["dvipng"] = {
-    "texmf/doc/dvipng/dvipng.html",
-    "texmf/doc/dvipng/dvipng.pdf",
-    "texmf/doc/man/man1/dvipng.man1.pdf",
-  },
   ["tpic2pdftex"] = {
     "texmf/doc/man/man1/tpic2pdftex.man1.pdf",
     "texmf/doc/tpic2pdftex/Makefile",
     "texmf/doc/tpic2pdftex/beamerexample.pdf",
     "texmf/doc/tpic2pdftex/example.pdf",
+  },
+  ["dvipng"] = {
+    "texmf/doc/dvipng/dvipng.html",
+    "texmf/doc/dvipng/dvipng.pdf",
+    "texmf/doc/man/man1/dvipng.man1.pdf",
   },
   ["totpages"] = {
     "texmf-dist/doc/latex/totpages/README",
@@ -10470,9 +10470,6 @@ local tlp_doclist = {
   ["totcount"] = {
     "texmf-dist/doc/latex/totcount/README",
     "texmf-dist/doc/latex/totcount/totcount.pdf",
-  },
-  ["l2tabu-it"] = {
-    "texmf-dist/doc/latex/l2tabu-it/l2tabuit.pdf",
   },
   ["toptesi"] = {
     "texmf-dist/doc/latex/toptesi/README",
@@ -10500,6 +10497,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/toptesi/toptesi-doc.pdf",
     "texmf-dist/doc/latex/toptesi/toptesi.pdf",
   },
+  ["l2tabu-it"] = {
+    "texmf-dist/doc/latex/l2tabu-it/l2tabuit.pdf",
+  },
   ["topfloat"] = {
     "texmf-dist/doc/latex/topfloat/topfloat.dvi",
   },
@@ -10520,6 +10520,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/dialogl/codialog.dvi",
     "texmf-dist/doc/latex/dialogl/dia-driv.dvi",
   },
+  ["pst-qtree"] = {
+    "texmf-dist/doc/generic/pst-qtree/CHANGES",
+    "texmf-dist/doc/generic/pst-qtree/LICENSE",
+    "texmf-dist/doc/generic/pst-qtree/pst-qtree-manual.pdf",
+  },
   ["chemcono"] = {
     "texmf-dist/doc/latex/chemcono/chemcono.pdf",
   },
@@ -10527,14 +10532,13 @@ local tlp_doclist = {
     "texmf-dist/doc/support/texdiff/README",
     "texmf/doc/man/man1/texdiff.man1.pdf",
   },
-  ["pst-sigsys"] = {
-    "texmf-dist/doc/generic/pst-sigsys/Changes",
-    "texmf-dist/doc/generic/pst-sigsys/README",
-    "texmf-dist/doc/generic/pst-sigsys/pst-sigsys-doc.pdf",
-  },
   ["tocloft"] = {
     "texmf-dist/doc/latex/tocloft/README",
     "texmf-dist/doc/latex/tocloft/tocloft.pdf",
+  },
+  ["tocbibind"] = {
+    "texmf-dist/doc/latex/tocbibind/README",
+    "texmf-dist/doc/latex/tocbibind/tocbibind.pdf",
   },
   ["diagmac2"] = {
     "texmf-dist/doc/latex/diagmac2/README",
@@ -10547,10 +10551,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/supertabular/MANIFEST",
     "texmf-dist/doc/latex/supertabular/README",
     "texmf-dist/doc/latex/supertabular/supertabular.pdf",
-  },
-  ["tocbibind"] = {
-    "texmf-dist/doc/latex/tocbibind/README",
-    "texmf-dist/doc/latex/tocbibind/tocbibind.pdf",
   },
   ["tlc2"] = {
     "texmf-dist/doc/latex/tlc2/Escher.ps",
@@ -10592,8 +10592,8 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-fun/README",
     "texmf-dist/doc/generic/pst-fun/pst-fun-doc.pdf",
   },
-  ["smalltableof"] = {
-    "texmf-dist/doc/latex/smalltableof/README",
+  ["timing"] = {
+    "texmf-dist/doc/fonts/timing/timing.dvi",
   },
   ["context-notes-zh-cn"] = {
     "texmf-dist/doc/context/third/context-notes-zh-cn/README",
@@ -10601,12 +10601,9 @@ local tlp_doclist = {
     "texmf-dist/doc/context/third/context-notes-zh-cn/src/Makefile",
     "texmf-dist/doc/context/third/context-notes-zh-cn/src/figures/cow.pdf",
   },
-  ["type1fonts"] = {
-    "texmf-dist/doc/fonts/Type1fonts/README",
-    "texmf-dist/doc/fonts/Type1fonts/fontinstallationguide.pdf",
-  },
-  ["timing"] = {
-    "texmf-dist/doc/fonts/timing/timing.dvi",
+  ["dichokey"] = {
+    "texmf-dist/doc/latex/dichokey/dichokey.pdf",
+    "texmf-dist/doc/latex/dichokey/rhodocyb.pdf",
   },
   ["begriff"] = {
     "texmf-dist/doc/latex/begriff/COPYING",
@@ -10616,21 +10613,17 @@ local tlp_doclist = {
   ["plain-doc"] = {
     "texmf-dist/doc/plain/plain-doc/csname.txt",
   },
+  ["timesht"] = {
+    "texmf-dist/doc/latex/timesht/README",
+  },
   ["pdfslide"] = {
     "texmf-dist/doc/latex/pdfslide/demo.pdf",
     "texmf-dist/doc/latex/pdfslide/mpgraph.pdf",
-  },
-  ["timesht"] = {
-    "texmf-dist/doc/latex/timesht/README",
   },
   ["tdsfrmath"] = {
     "texmf-dist/doc/latex/tdsfrmath/LISEZMOI",
     "texmf-dist/doc/latex/tdsfrmath/README",
     "texmf-dist/doc/latex/tdsfrmath/tdsfrmath.pdf",
-  },
-  ["tikz-timing"] = {
-    "texmf-dist/doc/latex/tikz-timing/README",
-    "texmf-dist/doc/latex/tikz-timing/tikz-timing.pdf",
   },
   ["tikz-qtree"] = {
     "texmf-dist/doc/latex/tikz-qtree/README",
@@ -10641,8 +10634,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/tikz-3dplot/README",
     "texmf-dist/doc/latex/tikz-3dplot/tikz-3dplot_documentation.pdf",
   },
-  ["patgen2-tutorial"] = {
-    "texmf-dist/doc/support/patgen2-tutorial/patgen2.pdf",
+  ["sidecap"] = {
+    "texmf-dist/doc/latex/sidecap/README",
+    "texmf-dist/doc/latex/sidecap/sidecap.pdf",
   },
   ["harvard"] = {
     "texmf-dist/doc/latex/harvard/INSTALL",
@@ -10702,9 +10696,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pdfwin/BucSystem5.pdf",
     "texmf-dist/doc/latex/pdfwin/BucSystem6.pdf",
   },
-  ["lazylist"] = {
-    "texmf-dist/doc/latex/lazylist/lazylist.dvi",
-  },
   ["tie"] = {
     "texmf/doc/man/man1/tie.man1.pdf",
   },
@@ -10719,8 +10710,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ticket/ex_vcard.pdf",
     "texmf-dist/doc/latex/ticket/manual.pdf",
   },
-  ["texworks"] = {
-    "texmf/doc/texworks/README",
+  ["math-into-latex"] = {
+    "texmf-dist/doc/latex/math-into-latex/errors.txt",
+    "texmf-dist/doc/latex/math-into-latex/gratzer",
+    "texmf-dist/doc/latex/math-into-latex/mil.txt",
   },
   ["formlett"] = {
     "texmf-dist/doc/latex/formlett/prog_manual.dvi",
@@ -10754,18 +10747,26 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-2dplot/README",
     "texmf-dist/doc/generic/pst-2dplot/pst-2dplot-doc.pdf",
   },
+  ["spverbatim"] = {
+    "texmf-dist/doc/latex/spverbatim/README",
+    "texmf-dist/doc/latex/spverbatim/spverbatim.pdf",
+  },
   ["xeindex"] = {
     "texmf-dist/doc/xelatex/xeindex/README",
     "texmf-dist/doc/xelatex/xeindex/xeindex.pdf",
   },
-  ["thumb"] = {
-    "texmf-dist/doc/latex/thumb/README",
-    "texmf-dist/doc/latex/thumb/thumb.pdf",
+  ["ibycus-babel"] = {
+    "texmf-dist/doc/latex/ibycus-babel/README",
+    "texmf-dist/doc/latex/ibycus-babel/ibycus-babel.pdf",
   },
-  ["ethiop"] = {
-    "texmf-dist/doc/latex/ethiop/MANIFEST",
-    "texmf-dist/doc/latex/ethiop/README",
-    "texmf-dist/doc/latex/ethiop/ethiodoc.pdf",
+  ["eskd"] = {
+    "texmf-dist/doc/latex/eskd/README",
+    "texmf-dist/doc/latex/eskd/eskd.pdf",
+  },
+  ["pst-optexp"] = {
+    "texmf-dist/doc/generic/pst-optexp/Changes",
+    "texmf-dist/doc/generic/pst-optexp/README",
+    "texmf-dist/doc/generic/pst-optexp/pst-optexp-doc.pdf",
   },
   ["imac"] = {
     "texmf-dist/doc/latex/imac/imac.dvi",
@@ -10777,6 +10778,9 @@ local tlp_doclist = {
   },
   ["chngcntr"] = {
     "texmf-dist/doc/latex/chngcntr/chngcntr.pdf",
+  },
+  ["texworks"] = {
+    "texmf/doc/texworks/README",
   },
   ["borceux"] = {
     "texmf-dist/doc/generic/borceux/Diagram_Mode_d_Emploi",
@@ -10792,18 +10796,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/thumby/latexmkrc",
     "texmf-dist/doc/latex/thumby/thumby.pdf",
   },
-  ["mathdesign"] = {
-    "texmf-dist/doc/latex/mathdesign/MD-adobe-utopia-doc.pdf",
-    "texmf-dist/doc/latex/mathdesign/MD-adobe-utopia-example.pdf",
-    "texmf-dist/doc/latex/mathdesign/MD-bitstream-charter-doc.pdf",
-    "texmf-dist/doc/latex/mathdesign/MD-bitstream-charter-example.pdf",
-    "texmf-dist/doc/latex/mathdesign/MD-urw-garamond-doc.pdf",
-    "texmf-dist/doc/latex/mathdesign/MD-urw-garamond-example.pdf",
-    "texmf-dist/doc/latex/mathdesign/README",
-    "texmf-dist/doc/latex/mathdesign/mathdesign-doc.pdf",
-    "texmf-dist/doc/latex/mathdesign/mdbch/MD-bitstream-charter-doc.pdf",
-    "texmf-dist/doc/latex/mathdesign/mdput/MD-adobe-utopia-doc.pdf",
-    "texmf-dist/doc/latex/mathdesign/mdugm/MD-urw-garamond-doc.pdf",
+  ["algorithm2e"] = {
+    "texmf-dist/doc/latex/algorithm2e/README",
+    "texmf-dist/doc/latex/algorithm2e/algorithm2e.pdf",
   },
   ["gothic"] = {
     "texmf-dist/doc/fonts/gothic/README",
@@ -10812,24 +10807,37 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/beton/beton.pdf",
     "texmf-dist/doc/latex/beton/legal.txt",
   },
+  ["pst-labo"] = {
+    "texmf-dist/doc/generic/pst-labo/Changes",
+    "texmf-dist/doc/generic/pst-labo/README",
+    "texmf-dist/doc/generic/pst-labo/pst-labo-docDE.pdf",
+    "texmf-dist/doc/generic/pst-labo/pst-labo-docEN.pdf",
+    "texmf-dist/doc/generic/pst-labo/pst-labo-docFR.pdf",
+  },
   ["cv"] = {
     "texmf-dist/doc/latex/cv/ApplicationLetter.pdf",
     "texmf-dist/doc/latex/cv/CVCTAN.pdf",
     "texmf-dist/doc/latex/cv/README",
   },
-  ["pst-lens"] = {
-    "texmf-dist/doc/generic/pst-lens/Changes",
-    "texmf-dist/doc/generic/pst-lens/README",
-    "texmf-dist/doc/generic/pst-lens/pst-lens.pdf",
-  },
   ["changelayout"] = {
     "texmf-dist/doc/latex/changelayout/README",
     "texmf-dist/doc/latex/changelayout/changelayout-guide.pdf",
+  },
+  ["gmutils"] = {
+    "texmf-dist/doc/latex/gmutils/README",
+    "texmf-dist/doc/latex/gmutils/gmutils.pdf",
   },
   ["plari"] = {
     "texmf-dist/doc/latex/plari/COPYING",
     "texmf-dist/doc/latex/plari/README",
     "texmf-dist/doc/latex/plari/plari.pdf",
+  },
+  ["levy"] = {
+    "texmf-dist/doc/fonts/levy/00readme.txt",
+    "texmf-dist/doc/fonts/levy/makeall",
+    "texmf-dist/doc/fonts/levy/makefont",
+    "texmf-dist/doc/fonts/levy/testfont",
+    "texmf-dist/doc/fonts/levy/todo.txt",
   },
   ["rccol"] = {
     "texmf-dist/doc/latex/rccol/README",
@@ -10848,10 +10856,8 @@ local tlp_doclist = {
     "texmf-dist/doc/bibtex/economic/itaxpf-ex.pdf",
     "texmf-dist/doc/bibtex/economic/oegatb-ex.pdf",
   },
-  ["mattens"] = {
-    "texmf-dist/doc/latex/mattens/README",
-    "texmf-dist/doc/latex/mattens/mattens.pdf",
-    "texmf-dist/doc/latex/mattens/mattens_sample.pdf",
+  ["hfbright"] = {
+    "texmf-dist/doc/fonts/hfbright/README",
   },
   ["xq"] = {
     "texmf-dist/doc/fonts/xq/README",
@@ -10866,12 +10872,12 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/linearA/README",
     "texmf-dist/doc/fonts/linearA/linearA_glyphs.pdf",
   },
-  ["mslapa"] = {
-    "texmf-dist/doc/latex/mslapa/README",
-  },
   ["textopo"] = {
     "texmf-dist/doc/latex/textopo/textopo.pdf",
     "texmf-dist/doc/latex/textopo/textopo.txt",
+  },
+  ["mslapa"] = {
+    "texmf-dist/doc/latex/mslapa/README",
   },
   ["textmerg"] = {
     "texmf-dist/doc/generic/textmerg/tmexamp1.dvi",
@@ -10887,6 +10893,9 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/libris/README",
     "texmf-dist/doc/fonts/libris/manifest.txt",
     "texmf-dist/doc/fonts/libris/ylyr8a.pfb.pdf",
+  },
+  ["tcldoc"] = {
+    "texmf-dist/doc/latex/tcldoc/README.txt",
   },
   ["texlive-en"] = {
     "texmf/doc/texlive/texlive-en/Makefile",
@@ -10911,11 +10920,6 @@ local tlp_doclist = {
     "texmf/doc/man/man1/sjisconv.man1.pdf",
     "texmf/doc/sjisconv/sjisconv.pdf",
   },
-  ["tdclock"] = {
-    "texmf-dist/doc/latex/tdclock/README",
-    "texmf-dist/doc/latex/tdclock/tdclock-beamer-example.pdf",
-    "texmf-dist/doc/latex/tdclock/tdclock-doc.pdf",
-  },
   ["mnsymbol"] = {
     "texmf-dist/doc/latex/mnsymbol/MnSymbol.pdf",
     "texmf-dist/doc/latex/mnsymbol/README",
@@ -10933,14 +10937,18 @@ local tlp_doclist = {
     "texmf-dist/doc/otherformats/texsis/base/README",
     "texmf-dist/doc/otherformats/texsis/base/letr",
   },
-  ["nicetext"] = {
-    "texmf-dist/doc/latex/nicetext/NNOUNCE.TXT",
-    "texmf-dist/doc/latex/nicetext/README",
-    "texmf-dist/doc/latex/nicetext/README.txt",
-    "texmf-dist/doc/latex/nicetext/fifinddo.pdf",
-    "texmf-dist/doc/latex/nicetext/makedoc.pdf",
-    "texmf-dist/doc/latex/nicetext/niceverb.pdf",
-    "texmf-dist/doc/latex/nicetext/wikicheat.pdf",
+  ["texmate"] = {
+    "texmf-dist/doc/latex/texmate/README",
+    "texmf-dist/doc/latex/texmate/texmate2manual.pdf",
+  },
+  ["spotcolor"] = {
+    "texmf-dist/doc/latex/spotcolor/README",
+    "texmf-dist/doc/latex/spotcolor/readme.pdf",
+  },
+  ["cookybooky"] = {
+    "texmf-dist/doc/latex/cookybooky/README",
+    "texmf-dist/doc/latex/cookybooky/documentation/Manual.pdf",
+    "texmf-dist/doc/latex/cookybooky/examples/ex_1.pdf",
   },
   ["exam"] = {
     "texmf-dist/doc/latex/exam/README",
@@ -10952,25 +10960,33 @@ local tlp_doclist = {
   ["texloganalyser"] = {
     "texmf-dist/doc/support/texloganalyser/README",
   },
-  ["pst-platon"] = {
-    "texmf-dist/doc/generic/pst-platon/Changes",
-    "texmf-dist/doc/generic/pst-platon/README",
-    "texmf-dist/doc/generic/pst-platon/pst-platon-doc.pdf",
+  ["pst-pdf"] = {
+    "texmf-dist/doc/latex/pst-pdf/CHANGES",
+    "texmf-dist/doc/latex/pst-pdf/README",
+    "texmf-dist/doc/latex/pst-pdf/pst-pdf-DE.pdf",
+    "texmf-dist/doc/latex/pst-pdf/pst-pdf-example1.pdf",
+    "texmf-dist/doc/latex/pst-pdf/pst-pdf-example2.pdf",
+    "texmf-dist/doc/latex/pst-pdf/pst-pdf.pdf",
   },
-  ["beamer-fuberlin"] = {
-    "texmf-dist/doc/latex/beamer-FUBerlin/Changes",
-    "texmf-dist/doc/latex/beamer-FUBerlin/FUlogo.pdf",
-    "texmf-dist/doc/latex/beamer-FUBerlin/README",
-    "texmf-dist/doc/latex/beamer-FUBerlin/exampleClass.pdf",
-    "texmf-dist/doc/latex/beamer-FUBerlin/exampleTheme.pdf",
+  ["lxfonts"] = {
+    "texmf-dist/doc/fonts/lxfonts/LXfonts-demo.pdf",
+    "texmf-dist/doc/fonts/lxfonts/manifest",
+  },
+  ["pst-vowel"] = {
+    "texmf-dist/doc/latex/pst-vowel/README",
+    "texmf-dist/doc/latex/pst-vowel/pst-vowel.pdf",
   },
   ["authoraftertitle"] = {
     "texmf-dist/doc/latex/authoraftertitle/authoraftertitle.pdf",
   },
-  ["pst-vue3d"] = {
-    "texmf-dist/doc/generic/pst-vue3d/Changes",
-    "texmf-dist/doc/generic/pst-vue3d/README",
-    "texmf-dist/doc/generic/pst-vue3d/pst-vue3d-doc.pdf",
+  ["dot2texi"] = {
+    "texmf-dist/doc/latex/dot2texi/README",
+    "texmf-dist/doc/latex/dot2texi/dot2texi.pdf",
+    "texmf-dist/doc/latex/dot2texi/examples/d2tpstexamples.pdf",
+    "texmf-dist/doc/latex/dot2texi/examples/d2ttikzexamples.pdf",
+    "texmf-dist/doc/latex/dot2texi/examples/docgraphs.pdf",
+    "texmf-dist/doc/latex/dot2texi/examples/docgraphsorig.pdf",
+    "texmf-dist/doc/latex/dot2texi/gpl.txt",
   },
   ["bophook"] = {
     "texmf-dist/doc/latex/bophook/bophook.pdf",
@@ -10983,9 +10999,28 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/xtcapts/readme.txt",
     "texmf-dist/doc/latex/xtcapts/xt_capts.pdf",
   },
+  ["pstricks-tutorial"] = {
+    "texmf-dist/doc/generic/pstricks-tutorial/chap1-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap1.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap2-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap2.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap3-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap3.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap4-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap4.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap5-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap5.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap6-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap6.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap7-figures.pdf",
+    "texmf-dist/doc/generic/pstricks-tutorial/chap7.pdf",
+  },
   ["greektex"] = {
     "texmf-dist/doc/latex/greektex/README",
     "texmf-dist/doc/latex/greektex/greektexdoc.pdf",
+  },
+  ["siggraph"] = {
+    "texmf-dist/doc/latex/siggraph/README",
   },
   ["xmlplay"] = {
     "texmf-dist/doc/otherformats/xmltex/xmlplay/readme",
@@ -10999,17 +11034,13 @@ local tlp_doclist = {
   ["afm2pl"] = {
     "texmf/doc/man/man1/afm2pl.man1.pdf",
   },
-  ["texlive.infra"] = {
-    "texmf/doc/man/man1/tlmgr.man1.pdf",
-    "tlpkg/README",
+  ["texlive-zh-cn"] = {
+    "texmf/doc/texlive/texlive-zh-cn/Makefile",
+    "texmf/doc/texlive/texlive-zh-cn/texlive-zh-cn.pdf",
   },
   ["courier-scaled"] = {
     "texmf-dist/doc/latex/courier-scaled/Couriers.pdf",
     "texmf-dist/doc/latex/courier-scaled/README",
-  },
-  ["texlive-zh-cn"] = {
-    "texmf/doc/texlive/texlive-zh-cn/Makefile",
-    "texmf/doc/texlive/texlive-zh-cn/texlive-zh-cn.pdf",
   },
   ["eskdx"] = {
     "texmf-dist/doc/latex/eskdx/ChangeLog",
@@ -11025,13 +11056,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/eskdx/source/Makefile",
     "texmf-dist/doc/latex/eskdx/test/Makefile",
   },
-  ["math-into-latex"] = {
-    "texmf-dist/doc/latex/math-into-latex/errors.txt",
-    "texmf-dist/doc/latex/math-into-latex/gratzer",
-    "texmf-dist/doc/latex/math-into-latex/mil.txt",
-  },
-  ["siggraph"] = {
-    "texmf-dist/doc/latex/siggraph/README",
+  ["marvosym"] = {
+    "texmf-dist/doc/fonts/marvosym/LICENSE",
+    "texmf-dist/doc/fonts/marvosym/PROBLEMS",
+    "texmf-dist/doc/fonts/marvosym/README",
+    "texmf-dist/doc/fonts/marvosym/mac/docs/textures",
+    "texmf-dist/doc/fonts/marvosym/mac/oztex/configs/addmarvo",
+    "texmf-dist/doc/fonts/marvosym/mac/oztex/ps-files/readme.txt",
+    "texmf-dist/doc/fonts/marvosym/mac/readme.txt",
+    "texmf-dist/doc/fonts/marvosym/marvodoc.pdf",
+    "texmf-dist/doc/fonts/marvosym/vtex/install.txt",
   },
   ["dlfltxb"] = {
     "texmf-dist/doc/latex/dlfltxb/README",
@@ -11040,9 +11074,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/dlfltxb/dlfltxbmarkup.pdf",
     "texmf-dist/doc/latex/dlfltxb/dlfltxbmisc.pdf",
     "texmf-dist/doc/latex/dlfltxb/dlfltxbtocconfig.pdf",
-  },
-  ["burmese"] = {
-    "texmf-dist/doc/fonts/burmese/burmguide.pdf",
   },
   ["texlive-pl"] = {
     "texmf/doc/texlive/texlive-pl/Makefile",
@@ -11057,14 +11088,14 @@ local tlp_doclist = {
   ["texlive-docindex"] = {
     "doc.html",
   },
-  ["texlive-cz"] = {
-    "texmf/doc/texlive/texlive-cz/Makefile",
-    "texmf/doc/texlive/texlive-cz/texlive-cz.html",
-    "texmf/doc/texlive/texlive-cz/texlive-cz.pdf",
+  ["texlive-de"] = {
+    "texmf/doc/texlive/texlive-de/Makefile",
+    "texmf/doc/texlive/texlive-de/texlive-de.html",
+    "texmf/doc/texlive/texlive-de/texlive-de.pdf",
   },
-  ["pdfmarginpar"] = {
-    "texmf-dist/doc/latex/pdfmarginpar/README",
-    "texmf-dist/doc/latex/pdfmarginpar/pdfmarginpar.pdf",
+  ["preview"] = {
+    "texmf-dist/doc/latex/preview/README",
+    "texmf-dist/doc/latex/preview/preview.pdf",
   },
   ["histogr"] = {
     "texmf-dist/doc/latex/histogr/histogr.pdf",
@@ -11090,15 +11121,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/greekdates/README",
     "texmf-dist/doc/latex/greekdates/greekdates.pdf",
   },
-  ["lshort-english"] = {
-    "texmf-dist/doc/latex/lshort-english/CHANGES",
-    "texmf-dist/doc/latex/lshort-english/README",
-    "texmf-dist/doc/latex/lshort-english/lshort.pdf",
-  },
-  ["subfigure"] = {
-    "texmf-dist/doc/latex/subfigure/README",
-    "texmf-dist/doc/latex/subfigure/subfigure.pdf",
-  },
   ["blockdraw_mp"] = {
     "texmf-dist/doc/metapost/blockdraw_mp/README",
     "texmf-dist/doc/metapost/blockdraw_mp/blockdraw_mp.pdf",
@@ -11123,8 +11145,8 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/bigfoot/perpage.pdf",
     "texmf-dist/doc/latex/bigfoot/suffix.pdf",
   },
-  ["elpres"] = {
-    "texmf-dist/doc/latex/elpres/elpres-manual.pdf",
+  ["tcdialog"] = {
+    "texmf/doc/man/man1/tcdialog.man1.pdf",
   },
   ["enctex"] = {
     "texmf-dist/doc/generic/enctex/COPYING",
@@ -11134,12 +11156,12 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/enctex/encdoc-e.pdf",
     "texmf-dist/doc/generic/enctex/encdoc.pdf",
   },
+  ["texdirflatten"] = {
+    "texmf/doc/man/man1/texdirflatten.man1.pdf",
+  },
   ["context-chromato"] = {
     "texmf-dist/doc/context/third/chromato/chromato-demo.pdf",
     "texmf-dist/doc/context/third/chromato/chromato-doc.pdf",
-  },
-  ["texdirflatten"] = {
-    "texmf/doc/man/man1/texdirflatten.man1.pdf",
   },
   ["lshort-dutch"] = {
     "texmf-dist/doc/latex/lshort-dutch/LEESMIJ",
@@ -11236,8 +11258,10 @@ local tlp_doclist = {
   ["gridset"] = {
     "texmf-dist/doc/latex/gridset/gridset.pdf",
   },
-  ["c90"] = {
-    "texmf-dist/doc/fonts/enc/c90/c90.pdf",
+  ["bytefield"] = {
+    "texmf-dist/doc/latex/bytefield/README",
+    "texmf-dist/doc/latex/bytefield/bytefield.pdf",
+    "texmf-dist/doc/latex/bytefield/example.pdf",
   },
   ["eco"] = {
     "texmf-dist/doc/fonts/eco/CHANGES",
@@ -11258,19 +11282,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/ecc/copyrite",
     "texmf-dist/doc/fonts/ecc/liesmich",
     "texmf-dist/doc/fonts/ecc/readme",
-  },
-  ["ntgclass"] = {
-    "texmf-dist/doc/latex/ntgclass/00readme.txt",
-    "texmf-dist/doc/latex/ntgclass/a4.pdf",
-    "texmf-dist/doc/latex/ntgclass/artdoc.pdf",
-    "texmf-dist/doc/latex/ntgclass/brief.pdf",
-    "texmf-dist/doc/latex/ntgclass/briefdoc.pdf",
-    "texmf-dist/doc/latex/ntgclass/catalog.txt",
-    "texmf-dist/doc/latex/ntgclass/changes.txt",
-    "texmf-dist/doc/latex/ntgclass/classdoc.pdf",
-    "texmf-dist/doc/latex/ntgclass/manifest.txt",
-    "texmf-dist/doc/latex/ntgclass/ntgclass.pdf",
-    "texmf-dist/doc/latex/ntgclass/rapdoc.pdf",
   },
   ["subeqn"] = {
     "texmf-dist/doc/latex/subeqn/manifest.txt",
@@ -11302,18 +11313,18 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/grfpaste/grfp2.dvi",
     "texmf-dist/doc/latex/grfpaste/grfp3.dvi",
   },
-  ["natbib"] = {
-    "texmf-dist/doc/latex/natbib/natbib.pdf",
-    "texmf-dist/doc/latex/natbib/natnotes.pdf",
-  },
   ["texcount"] = {
     "texmf-dist/doc/support/texcount/QuickReference.pdf",
     "texmf-dist/doc/support/texcount/README",
     "texmf-dist/doc/support/texcount/TeXcount.pdf",
   },
-  ["stdpage"] = {
-    "texmf-dist/doc/latex/stdpage/README",
-    "texmf-dist/doc/latex/stdpage/stdpage.pdf",
+  ["natbib"] = {
+    "texmf-dist/doc/latex/natbib/natbib.pdf",
+    "texmf-dist/doc/latex/natbib/natnotes.pdf",
+  },
+  ["stdclsdv"] = {
+    "texmf-dist/doc/latex/stdclsdv/README",
+    "texmf-dist/doc/latex/stdclsdv/stdclsdv.pdf",
   },
   ["context-games"] = {
     "texmf-dist/doc/context/third/games/README",
@@ -11359,6 +11370,11 @@ local tlp_doclist = {
     "texmf-dist/doc/plain/plnfss/LPPL.txt",
     "texmf-dist/doc/plain/plnfss/plnfss.txt",
   },
+  ["listings-ext"] = {
+    "texmf-dist/doc/latex/listings-ext/README",
+    "texmf-dist/doc/latex/listings-ext/THIS_IS_VERSION_v48",
+    "texmf-dist/doc/latex/listings-ext/listings-ext.pdf",
+  },
   ["endheads"] = {
     "texmf-dist/doc/latex/endheads/README",
     "texmf-dist/doc/latex/endheads/endheads.pdf",
@@ -11371,10 +11387,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/tex-label/README",
     "texmf-dist/doc/latex/tex-label/tex-label-demo.pdf",
     "texmf-dist/doc/latex/tex-label/tex-label-doc.pdf",
-  },
-  ["inversepath"] = {
-    "texmf-dist/doc/latex/inversepath/README",
-    "texmf-dist/doc/latex/inversepath/inversepath.pdf",
   },
   ["tex-gyre"] = {
     "texmf-dist/doc/fonts/tex-gyre/GUST-FONT-LICENSE.txt",
@@ -11419,6 +11431,14 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/tex-gyre/qzc-info.pdf",
     "texmf-dist/doc/fonts/tex-gyre/qzc-test.pdf",
   },
+  ["inversepath"] = {
+    "texmf-dist/doc/latex/inversepath/README",
+    "texmf-dist/doc/latex/inversepath/inversepath.pdf",
+  },
+  ["tex-ewd"] = {
+    "texmf-dist/doc/generic/tex-ewd/README",
+    "texmf-dist/doc/generic/tex-ewd/bsdlic.txt",
+  },
   ["pdfscreen"] = {
     "texmf-dist/doc/latex/pdfscreen/logo.pdf",
     "texmf-dist/doc/latex/pdfscreen/manual-print.pdf",
@@ -11438,10 +11458,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/mathabx/README",
     "texmf-dist/doc/fonts/mathabx/mathtest.pdf",
   },
-  ["tex-ewd"] = {
-    "texmf-dist/doc/generic/tex-ewd/README",
-    "texmf-dist/doc/generic/tex-ewd/bsdlic.txt",
-  },
   ["tex"] = {
     "texmf/doc/man/man1/tex.man1.pdf",
   },
@@ -11449,13 +11465,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/teubner/README",
     "texmf-dist/doc/latex/teubner/teubner-doc.pdf",
   },
+  ["nfssext-cfr"] = {
+    "texmf-dist/doc/latex/nfssext-cfr/README",
+  },
   ["mpattern"] = {
     "texmf-dist/doc/metapost/mpattern/README",
     "texmf-dist/doc/metapost/mpattern/mpattern_test.pdf",
   },
-  ["spverbatim"] = {
-    "texmf-dist/doc/latex/spverbatim/README",
-    "texmf-dist/doc/latex/spverbatim/spverbatim.pdf",
+  ["type1fonts"] = {
+    "texmf-dist/doc/fonts/Type1fonts/README",
+    "texmf-dist/doc/fonts/Type1fonts/fontinstallationguide.pdf",
   },
   ["lshort-portuguese"] = {
     "texmf-dist/doc/latex/lshort-portuguese/ptlshort.pdf",
@@ -11500,18 +11519,27 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/termlist/README",
     "texmf-dist/doc/latex/termlist/termlist.pdf",
   },
+  ["termcal"] = {
+    "texmf-dist/doc/latex/termcal/Contents",
+    "texmf-dist/doc/latex/termcal/termcal.pdf",
+  },
   ["lshort-french"] = {
     "texmf-dist/doc/latex/lshort-french/README",
     "texmf-dist/doc/latex/lshort-french/historique",
     "texmf-dist/doc/latex/lshort-french/lshort-fr.pdf",
   },
-  ["termcal"] = {
-    "texmf-dist/doc/latex/termcal/Contents",
-    "texmf-dist/doc/latex/termcal/termcal.pdf",
+  ["eemeir"] = {
+    "texmf-dist/doc/latex/eemeir/README",
+    "texmf-dist/doc/latex/eemeir/eemeir.pdf",
   },
   ["templates-fenn"] = {
     "texmf-dist/doc/latex/templates-fenn/templates-fenn-de.txt",
     "texmf-dist/doc/latex/templates-fenn/templates-fenn-en.txt",
+  },
+  ["ted"] = {
+    "texmf-dist/doc/latex/ted/README",
+    "texmf-dist/doc/latex/ted/ted-fr.pdf",
+    "texmf-dist/doc/latex/ted/ted.pdf",
   },
   ["chbibref"] = {
     "texmf-dist/doc/latex/chbibref/chbibref.pdf",
@@ -11533,10 +11561,13 @@ local tlp_doclist = {
   ["psfrag-italian"] = {
     "texmf-dist/doc/latex/psfrag-italian/itpfgguide.pdf",
   },
-  ["ted"] = {
-    "texmf-dist/doc/latex/ted/README",
-    "texmf-dist/doc/latex/ted/ted-fr.pdf",
-    "texmf-dist/doc/latex/ted/ted.pdf",
+  ["lineno"] = {
+    "texmf-dist/doc/latex/lineno/CHANGES.txt",
+    "texmf-dist/doc/latex/lineno/COPYING.txt",
+    "texmf-dist/doc/latex/lineno/README.txt",
+    "texmf-dist/doc/latex/lineno/lineno.pdf",
+    "texmf-dist/doc/latex/lineno/lnosuppl.pdf",
+    "texmf-dist/doc/latex/lineno/ulineno.pdf",
   },
   ["tds"] = {
     "texmf-dist/doc/generic/tds/ChangeLog",
@@ -11547,24 +11578,22 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/tds/tds.html",
     "texmf-dist/doc/generic/tds/tds.pdf",
   },
-  ["tcldoc"] = {
-    "texmf-dist/doc/latex/tcldoc/README.txt",
+  ["tdclock"] = {
+    "texmf-dist/doc/latex/tdclock/README",
+    "texmf-dist/doc/latex/tdclock/tdclock-beamer-example.pdf",
+    "texmf-dist/doc/latex/tdclock/tdclock-doc.pdf",
   },
   ["extarrows"] = {
     "texmf-dist/doc/latex/extarrows/README",
     "texmf-dist/doc/latex/extarrows/extarrows-test.pdf",
   },
-  ["acmconf"] = {
-    "texmf-dist/doc/latex/acmconf/README",
-    "texmf-dist/doc/latex/acmconf/acmconf.pdf",
+  ["kixfont"] = {
+    "texmf-dist/doc/fonts/kixfont/kixtable.pdf",
   },
   ["trfsigns"] = {
     "texmf-dist/doc/latex/trfsigns/COPYING",
     "texmf-dist/doc/latex/trfsigns/README",
     "texmf-dist/doc/latex/trfsigns/trfsigns.pdf",
-  },
-  ["tcdialog"] = {
-    "texmf/doc/man/man1/tcdialog.man1.pdf",
   },
   ["urlbst"] = {
     "texmf-dist/doc/latex/urlbst/README",
@@ -11588,11 +11617,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/caption/ltcaption.pdf",
     "texmf-dist/doc/latex/caption/subcaption.pdf",
   },
-  ["tamethebeast"] = {
-    "texmf-dist/doc/bibtex/tamethebeast/CHANGES",
-    "texmf-dist/doc/bibtex/tamethebeast/Makefile",
-    "texmf-dist/doc/bibtex/tamethebeast/README",
-    "texmf-dist/doc/bibtex/tamethebeast/ttb_en.pdf",
+  ["l2tabu-spanish"] = {
+    "texmf-dist/doc/latex/l2tabu-spanish/README",
+    "texmf-dist/doc/latex/l2tabu-spanish/l2tabues.pdf",
   },
   ["ctable"] = {
     "texmf-dist/doc/latex/ctable/01a",
@@ -11630,28 +11657,16 @@ local tlp_doclist = {
   ["lcg"] = {
     "texmf-dist/doc/latex/lcg/lcg.pdf",
   },
-  ["pstricks-tutorial"] = {
-    "texmf-dist/doc/generic/pstricks-tutorial/chap1-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap1.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap2-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap2.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap3-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap3.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap4-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap4.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap5-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap5.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap6-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap6.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap7-figures.pdf",
-    "texmf-dist/doc/generic/pstricks-tutorial/chap7.pdf",
+  ["tabulary"] = {
+    "texmf-dist/doc/latex/tabulary/README",
+    "texmf-dist/doc/latex/tabulary/tabulary.pdf",
   },
   ["outliner"] = {
     "texmf-dist/doc/latex/outliner/outline_test.dvi",
   },
-  ["tabulary"] = {
-    "texmf-dist/doc/latex/tabulary/README",
-    "texmf-dist/doc/latex/tabulary/tabulary.pdf",
+  ["tabularew"] = {
+    "texmf-dist/doc/latex/tabularew/README",
+    "texmf-dist/doc/latex/tabularew/tabularew.pdf",
   },
   ["mkgrkindex"] = {
     "texmf-dist/doc/support/mkgrkindex/mkgrkindex.pdf",
@@ -11682,9 +11697,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/l2picfaq/ctanlion.pdf",
     "texmf-dist/doc/latex/l2picfaq/l2picfaq.pdf",
   },
-  ["tabularew"] = {
-    "texmf-dist/doc/latex/tabularew/README",
-    "texmf-dist/doc/latex/tabularew/tabularew.pdf",
+  ["scalebar"] = {
+    "texmf-dist/doc/latex/scalebar/README",
+    "texmf-dist/doc/latex/scalebar/scalebar_examples.pdf",
   },
   ["libertine"] = {
     "texmf-dist/doc/fonts/libertine/GPL.txt",
@@ -11692,10 +11707,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/libertine/OFL.txt",
     "texmf-dist/doc/fonts/libertine/Readme.txt",
     "texmf-dist/doc/fonts/libertine/version",
-  },
-  ["schemabloc"] = {
-    "texmf-dist/doc/latex/schemabloc/README",
-    "texmf-dist/doc/latex/schemabloc/schemabloc.pdf",
   },
   ["paralist"] = {
     "texmf-dist/doc/latex/paralist/README",
@@ -11762,11 +11773,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/psfrag/announce.txt",
     "texmf-dist/doc/latex/psfrag/pfgguide.pdf",
   },
-  ["pst-coil"] = {
-    "texmf-dist/doc/generic/pst-coil/Changes",
-    "texmf-dist/doc/generic/pst-coil/README",
-    "texmf-dist/doc/generic/pst-coil/pst-coil-doc.pdf",
-  },
   ["t1utils"] = {
     "texmf/doc/man/man1/t1ascii.man1.pdf",
     "texmf/doc/man/man1/t1asm.man1.pdf",
@@ -11775,9 +11781,19 @@ local tlp_doclist = {
     "texmf/doc/man/man1/t1mac.man1.pdf",
     "texmf/doc/man/man1/t1unmac.man1.pdf",
   },
+  ["pst-coil"] = {
+    "texmf-dist/doc/generic/pst-coil/Changes",
+    "texmf-dist/doc/generic/pst-coil/README",
+    "texmf-dist/doc/generic/pst-coil/pst-coil-doc.pdf",
+  },
   ["syntrace"] = {
     "texmf-dist/doc/latex/syntrace/README",
     "texmf-dist/doc/latex/syntrace/syntrace.pdf",
+  },
+  ["syntax"] = {
+    "texmf-dist/doc/latex/syntax/README",
+    "texmf-dist/doc/latex/syntax/syntaxintro.pdf",
+    "texmf-dist/doc/latex/syntax/syntaxtest.pdf",
   },
   ["wsuipa"] = {
     "texmf-dist/doc/generic/wsuipa/LICENCE-wsuipa.txt",
@@ -11810,11 +11826,6 @@ local tlp_doclist = {
     "texmf/doc/man/man1/synctex.man1.pdf",
     "texmf/doc/man/man5/synctex.man5.pdf",
   },
-  ["nostarch"] = {
-    "texmf-dist/doc/latex/nostarch/README",
-    "texmf-dist/doc/latex/nostarch/nostarch.pdf",
-    "texmf-dist/doc/latex/nostarch/nssample.pdf",
-  },
   ["syllogism"] = {
     "texmf-dist/doc/latex/syllogism/Examples.pdf",
     "texmf-dist/doc/latex/syllogism/README",
@@ -11834,11 +11845,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/gchords/README",
     "texmf-dist/doc/latex/gchords/gchords_doc.pdf",
   },
-  ["makeindex"] = {
-    "texmf-dist/doc/support/makeindex/ind.pdf",
-    "texmf-dist/doc/support/makeindex/makeindex.pdf",
-    "texmf/doc/man/man1/makeindex.man1.pdf",
-    "texmf/doc/man/man1/mkindex.man1.pdf",
+  ["pst-bspline"] = {
+    "texmf-dist/doc/generic/pst-bspline/README",
+    "texmf-dist/doc/generic/pst-bspline/pst-bspline-doc.pdf",
   },
   ["bussproofs"] = {
     "texmf-dist/doc/latex/bussproofs/testbp2.pdf",
@@ -11857,6 +11866,11 @@ local tlp_doclist = {
   ["svgcolor"] = {
     "texmf-dist/doc/latex/svgcolor/README",
   },
+  ["fnbreak"] = {
+    "texmf-dist/doc/latex/fnbreak/ChangeLog",
+    "texmf-dist/doc/latex/fnbreak/README",
+    "texmf-dist/doc/latex/fnbreak/fnbreak.pdf",
+  },
   ["sugconf"] = {
     "texmf-dist/doc/latex/sugconf/README",
     "texmf-dist/doc/latex/sugconf/SUGI-paper-example.txt",
@@ -11872,13 +11886,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/sudoku/README",
     "texmf-dist/doc/latex/sudoku/sudoku.pdf",
   },
-  ["lshort-persian"] = {
-    "texmf-dist/doc/latex/lshort-persian/README",
-    "texmf-dist/doc/latex/lshort-persian/lshort.pdf",
-  },
   ["subsupscripts"] = {
     "texmf-dist/doc/latex/subsupscripts/README",
     "texmf-dist/doc/latex/subsupscripts/SubSupScripts.pdf",
+  },
+  ["lshort-persian"] = {
+    "texmf-dist/doc/latex/lshort-persian/README",
+    "texmf-dist/doc/latex/lshort-persian/lshort.pdf",
   },
   ["substr"] = {
     "texmf-dist/doc/latex/substr/ChangeLog",
@@ -11890,6 +11904,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/subfloat/README",
     "texmf-dist/doc/latex/subfloat/subfloat.pdf",
   },
+  ["subfigure"] = {
+    "texmf-dist/doc/latex/subfigure/README",
+    "texmf-dist/doc/latex/subfigure/subfigure.pdf",
+  },
   ["pst-plot"] = {
     "texmf-dist/doc/generic/pst-plot/Changes",
     "texmf-dist/doc/generic/pst-plot/README",
@@ -11900,20 +11918,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/polski/czytaj.txt",
     "texmf-dist/doc/latex/polski/readme.txt",
   },
-  ["subfig"] = {
-    "texmf-dist/doc/latex/subfig/README",
-    "texmf-dist/doc/latex/subfig/subfig.pdf",
-  },
   ["subeqnarray"] = {
     "texmf-dist/doc/latex/subeqnarray/manifest.txt",
     "texmf-dist/doc/latex/subeqnarray/subeqnarray.pdf",
   },
-  ["lshort-ukr"] = {
-    "texmf-dist/doc/latex/lshort-ukr/lshort-ukr.pdf",
-  },
   ["subdepth"] = {
     "texmf-dist/doc/latex/subdepth/README",
     "texmf-dist/doc/latex/subdepth/subdepth.pdf",
+  },
+  ["lshort-ukr"] = {
+    "texmf-dist/doc/latex/lshort-ukr/lshort-ukr.pdf",
   },
   ["suanpan"] = {
     "texmf-dist/doc/metapost/suanpan/README",
@@ -11939,30 +11953,39 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/stringstrings/README",
     "texmf-dist/doc/latex/stringstrings/stringstrings.pdf",
   },
+  ["skak"] = {
+    "texmf-dist/doc/latex/skak/README",
+    "texmf-dist/doc/latex/skak/informator.pdf",
+    "texmf-dist/doc/latex/skak/makefile",
+    "texmf-dist/doc/latex/skak/refman.pdf",
+    "texmf-dist/doc/latex/skak/skakdoc.pdf",
+    "texmf-dist/doc/latex/skak/tuggame.pdf",
+  },
   ["crossword"] = {
     "texmf-dist/doc/latex/crossword/README",
     "texmf-dist/doc/latex/crossword/cwpuzzle.pdf",
-  },
-  ["makecmds"] = {
-    "texmf-dist/doc/latex/makecmds/README",
-    "texmf-dist/doc/latex/makecmds/makecmds.pdf",
   },
   ["steinmetz"] = {
     "texmf-dist/doc/latex/steinmetz/README",
     "texmf-dist/doc/latex/steinmetz/steinmetz.pdf",
   },
-  ["stdclsdv"] = {
-    "texmf-dist/doc/latex/stdclsdv/README",
-    "texmf-dist/doc/latex/stdclsdv/stdclsdv.pdf",
+  ["makecmds"] = {
+    "texmf-dist/doc/latex/makecmds/README",
+    "texmf-dist/doc/latex/makecmds/makecmds.pdf",
   },
-  ["paper"] = {
-    "texmf-dist/doc/latex/paper/README",
-    "texmf-dist/doc/latex/paper/install",
-    "texmf-dist/doc/latex/paper/paper.pdf",
+  ["stdpage"] = {
+    "texmf-dist/doc/latex/stdpage/README",
+    "texmf-dist/doc/latex/stdpage/stdpage.pdf",
+  },
+  ["pacioli"] = {
+    "texmf-dist/doc/fonts/pacioli/README",
   },
   ["siunits"] = {
     "texmf-dist/doc/latex/SIunits/README",
     "texmf-dist/doc/latex/SIunits/SIunits.pdf",
+  },
+  ["sseq"] = {
+    "texmf-dist/doc/latex/sseq/sseq.pdf",
   },
   ["europecv"] = {
     "texmf-dist/doc/latex/europecv/europecv.pdf",
@@ -11974,13 +11997,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/europecv/templates/cv_template_it.pdf",
     "texmf-dist/doc/latex/europecv/templates/cv_template_pl.pdf",
   },
-  ["sseq"] = {
-    "texmf-dist/doc/latex/sseq/sseq.pdf",
-  },
-  ["lcyw"] = {
-    "texmf-dist/doc/latex/lcyw/README",
-    "texmf-dist/doc/latex/lcyw/lcyw.pdf",
-  },
   ["sfheaders"] = {
     "texmf-dist/doc/latex/sfheaders/README",
   },
@@ -11991,6 +12007,14 @@ local tlp_doclist = {
   ["mxd"] = {
     "texmf-dist/doc/latex/mxd/README",
     "texmf-dist/doc/latex/mxd/mxd4tex.dvi",
+  },
+  ["comprehensive"] = {
+    "texmf-dist/doc/latex/comprehensive/README",
+    "texmf-dist/doc/latex/comprehensive/SYMLIST",
+    "texmf-dist/doc/latex/comprehensive/source/Makefile",
+    "texmf-dist/doc/latex/comprehensive/source/makefakeMnSymbol",
+    "texmf-dist/doc/latex/comprehensive/symbols-a4.pdf",
+    "texmf-dist/doc/latex/comprehensive/symbols-letter.pdf",
   },
   ["alterqcm"] = {
     "texmf-dist/doc/latex/alterqcm/README",
@@ -12007,18 +12031,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/alterqcm/doc/transparent-init.pdf",
     "texmf-dist/doc/latex/alterqcm/doc/verb.pdf",
   },
-  ["smartref"] = {
-    "texmf-dist/doc/latex/smartref/readme.txt",
+  ["envlab"] = {
+    "texmf-dist/doc/latex/envlab/elguide.pdf",
+    "texmf-dist/doc/latex/envlab/envlab.pdf",
+  },
+  ["smalltableof"] = {
+    "texmf-dist/doc/latex/smalltableof/README",
   },
   ["dotseqn"] = {
     "texmf-dist/doc/latex/dotseqn/dotseqn.pdf",
     "texmf-dist/doc/latex/dotseqn/readme",
-  },
-  ["export"] = {
-    "texmf-dist/doc/latex/export/00readme",
-  },
-  ["cmdtrack"] = {
-    "texmf-dist/doc/latex/cmdtrack/cmdtrack.pdf",
   },
   ["splitindex"] = {
     "texmf-dist/doc/latex/splitindex/README",
@@ -12026,9 +12048,19 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/splitindex/splitidx.pdf",
     "texmf/doc/man/man1/splitindex.man1.pdf",
   },
+  ["export"] = {
+    "texmf-dist/doc/latex/export/00readme",
+  },
+  ["cmdtrack"] = {
+    "texmf-dist/doc/latex/cmdtrack/cmdtrack.pdf",
+  },
   ["splitbib"] = {
     "texmf-dist/doc/latex/splitbib/README",
     "texmf-dist/doc/latex/splitbib/splitbib.pdf",
+  },
+  ["spie"] = {
+    "texmf-dist/doc/latex/spie/README",
+    "texmf-dist/doc/latex/spie/article.pdf",
   },
   ["eqparbox"] = {
     "texmf-dist/doc/latex/eqparbox/README",
@@ -12037,23 +12069,15 @@ local tlp_doclist = {
   ["bpchem"] = {
     "texmf-dist/doc/latex/bpchem/bpchem.pdf",
   },
-  ["spie"] = {
-    "texmf-dist/doc/latex/spie/README",
-    "texmf-dist/doc/latex/spie/article.pdf",
-  },
-  ["biblist"] = {
-    "texmf-dist/doc/latex/biblist/README",
-    "texmf-dist/doc/latex/biblist/biblist.pdf",
-  },
   ["sparklines"] = {
     "texmf-dist/doc/latex/sparklines/README",
     "texmf-dist/doc/latex/sparklines/sparklines.pdf",
   },
-  ["ctie"] = {
-    "texmf/doc/man/man1/ctie.man1.pdf",
-  },
   ["spanish-mx"] = {
     "texmf-dist/doc/latex/spanish-mx/README",
+  },
+  ["ctie"] = {
+    "texmf/doc/man/man1/ctie.man1.pdf",
   },
   ["soyombo"] = {
     "texmf-dist/doc/latex/soyombo/soyo4tex.dvi",
@@ -12088,6 +12112,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/songbook/sampleWBK.pdf",
     "texmf-dist/doc/latex/songbook/songbook.pdf",
   },
+  ["smartref"] = {
+    "texmf-dist/doc/latex/smartref/readme.txt",
+  },
   ["listliketab"] = {
     "texmf-dist/doc/latex/listliketab/README",
     "texmf-dist/doc/latex/listliketab/listliketab.pdf",
@@ -12101,26 +12128,31 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/tipa/Makefile",
     "texmf-dist/doc/fonts/tipa/tipaman.pdf",
   },
-  ["extsizes"] = {
-    "texmf-dist/doc/latex/extsizes/README",
+  ["slashbox"] = {
+    "texmf-dist/doc/latex/slashbox/slashbox.dvi",
   },
   ["rsfs"] = {
     "texmf-dist/doc/fonts/rsfs/README",
   },
-  ["slashbox"] = {
-    "texmf-dist/doc/latex/slashbox/slashbox.dvi",
+  ["slantsc"] = {
+    "texmf-dist/doc/latex/slantsc/README",
+    "texmf-dist/doc/latex/slantsc/slantsc.pdf",
   },
   ["gnuplottex"] = {
     "texmf-dist/doc/latex/gnuplottex/README",
     "texmf-dist/doc/latex/gnuplottex/gnuplottex.pdf",
     "texmf-dist/doc/latex/gnuplottex/gpl.txt",
   },
+  ["docmfp"] = {
+    "texmf-dist/doc/latex/docmfp/README",
+    "texmf-dist/doc/latex/docmfp/docmfp.pdf",
+  },
   ["cases"] = {
     "texmf-dist/doc/latex/cases/cases.pdf",
   },
-  ["slantsc"] = {
-    "texmf-dist/doc/latex/slantsc/README",
-    "texmf-dist/doc/latex/slantsc/slantsc.pdf",
+  ["changepage"] = {
+    "texmf-dist/doc/latex/changepage/README",
+    "texmf-dist/doc/latex/changepage/changepage.pdf",
   },
   ["stmaryrd"] = {
     "texmf-dist/doc/fonts/stmaryrd/README",
@@ -12135,10 +12167,6 @@ local tlp_doclist = {
   },
   ["url"] = {
     "texmf-dist/doc/latex/url/url.pdf",
-  },
-  ["siunitx"] = {
-    "texmf-dist/doc/latex/siunitx/README",
-    "texmf-dist/doc/latex/siunitx/siunitx.pdf",
   },
   ["ncctools"] = {
     "texmf-dist/doc/latex/ncctools/README",
@@ -12175,13 +12203,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/simplewick/README",
     "texmf-dist/doc/latex/simplewick/simplewick.pdf",
   },
+  ["simplecv"] = {
+    "texmf-dist/doc/latex/simplecv/README",
+    "texmf-dist/doc/latex/simplecv/testcv.pdf",
+  },
   ["calligra"] = {
     "texmf-dist/doc/latex/calligra/README",
     "texmf-dist/doc/latex/calligra/testfont.pdf",
-  },
-  ["sidecap"] = {
-    "texmf-dist/doc/latex/sidecap/README",
-    "texmf-dist/doc/latex/sidecap/sidecap.pdf",
   },
   ["shuffle"] = {
     "texmf-dist/doc/latex/shuffle/README",
@@ -12243,18 +12271,28 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/sgame/README",
     "texmf-dist/doc/latex/sgame/sgame.pdf",
   },
+  ["ionumbers"] = {
+    "texmf-dist/doc/latex/ionumbers/COPYING",
+    "texmf-dist/doc/latex/ionumbers/README",
+    "texmf-dist/doc/latex/ionumbers/ionumbers.pdf",
+    "texmf-dist/doc/latex/ionumbers/ionumbers_test.pdf",
+  },
   ["attachfile"] = {
     "texmf-dist/doc/latex/attachfile/README",
     "texmf-dist/doc/latex/attachfile/attachfile.pdf",
+  },
+  ["pst-fractal"] = {
+    "texmf-dist/doc/generic/pst-fractal/Changes",
+    "texmf-dist/doc/generic/pst-fractal/README",
+    "texmf-dist/doc/generic/pst-fractal/pst-fractal-doc.pdf",
   },
   ["lshort-finnish"] = {
     "texmf-dist/doc/latex/lshort-finnish/README",
     "texmf-dist/doc/latex/lshort-finnish/lyhyt2e.pdf",
   },
-  ["pst-func"] = {
-    "texmf-dist/doc/generic/pst-func/Changes",
-    "texmf-dist/doc/generic/pst-func/README",
-    "texmf-dist/doc/generic/pst-func/pst-func-doc.pdf",
+  ["semioneside"] = {
+    "texmf-dist/doc/latex/semioneside/README",
+    "texmf-dist/doc/latex/semioneside/semioneside.pdf",
   },
   ["pdftricks"] = {
     "texmf-dist/doc/latex/pdftricks/makefile",
@@ -12262,14 +12300,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pdftricks/pst2pdf",
     "texmf-dist/doc/latex/pdftricks/test.pdf",
   },
-  ["semioneside"] = {
-    "texmf-dist/doc/latex/semioneside/README",
-    "texmf-dist/doc/latex/semioneside/semioneside.pdf",
-  },
-  ["fnbreak"] = {
-    "texmf-dist/doc/latex/fnbreak/ChangeLog",
-    "texmf-dist/doc/latex/fnbreak/README",
-    "texmf-dist/doc/latex/fnbreak/fnbreak.pdf",
+  ["semaphor"] = {
+    "texmf-dist/doc/fonts/semaphor/README",
+    "texmf-dist/doc/fonts/semaphor/example.pdf",
+    "texmf-dist/doc/fonts/semaphor/test-context.pdf",
   },
   ["makecirc"] = {
     "texmf-dist/doc/metapost/makecirc/MakeCirc-en.pdf",
@@ -12285,11 +12319,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ellipsis/README",
     "texmf-dist/doc/latex/ellipsis/ellipsis.pdf",
   },
-  ["semaphor"] = {
-    "texmf-dist/doc/fonts/semaphor/README",
-    "texmf-dist/doc/fonts/semaphor/example.pdf",
-    "texmf-dist/doc/fonts/semaphor/test-context.pdf",
-  },
   ["musixlyr"] = {
     "texmf-dist/doc/latex/musixlyr/COPYING",
     "texmf-dist/doc/latex/musixlyr/README",
@@ -12303,10 +12332,6 @@ local tlp_doclist = {
   ["stage"] = {
     "texmf-dist/doc/latex/stage/README",
     "texmf-dist/doc/latex/stage/stage-documentation.pdf",
-  },
-  ["cd-cover"] = {
-    "texmf-dist/doc/latex/cd-cover/README",
-    "texmf-dist/doc/latex/cd-cover/cd-cover.pdf",
   },
   ["presentations"] = {
     "texmf-dist/doc/latex/presentations/README",
@@ -12352,21 +12377,21 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pdfx/pdfx.pdf",
     "texmf-dist/doc/latex/pdfx/small2e.pdf",
   },
-  ["mxedruli"] = {
-    "texmf-dist/doc/fonts/mxedruli/README",
-    "texmf-dist/doc/fonts/mxedruli/mxeddoc.pdf",
+  ["esint"] = {
+    "texmf-dist/doc/latex/esint/README",
+    "texmf-dist/doc/latex/esint/esint.pdf",
   },
   ["script"] = {
     "texmf-dist/doc/latex/script/script2e.txt",
+  },
+  ["scientificpaper"] = {
+    "texmf-dist/doc/latex/scientificpaper/README",
   },
   ["aeguill"] = {
     "texmf-dist/doc/latex/aeguill/README",
     "texmf-dist/doc/latex/aeguill/guil-test1.pdf",
     "texmf-dist/doc/latex/aeguill/guil-test2.pdf",
     "texmf-dist/doc/latex/aeguill/license.txt",
-  },
-  ["scientificpaper"] = {
-    "texmf-dist/doc/latex/scientificpaper/README",
   },
   ["colorinfo"] = {
     "texmf-dist/doc/latex/colorinfo/README",
@@ -12405,6 +12430,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/genmpage/README",
     "texmf-dist/doc/latex/genmpage/genmpage.pdf",
   },
+  ["schemabloc"] = {
+    "texmf-dist/doc/latex/schemabloc/README",
+    "texmf-dist/doc/latex/schemabloc/schemabloc.pdf",
+  },
   ["leaflet"] = {
     "texmf-dist/doc/latex/leaflet/README",
     "texmf-dist/doc/latex/leaflet/leaflet-manual.pdf",
@@ -12419,13 +12448,13 @@ local tlp_doclist = {
   ["fragments"] = {
     "texmf-dist/doc/latex/fragments/README",
   },
-  ["scalebar"] = {
-    "texmf-dist/doc/latex/scalebar/README",
-    "texmf-dist/doc/latex/scalebar/scalebar_examples.pdf",
-  },
   ["scale"] = {
     "texmf-dist/doc/latex/scale/COPYING",
     "texmf-dist/doc/latex/scale/README",
+  },
+  ["savetrees"] = {
+    "texmf-dist/doc/latex/savetrees/README",
+    "texmf-dist/doc/latex/savetrees/savetrees.pdf",
   },
   ["grverb"] = {
     "texmf-dist/doc/latex/grverb/README",
@@ -12443,13 +12472,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/hfoldsty/TODO",
     "texmf-dist/doc/fonts/hfoldsty/gpl.txt",
     "texmf-dist/doc/fonts/hfoldsty/hfoldsty.pdf",
-  },
-  ["lettrine"] = {
-    "texmf-dist/doc/latex/lettrine/README",
-    "texmf-dist/doc/latex/lettrine/W.pdf",
-    "texmf-dist/doc/latex/lettrine/demo-de.pdf",
-    "texmf-dist/doc/latex/lettrine/demo.pdf",
-    "texmf-dist/doc/latex/lettrine/lettrine.pdf",
   },
   ["sauerj"] = {
     "texmf-dist/doc/latex/sauerj/README",
@@ -12469,6 +12491,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/sageep/sageep.pdf",
     "texmf-dist/doc/latex/sageep/sample.pdf",
   },
+  ["ryethesis"] = {
+    "texmf-dist/doc/latex/ryethesis/README",
+    "texmf-dist/doc/latex/ryethesis/figure1.pdf",
+    "texmf-dist/doc/latex/ryethesis/ryesample.pdf",
+    "texmf-dist/doc/latex/ryethesis/ryethesis.pdf",
+  },
   ["msc"] = {
     "texmf-dist/doc/latex/msc/COPYRIGHT.txt",
     "texmf-dist/doc/latex/msc/README",
@@ -12480,19 +12508,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/lsc/README",
     "texmf-dist/doc/latex/lsc/lsc.pdf",
   },
-  ["ryethesis"] = {
-    "texmf-dist/doc/latex/ryethesis/README",
-    "texmf-dist/doc/latex/ryethesis/figure1.pdf",
-    "texmf-dist/doc/latex/ryethesis/ryesample.pdf",
-    "texmf-dist/doc/latex/ryethesis/ryethesis.pdf",
-  },
   ["rsc"] = {
     "texmf-dist/doc/latex/rsc/README",
     "texmf-dist/doc/latex/rsc/rsc.pdf",
   },
-  ["ha-prosper"] = {
-    "texmf-dist/doc/latex/HA-prosper/HA-prosper.pdf",
-    "texmf-dist/doc/latex/HA-prosper/README",
+  ["juraabbrev"] = {
+    "texmf-dist/doc/latex/juraabbrev/README",
+    "texmf-dist/doc/latex/juraabbrev/juraabbrev.pdf",
   },
   ["wasy"] = {
     "texmf-dist/doc/fonts/wasy/README",
@@ -12503,30 +12525,17 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/errata/README",
     "texmf-dist/doc/latex/errata/errata.pdf",
   },
-  ["romannum"] = {
-    "texmf-dist/doc/latex/romannum/README",
-    "texmf-dist/doc/latex/romannum/romannum.pdf",
+  ["rmpage"] = {
+    "texmf-dist/doc/latex/rmpage/rmpage.dvi",
   },
   ["ltabptch"] = {
     "texmf-dist/doc/latex/ltabptch/README",
   },
-  ["rmpage"] = {
-    "texmf-dist/doc/latex/rmpage/rmpage.dvi",
-  },
-  ["omegaware"] = {
-    "texmf/doc/man/man1/odvicopy.man1.pdf",
-    "texmf/doc/man/man1/odvips.man1.pdf",
-    "texmf/doc/man/man1/odvitype.man1.pdf",
-    "texmf/doc/man/man1/ofm2opl.man1.pdf",
-    "texmf/doc/man/man1/opl2ofm.man1.pdf",
-    "texmf/doc/man/man1/otp2ocp.man1.pdf",
-    "texmf/doc/man/man1/outocp.man1.pdf",
-    "texmf/doc/man/man1/ovf2ovp.man1.pdf",
-    "texmf/doc/man/man1/ovp2ovf.man1.pdf",
-  },
-  ["mhchem"] = {
-    "texmf-dist/doc/latex/mhchem/legal.txt",
-    "texmf-dist/doc/latex/mhchem/mhchem.pdf",
+  ["expressg"] = {
+    "texmf-dist/doc/metapost/expressg/README",
+    "texmf-dist/doc/metapost/expressg/aamfigs.pdf",
+    "texmf-dist/doc/metapost/expressg/expeg.pdf",
+    "texmf-dist/doc/metapost/expressg/expressg.pdf",
   },
   ["repeatindex"] = {
     "texmf-dist/doc/latex/repeatindex/README",
@@ -12548,6 +12557,9 @@ local tlp_doclist = {
   },
   ["recycle"] = {
     "texmf-dist/doc/fonts/recycle/README",
+  },
+  ["rectopma"] = {
+    "texmf-dist/doc/latex/rectopma/TestTitle.dvi",
   },
   ["fontname"] = {
     "texmf-dist/doc/fonts/fontname/8a.html",
@@ -12599,18 +12611,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/xpackages/xbase/xtemplate.pdf",
     "texmf-dist/doc/latex/xpackages/xtras/l3keys2e.pdf",
   },
-  ["eskd"] = {
-    "texmf-dist/doc/latex/eskd/README",
-    "texmf-dist/doc/latex/eskd/eskd.pdf",
+  ["rcsinfo"] = {
+    "texmf-dist/doc/latex/rcsinfo/README",
+    "texmf-dist/doc/latex/rcsinfo/rcsinfo.pdf",
   },
   ["gcite"] = {
     "texmf-dist/doc/latex/gcite/CHANGES",
     "texmf-dist/doc/latex/gcite/README",
     "texmf-dist/doc/latex/gcite/gcite.pdf",
-  },
-  ["rcsinfo"] = {
-    "texmf-dist/doc/latex/rcsinfo/README",
-    "texmf-dist/doc/latex/rcsinfo/rcsinfo.pdf",
   },
   ["rcs-multi"] = {
     "texmf-dist/doc/latex/rcs-multi/README",
@@ -12627,20 +12635,22 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/rcs/rcs-conf.pdf",
     "texmf-dist/doc/latex/rcs/rcs-user.pdf",
   },
+  ["rangen"] = {
+    "texmf-dist/doc/latex/rangen/README",
+  },
   ["mcite"] = {
     "texmf-dist/doc/latex/mcite/mcite.dvi",
   },
-  ["rangen"] = {
-    "texmf-dist/doc/latex/rangen/README",
+  ["fmp"] = {
+    "texmf-dist/doc/latex/fmp/README",
+    "texmf-dist/doc/latex/fmp/fmp.pdf",
   },
   ["chessboard"] = {
     "texmf-dist/doc/latex/chessboard/README",
   },
-  ["kluwer"] = {
-    "texmf-dist/doc/latex/kluwer/00readme",
-    "texmf-dist/doc/latex/kluwer/sampkluw.dvi",
-    "texmf-dist/doc/latex/kluwer/sampopen.dvi",
-    "texmf-dist/doc/latex/kluwer/usrman.dvi",
+  ["randbild"] = {
+    "texmf-dist/doc/latex/randbild/README",
+    "texmf-dist/doc/latex/randbild/randbild.pdf",
   },
   ["pst-pad"] = {
     "texmf-dist/doc/generic/pst-pad/CHANGES",
@@ -12648,18 +12658,11 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-pad/pst-pad-doc.pdf",
     "texmf-dist/doc/generic/pst-pad/pst-pad-docDE.pdf",
   },
-  ["randbild"] = {
-    "texmf-dist/doc/latex/randbild/README",
-    "texmf-dist/doc/latex/randbild/randbild.pdf",
-  },
   ["r_und_s"] = {
     "texmf-dist/doc/latex/r_und_s/README",
   },
   ["a2ping"] = {
     "texmf/doc/man/man1/a2ping.man1.pdf",
-  },
-  ["quotchap"] = {
-    "texmf-dist/doc/latex/quotchap/document.pdf",
   },
   ["qtree"] = {
     "texmf-dist/doc/latex/qtree/README",
@@ -12673,28 +12676,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/qsymbols/README",
     "texmf-dist/doc/latex/qsymbols/qsymbols.pdf",
   },
-  ["assignment"] = {
-    "texmf-dist/doc/latex/assignment/Changelog",
-    "texmf-dist/doc/latex/assignment/LICENSE",
-    "texmf-dist/doc/latex/assignment/README",
-    "texmf-dist/doc/latex/assignment/assignment.pdf",
+  ["nomentbl"] = {
+    "texmf-dist/doc/latex/nomentbl/README",
+    "texmf-dist/doc/latex/nomentbl/example.pdf",
+    "texmf-dist/doc/latex/nomentbl/nomentbl.pdf",
   },
   ["ctex-faq"] = {
     "texmf-dist/doc/latex/ctex-faq/README",
     "texmf-dist/doc/latex/ctex-faq/ctex-faq.pdf",
-  },
-  ["psu-thesis"] = {
-    "texmf-dist/doc/latex/psu-thesis/README",
-    "texmf-dist/doc/latex/psu-thesis/manual.pdf",
-    "texmf-dist/doc/latex/psu-thesis/mssample.pdf",
-    "texmf-dist/doc/latex/psu-thesis/phdsample.pdf",
-  },
-  ["fancynum"] = {
-    "texmf-dist/doc/latex/fancynum/CHANGES",
-    "texmf-dist/doc/latex/fancynum/README",
-    "texmf-dist/doc/latex/fancynum/aue.txt",
-    "texmf-dist/doc/latex/fancynum/ctt.txt",
-    "texmf-dist/doc/latex/fancynum/fancynum.pdf",
   },
   ["eplain"] = {
     "texmf-dist/doc/eplain/AUTHORS",
@@ -12711,13 +12700,19 @@ local tlp_doclist = {
     "texmf-dist/doc/eplain/util/trimsee",
     "texmf/doc/man/man1/eplain.man1.pdf",
   },
+  ["hexgame"] = {
+    "texmf-dist/doc/latex/hexgame/README",
+    "texmf-dist/doc/latex/hexgame/hexgame.pdf",
+  },
   ["widetable"] = {
     "texmf-dist/doc/latex/widetable/README",
     "texmf-dist/doc/latex/widetable/manifest.txt",
     "texmf-dist/doc/latex/widetable/widetable.pdf",
   },
-  ["cjhebrew"] = {
-    "texmf-dist/doc/fonts/cjhebrew/manual.pdf",
+  ["germkorr"] = {
+    "texmf-dist/doc/latex/germkorr/COPYING",
+    "texmf-dist/doc/latex/germkorr/README",
+    "texmf-dist/doc/latex/germkorr/germkorr.pdf",
   },
   ["bpolynomial"] = {
     "texmf-dist/doc/metapost/bpolynomial/CHANGES",
@@ -12725,11 +12720,12 @@ local tlp_doclist = {
     "texmf-dist/doc/metapost/bpolynomial/TODO",
     "texmf-dist/doc/metapost/bpolynomial/bpolynomial.pdf",
   },
+  ["petiteannonce"] = {
+    "texmf-dist/doc/latex/petiteannonce/petiteannonce.doc.pdf",
+    "texmf-dist/doc/latex/petiteannonce/petiteannonceexample.pdf",
+  },
   ["euler"] = {
     "texmf-dist/doc/latex/euler/euler.dvi",
-  },
-  ["hyperref-docsrc"] = {
-    "texmf-dist/doc/latex/hyperref-docsrc/README",
   },
   ["pstool"] = {
     "texmf-dist/doc/latex/pstool/README",
@@ -12738,43 +12734,19 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pstool/subdir/trial2-psfrag.pdf",
     "texmf-dist/doc/latex/pstool/trial.pdf",
   },
-  ["easy"] = {
-    "texmf-dist/doc/latex/easy/README",
-  },
   ["bracketkey"] = {
     "texmf-dist/doc/latex/bracketkey/Malva.pdf",
     "texmf-dist/doc/latex/bracketkey/README",
     "texmf-dist/doc/latex/bracketkey/bracketkey.pdf",
   },
-  ["gfsporson"] = {
-    "texmf-dist/doc/fonts/gfsporson/OFL-FAQ.txt",
-    "texmf-dist/doc/fonts/gfsporson/OFL.txt",
-    "texmf-dist/doc/fonts/gfsporson/README",
-    "texmf-dist/doc/fonts/gfsporson/gfsporson.pdf",
-  },
   ["patchcmd"] = {
     "texmf-dist/doc/latex/patchcmd/patchcmd.pdf",
   },
-  ["psutils"] = {
-    "texmf/doc/man/man1/epsffit.man1.pdf",
-    "texmf/doc/man/man1/extractres.man1.pdf",
-    "texmf/doc/man/man1/fixdlsrps.man1.pdf",
-    "texmf/doc/man/man1/fixfmps.man1.pdf",
-    "texmf/doc/man/man1/fixmacps.man1.pdf",
-    "texmf/doc/man/man1/fixpsditps.man1.pdf",
-    "texmf/doc/man/man1/fixpspps.man1.pdf",
-    "texmf/doc/man/man1/fixscribeps.man1.pdf",
-    "texmf/doc/man/man1/fixtpps.man1.pdf",
-    "texmf/doc/man/man1/fixwfwps.man1.pdf",
-    "texmf/doc/man/man1/fixwpps.man1.pdf",
-    "texmf/doc/man/man1/fixwwps.man1.pdf",
-    "texmf/doc/man/man1/includeres.man1.pdf",
-    "texmf/doc/man/man1/psbook.man1.pdf",
-    "texmf/doc/man/man1/psmerge.man1.pdf",
-    "texmf/doc/man/man1/psnup.man1.pdf",
-    "texmf/doc/man/man1/psresize.man1.pdf",
-    "texmf/doc/man/man1/psselect.man1.pdf",
-    "texmf/doc/man/man1/pstops.man1.pdf",
+  ["psu-thesis"] = {
+    "texmf-dist/doc/latex/psu-thesis/README",
+    "texmf-dist/doc/latex/psu-thesis/manual.pdf",
+    "texmf-dist/doc/latex/psu-thesis/mssample.pdf",
+    "texmf-dist/doc/latex/psu-thesis/phdsample.pdf",
   },
   ["feynmf"] = {
     "texmf-dist/doc/latex/feynmf/Announce",
@@ -12801,25 +12773,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/amsmath/subeqn.pdf",
     "texmf-dist/doc/latex/amsmath/technote.pdf",
     "texmf-dist/doc/latex/amsmath/testmath.pdf",
-  },
-  ["pstricks"] = {
-    "texmf-dist/doc/generic/pstricks/Changes",
-    "texmf-dist/doc/generic/pstricks/pst-doc.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-docfull.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-news05.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-news06.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-news08.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-news09.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-news10.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-quickref.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-user.pdf",
-    "texmf-dist/doc/generic/pstricks/pst-usrfull.pdf",
-    "texmf-dist/doc/generic/pstricks/pstnews1-10.pdf",
-    "texmf-dist/doc/generic/pstricks/pstnews1-11.pdf",
-    "texmf-dist/doc/generic/pstricks/pstnews1-12.pdf",
-    "texmf-dist/doc/generic/pstricks/pstnews97-15.pdf",
-    "texmf-dist/doc/generic/pstricks/pstricks-doc.pdf",
-    "texmf-dist/doc/generic/pstricks/test-pst.pdf",
   },
   ["latex"] = {
     "texmf-dist/doc/latex/base/00readme.txt",
@@ -12878,34 +12831,28 @@ local tlp_doclist = {
   ["euro-ce"] = {
     "texmf-dist/doc/fonts/euro-ce/euro-ce.dvi",
   },
-  ["commath"] = {
-    "texmf-dist/doc/latex/commath/README",
-    "texmf-dist/doc/latex/commath/commath.pdf",
+  ["pst-vue3d"] = {
+    "texmf-dist/doc/generic/pst-vue3d/Changes",
+    "texmf-dist/doc/generic/pst-vue3d/README",
+    "texmf-dist/doc/generic/pst-vue3d/pst-vue3d-doc.pdf",
   },
-  ["pst-poly"] = {
-    "texmf-dist/doc/generic/pst-poly/Changes",
-    "texmf-dist/doc/generic/pst-poly/README",
-    "texmf-dist/doc/generic/pst-poly/pst-poly-doc.pdf",
+  ["pst-platon"] = {
+    "texmf-dist/doc/generic/pst-platon/Changes",
+    "texmf-dist/doc/generic/pst-platon/README",
+    "texmf-dist/doc/generic/pst-platon/pst-platon-doc.pdf",
   },
-  ["permute"] = {
-    "texmf-dist/doc/latex/permute/permute.pdf",
-  },
-  ["montex"] = {
-    "texmf-dist/doc/latex/montex/00README",
-    "texmf-dist/doc/latex/montex/ANNOUNCE",
-    "texmf-dist/doc/latex/montex/EMTEX",
-    "texmf-dist/doc/latex/montex/HISTORY",
-    "texmf-dist/doc/latex/montex/INSTALL",
-    "texmf-dist/doc/latex/montex/MIKTEX",
-    "texmf-dist/doc/latex/montex/TODO",
-    "texmf-dist/doc/latex/montex/UPDATE",
-    "texmf-dist/doc/latex/montex/mlsquick.pdf",
-    "texmf-dist/doc/latex/montex/montex.pdf",
-    "texmf-dist/doc/latex/montex/zanabazr.pdf",
+  ["eltex"] = {
+    "texmf-dist/doc/latex/eltex/README",
+    "texmf-dist/doc/latex/eltex/man_en.pdf",
+    "texmf-dist/doc/latex/eltex/pri_cz.pdf",
   },
   ["tensor"] = {
     "texmf-dist/doc/latex/tensor/README",
     "texmf-dist/doc/latex/tensor/tensor.pdf",
+  },
+  ["commath"] = {
+    "texmf-dist/doc/latex/commath/README",
+    "texmf-dist/doc/latex/commath/commath.pdf",
   },
   ["msg"] = {
     "texmf-dist/doc/latex/msg/CHANGES",
@@ -12913,10 +12860,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/msg/README_msg_doc.txt",
     "texmf-dist/doc/latex/msg/msg.pdf",
     "texmf-dist/doc/latex/msg/msgguide.pdf",
-  },
-  ["pst-vowel"] = {
-    "texmf-dist/doc/latex/pst-vowel/README",
-    "texmf-dist/doc/latex/pst-vowel/pst-vowel.pdf",
   },
   ["pst-tree"] = {
     "texmf-dist/doc/generic/pst-tree/Changes",
@@ -12933,6 +12876,11 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-stru/README",
     "texmf-dist/doc/generic/pst-stru/pst-stru-doc.pdf",
   },
+  ["pst-spectra"] = {
+    "texmf-dist/doc/generic/pst-spectra/README",
+    "texmf-dist/doc/generic/pst-spectra/pst-spectra.pdf",
+    "texmf-dist/doc/generic/pst-spectra/pst-spectraEN.pdf",
+  },
   ["susy"] = {
     "texmf-dist/doc/latex/susy/README",
   },
@@ -12946,14 +12894,41 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-solides3d/doc/pst-solides3d-doc.pdf",
     "texmf-dist/doc/generic/pst-solides3d/doc/source/Makefile",
   },
-  ["censor"] = {
-    "texmf-dist/doc/latex/censor/README",
-    "texmf-dist/doc/latex/censor/censor.pdf",
-  },
   ["pst-slpe"] = {
     "texmf-dist/doc/generic/pst-slpe/Changes",
     "texmf-dist/doc/generic/pst-slpe/README",
     "texmf-dist/doc/generic/pst-slpe/pst-slpe.pdf",
+  },
+  ["censor"] = {
+    "texmf-dist/doc/latex/censor/README",
+    "texmf-dist/doc/latex/censor/censor.pdf",
+  },
+  ["knuth"] = {
+    "texmf-dist/doc/generic/knuth/errata/errata.pdf",
+    "texmf-dist/doc/generic/knuth/errata/errorlog.pdf",
+    "texmf-dist/doc/generic/knuth/etc/vftovp.pdf",
+    "texmf-dist/doc/generic/knuth/etc/vptovf.pdf",
+    "texmf-dist/doc/generic/knuth/mf/mf.pdf",
+    "texmf-dist/doc/generic/knuth/mf/trapman.pdf",
+    "texmf-dist/doc/generic/knuth/mfware/gftodvi.pdf",
+    "texmf-dist/doc/generic/knuth/mfware/gftopk.pdf",
+    "texmf-dist/doc/generic/knuth/mfware/gftype.pdf",
+    "texmf-dist/doc/generic/knuth/mfware/mft.pdf",
+    "texmf-dist/doc/generic/knuth/tex/glue.pdf",
+    "texmf-dist/doc/generic/knuth/tex/tex.pdf",
+    "texmf-dist/doc/generic/knuth/tex/tripman.pdf",
+    "texmf-dist/doc/generic/knuth/texware/dvitype.pdf",
+    "texmf-dist/doc/generic/knuth/texware/pltotf.pdf",
+    "texmf-dist/doc/generic/knuth/texware/pooltype.pdf",
+    "texmf-dist/doc/generic/knuth/texware/tftopl.pdf",
+    "texmf-dist/doc/generic/knuth/web/tangle.pdf",
+    "texmf-dist/doc/generic/knuth/web/weave.pdf",
+    "texmf-dist/doc/generic/knuth/web/webman.pdf",
+  },
+  ["pst-sigsys"] = {
+    "texmf-dist/doc/generic/pst-sigsys/Changes",
+    "texmf-dist/doc/generic/pst-sigsys/README",
+    "texmf-dist/doc/generic/pst-sigsys/pst-sigsys-doc.pdf",
   },
   ["barr"] = {
     "texmf-dist/doc/generic/barr/diaxydoc.pdf",
@@ -12962,10 +12937,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/tocvsec2/README",
     "texmf-dist/doc/latex/tocvsec2/tocvsec2.pdf",
   },
-  ["pst-qtree"] = {
-    "texmf-dist/doc/generic/pst-qtree/CHANGES",
-    "texmf-dist/doc/generic/pst-qtree/LICENSE",
-    "texmf-dist/doc/generic/pst-qtree/pst-qtree-manual.pdf",
+  ["pst-poly"] = {
+    "texmf-dist/doc/generic/pst-poly/Changes",
+    "texmf-dist/doc/generic/pst-poly/README",
+    "texmf-dist/doc/generic/pst-poly/pst-poly-doc.pdf",
+  },
+  ["gcard"] = {
+    "texmf-dist/doc/latex/gcard/README",
+    "texmf-dist/doc/latex/gcard/gcard.pdf",
   },
   ["isomath"] = {
     "texmf-dist/doc/latex/isomath/README.html",
@@ -12989,14 +12968,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/listofsymbols/README",
     "texmf-dist/doc/latex/listofsymbols/listofsymbols.pdf",
   },
-  ["pst-pdf"] = {
-    "texmf-dist/doc/latex/pst-pdf/CHANGES",
-    "texmf-dist/doc/latex/pst-pdf/README",
-    "texmf-dist/doc/latex/pst-pdf/pst-pdf-DE.pdf",
-    "texmf-dist/doc/latex/pst-pdf/pst-pdf-example1.pdf",
-    "texmf-dist/doc/latex/pst-pdf/pst-pdf-example2.pdf",
-    "texmf-dist/doc/latex/pst-pdf/pst-pdf.pdf",
-  },
   ["ifmslide"] = {
     "texmf-dist/doc/latex/ifmslide/README",
     "texmf-dist/doc/latex/ifmslide/ifmman.pdf",
@@ -13006,15 +12977,15 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/thinsp/README",
     "texmf-dist/doc/latex/thinsp/thinsp.pdf",
   },
-  ["pst-optexp"] = {
-    "texmf-dist/doc/generic/pst-optexp/Changes",
-    "texmf-dist/doc/generic/pst-optexp/README",
-    "texmf-dist/doc/generic/pst-optexp/pst-optexp-doc.pdf",
-  },
   ["pst-math"] = {
     "texmf-dist/doc/generic/pst-math/Changes",
     "texmf-dist/doc/generic/pst-math/README",
     "texmf-dist/doc/generic/pst-math/pst-math-doc.pdf",
+  },
+  ["pst-lens"] = {
+    "texmf-dist/doc/generic/pst-lens/Changes",
+    "texmf-dist/doc/generic/pst-lens/README",
+    "texmf-dist/doc/generic/pst-lens/pst-lens.pdf",
   },
   ["niceframe"] = {
     "texmf-dist/doc/latex/niceframe/niceframe.pdf",
@@ -13024,21 +12995,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ijmart/ijmart.pdf",
     "texmf-dist/doc/latex/ijmart/ijmsample.pdf",
   },
-  ["pst-labo"] = {
-    "texmf-dist/doc/generic/pst-labo/Changes",
-    "texmf-dist/doc/generic/pst-labo/README",
-    "texmf-dist/doc/generic/pst-labo/pst-labo-docDE.pdf",
-    "texmf-dist/doc/generic/pst-labo/pst-labo-docEN.pdf",
-    "texmf-dist/doc/generic/pst-labo/pst-labo-docFR.pdf",
-  },
-  ["ascii"] = {
-    "texmf-dist/doc/fonts/ascii/ascii2006.pdf",
-    "texmf-dist/doc/fonts/ascii/asciisty1994.pdf",
-  },
   ["pst-jtree"] = {
     "texmf-dist/doc/generic/pst-jtree/README",
     "texmf-dist/doc/generic/pst-jtree/pst-jtree-doc.pdf",
     "texmf-dist/doc/generic/pst-jtree/pst-jtree-examples.pdf",
+  },
+  ["ascii"] = {
+    "texmf-dist/doc/fonts/ascii/ascii2006.pdf",
+    "texmf-dist/doc/fonts/ascii/asciisty1994.pdf",
   },
   ["pst-grad"] = {
     "texmf-dist/doc/generic/pst-grad/Changes",
@@ -13063,6 +13027,11 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-gantt/README",
     "texmf-dist/doc/generic/pst-gantt/pst-gantt-doc.pdf",
   },
+  ["pst-func"] = {
+    "texmf-dist/doc/generic/pst-func/Changes",
+    "texmf-dist/doc/generic/pst-func/README",
+    "texmf-dist/doc/generic/pst-func/pst-func-doc.pdf",
+  },
   ["sffms"] = {
     "texmf-dist/doc/latex/sffms/README",
     "texmf-dist/doc/latex/sffms/sffms_manual.pdf",
@@ -13073,24 +13042,20 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pict2e/p2e-drivers.pdf",
     "texmf-dist/doc/latex/pict2e/pict2e.pdf",
   },
-  ["pst-fractal"] = {
-    "texmf-dist/doc/generic/pst-fractal/Changes",
-    "texmf-dist/doc/generic/pst-fractal/README",
-    "texmf-dist/doc/generic/pst-fractal/pst-fractal-doc.pdf",
+  ["ncclatex"] = {
+    "texmf-dist/doc/latex/ncclatex/README",
+    "texmf-dist/doc/latex/ncclatex/changes.txt",
+    "texmf-dist/doc/latex/ncclatex/manifest.txt",
+    "texmf-dist/doc/latex/ncclatex/ncclatex.pdf",
+    "texmf-dist/doc/latex/ncclatex/nccnews.pdf",
   },
-  ["gmiflink"] = {
-    "texmf-dist/doc/latex/gmiflink/README",
-    "texmf-dist/doc/latex/gmiflink/gmiflink.pdf",
+  ["flagderiv"] = {
+    "texmf-dist/doc/latex/flagderiv/README",
+    "texmf-dist/doc/latex/flagderiv/flagderiv.pdf",
   },
-  ["braket"] = {
-    "texmf-dist/doc/latex/braket/braket.pdf",
-  },
-  ["draftcopy"] = {
-    "texmf-dist/doc/latex/draftcopy/README",
-    "texmf-dist/doc/latex/draftcopy/draftcopy.pdf",
-  },
-  ["croatian"] = {
-    "texmf-dist/doc/fonts/croatian/readme.txt",
+  ["harmony"] = {
+    "texmf-dist/doc/latex/harmony/README",
+    "texmf-dist/doc/latex/harmony/harmony.pdf",
   },
   ["pst-diffraction"] = {
     "texmf-dist/doc/generic/pst-diffraction/Changes",
@@ -13099,10 +13064,20 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-diffraction/pst-diffraction-docE.pdf",
     "texmf-dist/doc/generic/pst-diffraction/pst-diffraction-docFR.pdf",
   },
+  ["croatian"] = {
+    "texmf-dist/doc/fonts/croatian/readme.txt",
+  },
   ["pst-dbicons"] = {
     "texmf-dist/doc/generic/pst-dbicons/Changes",
     "texmf-dist/doc/generic/pst-dbicons/README",
     "texmf-dist/doc/generic/pst-dbicons/pst-dbicons.pdf",
+  },
+  ["pst-cox"] = {
+    "texmf-dist/doc/generic/pst-cox/README",
+    "texmf-dist/doc/generic/pst-cox/gpl.txt",
+    "texmf-dist/doc/generic/pst-cox/lgpl.txt",
+    "texmf-dist/doc/generic/pst-cox/pst-coxcoor/pst-coxcoor_doc.pdf",
+    "texmf-dist/doc/generic/pst-cox/pst-coxeterp/pst-coxeterp_doc.pdf",
   },
   ["guide-to-latex"] = {
     "texmf-dist/doc/latex/guide-to-latex/README.txt",
@@ -13119,23 +13094,21 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/svninfo/README",
     "texmf-dist/doc/latex/svninfo/svninfo.pdf",
   },
-  ["pst-bspline"] = {
-    "texmf-dist/doc/generic/pst-bspline/README",
-    "texmf-dist/doc/generic/pst-bspline/pst-bspline-doc.pdf",
-  },
   ["pst-blur"] = {
     "texmf-dist/doc/generic/pst-blur/Changes",
     "texmf-dist/doc/generic/pst-blur/README",
     "texmf-dist/doc/generic/pst-blur/pst-blur.pdf",
   },
-  ["envlab"] = {
-    "texmf-dist/doc/latex/envlab/elguide.pdf",
-    "texmf-dist/doc/latex/envlab/envlab.pdf",
-  },
   ["pst-barcode"] = {
     "texmf-dist/doc/generic/pst-barcode/Changes",
     "texmf-dist/doc/generic/pst-barcode/README",
     "texmf-dist/doc/generic/pst-barcode/pst-barcode-doc.pdf",
+  },
+  ["gfsporson"] = {
+    "texmf-dist/doc/fonts/gfsporson/OFL-FAQ.txt",
+    "texmf-dist/doc/fonts/gfsporson/OFL.txt",
+    "texmf-dist/doc/fonts/gfsporson/README",
+    "texmf-dist/doc/fonts/gfsporson/gfsporson.pdf",
   },
   ["xltxtra"] = {
     "texmf-dist/doc/xelatex/xltxtra/README",
@@ -13150,11 +13123,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ntheorem-vn/src/TODO",
     "texmf-dist/doc/latex/ntheorem-vn/test.pdf",
   },
-  ["bbold"] = {
-    "texmf-dist/doc/latex/bbold/INSTALL",
-    "texmf-dist/doc/latex/bbold/README",
-    "texmf-dist/doc/latex/bbold/bbold.pdf",
-  },
   ["pst-3d"] = {
     "texmf-dist/doc/generic/pst-3d/Changes",
     "texmf-dist/doc/generic/pst-3d/README",
@@ -13166,10 +13134,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/psnfss/manifest.txt",
     "texmf-dist/doc/latex/psnfss/psfonts.pdf",
     "texmf-dist/doc/latex/psnfss/psnfss2e.pdf",
-  },
-  ["jurarsp"] = {
-    "texmf-dist/doc/latex/jurarsp/README",
-    "texmf-dist/doc/latex/jurarsp/jurarsp.pdf",
   },
   ["pseudocode"] = {
     "texmf-dist/doc/latex/pseudocode/README",
@@ -13187,11 +13151,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/eCards/presidents/jm4.pdf",
     "texmf-dist/doc/latex/eCards/presidents/jm5.pdf",
     "texmf-dist/doc/latex/eCards/presidents/tj3.pdf",
-  },
-  ["pracjourn"] = {
-    "texmf-dist/doc/latex/pracjourn/README",
-    "texmf-dist/doc/latex/pracjourn/pjsample.pdf",
-    "texmf-dist/doc/latex/pracjourn/pracjourn.pdf",
   },
   ["swimgraf"] = {
     "texmf-dist/doc/latex/swimgraf/100br1.pdf",
@@ -13211,11 +13170,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/arev/README",
     "texmf-dist/doc/fonts/arev/arevdoc.pdf",
     "texmf-dist/doc/fonts/arev/mathtesty.pdf",
-  },
-  ["listings-ext"] = {
-    "texmf-dist/doc/latex/listings-ext/README",
-    "texmf-dist/doc/latex/listings-ext/THIS_IS_VERSION_v48",
-    "texmf-dist/doc/latex/listings-ext/listings-ext.pdf",
   },
   ["eiad-ltx"] = {
     "texmf-dist/doc/latex/eiad-ltx/README",
@@ -13247,15 +13201,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/gatech-thesis/julesverne/bellswhistles/README",
     "texmf-dist/doc/latex/gatech-thesis/julesverne/bellswhistles/fig/jules-verne-test.pdf",
   },
-  ["protocol"] = {
-    "texmf-dist/doc/latex/protocol/README",
-    "texmf-dist/doc/latex/protocol/protocol.pdf",
-  },
-  ["hepunits"] = {
-    "texmf-dist/doc/latex/hepunits/ChangeLog",
-    "texmf-dist/doc/latex/hepunits/README",
-    "texmf-dist/doc/latex/hepunits/hepunits.pdf",
-  },
   ["prosper"] = {
     "texmf-dist/doc/latex/prosper/FAQ",
     "texmf-dist/doc/latex/prosper/NEWS",
@@ -13264,18 +13209,20 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/prosper/prosper-doc.pdf",
     "texmf-dist/doc/latex/prosper/prosper-tour.pdf",
   },
-  ["cmap"] = {
-    "texmf-dist/doc/latex/cmap/README",
+  ["hepunits"] = {
+    "texmf-dist/doc/latex/hepunits/ChangeLog",
+    "texmf-dist/doc/latex/hepunits/README",
+    "texmf-dist/doc/latex/hepunits/hepunits.pdf",
+  },
+  ["program"] = {
+    "texmf-dist/doc/latex/program/README",
+    "texmf-dist/doc/latex/program/gpl-3.0.txt",
   },
   ["cjw"] = {
     "texmf-dist/doc/latex/cjw/cjw-latex.pdf",
     "texmf-dist/doc/latex/cjw/cjw-ltr.pdf",
     "texmf-dist/doc/latex/cjw/cjwoutl.pdf",
     "texmf-dist/doc/latex/cjw/cjwplain.pdf",
-  },
-  ["program"] = {
-    "texmf-dist/doc/latex/program/README",
-    "texmf-dist/doc/latex/program/gpl-3.0.txt",
   },
   ["fontspec"] = {
     "texmf-dist/doc/xelatex/fontspec/README",
@@ -13303,17 +13250,6 @@ local tlp_doclist = {
     "texmf-dist/doc/context/third/vim/vim-demo.pdf",
     "texmf-dist/doc/context/third/vim/vim-doc.pdf",
   },
-  ["preview"] = {
-    "texmf-dist/doc/latex/preview/README",
-    "texmf-dist/doc/latex/preview/preview.pdf",
-  },
-  ["erdc"] = {
-    "texmf-dist/doc/latex/erdc/README",
-    "texmf-dist/doc/latex/erdc/erdc.pdf",
-    "texmf-dist/doc/latex/erdc/nola.pdf",
-    "texmf-dist/doc/latex/erdc/red_corps_castle2.pdf",
-    "texmf-dist/doc/latex/erdc/sample.pdf",
-  },
   ["preprint"] = {
     "texmf-dist/doc/latex/preprint/00readme.txt",
     "texmf-dist/doc/latex/preprint/authblk.pdf",
@@ -13322,18 +13258,43 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/preprint/fullpage.pdf",
     "texmf-dist/doc/latex/preprint/sublabel.pdf",
   },
+  ["erdc"] = {
+    "texmf-dist/doc/latex/erdc/README",
+    "texmf-dist/doc/latex/erdc/erdc.pdf",
+    "texmf-dist/doc/latex/erdc/nola.pdf",
+    "texmf-dist/doc/latex/erdc/red_corps_castle2.pdf",
+    "texmf-dist/doc/latex/erdc/sample.pdf",
+  },
+  ["pracjourn"] = {
+    "texmf-dist/doc/latex/pracjourn/README",
+    "texmf-dist/doc/latex/pracjourn/pjsample.pdf",
+    "texmf-dist/doc/latex/pracjourn/pracjourn.pdf",
+  },
   ["pst-node"] = {
     "texmf-dist/doc/generic/pst-node/Changes",
     "texmf-dist/doc/generic/pst-node/README",
     "texmf-dist/doc/generic/pst-node/more_docs/psmatrix-docDE.pdf",
     "texmf-dist/doc/generic/pst-node/pst-node-doc.pdf",
   },
-  ["lithuanian"] = {
-    "texmf-dist/doc/latex/lithuanian/COPYING",
-    "texmf-dist/doc/latex/lithuanian/ChangeLog",
-    "texmf-dist/doc/latex/lithuanian/Copyright",
-    "texmf-dist/doc/latex/lithuanian/latin7x.pdf",
-    "texmf-dist/doc/latex/lithuanian/makeLT.html",
+  ["extsizes"] = {
+    "texmf-dist/doc/latex/extsizes/README",
+  },
+  ["eurosym"] = {
+    "texmf-dist/doc/fonts/eurosym/COPYING",
+    "texmf-dist/doc/fonts/eurosym/Changes",
+    "texmf-dist/doc/fonts/eurosym/Makefile",
+    "texmf-dist/doc/fonts/eurosym/README",
+    "texmf-dist/doc/fonts/eurosym/doc/Makefile",
+    "texmf-dist/doc/fonts/eurosym/makemfs",
+    "texmf-dist/doc/fonts/eurosym/rundvips",
+    "texmf-dist/doc/fonts/eurosym/runlatex",
+    "texmf-dist/doc/fonts/eurosym/src/Makefile",
+  },
+  ["gfsneohellenic"] = {
+    "texmf-dist/doc/fonts/gfsneohellenic/OFL-FAQ.txt",
+    "texmf-dist/doc/fonts/gfsneohellenic/OFL.txt",
+    "texmf-dist/doc/fonts/gfsneohellenic/README",
+    "texmf-dist/doc/fonts/gfsneohellenic/gfsneohellenic.pdf",
   },
   ["blowup"] = {
     "texmf-dist/doc/latex/blowup/README",
@@ -13351,12 +13312,6 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pst-osci/oscilloscope.pdf",
     "texmf-dist/doc/generic/pst-osci/pst-osci-doc.pdf",
   },
-  ["fig4latex"] = {
-    "texmf-dist/doc/support/fig4latex/CHANGES",
-    "texmf-dist/doc/support/fig4latex/COPYING",
-    "texmf-dist/doc/support/fig4latex/README",
-    "texmf-dist/doc/support/fig4latex/example.pdf",
-  },
   ["powerdot"] = {
     "texmf-dist/doc/latex/powerdot/README",
     "texmf-dist/doc/latex/powerdot/manifest.txt",
@@ -13372,12 +13327,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/polynom/polydemo.pdf",
     "texmf-dist/doc/latex/polynom/polynom.pdf",
   },
-  ["boisik"] = {
-    "texmf-dist/doc/fonts/boisik/README",
-    "texmf-dist/doc/fonts/boisik/example/boisik-idiot.pdf",
-    "texmf-dist/doc/fonts/boisik/example/boisik.pdf",
-    "texmf-dist/doc/fonts/boisik/example/table.pdf",
-    "texmf-dist/doc/fonts/boisik/example/testfont.pdf",
+  ["lshort-bulgarian"] = {
+    "texmf-dist/doc/latex/lshort-bulgarian/README",
+    "texmf-dist/doc/latex/lshort-bulgarian/lshort-bg.pdf",
   },
   ["polyglossia"] = {
     "texmf-dist/doc/xelatex/polyglossia/README",
@@ -13385,6 +13337,13 @@ local tlp_doclist = {
     "texmf-dist/doc/xelatex/polyglossia/example-thai.pdf",
     "texmf-dist/doc/xelatex/polyglossia/examples.pdf",
     "texmf-dist/doc/xelatex/polyglossia/polyglossia.pdf",
+  },
+  ["boisik"] = {
+    "texmf-dist/doc/fonts/boisik/README",
+    "texmf-dist/doc/fonts/boisik/example/boisik-idiot.pdf",
+    "texmf-dist/doc/fonts/boisik/example/boisik.pdf",
+    "texmf-dist/doc/fonts/boisik/example/table.pdf",
+    "texmf-dist/doc/fonts/boisik/example/testfont.pdf",
   },
   ["poemscol"] = {
     "texmf-dist/doc/latex/poemscol/README",
@@ -13396,14 +13355,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pmgraph/README",
     "texmf-dist/doc/latex/pmgraph/pmgraph.pdf",
   },
+  ["plweb"] = {
+    "texmf-dist/doc/latex/plweb/README",
+    "texmf-dist/doc/latex/plweb/pl.pdf",
+  },
   ["booktabs"] = {
     "texmf-dist/doc/latex/booktabs/COPYING",
     "texmf-dist/doc/latex/booktabs/README",
     "texmf-dist/doc/latex/booktabs/booktabs.pdf",
-  },
-  ["plweb"] = {
-    "texmf-dist/doc/latex/plweb/README",
-    "texmf-dist/doc/latex/plweb/pl.pdf",
   },
   ["easylist"] = {
     "texmf-dist/doc/latex/easylist/README",
@@ -13427,8 +13386,17 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/tkz-linknodes/doc/system.pdf",
     "texmf-dist/doc/latex/tkz-linknodes/readme-linknodes.txt",
   },
-  ["fenixpar"] = {
-    "texmf-dist/doc/generic/fenixpar/README",
+  ["metalogo"] = {
+    "texmf-dist/doc/latex/metalogo/README",
+    "texmf-dist/doc/latex/metalogo/TeXoutline.pdf",
+    "texmf-dist/doc/latex/metalogo/eLaToutline.pdf",
+    "texmf-dist/doc/latex/metalogo/metalogo.pdf",
+  },
+  ["cm-lgc"] = {
+    "texmf-dist/doc/latex/cm-lgc/COPYING",
+    "texmf-dist/doc/latex/cm-lgc/HISTORY",
+    "texmf-dist/doc/latex/cm-lgc/INSTALL",
+    "texmf-dist/doc/latex/cm-lgc/README",
   },
   ["cweb-latex"] = {
     "texmf-dist/doc/latex/cweb-latex/CATALOG",
@@ -13457,9 +13425,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/MemoirChapStyles/MemoirChapStyles.pdf",
     "texmf-dist/doc/latex/MemoirChapStyles/README",
   },
-  ["latex-graphics-companion"] = {
-    "texmf-dist/doc/latex/latex-graphics-companion/Makefile",
-    "texmf-dist/doc/latex/latex-graphics-companion/README",
+  ["bibleref"] = {
+    "texmf-dist/doc/latex/bibleref/README",
+    "texmf-dist/doc/latex/bibleref/bibleref-manual.html",
+    "texmf-dist/doc/latex/bibleref/bibleref.pdf",
+    "texmf-dist/doc/latex/bibleref/sample.pdf",
   },
   ["captcont"] = {
     "texmf-dist/doc/latex/captcont/README",
@@ -13525,10 +13495,23 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pigpen/README",
     "texmf-dist/doc/latex/pigpen/pigpendoc.pdf",
   },
+  ["dramatist"] = {
+    "texmf-dist/doc/latex/dramatist/README",
+    "texmf-dist/doc/latex/dramatist/dramatist.pdf",
+  },
   ["pictex"] = {
     "texmf-dist/doc/generic/pictex/00index",
     "texmf-dist/doc/generic/pictex/pictexzusatz.txt",
     "texmf-dist/doc/generic/pictex/readme",
+  },
+  ["babelbib"] = {
+    "texmf-dist/doc/latex/babelbib/ChangeLog",
+    "texmf-dist/doc/latex/babelbib/README",
+    "texmf-dist/doc/latex/babelbib/babelbib.pdf",
+    "texmf-dist/doc/latex/babelbib/tugboat-babelbib.pdf",
+  },
+  ["picinpar"] = {
+    "texmf-dist/doc/latex/picinpar/picinpar.dvi",
   },
   ["multicap"] = {
     "texmf-dist/doc/latex/multicap/multicap.pdf",
@@ -13541,8 +13524,18 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/memexsupp/README",
     "texmf-dist/doc/latex/memexsupp/memexsupp.pdf",
   },
-  ["phyzzx"] = {
-    "texmf-dist/doc/otherformats/phyzzx/base/phyzdoc.dvi",
+  ["ean13isbn"] = {
+    "texmf-dist/doc/latex/ean13isbn/License.txt",
+    "texmf-dist/doc/latex/ean13isbn/README",
+    "texmf-dist/doc/latex/ean13isbn/ean13isbn.pdf",
+  },
+  ["dehyph-exptl"] = {
+    "texmf-dist/doc/generic/dehyph-exptl/CHANGES",
+    "texmf-dist/doc/generic/dehyph-exptl/INSTALL",
+    "texmf-dist/doc/generic/dehyph-exptl/LICENSE",
+    "texmf-dist/doc/generic/dehyph-exptl/README",
+    "texmf-dist/doc/generic/dehyph-exptl/dehyph-exptl.pdf",
+    "texmf-dist/doc/generic/dehyph-exptl/projektbeschreibung.pdf",
   },
   ["makedtx"] = {
     "texmf-dist/doc/latex/makedtx/CHANGES",
@@ -13580,30 +13573,30 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/phaistos/getglyphs",
     "texmf-dist/doc/fonts/phaistos/glyphTable.pdf",
   },
-  ["impatient"] = {
-    "texmf-dist/doc/plain/impatient/Makefile",
-    "texmf-dist/doc/plain/impatient/README",
-    "texmf-dist/doc/plain/impatient/book.pdf",
-  },
   ["pgfopts"] = {
     "texmf-dist/doc/latex/pgfopts/README",
     "texmf-dist/doc/latex/pgfopts/pgfopts-manual.pdf",
     "texmf-dist/doc/latex/pgfopts/pgfopts.pdf",
   },
-  ["adrconv"] = {
-    "texmf-dist/doc/latex/adrconv/adrguide.pdf",
+  ["impatient"] = {
+    "texmf-dist/doc/plain/impatient/Makefile",
+    "texmf-dist/doc/plain/impatient/README",
+    "texmf-dist/doc/plain/impatient/book.pdf",
+  },
+  ["catechis"] = {
+    "texmf-dist/doc/latex/catechis/README",
+    "texmf-dist/doc/latex/catechis/catechis.pdf",
   },
   ["impatient-fr"] = {
     "texmf-dist/doc/plain/impatient-fr/README",
     "texmf-dist/doc/plain/impatient-fr/fbook.pdf",
   },
-  ["petiteannonce"] = {
-    "texmf-dist/doc/latex/petiteannonce/petiteannonce.doc.pdf",
-    "texmf-dist/doc/latex/petiteannonce/petiteannonceexample.pdf",
-  },
   ["persian-bib"] = {
     "texmf-dist/doc/xelatex/persian-bib/Persian-bib-userguide.pdf",
     "texmf-dist/doc/xelatex/persian-bib/README",
+  },
+  ["permute"] = {
+    "texmf-dist/doc/latex/permute/permute.pdf",
   },
   ["hyphenat"] = {
     "texmf-dist/doc/latex/hyphenat/README",
@@ -13620,14 +13613,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/sides/README",
     "texmf-dist/doc/latex/sides/sides-sample.pdf",
   },
+  ["perception"] = {
+    "texmf-dist/doc/latex/perception/README",
+  },
   ["gfscomplutum"] = {
     "texmf-dist/doc/fonts/gfscomplutum/OFL-FAQ.txt",
     "texmf-dist/doc/fonts/gfscomplutum/OFL.txt",
     "texmf-dist/doc/fonts/gfscomplutum/README",
     "texmf-dist/doc/fonts/gfscomplutum/gfscomplutum.pdf",
-  },
-  ["perception"] = {
-    "texmf-dist/doc/latex/perception/README",
   },
   ["pecha"] = {
     "texmf-dist/doc/latex/pecha/CHANGES",
@@ -13636,9 +13629,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pecha/example.pdf",
     "texmf-dist/doc/latex/pecha/pecha_docu.pdf",
   },
-  ["hyperxmp"] = {
-    "texmf-dist/doc/latex/hyperxmp/README",
-    "texmf-dist/doc/latex/hyperxmp/hyperxmp.pdf",
+  ["pdf-trans"] = {
+    "texmf-dist/doc/generic/pdf-trans/example.pdf",
+  },
+  ["ethiop"] = {
+    "texmf-dist/doc/latex/ethiop/MANIFEST",
+    "texmf-dist/doc/latex/ethiop/README",
+    "texmf-dist/doc/latex/ethiop/ethiodoc.pdf",
   },
   ["pdftex"] = {
     "texmf-dist/doc/pdftex/NEWS",
@@ -13663,6 +13660,10 @@ local tlp_doclist = {
   ["pdfsync"] = {
     "texmf-dist/doc/latex/pdfsync/README",
   },
+  ["pdfmarginpar"] = {
+    "texmf-dist/doc/latex/pdfmarginpar/README",
+    "texmf-dist/doc/latex/pdfmarginpar/pdfmarginpar.pdf",
+  },
   ["chemcompounds"] = {
     "texmf-dist/doc/latex/chemcompounds/README",
     "texmf-dist/doc/latex/chemcompounds/chemcompounds.pdf",
@@ -13681,8 +13682,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/srcltx/README",
     "texmf-dist/doc/latex/srcltx/srcltx.pdf",
   },
-  ["pdf-trans"] = {
-    "texmf-dist/doc/generic/pdf-trans/example.pdf",
+  ["jablantile"] = {
+    "texmf-dist/doc/fonts/jablantile/README",
+    "texmf-dist/doc/fonts/jablantile/jablantile.pdf",
   },
   ["pdf-forms-tutorial-en"] = {
     "texmf-dist/doc/latex/pdf-forms-tutorial-en/README",
@@ -13692,17 +13694,17 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pdf-forms-tutorial-en/forms-src/Makefile",
     "texmf-dist/doc/latex/pdf-forms-tutorial-en/forms.pdf",
   },
-  ["mathexam"] = {
-    "texmf-dist/doc/latex/mathexam/README",
-    "texmf-dist/doc/latex/mathexam/mathexam.pdf",
-    "texmf-dist/doc/latex/mathexam/sample.pdf",
-  },
   ["pdf-forms-tutorial-de"] = {
     "texmf-dist/doc/latex/pdf-forms-tutorial-de/README",
     "texmf-dist/doc/latex/pdf-forms-tutorial-de/examples/Makefile",
     "texmf-dist/doc/latex/pdf-forms-tutorial-de/fdl.txt",
     "texmf-dist/doc/latex/pdf-forms-tutorial-de/forms-src/Makefile",
     "texmf-dist/doc/latex/pdf-forms-tutorial-de/forms.pdf",
+  },
+  ["mathexam"] = {
+    "texmf-dist/doc/latex/mathexam/README",
+    "texmf-dist/doc/latex/mathexam/mathexam.pdf",
+    "texmf-dist/doc/latex/mathexam/sample.pdf",
   },
   ["pbsheet"] = {
     "texmf-dist/doc/latex/pbsheet/LPPL",
@@ -13713,10 +13715,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pbsheet/xpl/img/simbin.pdf",
     "texmf-dist/doc/latex/pbsheet/xpl/xpl-fr.pdf",
   },
-  ["everypage"] = {
-    "texmf-dist/doc/latex/everypage/README",
-    "texmf-dist/doc/latex/everypage/everypage.pdf",
-  },
   ["pbox"] = {
     "texmf-dist/doc/latex/pbox/AUTHORS",
     "texmf-dist/doc/latex/pbox/COPYING",
@@ -13725,14 +13723,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pbox/README",
     "texmf-dist/doc/latex/pbox/pbox.pdf",
   },
+  ["everypage"] = {
+    "texmf-dist/doc/latex/everypage/README",
+    "texmf-dist/doc/latex/everypage/everypage.pdf",
+  },
   ["qstest"] = {
     "texmf-dist/doc/latex/qstest/README",
     "texmf-dist/doc/latex/qstest/makematch.pdf",
     "texmf-dist/doc/latex/qstest/qstest.pdf",
-  },
-  ["gcard"] = {
-    "texmf-dist/doc/latex/gcard/README",
-    "texmf-dist/doc/latex/gcard/gcard.pdf",
   },
   ["resumemac"] = {
     "texmf-dist/doc/plain/resumemac/README",
@@ -13745,6 +13743,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/linguex/linguex-doc.pdf",
     "texmf-dist/doc/latex/linguex/ps-trees-doc.pdf",
   },
+  ["pauldoc"] = {
+    "texmf-dist/doc/latex/pauldoc/README",
+    "texmf-dist/doc/latex/pauldoc/pauldoc.pdf",
+  },
   ["frcursive"] = {
     "texmf-dist/doc/fonts/frcursive/COPYING",
     "texmf-dist/doc/fonts/frcursive/FILES",
@@ -13753,9 +13755,8 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/frcursive/mf/Makefile",
     "texmf-dist/doc/fonts/frcursive/test/Makefile",
   },
-  ["pauldoc"] = {
-    "texmf-dist/doc/latex/pauldoc/README",
-    "texmf-dist/doc/latex/pauldoc/pauldoc.pdf",
+  ["patgen2-tutorial"] = {
+    "texmf-dist/doc/support/patgen2-tutorial/patgen2.pdf",
   },
   ["ednotes"] = {
     "texmf-dist/doc/latex/ednotes/CHANGES.txt",
@@ -13767,26 +13768,23 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ednotes/ednotugb.pdf",
     "texmf-dist/doc/latex/ednotes/visible.txt",
   },
-  ["cbfonts"] = {
-    "texmf-dist/doc/fonts/cbfonts/README",
-    "texmf-dist/doc/fonts/cbfonts/cbgreek.pdf",
-    "texmf-dist/doc/fonts/cbfonts/grmn1000table.pdf",
-  },
-  ["context-degrade"] = {
-    "texmf-dist/doc/context/third/degrade/degrade-demo.pdf",
-    "texmf-dist/doc/context/third/degrade/degrade-doc.pdf",
+  ["fltpoint"] = {
+    "texmf-dist/doc/generic/fltpoint/README",
+    "texmf-dist/doc/generic/fltpoint/fltpoint.pdf",
   },
   ["patgen"] = {
     "texmf/doc/man/man1/patgen.man1.pdf",
   },
-  ["numprint"] = {
-    "texmf-dist/doc/latex/numprint/README",
-    "texmf-dist/doc/latex/numprint/nbaseprt.pdf",
-    "texmf-dist/doc/latex/numprint/numprint.pdf",
+  ["lshort-vietnamese"] = {
+    "texmf-dist/doc/latex/lshort-vietnamese/README",
+    "texmf-dist/doc/latex/lshort-vietnamese/lshort-vi.pdf",
+    "texmf-dist/doc/latex/lshort-vietnamese/src/LocalVariables",
+    "texmf-dist/doc/latex/lshort-vietnamese/src/Makefile",
+    "texmf-dist/doc/latex/lshort-vietnamese/src/README.txt",
   },
-  ["nath"] = {
-    "texmf-dist/doc/latex/nath/README",
-    "texmf-dist/doc/latex/nath/nathguide.pdf",
+  ["nag"] = {
+    "texmf-dist/doc/latex/nag/README",
+    "texmf-dist/doc/latex/nag/nag.pdf",
   },
   ["papertex"] = {
     "texmf-dist/doc/latex/papertex/CHANGES",
@@ -13794,8 +13792,16 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/papertex/example/example.pdf",
     "texmf-dist/doc/latex/papertex/papertex.pdf",
   },
-  ["kixfont"] = {
-    "texmf-dist/doc/fonts/kixfont/kixtable.pdf",
+  ["kluwer"] = {
+    "texmf-dist/doc/latex/kluwer/00readme",
+    "texmf-dist/doc/latex/kluwer/sampkluw.dvi",
+    "texmf-dist/doc/latex/kluwer/sampopen.dvi",
+    "texmf-dist/doc/latex/kluwer/usrman.dvi",
+  },
+  ["paper"] = {
+    "texmf-dist/doc/latex/paper/README",
+    "texmf-dist/doc/latex/paper/install",
+    "texmf-dist/doc/latex/paper/paper.pdf",
   },
   ["clrscode"] = {
     "texmf-dist/doc/latex/clrscode/README",
@@ -13810,9 +13816,6 @@ local tlp_doclist = {
   },
   ["bibarts"] = {
     "texmf-dist/doc/latex/bibarts/bibarts.pdf",
-  },
-  ["pacioli"] = {
-    "texmf-dist/doc/fonts/pacioli/README",
   },
   ["overpic"] = {
     "texmf-dist/doc/latex/overpic/README",
@@ -13836,17 +13839,22 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/blindtext/README",
     "texmf-dist/doc/latex/blindtext/blindtext.pdf",
   },
-  ["moderncv"] = {
-    "texmf-dist/doc/latex/moderncv/CHANGELOG",
-    "texmf-dist/doc/latex/moderncv/KNOWN_BUGS",
-    "texmf-dist/doc/latex/moderncv/README",
-    "texmf-dist/doc/latex/moderncv/examples/letter.pdf",
-    "texmf-dist/doc/latex/moderncv/examples/template_en_casual_blue.pdf",
-    "texmf-dist/doc/latex/moderncv/examples/template_en_classic_green.pdf",
-  },
   ["opcit"] = {
     "texmf-dist/doc/latex/opcit/README",
     "texmf-dist/doc/latex/opcit/opcit.pdf",
+  },
+  ["montex"] = {
+    "texmf-dist/doc/latex/montex/00README",
+    "texmf-dist/doc/latex/montex/ANNOUNCE",
+    "texmf-dist/doc/latex/montex/EMTEX",
+    "texmf-dist/doc/latex/montex/HISTORY",
+    "texmf-dist/doc/latex/montex/INSTALL",
+    "texmf-dist/doc/latex/montex/MIKTEX",
+    "texmf-dist/doc/latex/montex/TODO",
+    "texmf-dist/doc/latex/montex/UPDATE",
+    "texmf-dist/doc/latex/montex/mlsquick.pdf",
+    "texmf-dist/doc/latex/montex/montex.pdf",
+    "texmf-dist/doc/latex/montex/zanabazr.pdf",
   },
   ["chessfss"] = {
     "texmf-dist/doc/latex/chessfss/README",
@@ -13854,6 +13862,17 @@ local tlp_doclist = {
   ["ly1"] = {
     "texmf-dist/doc/fonts/ly1/ly1.txt",
     "texmf-dist/doc/fonts/ly1/texnansi.txt",
+  },
+  ["omegaware"] = {
+    "texmf/doc/man/man1/odvicopy.man1.pdf",
+    "texmf/doc/man/man1/odvips.man1.pdf",
+    "texmf/doc/man/man1/odvitype.man1.pdf",
+    "texmf/doc/man/man1/ofm2opl.man1.pdf",
+    "texmf/doc/man/man1/opl2ofm.man1.pdf",
+    "texmf/doc/man/man1/otp2ocp.man1.pdf",
+    "texmf/doc/man/man1/outocp.man1.pdf",
+    "texmf/doc/man/man1/ovf2ovp.man1.pdf",
+    "texmf/doc/man/man1/ovp2ovf.man1.pdf",
   },
   ["revtex"] = {
     "texmf-dist/doc/latex/revtex/DOWNLOAD",
@@ -13876,17 +13895,18 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/objectz/ozguide.dvi",
     "texmf-dist/doc/latex/objectz/oztest.dvi",
   },
+  ["numprint"] = {
+    "texmf-dist/doc/latex/numprint/README",
+    "texmf-dist/doc/latex/numprint/nbaseprt.pdf",
+    "texmf-dist/doc/latex/numprint/numprint.pdf",
+  },
   ["newvbtm"] = {
     "texmf-dist/doc/latex/newvbtm/README",
     "texmf-dist/doc/latex/newvbtm/newvbtm-man.dvi",
   },
-  ["antt"] = {
-    "texmf-dist/doc/fonts/antt/AntykwaTorunska-doc-en-2_03.pdf",
-    "texmf-dist/doc/fonts/antt/AntykwaTorunska-doc-pl-2_03.pdf",
-    "texmf-dist/doc/fonts/antt/GUST-FONT-NOSOURCE-LICENSE.txt",
-    "texmf-dist/doc/fonts/antt/MANIFEST.txt",
-    "texmf-dist/doc/fonts/antt/README",
-    "texmf-dist/doc/latex/antt/README",
+  ["ntheorem"] = {
+    "texmf-dist/doc/latex/ntheorem/README",
+    "texmf-dist/doc/latex/ntheorem/ntheorem.pdf",
   },
   ["eurosans"] = {
     "texmf-dist/doc/latex/eurosans/README",
@@ -13900,10 +13920,9 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/ibygrk/NEWS",
     "texmf-dist/doc/fonts/ibygrk/README",
   },
-  ["nrc"] = {
-    "texmf-dist/doc/latex/nrc/README",
-    "texmf-dist/doc/latex/nrc/authors.txt",
-    "texmf-dist/doc/latex/nrc/userguide.pdf",
+  ["notes"] = {
+    "texmf-dist/doc/latex/notes/makedoc",
+    "texmf-dist/doc/latex/notes/notes.pdf",
   },
   ["enumitem"] = {
     "texmf-dist/doc/latex/enumitem/README",
@@ -13913,39 +13932,36 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/mftinc/README",
     "texmf-dist/doc/latex/mftinc/mftinc.pdf",
   },
-  ["notes"] = {
-    "texmf-dist/doc/latex/notes/makedoc",
-    "texmf-dist/doc/latex/notes/notes.pdf",
+  ["nostarch"] = {
+    "texmf-dist/doc/latex/nostarch/README",
+    "texmf-dist/doc/latex/nostarch/nostarch.pdf",
+    "texmf-dist/doc/latex/nostarch/nssample.pdf",
   },
   ["qobitree"] = {
     "texmf-dist/doc/latex/qobitree/README",
-  },
-  ["nomentbl"] = {
-    "texmf-dist/doc/latex/nomentbl/README",
-    "texmf-dist/doc/latex/nomentbl/example.pdf",
-    "texmf-dist/doc/latex/nomentbl/nomentbl.pdf",
   },
   ["noitcrul"] = {
     "texmf-dist/doc/latex/noitcrul/README",
     "texmf-dist/doc/latex/noitcrul/noitcrul.pdf",
   },
+  ["nicetext"] = {
+    "texmf-dist/doc/latex/nicetext/NNOUNCE.TXT",
+    "texmf-dist/doc/latex/nicetext/README",
+    "texmf-dist/doc/latex/nicetext/README.txt",
+    "texmf-dist/doc/latex/nicetext/fifinddo.pdf",
+    "texmf-dist/doc/latex/nicetext/makedoc.pdf",
+    "texmf-dist/doc/latex/nicetext/niceverb.pdf",
+    "texmf-dist/doc/latex/nicetext/wikicheat.pdf",
+  },
   ["ean"] = {
     "texmf-dist/doc/fonts/ean/README",
     "texmf-dist/doc/fonts/ean/ocrbinfo",
-  },
-  ["nfssext-cfr"] = {
-    "texmf-dist/doc/latex/nfssext-cfr/README",
   },
   ["newspaper"] = {
     "texmf-dist/doc/latex/newspaper/Figure1.pdf",
     "texmf-dist/doc/latex/newspaper/Figure2.pdf",
     "texmf-dist/doc/latex/newspaper/README",
     "texmf-dist/doc/latex/newspaper/newspaper.pdf",
-  },
-  ["geometry"] = {
-    "texmf-dist/doc/latex/geometry/README",
-    "texmf-dist/doc/latex/geometry/changes.txt",
-    "texmf-dist/doc/latex/geometry/geometry.pdf",
   },
   ["newlfm"] = {
     "texmf-dist/doc/latex/newlfm/README",
@@ -13960,6 +13976,11 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/newlfm/testms.pdf",
     "texmf-dist/doc/latex/newlfm/wine.pdf",
   },
+  ["geometry"] = {
+    "texmf-dist/doc/latex/geometry/README",
+    "texmf-dist/doc/latex/geometry/changes.txt",
+    "texmf-dist/doc/latex/geometry/geometry.pdf",
+  },
   ["pst-fr3d"] = {
     "texmf-dist/doc/generic/pst-fr3d/Changes",
     "texmf-dist/doc/generic/pst-fr3d/README",
@@ -13972,20 +13993,17 @@ local tlp_doclist = {
   ["mtgreek"] = {
     "texmf-dist/doc/latex/mtgreek/mtgtest.dvi",
   },
-  ["ncclatex"] = {
-    "texmf-dist/doc/latex/ncclatex/README",
-    "texmf-dist/doc/latex/ncclatex/changes.txt",
-    "texmf-dist/doc/latex/ncclatex/manifest.txt",
-    "texmf-dist/doc/latex/ncclatex/ncclatex.pdf",
-    "texmf-dist/doc/latex/ncclatex/nccnews.pdf",
+  ["nath"] = {
+    "texmf-dist/doc/latex/nath/README",
+    "texmf-dist/doc/latex/nath/nathguide.pdf",
   },
   ["parallel"] = {
     "texmf-dist/doc/latex/parallel/parallel.pdf",
     "texmf-dist/doc/latex/parallel/readme",
   },
-  ["nag"] = {
-    "texmf-dist/doc/latex/nag/README",
-    "texmf-dist/doc/latex/nag/nag.pdf",
+  ["mxedruli"] = {
+    "texmf-dist/doc/fonts/mxedruli/README",
+    "texmf-dist/doc/fonts/mxedruli/mxeddoc.pdf",
   },
   ["sectionbox"] = {
     "texmf-dist/doc/latex/sectionbox/README",
@@ -14022,11 +14040,20 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/musictex/musicdoc.dvi",
     "texmf-dist/doc/generic/musictex/musicref.dvi",
   },
-  ["mff"] = {
-    "texmf-dist/doc/latex/mff/mffdoc.dvi",
+  ["mpman-ru"] = {
+    "texmf-dist/doc/metapost/mpman-ru/Makefile",
+    "texmf-dist/doc/metapost/mpman-ru/README",
+    "texmf-dist/doc/metapost/mpman-ru/mpman-ru.pdf",
   },
   ["multirow"] = {
     "texmf-dist/doc/latex/multirow/README",
+  },
+  ["mff"] = {
+    "texmf-dist/doc/latex/mff/mffdoc.dvi",
+  },
+  ["multido"] = {
+    "texmf-dist/doc/generic/multido/Changes",
+    "texmf-dist/doc/generic/multido/multido.pdf",
   },
   ["latexdiff"] = {
     "texmf-dist/doc/latex/latexdiff/CHANGES",
@@ -14041,10 +14068,6 @@ local tlp_doclist = {
     "texmf/doc/man/man1/latexdiff.man1.pdf",
     "texmf/doc/man/man1/latexrevise.man1.pdf",
   },
-  ["multido"] = {
-    "texmf-dist/doc/generic/multido/Changes",
-    "texmf-dist/doc/generic/multido/multido.pdf",
-  },
   ["bbding"] = {
     "texmf-dist/doc/latex/bbding/README",
     "texmf-dist/doc/latex/bbding/bbding.pdf",
@@ -14053,11 +14076,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/munich/README",
     "texmf-dist/doc/latex/munich/documenation_munich_Bibtex_style.pdf",
     "texmf-dist/doc/latex/munich/example_munich_Bibtex_style.pdf",
-  },
-  ["mpman-ru"] = {
-    "texmf-dist/doc/metapost/mpman-ru/Makefile",
-    "texmf-dist/doc/metapost/mpman-ru/README",
-    "texmf-dist/doc/metapost/mpman-ru/mpman-ru.pdf",
   },
   ["mparhack"] = {
     "texmf-dist/doc/latex/mparhack/README",
@@ -14069,6 +14087,11 @@ local tlp_doclist = {
     "texmf-dist/doc/metapost/mp3d/paper1997corrected.pdf",
     "texmf-dist/doc/metapost/mp3d/tb57roeg.pdf",
     "texmf-dist/doc/metapost/mp3d/tugboat-geometry-space.pdf",
+  },
+  ["hepparticles"] = {
+    "texmf-dist/doc/latex/hepparticles/README",
+    "texmf-dist/doc/latex/hepparticles/hepparticles.pdf",
+    "texmf-dist/doc/latex/hepparticles/testhepparticles.pdf",
   },
   ["fltpage"] = {
     "texmf-dist/doc/latex/fltpage/fltpage.pdf",
@@ -14129,41 +14152,50 @@ local tlp_doclist = {
   ["oldstyle"] = {
     "texmf-dist/doc/latex/oldstyle/oldstyle.pdf",
   },
-  ["dot2texi"] = {
-    "texmf-dist/doc/latex/dot2texi/README",
-    "texmf-dist/doc/latex/dot2texi/dot2texi.pdf",
-    "texmf-dist/doc/latex/dot2texi/examples/d2tpstexamples.pdf",
-    "texmf-dist/doc/latex/dot2texi/examples/d2ttikzexamples.pdf",
-    "texmf-dist/doc/latex/dot2texi/examples/docgraphs.pdf",
-    "texmf-dist/doc/latex/dot2texi/examples/docgraphsorig.pdf",
-    "texmf-dist/doc/latex/dot2texi/gpl.txt",
-  },
   ["mltex"] = {
     "texmf-dist/doc/latex/mltex/README",
     "texmf-dist/doc/latex/mltex/mltex.txt",
     "texmf-dist/doc/latex/mltex/testmlft.dvi",
     "texmf-dist/doc/latex/mltex/testmlsw.dvi",
   },
-  ["ebezier"] = {
-    "texmf-dist/doc/latex/ebezier/ebezier.pdf",
-  },
   ["mlist"] = {
     "texmf-dist/doc/latex/mlist/README",
     "texmf-dist/doc/latex/mlist/mlist.pdf",
   },
+  ["ebezier"] = {
+    "texmf-dist/doc/latex/ebezier/ebezier.pdf",
+  },
   ["lhelp"] = {
     "texmf-dist/doc/latex/lhelp/lhelp.pdf",
   },
-  ["mfnfss"] = {
-    "texmf-dist/doc/latex/mfnfss/changes.txt",
-    "texmf-dist/doc/latex/mfnfss/manifest.txt",
-    "texmf-dist/doc/latex/mfnfss/readme.txt",
-  },
-  ["metalogo"] = {
-    "texmf-dist/doc/latex/metalogo/README",
-    "texmf-dist/doc/latex/metalogo/TeXoutline.pdf",
-    "texmf-dist/doc/latex/metalogo/eLaToutline.pdf",
-    "texmf-dist/doc/latex/metalogo/metalogo.pdf",
+  ["cmcyr"] = {
+    "texmf-dist/doc/fonts/cmcyr/README",
+    "texmf-dist/doc/fonts/cmcyr/cmalt",
+    "texmf-dist/doc/fonts/cmcyr/cmalte",
+    "texmf-dist/doc/fonts/cmcyr/cmiso",
+    "texmf-dist/doc/fonts/cmcyr/cmisoe",
+    "texmf-dist/doc/fonts/cmcyr/cmkde",
+    "texmf-dist/doc/fonts/cmcyr/cmkdee",
+    "texmf-dist/doc/fonts/cmcyr/cmkoi8",
+    "texmf-dist/doc/fonts/cmcyr/cmkoi8e",
+    "texmf-dist/doc/fonts/cmcyr/cmwin",
+    "texmf-dist/doc/fonts/cmcyr/cmwine",
+    "texmf-dist/doc/fonts/cmcyr/cyralt",
+    "texmf-dist/doc/fonts/cmcyr/cyralte",
+    "texmf-dist/doc/fonts/cmcyr/cyriso",
+    "texmf-dist/doc/fonts/cmcyr/cyrisoe",
+    "texmf-dist/doc/fonts/cmcyr/cyrkde",
+    "texmf-dist/doc/fonts/cmcyr/cyrkdee",
+    "texmf-dist/doc/fonts/cmcyr/cyrkoi8",
+    "texmf-dist/doc/fonts/cmcyr/cyrkoi8e",
+    "texmf-dist/doc/fonts/cmcyr/cyrwin",
+    "texmf-dist/doc/fonts/cmcyr/cyrwine",
+    "texmf-dist/doc/fonts/cmcyr/wncalt",
+    "texmf-dist/doc/fonts/cmcyr/wncalte",
+    "texmf-dist/doc/fonts/cmcyr/wnciso",
+    "texmf-dist/doc/fonts/cmcyr/wncisoe",
+    "texmf-dist/doc/fonts/cmcyr/wnckoi8",
+    "texmf-dist/doc/fonts/cmcyr/wnckoi8e",
   },
   ["svn"] = {
     "texmf-dist/doc/latex/svn/README",
@@ -14174,6 +14206,9 @@ local tlp_doclist = {
   },
   ["yplan"] = {
     "texmf-dist/doc/latex/yplan/yplan",
+  },
+  ["carolmin-ps"] = {
+    "texmf-dist/doc/fonts/carolmin-ps/README",
   },
   ["typespec"] = {
     "texmf-dist/doc/plain/typespec/TypeSpec.pdf",
@@ -14191,16 +14226,6 @@ local tlp_doclist = {
   ["moreverb"] = {
     "texmf-dist/doc/latex/moreverb/README",
     "texmf-dist/doc/latex/moreverb/moreverb.pdf",
-  },
-  ["hepthesis"] = {
-    "texmf-dist/doc/latex/hepthesis/ChangeLog",
-    "texmf-dist/doc/latex/hepthesis/README",
-    "texmf-dist/doc/latex/hepthesis/TODO",
-    "texmf-dist/doc/latex/hepthesis/example/Makefile",
-    "texmf-dist/doc/latex/hepthesis/example/ckmfitter-alpha-combined.pdf",
-    "texmf-dist/doc/latex/hepthesis/example/example.pdf",
-    "texmf-dist/doc/latex/hepthesis/example/lhcb-detector-cross-section.pdf",
-    "texmf-dist/doc/latex/hepthesis/hepthesis.pdf",
   },
   ["lfb"] = {
     "texmf-dist/doc/fonts/lfb/README",
@@ -14225,6 +14250,14 @@ local tlp_doclist = {
   },
   ["alg"] = {
     "texmf-dist/doc/latex/alg/readme.txt",
+  },
+  ["cm-super"] = {
+    "texmf-dist/doc/fonts/cm-super/COPYING",
+    "texmf-dist/doc/fonts/cm-super/ChangeLog",
+    "texmf-dist/doc/fonts/cm-super/FAQ",
+    "texmf-dist/doc/fonts/cm-super/INSTALL",
+    "texmf-dist/doc/fonts/cm-super/README",
+    "texmf-dist/doc/fonts/cm-super/TODO",
   },
   ["examplep"] = {
     "texmf-dist/doc/latex/examplep/README",
@@ -14262,6 +14295,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/miniplot/disclaimer.txt",
     "texmf-dist/doc/latex/miniplot/miniplot.dvi",
   },
+  ["minipage-marginpar"] = {
+    "texmf-dist/doc/latex/minipage-marginpar/README",
+    "texmf-dist/doc/latex/minipage-marginpar/minipage-marginpar.pdf",
+  },
   ["pst-bar"] = {
     "texmf-dist/doc/generic/pst-bar/README",
     "texmf-dist/doc/generic/pst-bar/pst-bar-doc.pdf",
@@ -14279,16 +14316,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/epslatex-fr/pretzel.ps",
     "texmf-dist/doc/latex/epslatex-fr/rosette.ps",
   },
-  ["fixfoot"] = {
-    "texmf-dist/doc/latex/fixfoot/README",
-    "texmf-dist/doc/latex/fixfoot/fixfoot.pdf",
-  },
   ["cmpica"] = {
     "texmf-dist/doc/latex/cmpica/README",
   },
-  ["mkpattern"] = {
-    "texmf-dist/doc/plain/mkpattern/README",
-    "texmf-dist/doc/plain/mkpattern/mkpatter.pdf",
+  ["mhchem"] = {
+    "texmf-dist/doc/latex/mhchem/legal.txt",
+    "texmf-dist/doc/latex/mhchem/mhchem.pdf",
   },
   ["mh"] = {
     "texmf-dist/doc/latex/mh/README",
@@ -14301,51 +14334,25 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/mh/mhsetup.pdf",
     "texmf-dist/doc/latex/mh/xfrac.pdf",
   },
-  ["cmcyr"] = {
-    "texmf-dist/doc/fonts/cmcyr/README",
-    "texmf-dist/doc/fonts/cmcyr/cmalt",
-    "texmf-dist/doc/fonts/cmcyr/cmalte",
-    "texmf-dist/doc/fonts/cmcyr/cmiso",
-    "texmf-dist/doc/fonts/cmcyr/cmisoe",
-    "texmf-dist/doc/fonts/cmcyr/cmkde",
-    "texmf-dist/doc/fonts/cmcyr/cmkdee",
-    "texmf-dist/doc/fonts/cmcyr/cmkoi8",
-    "texmf-dist/doc/fonts/cmcyr/cmkoi8e",
-    "texmf-dist/doc/fonts/cmcyr/cmwin",
-    "texmf-dist/doc/fonts/cmcyr/cmwine",
-    "texmf-dist/doc/fonts/cmcyr/cyralt",
-    "texmf-dist/doc/fonts/cmcyr/cyralte",
-    "texmf-dist/doc/fonts/cmcyr/cyriso",
-    "texmf-dist/doc/fonts/cmcyr/cyrisoe",
-    "texmf-dist/doc/fonts/cmcyr/cyrkde",
-    "texmf-dist/doc/fonts/cmcyr/cyrkdee",
-    "texmf-dist/doc/fonts/cmcyr/cyrkoi8",
-    "texmf-dist/doc/fonts/cmcyr/cyrkoi8e",
-    "texmf-dist/doc/fonts/cmcyr/cyrwin",
-    "texmf-dist/doc/fonts/cmcyr/cyrwine",
-    "texmf-dist/doc/fonts/cmcyr/wncalt",
-    "texmf-dist/doc/fonts/cmcyr/wncalte",
-    "texmf-dist/doc/fonts/cmcyr/wnciso",
-    "texmf-dist/doc/fonts/cmcyr/wncisoe",
-    "texmf-dist/doc/fonts/cmcyr/wnckoi8",
-    "texmf-dist/doc/fonts/cmcyr/wnckoi8e",
+  ["mkpattern"] = {
+    "texmf-dist/doc/plain/mkpattern/README",
+    "texmf-dist/doc/plain/mkpattern/mkpatter.pdf",
   },
   ["xnewcommand"] = {
     "texmf-dist/doc/latex/xnewcommand/README",
     "texmf-dist/doc/latex/xnewcommand/xnewcommand.pdf",
   },
-  ["cm-lgc"] = {
-    "texmf-dist/doc/latex/cm-lgc/COPYING",
-    "texmf-dist/doc/latex/cm-lgc/HISTORY",
-    "texmf-dist/doc/latex/cm-lgc/INSTALL",
-    "texmf-dist/doc/latex/cm-lgc/README",
+  ["circ"] = {
+    "texmf-dist/doc/latex/circ/COPYING",
+    "texmf-dist/doc/latex/circ/README",
+    "texmf-dist/doc/latex/circ/circ.pdf",
+    "texmf-dist/doc/latex/circ/circ.txt",
   },
   ["margbib"] = {
     "texmf-dist/doc/latex/margbib/margbib.pdf",
   },
-  ["bib-fr"] = {
-    "texmf-dist/doc/bibtex/bib-fr/CHANGELOG",
-    "texmf-dist/doc/bibtex/bib-fr/README",
+  ["astro"] = {
+    "texmf-dist/doc/fonts/astro/astrosym.txt",
   },
   ["makecell"] = {
     "texmf-dist/doc/latex/makecell/README",
@@ -14361,10 +14368,13 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/dvdcoll/dvdcoll_de.pdf",
     "texmf-dist/doc/latex/dvdcoll/manifest.txt",
   },
-  ["jura"] = {
-    "texmf-dist/doc/latex/jura/README",
-    "texmf-dist/doc/latex/jura/jura.pdf",
-    "texmf-dist/doc/latex/jura/jura2html",
+  ["mfware"] = {
+    "texmf/doc/man/man1/gftodvi.man1.pdf",
+    "texmf/doc/man/man1/gftopk.man1.pdf",
+    "texmf/doc/man/man1/gftype.man1.pdf",
+    "texmf/doc/man/man1/mft.man1.pdf",
+    "texmf/doc/man/man1/pktogf.man1.pdf",
+    "texmf/doc/man/man1/pktype.man1.pdf",
   },
   ["lshort-italian"] = {
     "texmf-dist/doc/latex/lshort-italian/CHANGES",
@@ -14377,9 +14387,13 @@ local tlp_doclist = {
   ["epiolmec"] = {
     "texmf-dist/doc/latex/epiolmec/GlyphAccessCommands.pdf",
   },
-  ["harmony"] = {
-    "texmf-dist/doc/latex/harmony/README",
-    "texmf-dist/doc/latex/harmony/harmony.pdf",
+  ["mfpic"] = {
+    "texmf-dist/doc/generic/mfpic/README",
+    "texmf-dist/doc/generic/mfpic/changes.txt",
+    "texmf-dist/doc/generic/mfpic/install.txt",
+    "texmf-dist/doc/generic/mfpic/mfpcard.pdf",
+    "texmf-dist/doc/generic/mfpic/mfpguide.pdf",
+    "texmf-dist/doc/generic/mfpic/mfpic-doc.pdf",
   },
   ["makebarcode"] = {
     "texmf-dist/doc/latex/makebarcode/License.txt",
@@ -14390,19 +14404,16 @@ local tlp_doclist = {
     "texmf-dist/doc/omega/antomega/README",
     "texmf-dist/doc/omega/antomega/antomega.pdf",
   },
-  ["mfpic"] = {
-    "texmf-dist/doc/generic/mfpic/README",
-    "texmf-dist/doc/generic/mfpic/changes.txt",
-    "texmf-dist/doc/generic/mfpic/install.txt",
-    "texmf-dist/doc/generic/mfpic/mfpcard.pdf",
-    "texmf-dist/doc/generic/mfpic/mfpguide.pdf",
-    "texmf-dist/doc/generic/mfpic/mfpic-doc.pdf",
-  },
-  ["mla-paper"] = {
-    "texmf-dist/doc/latex/mla-paper/README",
+  ["mfnfss"] = {
+    "texmf-dist/doc/latex/mfnfss/changes.txt",
+    "texmf-dist/doc/latex/mfnfss/manifest.txt",
+    "texmf-dist/doc/latex/mfnfss/readme.txt",
   },
   ["mflogo"] = {
     "texmf-dist/doc/latex/mflogo/mflogo.dvi",
+  },
+  ["mla-paper"] = {
+    "texmf-dist/doc/latex/mla-paper/README",
   },
   ["latex-web-companion"] = {
     "texmf-dist/doc/latex/latex-web-companion/apa/teched.html",
@@ -14458,16 +14469,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/dozenal/README",
     "texmf-dist/doc/fonts/dozenal/dozenal.pdf",
   },
-  ["exercise"] = {
-    "texmf-dist/doc/latex/exercise/README",
-    "texmf-dist/doc/latex/exercise/exercise.pdf",
-  },
-  ["lipsum"] = {
-    "texmf-dist/doc/latex/lipsum/lipsum.pdf",
-  },
-  ["eso-pic"] = {
-    "texmf-dist/doc/latex/eso-pic/eso-pic.pdf",
-  },
   ["coverpage"] = {
     "texmf-dist/doc/latex/coverpage/CoverPage.pdf",
     "texmf-dist/doc/latex/coverpage/ECCV06Sample.pdf",
@@ -14475,28 +14476,161 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/coverpage/SimpleSample.BibTeX.txt",
     "texmf-dist/doc/latex/coverpage/SimpleSample.pdf",
   },
-  ["circuitikz"] = {
-    "texmf-dist/doc/latex/circuitikz/CHANGELOG",
-    "texmf-dist/doc/latex/circuitikz/README",
-    "texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf",
-    "texmf-dist/doc/latex/circuitikz/context.pdf",
-  },
   ["method"] = {
     "texmf-dist/doc/latex/method/methtest.dvi",
   },
-  ["datenumber"] = {
-    "texmf-dist/doc/latex/datenumber/README.txt",
-    "texmf-dist/doc/latex/datenumber/doc.dvi",
-    "texmf-dist/doc/latex/datenumber/docgerman.dvi",
+  ["exercise"] = {
+    "texmf-dist/doc/latex/exercise/README",
+    "texmf-dist/doc/latex/exercise/exercise.pdf",
   },
   ["metatex"] = {
     "texmf-dist/doc/plain/metatex/README",
     "texmf-dist/doc/plain/metatex/gpl.txt",
     "texmf-dist/doc/plain/metatex/mtpaper.pdf",
   },
+  ["eso-pic"] = {
+    "texmf-dist/doc/latex/eso-pic/eso-pic.pdf",
+  },
+  ["circuitikz"] = {
+    "texmf-dist/doc/latex/circuitikz/CHANGELOG",
+    "texmf-dist/doc/latex/circuitikz/README",
+    "texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf",
+    "texmf-dist/doc/latex/circuitikz/context.pdf",
+  },
+  ["datenumber"] = {
+    "texmf-dist/doc/latex/datenumber/README.txt",
+    "texmf-dist/doc/latex/datenumber/doc.dvi",
+    "texmf-dist/doc/latex/datenumber/docgerman.dvi",
+  },
+  ["mciteplus"] = {
+    "texmf-dist/doc/latex/mciteplus/README",
+    "texmf-dist/doc/latex/mciteplus/changelog.txt",
+    "texmf-dist/doc/latex/mciteplus/mciteplus_code.txt",
+    "texmf-dist/doc/latex/mciteplus/mciteplus_doc.pdf",
+  },
+  ["cbcoptic"] = {
+    "texmf-dist/doc/latex/cbcoptic/README",
+    "texmf-dist/doc/latex/cbcoptic/coptfont.pdf",
+    "texmf-dist/doc/latex/cbcoptic/testcopOK.pdf",
+  },
+  ["draftcopy"] = {
+    "texmf-dist/doc/latex/draftcopy/README",
+    "texmf-dist/doc/latex/draftcopy/draftcopy.pdf",
+  },
+  ["bbm"] = {
+    "texmf-dist/doc/fonts/bbm/README",
+  },
   ["carlisle"] = {
     "texmf-dist/doc/latex/carlisle/README",
     "texmf-dist/doc/latex/carlisle/ltxtable.pdf",
+  },
+  ["cmap"] = {
+    "texmf-dist/doc/latex/cmap/README",
+  },
+  ["epsdice"] = {
+    "texmf-dist/doc/latex/epsdice/README",
+    "texmf-dist/doc/latex/epsdice/dice.pdf",
+    "texmf-dist/doc/latex/epsdice/epsdice.pdf",
+  },
+  ["pst-eps"] = {
+    "texmf-dist/doc/generic/pst-eps/Changes",
+    "texmf-dist/doc/generic/pst-eps/README",
+    "texmf-dist/doc/generic/pst-eps/pst-eps-doc.pdf",
+  },
+  ["dotarrow"] = {
+    "texmf-dist/doc/latex/dotarrow/DotArrow.pdf",
+    "texmf-dist/doc/latex/dotarrow/README",
+  },
+  ["eurofont"] = {
+    "texmf-dist/doc/fonts/eurofont/dvidrive.txt",
+    "texmf-dist/doc/fonts/eurofont/eurosamp.pdf",
+    "texmf-dist/doc/fonts/eurofont/eutest.dvi",
+    "texmf-dist/doc/fonts/eurofont/readme.txt",
+  },
+  ["gmverse"] = {
+    "texmf-dist/doc/latex/gmverse/README",
+    "texmf-dist/doc/latex/gmverse/gmverse.pdf",
+  },
+  ["fenixpar"] = {
+    "texmf-dist/doc/generic/fenixpar/README",
+  },
+  ["multibbl"] = {
+    "texmf-dist/doc/latex/multibbl/multibbl.pdf",
+  },
+  ["keycommand"] = {
+    "texmf-dist/doc/latex/keycommand/README",
+    "texmf-dist/doc/latex/keycommand/keycommand-example.pdf",
+    "texmf-dist/doc/latex/keycommand/keycommand.pdf",
+  },
+  ["custom-bib"] = {
+    "texmf-dist/doc/latex/custom-bib/makebst.pdf",
+    "texmf-dist/doc/latex/custom-bib/merlin.pdf",
+  },
+  ["concmath-fonts"] = {
+    "texmf-dist/doc/fonts/concmath-fonts/CATALOGUE",
+    "texmf-dist/doc/fonts/concmath-fonts/Makefile",
+    "texmf-dist/doc/fonts/concmath-fonts/README",
+  },
+  ["dvipdfm"] = {
+    "texmf/doc/dvipdfm/Makefile",
+    "texmf/doc/dvipdfm/dvipdfm.pdf",
+    "texmf/doc/dvipdfm/something.pdf",
+    "texmf/doc/dvipdfm/transistor.pdf",
+    "texmf/doc/man/man1/dvipdfm.man1.pdf",
+    "texmf/doc/man/man1/dvipdft.man1.pdf",
+    "texmf/doc/man/man1/ebb.man1.pdf",
+  },
+  ["guitlogo"] = {
+    "texmf-dist/doc/latex/guitlogo/README",
+    "texmf-dist/doc/latex/guitlogo/guit.pdf",
+    "texmf-dist/doc/latex/guitlogo/guittest.pdf",
+  },
+  ["jurarsp"] = {
+    "texmf-dist/doc/latex/jurarsp/README",
+    "texmf-dist/doc/latex/jurarsp/jurarsp.pdf",
+  },
+  ["junicode"] = {
+    "texmf-dist/doc/fonts/junicode/Junicode.pdf",
+    "texmf-dist/doc/fonts/junicode/License.pdf",
+    "texmf-dist/doc/fonts/junicode/README",
+    "texmf-dist/doc/fonts/junicode/aelfric_job.pdf",
+    "texmf-dist/doc/fonts/junicode/mufi.pdf",
+    "texmf-dist/doc/fonts/junicode/replacements",
+  },
+  ["footbib"] = {
+    "texmf-dist/doc/latex/footbib/README",
+    "texmf-dist/doc/latex/footbib/footbib.pdf",
+  },
+  ["bbold"] = {
+    "texmf-dist/doc/latex/bbold/INSTALL",
+    "texmf-dist/doc/latex/bbold/README",
+    "texmf-dist/doc/latex/bbold/bbold.pdf",
+  },
+  ["metafont"] = {
+    "texmf/doc/man/man1/mf-nowin.man1.pdf",
+    "texmf/doc/man/man1/mf.man1.pdf",
+  },
+  ["pdfcrop"] = {
+    "texmf-dist/doc/support/pdfcrop/README",
+  },
+  ["amsrefs"] = {
+    "texmf-dist/doc/latex/amsrefs/amsrdoc.pdf",
+    "texmf-dist/doc/latex/amsrefs/amsrefs.pdf",
+    "texmf-dist/doc/latex/amsrefs/amsxport.pdf",
+    "texmf-dist/doc/latex/amsrefs/changes.pdf",
+    "texmf-dist/doc/latex/amsrefs/cite-xa.pdf",
+    "texmf-dist/doc/latex/amsrefs/cite-xb.pdf",
+    "texmf-dist/doc/latex/amsrefs/cite-xh.pdf",
+    "texmf-dist/doc/latex/amsrefs/cite-xs.pdf",
+    "texmf-dist/doc/latex/amsrefs/ifoption.pdf",
+    "texmf-dist/doc/latex/amsrefs/mathscinet.pdf",
+    "texmf-dist/doc/latex/amsrefs/pcatcode.pdf",
+    "texmf-dist/doc/latex/amsrefs/rkeyval.pdf",
+    "texmf-dist/doc/latex/amsrefs/textcmds.pdf",
+  },
+  ["asaetr"] = {
+    "texmf-dist/doc/latex/asaetr/MANIFEST",
+    "texmf-dist/doc/latex/asaetr/asaetr.pdf",
   },
   ["mdwtools"] = {
     "texmf-dist/doc/latex/mdwtools/COPYING",
@@ -14511,107 +14645,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/mdwtools/sverb.pdf",
     "texmf-dist/doc/latex/mdwtools/syntax.pdf",
   },
-  ["eiad"] = {
-    "texmf-dist/doc/fonts/eiad/Leigh_me.txt",
-    "texmf-dist/doc/fonts/eiad/amhrawn.pdf",
-    "texmf-dist/doc/fonts/eiad/evening.pdf",
-    "texmf-dist/doc/fonts/eiad/micheal.ps",
-    "texmf-dist/doc/fonts/eiad/recreat.pdf",
-  },
-  ["epsdice"] = {
-    "texmf-dist/doc/latex/epsdice/README",
-    "texmf-dist/doc/latex/epsdice/dice.pdf",
-    "texmf-dist/doc/latex/epsdice/epsdice.pdf",
-  },
-  ["pst-eps"] = {
-    "texmf-dist/doc/generic/pst-eps/Changes",
-    "texmf-dist/doc/generic/pst-eps/README",
-    "texmf-dist/doc/generic/pst-eps/pst-eps-doc.pdf",
-  },
-  ["bbm"] = {
-    "texmf-dist/doc/fonts/bbm/README",
-  },
-  ["eurofont"] = {
-    "texmf-dist/doc/fonts/eurofont/dvidrive.txt",
-    "texmf-dist/doc/fonts/eurofont/eurosamp.pdf",
-    "texmf-dist/doc/fonts/eurofont/eutest.dvi",
-    "texmf-dist/doc/fonts/eurofont/readme.txt",
-  },
-  ["jpsj"] = {
-    "texmf-dist/doc/latex/jpsj/injpsj2.pdf",
-  },
-  ["gmverse"] = {
-    "texmf-dist/doc/latex/gmverse/README",
-    "texmf-dist/doc/latex/gmverse/gmverse.pdf",
-  },
-  ["dotarrow"] = {
-    "texmf-dist/doc/latex/dotarrow/DotArrow.pdf",
-    "texmf-dist/doc/latex/dotarrow/README",
-  },
-  ["multibbl"] = {
-    "texmf-dist/doc/latex/multibbl/multibbl.pdf",
-  },
-  ["keycommand"] = {
-    "texmf-dist/doc/latex/keycommand/README",
-    "texmf-dist/doc/latex/keycommand/keycommand-example.pdf",
-    "texmf-dist/doc/latex/keycommand/keycommand.pdf",
-  },
-  ["dvipdfm"] = {
-    "texmf/doc/dvipdfm/Makefile",
-    "texmf/doc/dvipdfm/dvipdfm.pdf",
-    "texmf/doc/dvipdfm/something.pdf",
-    "texmf/doc/dvipdfm/transistor.pdf",
-    "texmf/doc/man/man1/dvipdfm.man1.pdf",
-    "texmf/doc/man/man1/dvipdft.man1.pdf",
-    "texmf/doc/man/man1/ebb.man1.pdf",
-  },
-  ["custom-bib"] = {
-    "texmf-dist/doc/latex/custom-bib/makebst.pdf",
-    "texmf-dist/doc/latex/custom-bib/merlin.pdf",
-  },
-  ["guitlogo"] = {
-    "texmf-dist/doc/latex/guitlogo/README",
-    "texmf-dist/doc/latex/guitlogo/guit.pdf",
-    "texmf-dist/doc/latex/guitlogo/guittest.pdf",
-  },
-  ["junicode"] = {
-    "texmf-dist/doc/fonts/junicode/Junicode.pdf",
-    "texmf-dist/doc/fonts/junicode/License.pdf",
-    "texmf-dist/doc/fonts/junicode/README",
-    "texmf-dist/doc/fonts/junicode/aelfric_job.pdf",
-    "texmf-dist/doc/fonts/junicode/mufi.pdf",
-    "texmf-dist/doc/fonts/junicode/replacements",
-  },
-  ["footbib"] = {
-    "texmf-dist/doc/latex/footbib/README",
-    "texmf-dist/doc/latex/footbib/footbib.pdf",
-  },
-  ["dehyph-exptl"] = {
-    "texmf-dist/doc/generic/dehyph-exptl/CHANGES",
-    "texmf-dist/doc/generic/dehyph-exptl/INSTALL",
-    "texmf-dist/doc/generic/dehyph-exptl/LICENSE",
-    "texmf-dist/doc/generic/dehyph-exptl/README",
-    "texmf-dist/doc/generic/dehyph-exptl/dehyph-exptl.pdf",
-    "texmf-dist/doc/generic/dehyph-exptl/projektbeschreibung.pdf",
-  },
-  ["pdfcrop"] = {
-    "texmf-dist/doc/support/pdfcrop/README",
-  },
-  ["metafont"] = {
-    "texmf/doc/man/man1/mf-nowin.man1.pdf",
-    "texmf/doc/man/man1/mf.man1.pdf",
-  },
-  ["asaetr"] = {
-    "texmf-dist/doc/latex/asaetr/MANIFEST",
-    "texmf-dist/doc/latex/asaetr/asaetr.pdf",
-  },
-  ["changepage"] = {
-    "texmf-dist/doc/latex/changepage/README",
-    "texmf-dist/doc/latex/changepage/changepage.pdf",
-  },
   ["colorwav"] = {
     "texmf-dist/doc/latex/colorwav/README",
     "texmf-dist/doc/latex/colorwav/colorwav.pdf",
+  },
+  ["mceinleger"] = {
+    "texmf-dist/doc/latex/mceinleger/mceinleger.pdf",
   },
   ["dvipos"] = {
     "texmf/doc/man/man1/dvipos.man1.pdf",
@@ -14622,11 +14661,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/mfpic4ode/demo/demo.pdf",
     "texmf-dist/doc/latex/mfpic4ode/mfpic4ode.pdf",
   },
-  ["mciteplus"] = {
-    "texmf-dist/doc/latex/mciteplus/README",
-    "texmf-dist/doc/latex/mciteplus/changelog.txt",
-    "texmf-dist/doc/latex/mciteplus/mciteplus_code.txt",
-    "texmf-dist/doc/latex/mciteplus/mciteplus_doc.pdf",
+  ["mcaption"] = {
+    "texmf-dist/doc/latex/mcaption/CHANGES",
+    "texmf-dist/doc/latex/mcaption/README",
+    "texmf-dist/doc/latex/mcaption/mcaption.pdf",
+  },
+  ["maybemath"] = {
+    "texmf-dist/doc/latex/maybemath/README",
+    "texmf-dist/doc/latex/maybemath/maybemath.pdf",
   },
   ["logpap"] = {
     "texmf-dist/doc/latex/logpap/README",
@@ -14638,17 +14680,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/mafr/README",
     "texmf-dist/doc/latex/mafr/docmafr.pdf",
   },
-  ["mceinleger"] = {
-    "texmf-dist/doc/latex/mceinleger/mceinleger.pdf",
+  ["mattens"] = {
+    "texmf-dist/doc/latex/mattens/README",
+    "texmf-dist/doc/latex/mattens/mattens.pdf",
+    "texmf-dist/doc/latex/mattens/mattens_sample.pdf",
   },
-  ["mcaption"] = {
-    "texmf-dist/doc/latex/mcaption/CHANGES",
-    "texmf-dist/doc/latex/mcaption/README",
-    "texmf-dist/doc/latex/mcaption/mcaption.pdf",
-  },
-  ["maybemath"] = {
-    "texmf-dist/doc/latex/maybemath/README",
-    "texmf-dist/doc/latex/maybemath/maybemath.pdf",
+  ["mathspec"] = {
+    "texmf-dist/doc/xelatex/mathspec/README",
+    "texmf-dist/doc/xelatex/mathspec/mathspec.pdf",
   },
   ["fundus"] = {
     "texmf-dist/doc/latex/fundus/calligra.dvi",
@@ -14673,8 +14712,8 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/epigrafica/README",
     "texmf-dist/doc/fonts/epigrafica/epigrafica.pdf",
   },
-  ["hfbright"] = {
-    "texmf-dist/doc/fonts/hfbright/README",
+  ["easy"] = {
+    "texmf-dist/doc/latex/easy/README",
   },
   ["active-conf"] = {
     "texmf-dist/doc/latex/active-conf/README",
@@ -14687,28 +14726,30 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/eepic/fig2eepic/readme",
     "texmf-dist/doc/latex/eepic/readme",
   },
-  ["mathspec"] = {
-    "texmf-dist/doc/xelatex/mathspec/README",
-    "texmf-dist/doc/xelatex/mathspec/mathspec.pdf",
+  ["mathdesign"] = {
+    "texmf-dist/doc/latex/mathdesign/MD-adobe-utopia-doc.pdf",
+    "texmf-dist/doc/latex/mathdesign/MD-adobe-utopia-example.pdf",
+    "texmf-dist/doc/latex/mathdesign/MD-bitstream-charter-doc.pdf",
+    "texmf-dist/doc/latex/mathdesign/MD-bitstream-charter-example.pdf",
+    "texmf-dist/doc/latex/mathdesign/MD-urw-garamond-doc.pdf",
+    "texmf-dist/doc/latex/mathdesign/MD-urw-garamond-example.pdf",
+    "texmf-dist/doc/latex/mathdesign/README",
+    "texmf-dist/doc/latex/mathdesign/mathdesign-doc.pdf",
+    "texmf-dist/doc/latex/mathdesign/mdbch/MD-bitstream-charter-doc.pdf",
+    "texmf-dist/doc/latex/mathdesign/mdput/MD-adobe-utopia-doc.pdf",
+    "texmf-dist/doc/latex/mathdesign/mdugm/MD-urw-garamond-doc.pdf",
   },
   ["gauss"] = {
     "texmf-dist/doc/latex/gauss/gauss-doc.dvi",
     "texmf-dist/doc/latex/gauss/gauss-ex.dvi",
     "texmf-dist/doc/latex/gauss/readme.txt",
   },
-  ["marvosym"] = {
-    "texmf-dist/doc/fonts/marvosym/LICENSE",
-    "texmf-dist/doc/fonts/marvosym/PROBLEMS",
-    "texmf-dist/doc/fonts/marvosym/README",
-    "texmf-dist/doc/fonts/marvosym/mac/docs/textures",
-    "texmf-dist/doc/fonts/marvosym/mac/oztex/configs/addmarvo",
-    "texmf-dist/doc/fonts/marvosym/mac/oztex/ps-files/readme.txt",
-    "texmf-dist/doc/fonts/marvosym/mac/readme.txt",
-    "texmf-dist/doc/fonts/marvosym/marvodoc.pdf",
-    "texmf-dist/doc/fonts/marvosym/vtex/install.txt",
-  },
   ["lastpage"] = {
     "texmf-dist/doc/latex/lastpage/lastpage.pdf",
+  },
+  ["cd-cover"] = {
+    "texmf-dist/doc/latex/cd-cover/README",
+    "texmf-dist/doc/latex/cd-cover/cd-cover.pdf",
   },
   ["amslatex-primer"] = {
     "texmf-dist/doc/latex/amslatex-primer/README",
@@ -14731,17 +14772,37 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/anyfontsize/README",
     "texmf-dist/doc/latex/anyfontsize/anyfontsize.pdf",
   },
-  ["abstract"] = {
-    "texmf-dist/doc/latex/abstract/README",
-    "texmf-dist/doc/latex/abstract/abstract.pdf",
+  ["fancytooltips"] = {
+    "texmf-dist/doc/latex/fancytooltips/README",
+    "texmf-dist/doc/latex/fancytooltips/examples/example-dvips.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/example-min-dvips.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/example-min.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/example.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/tecna2.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/logo.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/tooltips2html.html",
+    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/tooltips2html.pdf",
+    "texmf-dist/doc/latex/fancytooltips/examples/tex4ht/tooltips2html2.html",
+    "texmf-dist/doc/latex/fancytooltips/examples/tooltipy.pdf",
+    "texmf-dist/doc/latex/fancytooltips/fancytooltips.pdf",
+    "texmf-dist/doc/latex/fancytooltips/tip.pdf",
+  },
+  ["knitting"] = {
+    "texmf-dist/doc/fonts/knitting/README",
+    "texmf-dist/doc/fonts/knitting/knitting-doc.pdf",
   },
   ["automata"] = {
     "texmf-dist/doc/metapost/automata/README",
     "texmf-dist/doc/metapost/automata/example.pdf",
   },
-  ["fltpoint"] = {
-    "texmf-dist/doc/generic/fltpoint/README",
-    "texmf-dist/doc/generic/fltpoint/fltpoint.pdf",
+  ["abstract"] = {
+    "texmf-dist/doc/latex/abstract/README",
+    "texmf-dist/doc/latex/abstract/abstract.pdf",
+  },
+  ["bibtex8"] = {
+    "texmf/doc/bibtex8/00readme.txt",
+    "texmf/doc/bibtex8/HISTORY",
+    "texmf/doc/bibtex8/csfile.txt",
   },
   ["beamer-tut-pt"] = {
     "texmf-dist/doc/latex/beamer-tut-pt/AnnArbor1.ps",
@@ -14765,6 +14826,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/beamer-tut-pt/montpellier2.ps",
     "texmf-dist/doc/latex/beamer-tut-pt/tutorialbeamer.pdf",
   },
+  ["makeindex"] = {
+    "texmf-dist/doc/support/makeindex/ind.pdf",
+    "texmf-dist/doc/support/makeindex/makeindex.pdf",
+    "texmf/doc/man/man1/makeindex.man1.pdf",
+    "texmf/doc/man/man1/mkindex.man1.pdf",
+  },
   ["gmdoc-enhance"] = {
     "texmf-dist/doc/latex/gmdoc-enhance/README",
     "texmf-dist/doc/latex/gmdoc-enhance/gmdoc-enhance.pdf",
@@ -14779,12 +14846,19 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/appendix/README",
     "texmf-dist/doc/latex/appendix/appendix.pdf",
   },
+  ["beamer-fuberlin"] = {
+    "texmf-dist/doc/latex/beamer-FUBerlin/Changes",
+    "texmf-dist/doc/latex/beamer-FUBerlin/FUlogo.pdf",
+    "texmf-dist/doc/latex/beamer-FUBerlin/README",
+    "texmf-dist/doc/latex/beamer-FUBerlin/exampleClass.pdf",
+    "texmf-dist/doc/latex/beamer-FUBerlin/exampleTheme.pdf",
+  },
   ["lgreek"] = {
     "texmf-dist/doc/latex/lgreek/README",
   },
-  ["lxfonts"] = {
-    "texmf-dist/doc/fonts/lxfonts/LXfonts-demo.pdf",
-    "texmf-dist/doc/fonts/lxfonts/manifest",
+  ["biblist"] = {
+    "texmf-dist/doc/latex/biblist/README",
+    "texmf-dist/doc/latex/biblist/biblist.pdf",
   },
   ["biblatex-chem"] = {
     "texmf-dist/doc/latex/biblatex-contrib/biblatex-chem/README",
@@ -14818,14 +14892,6 @@ local tlp_doclist = {
     "texmf-dist/doc/metapost/slideshow/sshowex3.pdf",
     "texmf-dist/doc/metapost/slideshow/sshowintro.pdf",
   },
-  ["gene-logic"] = {
-    "texmf-dist/doc/latex/gene-logic/gn-logic14.pdf",
-  },
-  ["ean13isbn"] = {
-    "texmf-dist/doc/latex/ean13isbn/License.txt",
-    "texmf-dist/doc/latex/ean13isbn/README",
-    "texmf-dist/doc/latex/ean13isbn/ean13isbn.pdf",
-  },
   ["etaremune"] = {
     "texmf-dist/doc/latex/etaremune/README",
     "texmf-dist/doc/latex/etaremune/etaremune.pdf",
@@ -14851,36 +14917,31 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ltxindex/copying.txt",
     "texmf-dist/doc/latex/ltxindex/ltxindex.pdf",
   },
+  ["ltxdockit"] = {
+    "texmf-dist/doc/latex/ltxdockit/README",
+  },
   ["listbib"] = {
     "texmf-dist/doc/latex/listbib/listbib.dvi",
   },
-  ["ltxdockit"] = {
-    "texmf-dist/doc/latex/ltxdockit/README",
+  ["lcyw"] = {
+    "texmf-dist/doc/latex/lcyw/README",
+    "texmf-dist/doc/latex/lcyw/lcyw.pdf",
   },
   ["numname"] = {
     "texmf-dist/doc/latex/numname/README",
   },
-  ["lshort-vietnamese"] = {
-    "texmf-dist/doc/latex/lshort-vietnamese/README",
-    "texmf-dist/doc/latex/lshort-vietnamese/lshort-vi.pdf",
-    "texmf-dist/doc/latex/lshort-vietnamese/src/LocalVariables",
-    "texmf-dist/doc/latex/lshort-vietnamese/src/Makefile",
-    "texmf-dist/doc/latex/lshort-vietnamese/src/README.txt",
-  },
-  ["lshort-spanish"] = {
-    "texmf-dist/doc/latex/lshort-spanish/fuente/CAMBIOS",
-    "texmf-dist/doc/latex/lshort-spanish/fuente/MANIFEST",
-    "texmf-dist/doc/latex/lshort-spanish/fuente/Makefile",
-    "texmf-dist/doc/latex/lshort-spanish/lshort.pdf",
+  ["antt"] = {
+    "texmf-dist/doc/fonts/antt/AntykwaTorunska-doc-en-2_03.pdf",
+    "texmf-dist/doc/fonts/antt/AntykwaTorunska-doc-pl-2_03.pdf",
+    "texmf-dist/doc/fonts/antt/GUST-FONT-NOSOURCE-LICENSE.txt",
+    "texmf-dist/doc/fonts/antt/MANIFEST.txt",
+    "texmf-dist/doc/fonts/antt/README",
+    "texmf-dist/doc/latex/antt/README",
   },
   ["pst-3dplot"] = {
     "texmf-dist/doc/generic/pst-3dplot/Changes",
     "texmf-dist/doc/generic/pst-3dplot/README",
     "texmf-dist/doc/generic/pst-3dplot/pst-3dplot-doc.pdf",
-  },
-  ["docmfp"] = {
-    "texmf-dist/doc/latex/docmfp/README",
-    "texmf-dist/doc/latex/docmfp/docmfp.pdf",
   },
   ["lshort-slovenian"] = {
     "texmf-dist/doc/latex/lshort-slovenian/README",
@@ -14894,11 +14955,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/tengwarscript/tengtest.pdf",
     "texmf-dist/doc/latex/tengwarscript/tengwarscript.pdf",
   },
-  ["ionumbers"] = {
-    "texmf-dist/doc/latex/ionumbers/COPYING",
-    "texmf-dist/doc/latex/ionumbers/README",
-    "texmf-dist/doc/latex/ionumbers/ionumbers.pdf",
-    "texmf-dist/doc/latex/ionumbers/ionumbers_test.pdf",
+  ["12many"] = {
+    "texmf-dist/doc/latex/12many/12many.pdf",
+    "texmf-dist/doc/latex/12many/README",
   },
   ["circle"] = {
     "texmf-dist/doc/latex/circle/circle.pdf",
@@ -14911,6 +14970,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/rtklage/README",
     "texmf-dist/doc/latex/rtklage/rtklage.pdf",
   },
+  ["context-ruby"] = {
+    "texmf-dist/doc/context/third/ruby/README",
+  },
+  ["fontch"] = {
+    "texmf-dist/doc/plain/fontch/README",
+  },
   ["lshort-german"] = {
     "texmf-dist/doc/latex/lshort-german/CHANGES",
     "texmf-dist/doc/latex/lshort-german/LaTeX2e-Kurzbeschreibung",
@@ -14918,16 +14983,17 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/lshort-german/l2kurz.pdf",
     "texmf-dist/doc/latex/lshort-german/l2kurz2.pdf",
   },
-  ["fontch"] = {
-    "texmf-dist/doc/plain/fontch/README",
-  },
-  ["lshort-bulgarian"] = {
-    "texmf-dist/doc/latex/lshort-bulgarian/README",
-    "texmf-dist/doc/latex/lshort-bulgarian/lshort-bg.pdf",
+  ["lshort-english"] = {
+    "texmf-dist/doc/latex/lshort-english/CHANGES",
+    "texmf-dist/doc/latex/lshort-english/README",
+    "texmf-dist/doc/latex/lshort-english/lshort.pdf",
   },
   ["xmpincl"] = {
     "texmf-dist/doc/latex/xmpincl/README",
     "texmf-dist/doc/latex/xmpincl/xmpincl.pdf",
+  },
+  ["polyglot"] = {
+    "texmf-dist/doc/latex/polyglot/sample.dvi",
   },
   ["lm"] = {
     "texmf-dist/doc/fonts/lm/GUST-FONT-LICENSE.TXT",
@@ -14941,28 +15007,34 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/lm/tstlmt1.pdf",
     "texmf-dist/doc/fonts/lm/tstlmts1.pdf",
   },
-  ["polyglot"] = {
-    "texmf-dist/doc/latex/polyglot/sample.dvi",
+  ["gb4e"] = {
+    "texmf-dist/doc/latex/gb4e/README",
+    "texmf-dist/doc/latex/gb4e/gb4e-doc.pdf",
   },
   ["liturg"] = {
     "texmf-dist/doc/latex/liturg/README",
     "texmf-dist/doc/latex/liturg/liturg.pdf",
-  },
-  ["gb4e"] = {
-    "texmf-dist/doc/latex/gb4e/README",
-    "texmf-dist/doc/latex/gb4e/gb4e-doc.pdf",
   },
   ["bgreek"] = {
     "texmf-dist/doc/latex/bgreek/MANIFEST.TXT",
     "texmf-dist/doc/latex/bgreek/README",
     "texmf-dist/doc/latex/bgreek/bgman.pdf",
   },
+  ["lithuanian"] = {
+    "texmf-dist/doc/latex/lithuanian/COPYING",
+    "texmf-dist/doc/latex/lithuanian/ChangeLog",
+    "texmf-dist/doc/latex/lithuanian/Copyright",
+    "texmf-dist/doc/latex/lithuanian/latin7x.pdf",
+    "texmf-dist/doc/latex/lithuanian/makeLT.html",
+  },
+  ["fig4latex"] = {
+    "texmf-dist/doc/support/fig4latex/CHANGES",
+    "texmf-dist/doc/support/fig4latex/COPYING",
+    "texmf-dist/doc/support/fig4latex/README",
+    "texmf-dist/doc/support/fig4latex/example.pdf",
+  },
   ["twoinone"] = {
     "texmf-dist/doc/latex/twoinone/twoinone.pdf",
-  },
-  ["dramatist"] = {
-    "texmf-dist/doc/latex/dramatist/README",
-    "texmf-dist/doc/latex/dramatist/dramatist.pdf",
   },
   ["tex-virtual-academy-pl"] = {
     "texmf-dist/doc/generic/tex-virtual-academy-pl/TeX-pub.html",
@@ -15221,9 +15293,6 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/tex-virtual-academy-pl/tex/tex_key.html",
     "texmf-dist/doc/generic/tex-virtual-academy-pl/tex/tryby.html",
   },
-  ["context-ruby"] = {
-    "texmf-dist/doc/context/third/ruby/README",
-  },
   ["mathcomp"] = {
     "texmf-dist/doc/latex/mathcomp/mathcomp.pdf",
   },
@@ -15234,34 +15303,26 @@ local tlp_doclist = {
     "texmf-dist/doc/metapost/piechartmp/examples/wec-mfun.pdf",
     "texmf-dist/doc/metapost/piechartmp/examples/wec.pdf",
   },
-  ["lineno"] = {
-    "texmf-dist/doc/latex/lineno/CHANGES.txt",
-    "texmf-dist/doc/latex/lineno/COPYING.txt",
-    "texmf-dist/doc/latex/lineno/README.txt",
-    "texmf-dist/doc/latex/lineno/lineno.pdf",
-    "texmf-dist/doc/latex/lineno/lnosuppl.pdf",
-    "texmf-dist/doc/latex/lineno/ulineno.pdf",
+  ["lipsum"] = {
+    "texmf-dist/doc/latex/lipsum/lipsum.pdf",
   },
   ["technics"] = {
     "texmf-dist/doc/latex/technics/technics.pdf",
+  },
+  ["cmarrows"] = {
+    "texmf-dist/doc/metapost/cmarrows/README",
+    "texmf-dist/doc/metapost/cmarrows/cmarrows.pdf",
   },
   ["lh"] = {
     "texmf-dist/doc/fonts/lh/README",
     "texmf-dist/doc/fonts/lh/install",
     "texmf-dist/doc/fonts/lh/manifest.txt",
   },
-  ["astro"] = {
-    "texmf-dist/doc/fonts/astro/astrosym.txt",
-  },
-  ["levy"] = {
-    "texmf-dist/doc/fonts/levy/00readme.txt",
-    "texmf-dist/doc/fonts/levy/makeall",
-    "texmf-dist/doc/fonts/levy/makefont",
-    "texmf-dist/doc/fonts/levy/testfont",
-    "texmf-dist/doc/fonts/levy/todo.txt",
-  },
-  ["dvicopy"] = {
-    "texmf/doc/man/man1/dvicopy.man1.pdf",
+  ["gfsbaskerville"] = {
+    "texmf-dist/doc/fonts/gfsbaskerville/OFL-FAQ.txt",
+    "texmf-dist/doc/fonts/gfsbaskerville/OFL.txt",
+    "texmf-dist/doc/fonts/gfsbaskerville/README",
+    "texmf-dist/doc/fonts/gfsbaskerville/gfsbaskerville.pdf",
   },
   ["es-tex-faq"] = {
     "texmf-dist/doc/generic/es-tex-faq/FAQ-CervanTeX.html",
@@ -15303,23 +15364,14 @@ local tlp_doclist = {
     "texmf-dist/doc/support/asymptote-faq-zh-cn/src/figures/8-9a.pdf",
     "texmf-dist/doc/support/asymptote-faq-zh-cn/src/figures/8-9b.pdf",
   },
-  ["advdate"] = {
-    "texmf-dist/doc/latex/advdate/advdate.pdf",
-  },
   ["iso"] = {
     "texmf-dist/doc/latex/iso/README",
     "texmf-dist/doc/latex/iso/iso4ht.pdf",
     "texmf-dist/doc/latex/iso/isoe.pdf",
     "texmf-dist/doc/latex/iso/isoman.pdf",
   },
-  ["gmutils"] = {
-    "texmf-dist/doc/latex/gmutils/README",
-    "texmf-dist/doc/latex/gmutils/gmutils.pdf",
-  },
-  ["layouts"] = {
-    "texmf-dist/doc/latex/layouts/README",
-    "texmf-dist/doc/latex/layouts/layman.pdf",
-    "texmf-dist/doc/latex/layouts/layouts.pdf",
+  ["lazylist"] = {
+    "texmf-dist/doc/latex/lazylist/lazylist.dvi",
   },
   ["stellenbosch"] = {
     "texmf-dist/doc/latex/stellenbosch/CHANGELOG",
@@ -15334,6 +15386,12 @@ local tlp_doclist = {
   ["pdftools"] = {
     "texmf/doc/man/man1/e2pall.man1.pdf",
     "texmf/doc/man/man1/pdftosrc.man1.pdf",
+  },
+  ["assignment"] = {
+    "texmf-dist/doc/latex/assignment/Changelog",
+    "texmf-dist/doc/latex/assignment/LICENSE",
+    "texmf-dist/doc/latex/assignment/README",
+    "texmf-dist/doc/latex/assignment/assignment.pdf",
   },
   ["functan"] = {
     "texmf-dist/doc/latex/functan/README",
@@ -15351,6 +15409,11 @@ local tlp_doclist = {
   ["lexikon"] = {
     "texmf-dist/doc/latex/lexikon/lexikon.dvi",
   },
+  ["gost"] = {
+    "texmf-dist/doc/bibtex/gost/README",
+    "texmf-dist/doc/bibtex/gost/gost71.pdf",
+    "texmf-dist/doc/bibtex/gost/gost780.pdf",
+  },
   ["typehtml"] = {
     "texmf-dist/doc/latex/typehtml/README",
     "texmf-dist/doc/latex/typehtml/typehtml.pdf",
@@ -15359,15 +15422,17 @@ local tlp_doclist = {
     "texmf-dist/doc/context/third/typearea/typearea-demo.pdf",
     "texmf-dist/doc/context/third/typearea/typearea-doc.pdf",
   },
-  ["bardiag"] = {
-    "texmf-dist/doc/latex/bardiag/README",
-    "texmf-dist/doc/latex/bardiag/bardiag.ps",
-    "texmf-dist/doc/latex/bardiag/bardiag1.ps",
-    "texmf-dist/doc/latex/bardiag/bardiag2.ps",
-    "texmf-dist/doc/latex/bardiag/example/altdiags.ps",
-    "texmf-dist/doc/latex/bardiag/example/diagrams.dvi",
-    "texmf-dist/doc/latex/bardiag/example/diagrams.ps",
-    "texmf-dist/doc/latex/bardiag/example/diagramsbw.ps",
+  ["hyphen-greek"] = {
+    "texmf/doc/generic/elhyphen/README",
+    "texmf/doc/generic/elhyphen/anc-test.pdf",
+    "texmf/doc/generic/elhyphen/ancient.pdf",
+    "texmf/doc/generic/elhyphen/compound.pdf",
+    "texmf/doc/generic/elhyphen/copyrite.txt",
+    "texmf/doc/generic/elhyphen/modern.pdf",
+  },
+  ["acmconf"] = {
+    "texmf-dist/doc/latex/acmconf/README",
+    "texmf-dist/doc/latex/acmconf/acmconf.pdf",
   },
   ["anonchap"] = {
     "texmf-dist/doc/latex/anonchap/anonchap.pdf",
@@ -15390,31 +15455,21 @@ local tlp_doclist = {
   ["endnotes"] = {
     "texmf-dist/doc/latex/endnotes/endnotes.pdf",
   },
-  ["graphicx-psmin"] = {
-    "texmf-dist/doc/latex/graphicx-psmin/README",
-    "texmf-dist/doc/latex/graphicx-psmin/graphicx-psmin.pdf",
-  },
   ["fink"] = {
     "texmf-dist/doc/latex/fink/NEWS",
     "texmf-dist/doc/latex/fink/README",
     "texmf-dist/doc/latex/fink/THANKS",
     "texmf-dist/doc/latex/fink/fink.pdf",
   },
+  ["latexcheat-ptbr"] = {
+    "texmf-dist/doc/latex/latexcheat-ptbr/README-ptbr",
+    "texmf-dist/doc/latex/latexcheat-ptbr/latexsheet-ptbr.pdf",
+  },
   ["seminar"] = {
     "texmf-dist/doc/latex/seminar/sem-user.pdf",
   },
-  ["cleveref"] = {
-    "texmf-dist/doc/latex/cleveref/README",
-    "texmf-dist/doc/latex/cleveref/cleveref.pdf",
-  },
-  ["latex2man"] = {
-    "texmf-dist/doc/support/latex2man/CHANGES",
-    "texmf-dist/doc/support/latex2man/INSTALL",
-    "texmf-dist/doc/support/latex2man/Makefile",
-    "texmf-dist/doc/support/latex2man/README",
-    "texmf-dist/doc/support/latex2man/latex2man.html",
-    "texmf-dist/doc/support/latex2man/latex2man.pdf",
-    "texmf-dist/doc/support/latex2man/latex2man.txt",
+  ["jpsj"] = {
+    "texmf-dist/doc/latex/jpsj/injpsj2.pdf",
   },
   ["placeins"] = {
     "texmf-dist/doc/latex/placeins/placeins.txt",
@@ -15447,6 +15502,12 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/thuthesis/example/shuji.pdf",
     "texmf-dist/doc/latex/thuthesis/thuthesis.pdf",
   },
+  ["datetime"] = {
+    "texmf-dist/doc/latex/datetime/CHANGES",
+    "texmf-dist/doc/latex/datetime/README",
+    "texmf-dist/doc/latex/datetime/datetime-manual.html",
+    "texmf-dist/doc/latex/datetime/datetime.pdf",
+  },
   ["faktor"] = {
     "texmf-dist/doc/latex/faktor/README",
     "texmf-dist/doc/latex/faktor/faktor.pdf",
@@ -15463,10 +15524,6 @@ local tlp_doclist = {
     "texmf/doc/man/man1/latex.man1.pdf",
     "texmf/doc/man/man1/pdflatex.man1.pdf",
   },
-  ["flagderiv"] = {
-    "texmf-dist/doc/latex/flagderiv/README",
-    "texmf-dist/doc/latex/flagderiv/flagderiv.pdf",
-  },
   ["fragmaster"] = {
     "texmf-dist/doc/support/fragmaster/AUTHORS",
     "texmf-dist/doc/support/fragmaster/COPYING",
@@ -15477,11 +15534,6 @@ local tlp_doclist = {
     "texmf-dist/doc/support/fragmaster/example/parabel.pdf",
     "texmf-dist/doc/support/fragmaster/example/parabel_fm",
     "texmf-dist/doc/support/fragmaster/example/parabel_fm.pdf",
-  },
-  ["altfont"] = {
-    "texmf-dist/doc/latex/altfont/README",
-    "texmf-dist/doc/latex/altfont/altfont.pdf",
-    "texmf-dist/doc/latex/altfont/psfont.pdf",
   },
   ["pst-eucl"] = {
     "texmf-dist/doc/generic/pst-eucl/README",
@@ -15512,9 +15564,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/ecv/template/CV-template_en.pdf",
     "texmf-dist/doc/latex/ecv/template/Makefile",
   },
-  ["breakcites"] = {
-    "texmf-dist/doc/latex/breakcites/breakcites.pdf",
-  },
   ["docmute"] = {
     "texmf-dist/doc/latex/docmute/README",
     "texmf-dist/doc/latex/docmute/docmute.pdf",
@@ -15541,32 +15590,25 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/babel/tb1604.pdf",
     "texmf-dist/doc/generic/babel/todo.txt",
   },
-  ["labbook"] = {
-    "texmf-dist/doc/latex/labbook/README",
-    "texmf-dist/doc/latex/labbook/labboode.pdf",
-    "texmf-dist/doc/latex/labbook/labbook.pdf",
+  ["braket"] = {
+    "texmf-dist/doc/latex/braket/braket.pdf",
   },
-  ["l2tabu-spanish"] = {
-    "texmf-dist/doc/latex/l2tabu-spanish/README",
-    "texmf-dist/doc/latex/l2tabu-spanish/l2tabues.pdf",
+  ["breakcites"] = {
+    "texmf-dist/doc/latex/breakcites/breakcites.pdf",
   },
   ["talk"] = {
     "texmf-dist/doc/latex/talk/README",
     "texmf-dist/doc/latex/talk/talkdoc.pdf",
   },
-  ["asymptote-by-example-zh-cn"] = {
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/README",
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/asymptote-by-example-zh-cn.pdf",
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/cleantmp",
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/makepdf",
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/tiling.pdf",
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/xiantu-ancient.pdf",
-    "texmf-dist/doc/support/asymptote-by-example-zh-cn/src/xiantu.pdf",
-  },
   ["skaknew"] = {
     "texmf-dist/doc/fonts/skaknew/README",
     "texmf-dist/doc/fonts/skaknew/SkakNew.pdf",
     "texmf-dist/doc/fonts/skaknew/fonttables.pdf",
+  },
+  ["cbfonts"] = {
+    "texmf-dist/doc/fonts/cbfonts/README",
+    "texmf-dist/doc/fonts/cbfonts/cbgreek.pdf",
+    "texmf-dist/doc/fonts/cbfonts/grmn1000table.pdf",
   },
   ["context-french"] = {
     "texmf-dist/doc/context/third/french/french-demo.pdf",
@@ -15575,6 +15617,11 @@ local tlp_doclist = {
   ["forloop"] = {
     "texmf-dist/doc/latex/forloop/README",
     "texmf-dist/doc/latex/forloop/forloop.pdf",
+  },
+  ["arydshln"] = {
+    "texmf-dist/doc/latex/arydshln/README",
+    "texmf-dist/doc/latex/arydshln/arydshln-man.pdf",
+    "texmf-dist/doc/latex/arydshln/arydshln.pdf",
   },
   ["accfonts"] = {
     "texmf-dist/doc/fonts/accfonts/CHANGES",
@@ -15593,32 +15640,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/cyrillic/ot2cmams.pdf",
     "texmf-dist/doc/latex/cyrillic/ot2cmlh.pdf",
     "texmf-dist/doc/latex/cyrillic/t2lhfnt.pdf",
-  },
-  ["knuth"] = {
-    "texmf-dist/doc/generic/knuth/errata/errata.pdf",
-    "texmf-dist/doc/generic/knuth/errata/errorlog.pdf",
-    "texmf-dist/doc/generic/knuth/etc/vftovp.pdf",
-    "texmf-dist/doc/generic/knuth/etc/vptovf.pdf",
-    "texmf-dist/doc/generic/knuth/mf/mf.pdf",
-    "texmf-dist/doc/generic/knuth/mf/trapman.pdf",
-    "texmf-dist/doc/generic/knuth/mfware/gftodvi.pdf",
-    "texmf-dist/doc/generic/knuth/mfware/gftopk.pdf",
-    "texmf-dist/doc/generic/knuth/mfware/gftype.pdf",
-    "texmf-dist/doc/generic/knuth/mfware/mft.pdf",
-    "texmf-dist/doc/generic/knuth/tex/glue.pdf",
-    "texmf-dist/doc/generic/knuth/tex/tex.pdf",
-    "texmf-dist/doc/generic/knuth/tex/tripman.pdf",
-    "texmf-dist/doc/generic/knuth/texware/dvitype.pdf",
-    "texmf-dist/doc/generic/knuth/texware/pltotf.pdf",
-    "texmf-dist/doc/generic/knuth/texware/pooltype.pdf",
-    "texmf-dist/doc/generic/knuth/texware/tftopl.pdf",
-    "texmf-dist/doc/generic/knuth/web/tangle.pdf",
-    "texmf-dist/doc/generic/knuth/web/weave.pdf",
-    "texmf-dist/doc/generic/knuth/web/webman.pdf",
-  },
-  ["knitting"] = {
-    "texmf-dist/doc/fonts/knitting/README",
-    "texmf-dist/doc/fonts/knitting/knitting-doc.pdf",
   },
   ["randtext"] = {
     "texmf-dist/doc/latex/randtext/README",
@@ -15659,44 +15680,31 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/rotpages/README",
     "texmf-dist/doc/latex/rotpages/rotpages-doc.pdf",
   },
+  ["ha-prosper"] = {
+    "texmf-dist/doc/latex/HA-prosper/HA-prosper.pdf",
+    "texmf-dist/doc/latex/HA-prosper/README",
+  },
   ["varindex"] = {
     "texmf-dist/doc/latex/varindex/README",
     "texmf-dist/doc/latex/varindex/varindex.pdf",
     "texmf-dist/doc/latex/varindex/varindex.txt",
   },
-  ["amsrefs"] = {
-    "texmf-dist/doc/latex/amsrefs/amsrdoc.pdf",
-    "texmf-dist/doc/latex/amsrefs/amsrefs.pdf",
-    "texmf-dist/doc/latex/amsrefs/amsxport.pdf",
-    "texmf-dist/doc/latex/amsrefs/changes.pdf",
-    "texmf-dist/doc/latex/amsrefs/cite-xa.pdf",
-    "texmf-dist/doc/latex/amsrefs/cite-xb.pdf",
-    "texmf-dist/doc/latex/amsrefs/cite-xh.pdf",
-    "texmf-dist/doc/latex/amsrefs/cite-xs.pdf",
-    "texmf-dist/doc/latex/amsrefs/ifoption.pdf",
-    "texmf-dist/doc/latex/amsrefs/mathscinet.pdf",
-    "texmf-dist/doc/latex/amsrefs/pcatcode.pdf",
-    "texmf-dist/doc/latex/amsrefs/rkeyval.pdf",
-    "texmf-dist/doc/latex/amsrefs/textcmds.pdf",
+  ["jura"] = {
+    "texmf-dist/doc/latex/jura/README",
+    "texmf-dist/doc/latex/jura/jura.pdf",
+    "texmf-dist/doc/latex/jura/jura2html",
+  },
+  ["elpres"] = {
+    "texmf-dist/doc/latex/elpres/elpres-manual.pdf",
   },
   ["memdesign"] = {
     "texmf-dist/doc/fonts/memdesign/README",
     "texmf-dist/doc/fonts/memdesign/memdesign.pdf",
   },
-  ["babelbib"] = {
-    "texmf-dist/doc/latex/babelbib/ChangeLog",
-    "texmf-dist/doc/latex/babelbib/README",
-    "texmf-dist/doc/latex/babelbib/babelbib.pdf",
-    "texmf-dist/doc/latex/babelbib/tugboat-babelbib.pdf",
-  },
   ["csquotes"] = {
     "texmf-dist/doc/latex/csquotes/LICENSE",
     "texmf-dist/doc/latex/csquotes/README",
     "texmf-dist/doc/latex/csquotes/csquotes.pdf",
-  },
-  ["jablantile"] = {
-    "texmf-dist/doc/fonts/jablantile/README",
-    "texmf-dist/doc/fonts/jablantile/jablantile.pdf",
   },
   ["edmac"] = {
     "texmf-dist/doc/latex/edmac/COPYRIGHT",
@@ -15715,6 +15723,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/pdfcomment/manifest.txt",
     "texmf-dist/doc/latex/pdfcomment/pdfcomment.pdf",
     "texmf-dist/doc/latex/pdfcomment/pdfcomment_de.pdf",
+  },
+  ["egameps"] = {
+    "texmf-dist/doc/latex/egameps/README",
+    "texmf-dist/doc/latex/egameps/egameps.pdf",
   },
   ["pst-fill"] = {
     "texmf-dist/doc/generic/pst-fill/Changes",
@@ -15743,15 +15755,18 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/booklet/README",
     "texmf-dist/doc/latex/booklet/booklet.pdf",
   },
-  ["changebar"] = {
-    "texmf-dist/doc/latex/changebar/00readme.txt",
-    "texmf-dist/doc/latex/changebar/catalog.txt",
-    "texmf-dist/doc/latex/changebar/cbtest1-ltx.pdf",
-    "texmf-dist/doc/latex/changebar/cbtest1-pdf.pdf",
-    "texmf-dist/doc/latex/changebar/cbtest2-ltx.pdf",
-    "texmf-dist/doc/latex/changebar/cbtest2-pdf.pdf",
-    "texmf-dist/doc/latex/changebar/changebar.pdf",
-    "texmf-dist/doc/latex/changebar/manifest.txt",
+  ["amsmath-it"] = {
+    "texmf-dist/doc/latex/amsmath-it/diffs-m_it.txt",
+  },
+  ["image-gallery"] = {
+    "texmf-dist/doc/latex/image-gallery/README",
+    "texmf-dist/doc/latex/image-gallery/gallery-example.pdf",
+    "texmf-dist/doc/latex/image-gallery/mypics.txt",
+  },
+  ["braille"] = {
+    "texmf-dist/doc/latex/braille/README",
+    "texmf-dist/doc/latex/braille/braille.html",
+    "texmf-dist/doc/latex/braille/summary.pdf",
   },
   ["ifluatex"] = {
     "texmf-dist/doc/latex/oberdiek/ifluatex.pdf",
@@ -15760,10 +15775,6 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/idxlayout/README",
     "texmf-dist/doc/latex/idxlayout/idxlayout.pdf",
   },
-  ["ibycus-babel"] = {
-    "texmf-dist/doc/latex/ibycus-babel/README",
-    "texmf-dist/doc/latex/ibycus-babel/ibycus-babel.pdf",
-  },
   ["initials"] = {
     "texmf-dist/doc/fonts/initials/README",
   },
@@ -15771,6 +15782,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/thmtools/README",
     "texmf-dist/doc/latex/thmtools/TODO",
     "texmf-dist/doc/latex/thmtools/thmtools.pdf",
+  },
+  ["graphicx-psmin"] = {
+    "texmf-dist/doc/latex/graphicx-psmin/README",
+    "texmf-dist/doc/latex/graphicx-psmin/graphicx-psmin.pdf",
   },
   ["cns"] = {
     "texmf-dist/doc/fonts/cns/cns40-1/README",
@@ -15782,14 +15797,6 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/cns/cns40-7/README",
     "texmf-dist/doc/fonts/cns/cns40-b5/README",
   },
-  ["hyphen-greek"] = {
-    "texmf/doc/generic/elhyphen/README",
-    "texmf/doc/generic/elhyphen/anc-test.pdf",
-    "texmf/doc/generic/elhyphen/ancient.pdf",
-    "texmf/doc/generic/elhyphen/compound.pdf",
-    "texmf/doc/generic/elhyphen/copyrite.txt",
-    "texmf/doc/generic/elhyphen/modern.pdf",
-  },
   ["figbib"] = {
     "texmf-dist/doc/latex/figbib/README",
     "texmf-dist/doc/latex/figbib/figbib_doc.pdf",
@@ -15798,10 +15805,6 @@ local tlp_doclist = {
   ["akletter"] = {
     "texmf-dist/doc/latex/akletter/letterdoc.pdf",
     "texmf-dist/doc/latex/akletter/lettereng.pdf",
-  },
-  ["fmp"] = {
-    "texmf-dist/doc/latex/fmp/README",
-    "texmf-dist/doc/latex/fmp/fmp.pdf",
   },
   ["itnumpar"] = {
     "texmf-dist/doc/latex/itnumpar/README",
@@ -15813,10 +15816,6 @@ local tlp_doclist = {
   ["acmtrans"] = {
     "texmf-dist/doc/latex/acmtrans/acmtr2e.pdf",
   },
-  ["dpfloat"] = {
-    "texmf-dist/doc/latex/dpfloat/README",
-    "texmf-dist/doc/latex/dpfloat/dpfloat.pdf",
-  },
   ["petri-nets"] = {
     "texmf-dist/doc/latex/petri-nets/README",
     "texmf-dist/doc/latex/petri-nets/pndoc.pdf",
@@ -15825,26 +15824,23 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/extpfeil/README",
     "texmf-dist/doc/latex/extpfeil/extpfeil.pdf",
   },
-  ["gost"] = {
-    "texmf-dist/doc/bibtex/gost/README",
-    "texmf-dist/doc/bibtex/gost/gost71.pdf",
-    "texmf-dist/doc/bibtex/gost/gost780.pdf",
+  ["hyperxmp"] = {
+    "texmf-dist/doc/latex/hyperxmp/README",
+    "texmf-dist/doc/latex/hyperxmp/hyperxmp.pdf",
   },
-  ["hexgame"] = {
-    "texmf-dist/doc/latex/hexgame/README",
-    "texmf-dist/doc/latex/hexgame/hexgame.pdf",
+  ["hyperref-docsrc"] = {
+    "texmf-dist/doc/latex/hyperref-docsrc/README",
   },
-  ["here"] = {
-    "texmf-dist/doc/latex/here/README",
-  },
-  ["hepparticles"] = {
-    "texmf-dist/doc/latex/hepparticles/README",
-    "texmf-dist/doc/latex/hepparticles/hepparticles.pdf",
-    "texmf-dist/doc/latex/hepparticles/testhepparticles.pdf",
+  ["gmiflink"] = {
+    "texmf-dist/doc/latex/gmiflink/README",
+    "texmf-dist/doc/latex/gmiflink/gmiflink.pdf",
   },
   ["purifyeps"] = {
     "texmf-dist/doc/support/purifyeps/README",
     "texmf/doc/man/man1/purifyeps.man1.pdf",
+  },
+  ["here"] = {
+    "texmf-dist/doc/latex/here/README",
   },
   ["elsarticle"] = {
     "texmf-dist/doc/latex/elsarticle/README",
@@ -15879,10 +15875,8 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/pgf/version-for-tex4ht/en/Makefile",
     "texmf-dist/doc/generic/pgf/version-for-vtex/en/Makefile",
   },
-  ["curves"] = {
-    "texmf-dist/doc/latex/curves/README",
-    "texmf-dist/doc/latex/curves/curves.pdf",
-    "texmf-dist/doc/latex/curves/latex2pdf",
+  ["adrconv"] = {
+    "texmf-dist/doc/latex/adrconv/adrguide.pdf",
   },
   ["capt-of"] = {
     "texmf-dist/doc/latex/capt-of/README",
@@ -15957,11 +15951,11 @@ local tlp_doclist = {
   ["type1cm"] = {
     "texmf-dist/doc/latex/type1cm/type1cm.txt",
   },
-  ["gfsbaskerville"] = {
-    "texmf-dist/doc/fonts/gfsbaskerville/OFL-FAQ.txt",
-    "texmf-dist/doc/fonts/gfsbaskerville/OFL.txt",
-    "texmf-dist/doc/fonts/gfsbaskerville/README",
-    "texmf-dist/doc/fonts/gfsbaskerville/gfsbaskerville.pdf",
+  ["gfsartemisia"] = {
+    "texmf-dist/doc/fonts/gfsartemisia/OFL-FAQ.txt",
+    "texmf-dist/doc/fonts/gfsartemisia/OFL.txt",
+    "texmf-dist/doc/fonts/gfsartemisia/README",
+    "texmf-dist/doc/fonts/gfsartemisia/gfsartemisia.pdf",
   },
   ["upmethodology"] = {
     "texmf-dist/doc/latex/upmethodology/AUTHORS",
@@ -15974,43 +15968,28 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/upmethodology/VERSION",
     "texmf-dist/doc/latex/upmethodology/upmethodology-doc.pdf",
   },
-  ["getfiledate"] = {
-    "texmf-dist/doc/latex/getfiledate/README",
-    "texmf-dist/doc/latex/getfiledate/getfiledate-guide.pdf",
-  },
-  ["doi"] = {
-    "texmf-dist/doc/latex/doi/README",
+  ["dvicopy"] = {
+    "texmf/doc/man/man1/dvicopy.man1.pdf",
   },
   ["tabbing"] = {
     "texmf-dist/doc/latex/Tabbing/00readme",
     "texmf-dist/doc/latex/Tabbing/Tabbing.pdf",
   },
+  ["gene-logic"] = {
+    "texmf-dist/doc/latex/gene-logic/gn-logic14.pdf",
+  },
   ["combelow"] = {
     "texmf-dist/doc/latex/combelow/README",
     "texmf-dist/doc/latex/combelow/combelow.pdf",
   },
-  ["bibleref"] = {
-    "texmf-dist/doc/latex/bibleref/README",
-    "texmf-dist/doc/latex/bibleref/bibleref-manual.html",
-    "texmf-dist/doc/latex/bibleref/bibleref.pdf",
-    "texmf-dist/doc/latex/bibleref/sample.pdf",
-  },
-  ["circ"] = {
-    "texmf-dist/doc/latex/circ/COPYING",
-    "texmf-dist/doc/latex/circ/README",
-    "texmf-dist/doc/latex/circ/circ.pdf",
-    "texmf-dist/doc/latex/circ/circ.txt",
+  ["curves"] = {
+    "texmf-dist/doc/latex/curves/README",
+    "texmf-dist/doc/latex/curves/curves.pdf",
+    "texmf-dist/doc/latex/curves/latex2pdf",
   },
   ["crop"] = {
     "texmf-dist/doc/latex/crop/crop.pdf",
     "texmf-dist/doc/latex/crop/crop.txt",
-  },
-  ["free-math-font-survey"] = {
-    "texmf-dist/doc/fonts/free-math-font-survey/README",
-    "texmf-dist/doc/fonts/free-math-font-survey/source/Makefile",
-    "texmf-dist/doc/fonts/free-math-font-survey/source/fixepsbbox",
-    "texmf-dist/doc/fonts/free-math-font-survey/survey.html",
-    "texmf-dist/doc/fonts/free-math-font-survey/survey.pdf",
   },
   ["gfssolomos"] = {
     "texmf-dist/doc/fonts/gfssolomos/OFL-FAQ.txt",
@@ -16018,9 +15997,17 @@ local tlp_doclist = {
     "texmf-dist/doc/fonts/gfssolomos/README",
     "texmf-dist/doc/fonts/gfssolomos/gfssolomos.pdf",
   },
-  ["algorithm2e"] = {
-    "texmf-dist/doc/latex/algorithm2e/README",
-    "texmf-dist/doc/latex/algorithm2e/algorithm2e.pdf",
+  ["footnpag"] = {
+    "texmf-dist/doc/latex/footnpag/CATALOG",
+    "texmf-dist/doc/latex/footnpag/History",
+    "texmf-dist/doc/latex/footnpag/INSTALL",
+    "texmf-dist/doc/latex/footnpag/Imakefile",
+    "texmf-dist/doc/latex/footnpag/License",
+    "texmf-dist/doc/latex/footnpag/MANIFEST",
+    "texmf-dist/doc/latex/footnpag/README",
+    "texmf-dist/doc/latex/footnpag/TODO",
+    "texmf-dist/doc/latex/footnpag/footnpag-user.pdf",
+    "texmf-dist/doc/latex/footnpag/test/Imakefile",
   },
   ["dateiliste"] = {
     "texmf-dist/doc/latex/dateiliste/README",
@@ -16047,22 +16034,14 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/chemstyle/README",
     "texmf-dist/doc/latex/chemstyle/chemstyle.pdf",
   },
-  ["footnpag"] = {
-    "texmf-dist/doc/latex/footnpag/CATALOG",
-    "texmf-dist/doc/latex/footnpag/History",
-    "texmf-dist/doc/latex/footnpag/INSTALL",
-    "texmf-dist/doc/latex/footnpag/Imakefile",
-    "texmf-dist/doc/latex/footnpag/License",
-    "texmf-dist/doc/latex/footnpag/MANIFEST",
-    "texmf-dist/doc/latex/footnpag/README",
-    "texmf-dist/doc/latex/footnpag/TODO",
-    "texmf-dist/doc/latex/footnpag/footnpag-user.pdf",
-    "texmf-dist/doc/latex/footnpag/test/Imakefile",
+  ["bib-fr"] = {
+    "texmf-dist/doc/bibtex/bib-fr/CHANGELOG",
+    "texmf-dist/doc/bibtex/bib-fr/README",
   },
-  ["cookybooky"] = {
-    "texmf-dist/doc/latex/cookybooky/README",
-    "texmf-dist/doc/latex/cookybooky/documentation/Manual.pdf",
-    "texmf-dist/doc/latex/cookybooky/examples/ex_1.pdf",
+  ["dottex"] = {
+    "texmf-dist/doc/latex/dottex/README",
+    "texmf-dist/doc/latex/dottex/dottex.pdf",
+    "texmf-dist/doc/latex/dottex/gpl.txt",
   },
   ["calrsfs"] = {
     "texmf-dist/doc/latex/calrsfs/README",
@@ -16073,12 +16052,24 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/cjkpunct/README",
     "texmf-dist/doc/latex/cjkpunct/README.zh-cn.txt",
   },
+  ["amstex"] = {
+    "texmf-dist/doc/amstex/base/README",
+    "texmf-dist/doc/amstex/base/amsguide.pdf",
+    "texmf/doc/man/man1/amstex.man1.pdf",
+  },
   ["getafm"] = {
     "texmf/doc/man/man1/getafm.man1.pdf",
   },
   ["proba"] = {
     "texmf-dist/doc/latex/proba/README",
     "texmf-dist/doc/latex/proba/proba.pdf",
+  },
+  ["fancynum"] = {
+    "texmf-dist/doc/latex/fancynum/CHANGES",
+    "texmf-dist/doc/latex/fancynum/README",
+    "texmf-dist/doc/latex/fancynum/aue.txt",
+    "texmf-dist/doc/latex/fancynum/ctt.txt",
+    "texmf-dist/doc/latex/fancynum/fancynum.pdf",
   },
   ["animate"] = {
     "texmf-dist/doc/latex/animate/ChangeLog",
@@ -16091,11 +16082,9 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/juramisc/doc/jmgerdoc.pdf",
     "texmf-dist/doc/latex/juramisc/doc/jmgerdoc_scr.pdf",
   },
-  ["expressg"] = {
-    "texmf-dist/doc/metapost/expressg/README",
-    "texmf-dist/doc/metapost/expressg/aamfigs.pdf",
-    "texmf-dist/doc/metapost/expressg/expeg.pdf",
-    "texmf-dist/doc/metapost/expressg/expressg.pdf",
+  ["cleveref"] = {
+    "texmf-dist/doc/latex/cleveref/README",
+    "texmf-dist/doc/latex/cleveref/cleveref.pdf",
   },
   ["eulervm"] = {
     "texmf-dist/doc/latex/eulervm/eulervm.pdf",
@@ -16114,9 +16103,9 @@ local tlp_doclist = {
   ["maple"] = {
     "texmf-dist/doc/latex/maple/README",
   },
-  ["esint"] = {
-    "texmf-dist/doc/latex/esint/README",
-    "texmf-dist/doc/latex/esint/esint.pdf",
+  ["elbioimp"] = {
+    "texmf-dist/doc/latex/elbioimp/README",
+    "texmf-dist/doc/latex/elbioimp/elbioimp.pdf",
   },
   ["colortbl"] = {
     "texmf-dist/doc/latex/colortbl/README",
@@ -16138,8 +16127,8 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/dtxtut/README",
     "texmf-dist/doc/latex/dtxtut/dtxtut.pdf",
   },
-  ["context-lilypond"] = {
-    "texmf-dist/doc/context/third/lilypond/t-lilypond.pdf",
+  ["cjhebrew"] = {
+    "texmf-dist/doc/fonts/cjhebrew/manual.pdf",
   },
   ["verbdef"] = {
     "texmf-dist/doc/latex/verbdef/verbdef.pdf",
@@ -16149,13 +16138,18 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/modroman/README",
     "texmf-dist/doc/latex/modroman/modroman.pdf",
   },
-  ["egameps"] = {
-    "texmf-dist/doc/latex/egameps/README",
-    "texmf-dist/doc/latex/egameps/egameps.pdf",
+  ["elsevier"] = {
+    "texmf-dist/doc/latex/elsevier/CHANGES",
+    "texmf-dist/doc/latex/elsevier/README",
+    "texmf-dist/doc/latex/elsevier/instructions-harv.pdf",
+    "texmf-dist/doc/latex/elsevier/instructions-num.pdf",
   },
-  ["dichokey"] = {
-    "texmf-dist/doc/latex/dichokey/dichokey.pdf",
-    "texmf-dist/doc/latex/dichokey/rhodocyb.pdf",
+  ["eiad"] = {
+    "texmf-dist/doc/fonts/eiad/Leigh_me.txt",
+    "texmf-dist/doc/fonts/eiad/amhrawn.pdf",
+    "texmf-dist/doc/fonts/eiad/evening.pdf",
+    "texmf-dist/doc/fonts/eiad/micheal.ps",
+    "texmf-dist/doc/fonts/eiad/recreat.pdf",
   },
   ["pst2pdf"] = {
     "texmf-dist/doc/latex/pst2pdf/Changes",
@@ -16169,6 +16163,19 @@ local tlp_doclist = {
   ["gustlib"] = {
     "texmf-dist/doc/plain/gustlib/README",
   },
+  ["bardiag"] = {
+    "texmf-dist/doc/latex/bardiag/README",
+    "texmf-dist/doc/latex/bardiag/bardiag.ps",
+    "texmf-dist/doc/latex/bardiag/bardiag1.ps",
+    "texmf-dist/doc/latex/bardiag/bardiag2.ps",
+    "texmf-dist/doc/latex/bardiag/example/altdiags.ps",
+    "texmf-dist/doc/latex/bardiag/example/diagrams.dvi",
+    "texmf-dist/doc/latex/bardiag/example/diagrams.ps",
+    "texmf-dist/doc/latex/bardiag/example/diagramsbw.ps",
+  },
+  ["c90"] = {
+    "texmf-dist/doc/fonts/enc/c90/c90.pdf",
+  },
   ["epsf"] = {
     "texmf-dist/doc/generic/epsf/LICENSE",
     "texmf-dist/doc/generic/epsf/Makefile",
@@ -16179,11 +16186,6 @@ local tlp_doclist = {
     "texmf-dist/doc/generic/epsf/okay/tepsf1.dvi",
     "texmf-dist/doc/generic/epsf/okay/tepsf2.dvi",
     "texmf-dist/doc/generic/epsf/okay/tepsf3.dvi",
-  },
-  ["dashundergaps"] = {
-    "texmf-dist/doc/latex/dashundergaps/README",
-    "texmf-dist/doc/latex/dashundergaps/doc/pdf/dashundergaps.pdf",
-    "texmf-dist/doc/latex/dashundergaps/doc/tex/Makefile",
   },
   ["chess-problem-diagrams"] = {
     "texmf-dist/doc/latex/chess-problem-diagrams/README",
@@ -16199,11 +16201,15 @@ local tlp_doclist = {
     "texmf/doc/man/man1/asy.man1.pdf",
     "texmf/doc/man/man1/xasy.man1.pdf",
   },
-  ["datetime"] = {
-    "texmf-dist/doc/latex/datetime/CHANGES",
-    "texmf-dist/doc/latex/datetime/README",
-    "texmf-dist/doc/latex/datetime/datetime-manual.html",
-    "texmf-dist/doc/latex/datetime/datetime.pdf",
+  ["changebar"] = {
+    "texmf-dist/doc/latex/changebar/00readme.txt",
+    "texmf-dist/doc/latex/changebar/catalog.txt",
+    "texmf-dist/doc/latex/changebar/cbtest1-ltx.pdf",
+    "texmf-dist/doc/latex/changebar/cbtest1-pdf.pdf",
+    "texmf-dist/doc/latex/changebar/cbtest2-ltx.pdf",
+    "texmf-dist/doc/latex/changebar/cbtest2-pdf.pdf",
+    "texmf-dist/doc/latex/changebar/changebar.pdf",
+    "texmf-dist/doc/latex/changebar/manifest.txt",
   },
   ["frankenstein"] = {
     "texmf-dist/doc/latex/frankenstein/ChangeLog",
@@ -16237,10 +16243,10 @@ local tlp_doclist = {
     "texmf-dist/doc/latex/makeplot/README",
     "texmf-dist/doc/latex/makeplot/makeplot.pdf",
   },
-  ["amstex"] = {
-    "texmf-dist/doc/amstex/base/README",
-    "texmf-dist/doc/amstex/base/amsguide.pdf",
-    "texmf/doc/man/man1/amstex.man1.pdf",
+  ["dashundergaps"] = {
+    "texmf-dist/doc/latex/dashundergaps/README",
+    "texmf-dist/doc/latex/dashundergaps/doc/pdf/dashundergaps.pdf",
+    "texmf-dist/doc/latex/dashundergaps/doc/tex/Makefile",
   },
   ["lps"] = {
     "texmf-dist/doc/latex/lps/README",
