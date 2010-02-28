@@ -1,3 +1,15 @@
+Version 0.70
+------------
+
+Use information from the TeX Live package database (some of it coming from the
+CTAN catalogue) to improve search results. Display some of this information.
+
+Show the current settings in --help message.
+
+Misc. internal changes & fixes.
+
+Deprecate -a, --alias, -A, --noalias and alias_switch.
+
 Version 0.66
 ------------
 
