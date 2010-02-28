@@ -1,12 +1,34 @@
-Big stuff planned
-=================
+Stuff to do soon
+================
 
-Review/update doc.
-
-Misc ideas
-==========
+Use alt-getopt for options parsing.
 
 Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
+
+Use language information from the catalogue/tlpdb. If no lang info from
+catalogue, might try guessing based on filename, but is it worth it?
+
+Code cleanup
+------------
+
+Adapt the alias structure to remember which one is the original. Then, the
+skpse-like search routine can select only exact matches for this one. Also, the
+scoring routine wouldn't need the original keyword as an argument anymore. Then
+the Docfile object could have a .score virtual member.
+
+Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
+plus locals.
+
+Syntax simplifictation in some places using object-oriented syntax for strings?
+
+Ideas for later
+===============
+
+Not sure about that
+-------------------
+
+Write a coverage checking script? What would be its exact goals? May want to
+discuss this with Phlipp S.
 
 tlpdb cache should check if ext_list has changed, in theory. Is it worth it in
 practice? I'll do it if someone complains...
@@ -18,26 +40,8 @@ Add support for shell-style globs (standard regex is probably too hard)
     Well, would anyone really use it? (would be for patterns in texdoc.cnf, not
     for texdoc arguments)
 
-Use alt-getopt for options parsing.
-
-[internal] Adapt the alias structure to remember which one is the original. Then, the
-skpse-like search routine can select only exact matches for this one. Also, the
-scoring routine wouldn't need the original keyword as an argument anymore. Then
-the Docfile object could have a .score virtual member.
-
-Write a coverage checking script? What would be its exact goals? May want to
-discuss this with Phlipp S.
-
-Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
-plus locals.
-
-Syntax simplifictation in some places using object-oriented syntax for strings?
-
-Use language information from the catalogue/tlpdb. If no lang info from
-catalogue, might try guessing based on filename, but is it worth it?
-
-Ideas for later
-===============
+Use the 2-links trick from kpse when exploring trees? Check how it works on
+windows.
 
 Using the catalogue
 -------------------
