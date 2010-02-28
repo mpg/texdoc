@@ -5,7 +5,7 @@
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'os', 'arg', 'print',
+    'os', 'arg', 'print', 'kpse', 'dofile',
     'setup_config_and_alias', 'init_databases',
     'get_doclist', 'deliver_results', 'aliased_names',
 })
@@ -35,6 +35,10 @@ end
 setup_config_and_alias(arg)
 init_databases()
 
+-- load an exclusion file for sty checks
+local exclude_file = assert(kpse.find_file('exclude.lua', 'texmfscripts'))
+local exclude_sty = dofile(exclude_file)
+
 -- check all aliased names
 local useless = {}
 local badsty = {}
@@ -44,7 +48,7 @@ for name in aliased_names() do
     if dl_equal(with, without) then
         table.insert(useless, name)
     end
-    if sty_not_alone(with, without) then
+    if not exclude_sty[name] and sty_not_alone(with, without) then
         table.insert(badsty, name)
     end
 end
