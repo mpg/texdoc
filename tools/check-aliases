@@ -3,10 +3,9 @@
 # Check aliases in texdoc configuration.
 #
 # Two points are checked:
-# 1. Aliases should modify the (ordered list of results) or they are useless.
+# 1. Aliases should modify the (ordered) list of results or they are useless.
 # 2. A sty file should always be alone in the list of results.
 #
-# Checks using the texdoc from the given TL installation.
 # This script manipulates the environment to make sure the right versions of the
 # varsious tools an configuration files are used, but the real job is done by
 # texdoc/main.tlu.
@@ -56,13 +55,13 @@ if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
 
 # make sure the tools/files we want are used
 $ENV{PATH} = "$texlive_path:$ENV{PATH}"; # use texlive svn
-$ENV{TEXMFHOME} = '/none/such'; # kill personal configuration
+$ENV{TEXMFHOME} = $texdoc_path; # use texdoc.cnf from the repo
 
 # use texdoc from the repo, plus a hacked main.tlu
 my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu";
 $ENV{TEXMFSCRIPTS} = "$texdoc_path/tools/ca:$texdoc_scriptdir:";
 
 # call the tricked texdoc to do the actual job
-exec $texdoc
+exec $texdoc;
 
 __END__

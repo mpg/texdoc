@@ -19,9 +19,10 @@ function dl_equal(a, b)
     return true
 end
 
--- return true iff there is a sty in a and something in b
+-- return true iff there is a sty in a and something good in b
 function sty_not_alone(a, b)
     if #b == 0 then return false end
+    if b[1].score < -1 then return false end
     for _, df in ipairs(a) do
         if df.realpath:match('%.sty$') then
             return true
@@ -49,11 +50,11 @@ for name in aliased_names() do
 end
 
 -- print out the results
-if #useless then
+if #useless > 0 then
     print 'Useless aliases:'
     for _, a in ipairs(useless) do print('  '..a) end
 end
-if #badsty then
+if #badsty > 0 then
     print 'Bad sty aliases:'
     for _, a in ipairs(badsty) do print('  '..a) end
 end
