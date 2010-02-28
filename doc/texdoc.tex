@@ -679,6 +679,11 @@ printed on stdout, except if a internal error occurs (in which case exit code
 will be 1). In the future, more tab-separated fields may be added at the end
 of the line, but the first 3 fields will remain unchanged.
 
+Currently, there are two additional fields: a two-letter language code, and
+an unstructured description, both taken from the CTAN catalogue (via the TeX
+Live database). These fields may be empty and they are not guaranteed to keep
+the same meaning in future versions of \texdoc.
+
 \begin{cmdsubsub}{zipext_list}{cf-zipext_list}
   zipext_list = «list»
 \end{cmdsubsub}
