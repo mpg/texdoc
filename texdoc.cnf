@@ -125,38 +125,21 @@ alias latex = latex-doc-ptr
 ## various stuff
 
 # a few useful general documents
-alias symbols = symbols-a4
 alias faq-en = newfaq
 alias faq = newfaq
 
-# various lshort translations (keep the obvious ones for the tests)
+# various lshort translations
 alias lshort = lshort-english/lshort    # original
-alias lshort-bg = lshort-bg             # bulgarian
-alias lshort-zh = lshort-zh-cn          # chinese
-alias lshort-nl = lshort-nl-1.3         # dutch
-alias lshort-en = -english/lshort       # english (original)
-alias lshort-fi = lyhyt2e               # finnish
-alias lshort-fr = lshort-fr             # french
 alias lshort-de = l2kurz                # german
-alias lshort-it = itlshort              # italian
-alias lshort-ja = jlshort               # japanese
 alias lshort-pl = polish/lshort2e       # polish
 alias lshort-pt = ptlshort              # portuguese
-alias lshort-ru = lshortru              # russian
 alias lshort-sk = slshorte              # slovak
-alias lshort-sl = lshort-slovenian      # slovenian
 alias lshort-es = -spanish/lshort       # spanish
-alias lshort-th = lsh132                # thai
-alias lshort-tr = lshort-tr             # turkish
-alias lshort-uk = lshort-ukr            # ukrainian (package ukr, booh)
-alias lshort-vi = lshort-vi             # vietnamese
-
 
 # *TeX engines reference manuals, man pages and related
 alias e-tex-ref = etex_man
 alias etex-ref = etex_man
 alias pdftex-ref = pdftex-a
-alias xetex-ref = XeTeX-reference
 alias luatex-ref = luatexref-t
 alias etex-man = etex.man1
 alias pdftex-man = pdftex.man1
@@ -167,7 +150,6 @@ alias luatex-pkg = oberdiek/luatex.pdf
 # by default, <engine> = <engine>-ref (duplicated: no alias cascading)
 alias e-tex = etex_man
 alias etex = etex_man
-alias pdftex = pdftex-a
 alias xetex = XeTeX-reference
 alias luatex = luatexref-t
 
@@ -221,11 +203,6 @@ alias utopia = psnfss2e
 
 # ams
 alias amsmath = amsldoc
-alias amslatex = amshelp
-alias amscls = instr-l
-alias amsart = instr-l
-alias amsproc = instr-l
-alias amsbook = instr-l
 alias amsthm = amsthdoc
 alias amsfonts = amsfndoc
 alias amsrefs = amsrdoc
@@ -253,20 +230,14 @@ alias typearea-de = scrguide
 
 # tugboat package and classes
 alias tugboat = ltubguid
-alias tugboat-plain = tubguide
-alias ltugboat = ltubguid
-alias ltugproc = ltubguid
 
 # caption
 alias caption = caption-eng
-alias caption-de = caption-deu
-alias caption-ru = caption-rus
 alias caption-dev = caption.pdf
 
 # misc
 alias hyperref = hyperref/manual.pdf
 alias hyperref-dev = hyperref.pdf
-alias psfrag = pfgguide
 alias bibtex = btxdoc
 alias IEEEtran = IEEEtran_HOWTO
 alias metapost = mpman
@@ -275,53 +246,28 @@ alias(5) metapost = mpgraph
 alias iso = isoman
 alias pstricks = pstricks-doc
 alias extramarks = fancyhdr/fancyhdr
-alias fonttable = fonttable/fonttable
-alias biocon = biocon/manual.pdf
-alias makeindex = makeindex/makeindex
-alias xstring = xstring_doc_en
 alias xstring-fr = xstring_doc_fr
 alias isomath = isomath.sty.pdf
 alias elsarticle = elsdoc
-alias 2in1 = twoinone
 alias afoot = arabtex-doc
-alias chngpage = changepage
-
-# cite package (from texlive.tlpdb listing for cite)
-alias cite = /cite/README
-alias chapterbib = /cite/README
-alias drftcite = /cite/README
-alias overcite = /cite/README
 
 
 ## a few easy patterns
 
 # egrep 'manual\.pdf\>'
-alias pdfslide = pdfslide/demo
 alias t-angles = t-manual
-alias texmate = texmate2manual
 alias tree-dvips = tree-manual
 
 # egrep 'user\.pdf\>'
 alias cweb-latex = cweb-user
-alias seminar = sem-user
 
 # egrep 'doc\.pdf\>'
 alias barcode = eandoc.pdf
-alias barr = diaxydoc.pdf
-alias doublestroke = dsdoc.pdf
-alias enctex = encdoc-e
 alias enctex-cz = encdoc
-alias hyplain = hydoc.pdf
-alias jurabib = jbendoc
 alias jurabib-de = jbgerdoc
-alias juramisc = jmgerdoc
-alias marvosym = marvodoc
-alias musixtex = musixdoc
 alias ofs = ofsdoc-e
 alias ofs-cz = ofsdoc
-alias petri-nets = pndoc
 alias pst-geo = pst-map3d-doc
-alias sanskrit = sktdoc
 alias german = gerdoc
 alias ngerman = gerdoc
 alias pst-eucl = pst-eucl/euclide_english
@@ -336,12 +282,8 @@ alias datenumber-de = datenumber/docgerman
 alias index = ind
 alias genfont1 = fntguide
 alias psnfss = psnfss2e
-alias astro = astrosym.txt
-alias brushscr = brushscr/AAA_readme
-alias ocherokee = cherokee
 alias cmsuper = cm-super/README
 alias euro = eurosamp
-alias fourier = fourier-doc-en
 alias lmfonts = lm-info
 alias t1enc1 = fontsmpl
 alias yfonts = yfonts/readme
@@ -351,58 +293,39 @@ alias montex = mlsquick
 alias(60) akademia = tex-virtual-academy-pl/index.html
 alias cyrillic = cyrillic/00readme.txt
 alias otibet = otibet/unidoc
-alias layouts = layman
 alias texsis = texsis/base/README
 alias startex = startex/base/guide
 alias overpic = opic-rel
 alias apmgraph = pmgraph
-alias metaobj = momanual
 alias tikz = pgfmanual
 alias treetex = tree_doc
 alias PSfrag = pfgguide
-alias xypic = xyguide
 alias(5) xypic = xyrefer
 alias pbdiagram = pb-manual
 alias expressg = expeg
-alias texpower = texpower/manual
-alias ifmslide = ifmman
 alias arydshln = arydshln-man
 alias multirow = multirow/README
-alias titletoc = titlesec
-alias custom-bib = custom-bib/makebst
-alias ascelike = ascexmpl
 alias natbib2 = natnotes
-alias adrconv = adrguide
 alias tangles = t-angles/t-manual
 alias mathenv = mdwtab
 alias gnlogic = gn-logic14
 alias footnote1 = mdwtools/footnote
 alias footnote2 = yafoot/yafoot-man
 alias labels1 = envlab/elguide
-alias newvbtm = newvbtm-man
 alias lineno = ulineno
 alias akletter = akletter/lettereng
-alias isorot = isorot/rotman
 alias MLTeX = mltex/mltex.txt
-alias ecards = eCardsman
 alias flcards = flashcards
 alias tex4ht = tex4ht/mn.html
 alias ppower4 = ppower4/report
-alias pdfscreen = pdfscreen/manual-print
 alias latex3 = ltx3info
 alias latex3p = expl3/expl3
-alias xmltex = xmltex/base/manual.html
-alias musixlyr = mxlyrdoc
 alias musictex = musicdoc
-alias acmtrans = acmtr2e
-alias aastex = aastex/aasguide
 alias ieee = IEEEtran_HOWTO
 alias nrc = nrc/userguide
 alias kluwer = kluwer/usrman
-alias spie = spie/article
 alias cv = curve/curve
 alias preprint = preprint/00readme.txt
-alias sffms = sffms_manual
 
 ## packages from ctan/macros/latex/contrib/misc or with doc in .sty only
 # anyway, this is quite bad and should be changed some day
