@@ -110,6 +110,11 @@ adjscore(latex) Content_LaTeX_Package_Demo = -10
 adjscore(latex) example_latex = -10
 adjscore(latex) test_latex = -10
 
+# beamer
+adjscore(beamer) beamer-tut-pt = -10
+adjscore(beamer) beamer-tut-pt/tutorialbeamer = +10
+adjscore(beamer) presentations = -10
+
 # it is also possible to set the score directly in alias directives
 # eg, fontinstallationguide is related to fontinst:
 alias(0.1) fontinst = fontinstallationguide
