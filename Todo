@@ -1,18 +1,12 @@
-Small items
-===========
-
-Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
-
 Big stuff planned
 =================
 
 Review/update doc.
 
-Write a coverage checking script? What would be its exact goals? May want to
-discuss this with Phlipp S.
-
 Misc ideas
 ==========
+
+Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 
 tlpdb cache should check if ext_list has changed, in theory. Is it worth it in
 practice? I'll do it if someone complains...
@@ -24,13 +18,23 @@ Add support for shell-style globs (standard regex is probably too hard)
     Well, would anyone really use it? (would be for patterns in texdoc.cnf, not
     for texdoc arguments)
 
-Write or use some GNU-like getopt_long
--> alt-getopt looks ok
+Use alt-getopt for options parsing.
 
 [internal] Adapt the alias structure to remember which one is the original. Then, the
 skpse-like search routine can select only exact matches for this one. Also, the
 scoring routine wouldn't need the original keyword as an argument anymore. Then
 the Docfile object could have a .score virtual member.
+
+Write a coverage checking script? What would be its exact goals? May want to
+discuss this with Phlipp S.
+
+Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
+plus locals.
+
+Syntax simplifictation in some places using object-oriented syntax for strings?
+
+Use language information from the catalogue/tlpdb. If no lang info from
+catalogue, might try guessing based on filename, but is it worth it?
 
 Ideas for later
 ===============
@@ -38,12 +42,9 @@ Ideas for later
 Using the catalogue
 -------------------
 
-Use language information from the catalogue/tlpdb. (Next big item after the
-search stuff.) If no lang info from catalogue, might try guessing based on
-filename, but is it worth it?
-
 Obsolescence information could be useful (Phil's suggestion), but may be hard to
-obtain (not in the tlpdb)...
+obtain (not in the tlpdb)... Well, if it's in the catalogue, I can ship a
+Data.obsolete.lua file with the information...
 
 Do something with the description from the catalogue?
 
