@@ -57,6 +57,20 @@ usage_settings = {
         [true] = '--interact', [false] = '--nointeract' },
 }
 
+long_cl_opts = {
+    help        = 'h', version     = 'V', files       = 'f',
+    view        = 'w', mixed       = 'm', list        = 'l', showall     = 's',
+    interact    = 'i', nointeract  = 'I', machine     = 'M',
+    quiet       = 'q', verbose     = 'v', debug       = 'd',
+    -- deprecated options kept for compatibility
+    search      = 's', regex       = 'r',
+    extensions  = 'e',
+    verbosity   = 'Y',
+    alias       = 'a', noalias     = 'A',
+}
+
+short_cl_opts = 'hVfwmlsiIMqvdaAre:Y:'
+
 known_options = {
     'viewer_.*',
     'mode',

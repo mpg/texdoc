@@ -2,6 +2,9 @@ Stuff to do soon
 ================
 
 Use alt-getopt for options parsing.
+Done, but:
+- alt-getopt doesn't use error(), so pcall() doesn't work :-(
+- no optional arguments (old-style -v plus -d, --debug)
 
 Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 
@@ -20,6 +23,11 @@ Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
 plus locals.
 
 Syntax simplifictation in some places using object-oriented syntax for strings?
+
+Use texlive/tlpdb.tlu for tlpdb reading.
+
+Get rid of debug categories?
+(Replace deb_print('XXX', ...) with deb_print(true, ...))
 
 Ideas for later
 ===============

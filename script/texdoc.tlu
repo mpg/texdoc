@@ -66,7 +66,7 @@ end
 -- execute a submodule of texdoc
 function texdoc_do(name)
     local f = kpse.find_file(name..'.tlu', 'texmfscripts')
-    assert(f, 'Internal error: unable to find texdoc module '..name..'.')
+    assert(f, 'Internal error: texdoc module not found: '..name..'.')
     dofile(f)
 end
 
@@ -74,6 +74,10 @@ end
 
 -- initialize kpathsea
 kpse.set_program_name(arg[-1], 'texdoc')
+
+-- load alt_getopt
+dofile(assert(kpse.find_file('alt_getopt.lua', 'texmfscripts'),
+'Internal error: Lua module not found: alt_getopt'))
 
 -- declare global variables;
 -- they will be made read-only as soon as they are set
