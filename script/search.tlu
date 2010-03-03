@@ -31,7 +31,8 @@ doclist = {
 }
 
 The inv subtable is such that for all i
-doclist.inv(doclist[i].realpath) == i
+doclist.inv(doclist[i].realpath:lower()) == i
+Paths are lowercased in order to avoid duplicates on windows.
 --]]
 
 local Doclist = {}
@@ -47,13 +48,13 @@ end
 -- add a docfile to a list
 function Doclist:add(df)
     if not df.realpath then return end -- useful if vanilla == false
-    local index = self.inv[df.realpath]
+    local index = self.inv[df.realpath:lower()]
     if index then
         self[index]:mergein(df)
     else
         local newindex = #self + 1
         self[newindex] = df
-        self.inv[df.realpath] = newindex
+        self.inv[df.realpath:lower()] = newindex
     end
 end
 
