@@ -8,29 +8,19 @@ Done, but:
 
 Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 
+Use texlive/tlpdb.tlu for tlpdb reading.
+
 Use language information from the catalogue/tlpdb. If no lang info from
 catalogue, might try guessing based on filename, but is it worth it?
-
-Code cleanup
-------------
-
-Adapt the alias structure to remember which one is the original. Then, the
-kpse-like search routine can select only exact matches for this one. Also, the
-scoring routine wouldn't need the original keyword as an argument anymore. Then
-the Docfile object could have a .score virtual member.
-
-Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
-plus locals.
-
-Syntax simplifictation in some places using object-oriented syntax for strings?
-
-Use texlive/tlpdb.tlu for tlpdb reading.
 
 Ideas for later
 ===============
 
 Not sure about that
 -------------------
+
+For non-original patterns (ie actual aliases), the kpse-like search routines
+should select only exact matches.
 
 Write a coverage checking script? What would be its exact goals? May want to
 discuss this with Phlipp S.
