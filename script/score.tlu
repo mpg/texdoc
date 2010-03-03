@@ -61,8 +61,8 @@ function set_score(df, original_kw)
     if config.mode == 'regex' then df.score = 0 return end
     -- scoring is case-insenstitive (patterns are already lowercased)
     local name = string.lower(df.shortname)
-    deb_print('score', 'Start scoring '..df.realpath)
-    deb_print('score', 'Name used: '..name)
+    deb_print('Start scoring '..df.realpath)
+    deb_print('Name used: '..name)
     -- get score from patterns
     local score = -10
     for _, pat in ipairs(df.matches) do
@@ -72,12 +72,12 @@ function set_score(df, original_kw)
             s = df.tree > -1 and heuristic_score(name, p) or 1
         elseif is_exact(name, p) then
             s = pat.score or 10 -- default alias score
-            deb_print('score', string.format(
+            deb_print(string.format(
                 "Matching alias '%s', score: %d", pat.name, s))
         end
         if s > score then score = s end
     end
-    deb_print('score', 'Max pattern score: '..tostring(score))
+    deb_print('Max pattern score: '..tostring(score))
     -- get score from tlp associations
     if score == -10 and df.tlptodoc then score = -2 end
     if score == -10 and df.runtodoc then score = -6 end
@@ -91,7 +91,7 @@ function set_score(df, original_kw)
         for pat, val in pairs(spec_adjscore[original_kw]) do
             if val and is_subword('/'..name, pat) then
                 score = score + val
-                deb_print('score', string.format(
+                deb_print(string.format(
                     "Adjust by '%d' from specific pattern '%s'", val, pat))
             end
         end
@@ -101,12 +101,12 @@ function set_score(df, original_kw)
         for pat, val in pairs(global_adjscore) do
             if val and is_subword('/'..name, pat) then
                 if score > 0 or val < 0 then score = score + val end
-                deb_print('score', string.format(
+                deb_print(string.format(
                     "Adjust by '%d' from global pattern '%s'", val, pat))
             end
         end
     end
-    deb_print('score', 'Final score: '..tostring(score))
+    deb_print('Final score: '..tostring(score))
     df.score = score
 end
 
@@ -123,13 +123,13 @@ local suffixes = {
 
 -- compute a heuristic score -10 <= s < 10
 function heuristic_score(file, pat)
-    deb_print('score', 'Start heuristic scoring with pattern: '..pat)
+    deb_print('Start heuristic scoring with pattern: '..pat)
     -- score management
     local score = -10
     local function upscore(s, reason, force)
         if s > score or force then
             score = s
-            deb_print('score', 'New heuristic score: '..tostring(s)
+            deb_print('New heuristic score: '..tostring(s)
                 ..'. Reason: '..reason)
         end
     end
@@ -161,7 +161,7 @@ function heuristic_score(file, pat)
         upscore(score + 0.5, 'directory bonus')
     end
     -- done
-    deb_print('score', 'Final heuristic score: '..tostring(score))
+    deb_print('Final heuristic score: '..tostring(score))
     return score
 end
 

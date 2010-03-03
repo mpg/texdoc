@@ -99,11 +99,11 @@ function set_config_element (key, value, context)
     end
     -- special case: if we just set debug_list, print version info now
     if key == 'debug_list' then
-        deb_print('version', C.fullname..' version '..C.version)
+        deb_print(C.fullname..' version '..C.version)
     end
     -- now tell what we have just done, for debugging
-    deb_print('config',
-        "Setting '"..key.."="..value.."' "..context_to_string(context)..'.')
+    deb_print("Setting '"..key.."="..value.."' "
+        ..context_to_string(context)..'.')
 end
 
 -- a helper function for warning messages in the above
@@ -190,7 +190,7 @@ function setup_config_from_cl(arg)
             set_config_elt('machine_switch', 'true')
         -- verbosity options
         elseif opt == 'd' then
-            set_config_elt('debug_list', 'all')
+            set_config_elt('debug_switch', 'true')
         elseif opt == 'q' then
             set_config_elt('verbosity_level', C.min_verbosity)
         elseif opt == 'v' then
@@ -489,7 +489,7 @@ function setup_config_from_defaults()
         ext_list            = 'pdf, html, txt, ps, dvi, ',
         badext_list         = 'txt, ',
         verbosity_level     = C.def_verbosity,
-        debug_list          = '',
+        debug_switch        = 'false',
         max_lines           = '20',
     }
     -- must be set after mode!
@@ -532,11 +532,11 @@ function setup_config_and_alias(arg)
         real_set_config('interact_switch', false)
     end
     -- debug implies verbose
-    if table.maxn(config.debug_list) > 0 then
+    if config.debug_switch then
         real_set_config('verbosity_level', tonumber(C.max_verbosity))
     end
     -- we were waiting for config.debug_list to be known to do this
-    show_config_files(function(s) deb_print('files', s) end)
+    show_config_files(deb_print)
 end
 
 -- finally export a few symbols

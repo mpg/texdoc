@@ -80,7 +80,7 @@ known_options = {
     'ext_list',
     'badext_list',
     'verbosity_level',
-    'debug_list',
+    'debug_switch',
     'lastfile_switch',
     'rm_dir',
     'rm_file',
@@ -109,16 +109,6 @@ def_verbosity='2'
 exit_ok = 0
 --exit_error = 1 -- apparently hard-coded in Lua
 exit_usage = 2
-
-known_debugs = {
-    version = {},
-    files   = {},
-    config  = {'files'},
-    view    = {},
-    texdocs = {},
-    score   = {},
-    tlpdb   = {}
-}
 
 -- various cache or non-cache files
 cache_name = 'texdoc/cache-tlpdb.lua' -- relative to TEXMFVAR
