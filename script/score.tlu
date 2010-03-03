@@ -83,7 +83,7 @@ function set_score(df, original_kw)
     if score == -10 and df.runtodoc then score = -6 end
     -- bonus for metadata
     if df.details and
-        not string.find(string.lower(df.details), '^readme') then
+        not string.find(string.lower(df.details), 'readme') then
         score = score + 3
     end
     -- adjust from keyword-specific tables
