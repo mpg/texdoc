@@ -13,13 +13,14 @@ load_env(L, {
 })
 
 -- change '/' to '\' on windows
+-- Use: internal representation of files always use forward slashes.
+-- This function should be called only before displaying a file name.
 if os.type == "windows" then
-    function win32_hook (path)
-        local res = string.gsub (path, '/', '\\')
-        return res -- get rid of gsub's 2nd return value
+    function w32_path (path)
+        return (string.gsub (path, '/', '\\'))
     end
 else
-    function win32_hook (path)
+    function w32_path (path)
         return path
     end
 end
@@ -89,7 +90,7 @@ end
 export_symbols(L, {
     'err_print',
     'deb_print',
-    'win32_hook',
+    'w32_path',
     'parse_zip',
     'print_usage',
     'path_parent',

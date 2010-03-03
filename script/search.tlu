@@ -10,7 +10,7 @@ local L = {}
 load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
     'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
-    'win32_hook', 'parse_zip', 'path_parent',
+    'parse_zip', 'path_parent',
     'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos',
     'config',
 })
@@ -31,7 +31,8 @@ doclist = {
 }
 
 The inv subtable is such that for all i
-doclist.inv(doclist[i].realpath) == i
+doclist.inv(doclist[i].realpath:lower()) == i
+Paths are lowercased in order to avoid duplicates on windows.
 --]]
 
 local Doclist = {}
@@ -47,13 +48,13 @@ end
 -- add a docfile to a list
 function Doclist:add(df)
     if not df.realpath then return end -- useful if vanilla == false
-    local index = self.inv[df.realpath]
+    local index = self.inv[df.realpath:lower()]
     if index then
         self[index]:mergein(df)
     else
         local newindex = #self + 1
         self[newindex] = df
-        self.inv[df.realpath] = newindex
+        self.inv[df.realpath:lower()] = newindex
     end
 end
 
@@ -241,7 +242,7 @@ end
 
 -- return the real path from a texdocs tree number + relative path
 function texdocs_tree_to_path(tree, rel)
-    return win32_hook(doc_roots[tree].path..'/'..rel)
+    return doc_roots[tree].path..'/'..rel
 end
 
 -- find docfiles in texdocs directories
@@ -384,7 +385,7 @@ function get_doclist_sty(patlist)
         local file = kpse.find_file(pat.name)
         if file then
             local df = Docfile:new({
-                name    = win32_hook(file),
+                name    = file,
                 tree    = -1,
                 pattern = pat,
             })
