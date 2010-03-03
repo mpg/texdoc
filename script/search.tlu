@@ -10,7 +10,7 @@ local L = {}
 load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
     'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
-    'win32_hook', 'parse_zip', 'path_parent',
+    'parse_zip', 'path_parent',
     'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos',
     'config',
 })
@@ -241,7 +241,7 @@ end
 
 -- return the real path from a texdocs tree number + relative path
 function texdocs_tree_to_path(tree, rel)
-    return win32_hook(doc_roots[tree].path..'/'..rel)
+    return doc_roots[tree].path..'/'..rel
 end
 
 -- find docfiles in texdocs directories
@@ -384,7 +384,7 @@ function get_doclist_sty(patlist)
         local file = kpse.find_file(pat.name)
         if file then
             local df = Docfile:new({
-                name    = win32_hook(file),
+                name    = file,
                 tree    = -1,
                 pattern = pat,
             })
