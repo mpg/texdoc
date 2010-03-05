@@ -31,7 +31,7 @@ use constant {
 
 # file sets and destination directories
 my %filesets = (
-    tlu => {    'script/*'    	  => TL_scr },
+    tlu => {    'script/*'        => TL_scr },
     cnf => {    'texdoc.cnf'      => TL_cnf },
     doc => {    'doc/texdoc.tex'  => TL_doc,
                 'News'            => TL_doc,
@@ -43,7 +43,7 @@ my %filesets = (
 
 # defaults
 my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : undef;
-my $texlive_path = $ENV{'TLROOT'};
+my $texlive_path = $ENV{TLROOT} ? "$ENV{TLROOT}/bin/x86_64-linux" : undef;
 my $force_wrong_branch = 0;
 
 # get options
@@ -54,9 +54,16 @@ GetOptions(
     'force-wrong-branch' => \$force_wrong_branch,
 ) or die "Unkown option.\n$usage";
 
+# additional paths
+my $texlive_root = "$texlive_path/../..";
+
 # chdir to source directory 
 $texdoc_path or die "Option --td is mandatory if cwd is not a texdoc repo.\n";
 chdir($texdoc_path) or die "chdir $texdoc_path failed.\n";
+
+# check that texdoc basically doesn't crash too much
+system("tools/basic-checks --tl=$texlive_path");
+die "texdoc is broken, aborting upload" if $?;
 
 # check that we are in the right branch
 if (open my $git_head_fh, '<', '.git/HEAD') {
@@ -65,7 +72,7 @@ if (open my $git_head_fh, '<', '.git/HEAD') {
     my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
     $git_branch_name ||= '(no branch)';
     ($git_branch_name eq 'texlive') or $::force_wrong_branch
-	or die "Current branch is $git_branch_name!\n";
+        or die "Current branch is $git_branch_name!\n";
 } elsif (not $::force_wrong_branch ) {
     die "Not updating from a git repository.\n";
 }
@@ -103,7 +110,7 @@ sub files_diff (&$$) {
 # don't update the man page if only the date changed
 if (defined $files{TD_man()} and not files_diff
         { s/^(\.TH TEXDOC "1" ").*?("texdoc [\d.]+" "User Commands")$/$1$2/ }
-        TD_man, "$texlive_path/$files{TD_man()}/".basename(TD_man)) {
+        TD_man, "$texlive_root/$files{TD_man()}/".basename(TD_man)) {
     print "Info: man page differs only by date, skipping.\n";
     delete @files{TD_man, TD_manpdf};
 }
@@ -111,7 +118,7 @@ if (defined $files{TD_man()} and not files_diff
 # don't update the user manual if only the date and id changed
 if (defined $files{TD_doc()} and not files_diff
         { s"^\/(CreationDate|ModDate|ID) .*"$1" }
-        TD_doc, "$texlive_path/$files{TD_doc()}/".basename(TD_doc)) {
+        TD_doc, "$texlive_root/$files{TD_doc()}/".basename(TD_doc)) {
     print "Info: user manual differs only by date or id, skipping.\n";
     delete @files{TD_doc()};
 }
@@ -120,13 +127,13 @@ if (defined $files{TD_doc()} and not files_diff
 my %touched_dir;
 while (my ($s, $d) = each %files) {
     $touched_dir{$d}++;
-    my $dest = "$texlive_path/$d";
+    my $dest = "$texlive_root/$d";
     system("cp -t $dest $s");
     die "Could not copy $s to $dest: $!\n" if $?;
 }
 
 # print some information
-chdir $texlive_path or die "Failed to chdir $texlive_path: $!\n";
+chdir $texlive_root or die "Failed to chdir $texlive_root: $!\n";
 my $svn_cl = "svn ci " . join(' ', keys %touched_dir);
 exec $svn_cl or die "boo";
 
