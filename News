@@ -1,7 +1,14 @@
+Version 0.72
+------------
+
+Fix stupid bug introduced in 0.70: texdoc would crash if called without
+arguments. (Reported by Maxime Chupin.)
+
 Version 0.71
 ------------
 
-Fix file duplication bugs on windows, reported by Uwe Siart.
+Fix bug introduced in 0.70: some results were duplicated on windows. (Reported
+by Uwe Siart.)
 
 Version 0.70
 ------------
