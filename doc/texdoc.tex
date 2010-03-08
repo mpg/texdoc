@@ -501,11 +501,10 @@ Set ©verbosity_level© to minimum, see~\ref{cf-verbosity_level}.
 Set ©verbosity_level© to maximum, see~\ref{cf-verbosity_level}.
 
 \begin{cmdsubsub}{-d, --debug}{cl-d}
-  -d, -d=«list», --debug, --debug=«list»
+  -d, --debug
 \end{cmdsubsub}
 
-Set ©debug_list©, see~\ref{cf-debug_list}. If not list is given, activates all
-available debug items.
+Set ©debug_switch© to true, see~\ref{cf-debug_switch}.
 
 \subsection{Environment variables}\label{ss-envvar}
 
@@ -646,13 +645,11 @@ informational messages will be printed (on stderr); 2 means only errors and
 warnings, 1 only errors and 0 nothing except internal errors (obviously not
 recommended).
 
-\begin{cmdsubsub}{debug_list}{cf-debug_list}
-  debug_list = «list»
+\begin{cmdsubsub}{debug_switch}{cf-debug_switch}
+  debug_switch = «true,false»
 \end{cmdsubsub}
 
-Set the list of activated debug items (default: none; if the option is used
-without arguments, the list defaults to all known debug items). Implies
-©--verbose©. Debug information is printed on standard error.
+Turn debug output on.
 
 \begin{cmdsubsub}{max_line}{cf-max_lines}
   max_lines = «number»
