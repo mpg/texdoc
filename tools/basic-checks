@@ -1,0 +1,58 @@
+#!/usr/bin/perl
+
+# Basic checks (mainly that texdoc doesn't crash with various syntaxes).
+#
+# The script manipulates the environment to make sure the right versions and
+# path are used.
+#
+# Manuel Pégourié-Gonnard, 2010. WTFPL v2.
+
+my $usage = <<USAGE;
+Usage: $0 [--td=texdoc-path] [--tl=texlive_path]
+USAGE
+
+use warnings 'FATAL' => 'all';
+use strict;
+use utf8;
+use open qw(:std utf8);
+use Getopt::Long;
+
+# defaults
+my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : $ENV{TEXDOCDEV};
+my $texlive_path = "$ENV{TLROOT}/bin/x86_64-linux";
+
+# get options
+GetOptions(
+    'td=s' => \$texdoc_path,
+    'tl=s' => \$texlive_path,
+) or die "Unkown option.\n$usage";
+
+# check the paths
+my $texdoc_scriptdir = "$texdoc_path/script";
+-d $texdoc_scriptdir or die "Bad texdoc_path";
+-d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
+
+# make sure the path we want are used
+$ENV{PATH} = "$texlive_path:$ENV{PATH}"; # use texlive svn
+$ENV{TEXMFHOME} = $texdoc_path; # use texdoc.cnf from the repo
+$ENV{TEXMFSCRIPTS} = "$texdoc_scriptdir:"; # use texdoc git
+my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu"; #same
+
+# various command lines and associated exit status
+my %cl_exit = (
+    '' => 2,
+    '--version' => 0,
+    '--help' => 0,
+    '--foobar' => 2,
+    'foobar' => 0,
+    '-l -M -q texdoc' => 0,
+);
+
+# check that the command lines return the right exit code
+while (my ($cl, $status) = each(%cl_exit)) {
+    system("$texdoc $cl >/dev/null 2>&1");
+    my $code = $? >> 8;
+    die "`texdoc $cl' failed" if $code != $status;
+}
+
+__END__

@@ -5,9 +5,9 @@
 # For your personal or local setting, if you are a normal user, run 'texdoc -f'
 # and use the file indicated by a star. You may need to create it. DO NOT copy
 # the present file, please create a new one (you may want to copy/paste/edit
-# portions of the present file, or just read it for inspiration).
+# portions of the present file however, or just read it for inspiration).
 #
-# For system-wide confuguration or other uses, you may want to use the other
+# For system-wide configuration or other uses, you may want to use the other
 # files listed, see the manual (texdoc texdoc) for details. The files are read
 # in the order they are printed. If a value is set multiple times, first wins.
 #
@@ -23,7 +23,7 @@
 ### Viewer settings ###
 
 # Defaults depend on what is available on you system, as well as you desktop
-# environement.  Here are a few examples.
+# environment.  Here are a few examples.
 #
 # %s is optional and stands for the filename.
 #
@@ -40,7 +40,7 @@
 # last thing on your command line: (xpdf %s -option) will not work.
 #
 # WARNING: for zip support your viewer needs to be blocking, i.e. it must not
-# return immediately: otherwise the file will be delete too early.
+# return immediately: otherwise the temporary file will be deleted too early.
 
 ### Zipped documentation support ###
 
@@ -65,13 +65,15 @@
 # Built-in defaults (for reference):
 #
 # mode = view
+#
 # interact_switch = true
-# alias_switch = true
-# ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
-# badext_list = txt,                    # Note: empty string at end
+# machine_switch = false
+#
 # verbosity_level = 2   # Print: 0 nothing, 1 errors, 2 warnings, 3: infos
 # debug_list =          # the empty list
-# machine_switch = false
+#
+# ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
+# badext_list = txt,                    # Note: empty string at end
 
 ### Score ###
 
@@ -134,7 +136,6 @@ alias faq-en = newfaq
 alias faq = newfaq
 
 # various lshort translations
-alias lshort = lshort-english/lshort    # original
 alias lshort-de = l2kurz                # german
 alias lshort-pl = polish/lshort2e       # polish
 alias lshort-pt = ptlshort              # portuguese
@@ -329,66 +330,58 @@ alias cv = curve/curve
 alias preprint = preprint/00readme.txt
 
 ## packages from ctan/macros/latex/contrib/misc or with doc in .sty only
-# anyway, this is quite bad and should be changed some day
 
-alias 3parttable = 3parttable.sty
-alias bibcheck = bibcheck.sty
-alias captdef = captdef.sty
-alias concrete = concrete.sty
-alias excludeonly = excludeonly.sty
-alias fncylab = fncylab.sty
-alias fnpara = fnpara.sty
-alias framed = framed.sty
-alias ftcap = ftcap.sty
-alias fwlw = fwlw.sty
-alias hypernat = hypernat.sty
-alias ifmtarg = ifmtarg.sty
-alias import = import.sty
-alias isonums = isonums.sty
-alias kix = kix.sty
-alias linsys = linsys.sty
-alias listing = listing.sty
-alias ltablex = ltablex.sty
-alias magaz = magaz.sty
-alias midpage = midpage.sty
-alias mitpress = mitpress.sty
-alias morefloats = morefloats.sty
-alias needspace = needspace.sty
-alias nextpage = nextpage.sty
-alias nolbreaks = nolbreaks.sty
-alias notoccite = notoccite.sty
-alias optional = optional.sty
-alias parskip = parskip.sty
-alias path = path.sty
-alias printlen = printlen.sty
-alias relsize = relsize.sty
-alias romanneg = romanneg.sty
-alias sansmath = sansmath.sty
-alias secdot = secdot.sty
-alias section = section.sty
-alias selectp = selectp.sty
-alias sepnum = sepnum.sty
-alias shadow = shadow.sty
-alias showtags = showtags.sty
-alias sphack = sphack.sty
-alias statex2 = statex2.sty
-alias statex = statex.sty
-alias subfigmat = subfigmat.sty
-alias tabls = tabls.sty
-alias texilikecover = texilikecover.sty
-alias threeparttable = threeparttable.sty
-alias thrmappendix = thrmappendix.sty
-alias titleref = titleref.sty
-alias topcapt = topcapt.sty
-alias truncate = truncate.sty
-alias underscore = underscore.sty
-alias varwidth = varwidth.sty
-alias verbasef = verbasef.sty
-alias version = version.sty
-alias vertbars = vertbars.sty
-alias vrbexin = vrbexin.sty
-alias vruler = vruler.sty
-alias wrapfig = wrapfig.sty
+# the score used is 4.1 because:
+# - it is less than 4.5, the default score of foobar/foobar.pdf for name foobar
+# - it is greater than the worse false positive here (.../VERSION for version)
+#
+# Anyway, this is a hopefully a temporary measure, since work is going on to
+# produce suitable documentation for all these packages (thanks to Philipp
+# Stephani and Robin Faribarns mostly).
+
+alias(4.1) 3parttable = 3parttable.sty
+alias(4.1) bibcheck = bibcheck.sty
+alias(4.1) concrete = concrete.sty
+alias(4.1) fncylab = fncylab.sty
+alias(4.1) linsys = linsys.sty
+alias(4.1) magaz = magaz.sty
+alias(4.1) midpage = midpage.sty
+alias(4.1) mitpress = mitpress.sty
+alias(4.1) morefloats = morefloats.sty
+alias(4.1) needspace = needspace.sty
+alias(4.1) nextpage = nextpage.sty
+alias(4.1) nolbreaks = nolbreaks.sty
+alias(4.1) notoccite = notoccite.sty
+alias(4.1) optional = optional.sty
+alias(4.1) parskip = parskip.sty
+alias(4.1) path = path.sty
+alias(4.1) printlen = printlen.sty
+alias(4.1) relsize = relsize.sty
+alias(4.1) romanneg = romanneg.sty
+alias(4.1) sansmath = sansmath.sty
+alias(4.1) secdot = secdot.sty
+alias(4.1) section = section.sty
+alias(4.1) selectp = selectp.sty
+alias(4.1) sepnum = sepnum.sty
+alias(4.1) shadow = shadow.sty
+alias(4.1) showtags = showtags.sty
+alias(4.1) sphack = sphack.sty
+alias(4.1) statex2 = statex2.sty
+alias(4.1) statex = statex.sty
+alias(4.1) subfigmat = subfigmat.sty
+alias(4.1) texilikecover = texilikecover.sty
+alias(4.1) thrmappendix = thrmappendix.sty
+alias(4.1) titleref = titleref.sty
+alias(4.1) topcapt = topcapt.sty
+alias(4.1) truncate = truncate.sty
+alias(4.1) underscore = underscore.sty
+alias(4.1) varwidth = varwidth.sty
+alias(4.1) verbasef = verbasef.sty
+alias(4.1) version = version.sty
+alias(4.1) vertbars = vertbars.sty
+alias(4.1) vrbexin = vrbexin.sty
+alias(4.1) vruler = vruler.sty
+alias(4.1) wrapfig = wrapfig.sty
 
 # The next line has no effect when this file is installed as the last
 # configuration file (default) but is useful when you install it as the "tricky"
