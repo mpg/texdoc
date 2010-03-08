@@ -5,9 +5,9 @@
 # For your personal or local setting, if you are a normal user, run 'texdoc -f'
 # and use the file indicated by a star. You may need to create it. DO NOT copy
 # the present file, please create a new one (you may want to copy/paste/edit
-# portions of the present file, or just read it for inspiration).
+# portions of the present file however, or just read it for inspiration).
 #
-# For system-wide confuguration or other uses, you may want to use the other
+# For system-wide configuration or other uses, you may want to use the other
 # files listed, see the manual (texdoc texdoc) for details. The files are read
 # in the order they are printed. If a value is set multiple times, first wins.
 #
@@ -23,7 +23,7 @@
 ### Viewer settings ###
 
 # Defaults depend on what is available on you system, as well as you desktop
-# environement.  Here are a few examples.
+# environment.  Here are a few examples.
 #
 # %s is optional and stands for the filename.
 #
@@ -40,7 +40,7 @@
 # last thing on your command line: (xpdf %s -option) will not work.
 #
 # WARNING: for zip support your viewer needs to be blocking, i.e. it must not
-# return immediately: otherwise the file will be delete too early.
+# return immediately: otherwise the temporary file will be deleted too early.
 
 ### Zipped documentation support ###
 
@@ -65,13 +65,15 @@
 # Built-in defaults (for reference):
 #
 # mode = view
+#
 # interact_switch = true
-# alias_switch = true
-# ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
-# badext_list = txt,                    # Note: empty string at end
+# machine_switch = false
+#
 # verbosity_level = 2   # Print: 0 nothing, 1 errors, 2 warnings, 3: infos
 # debug_list =          # the empty list
-# machine_switch = false
+#
+# ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
+# badext_list = txt,                    # Note: empty string at end
 
 ### Score ###
 
