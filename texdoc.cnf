@@ -328,51 +328,58 @@ alias cv = curve/curve
 alias preprint = preprint/00readme.txt
 
 ## packages from ctan/macros/latex/contrib/misc or with doc in .sty only
-# anyway, this is quite bad and should be changed some day
 
-alias 3parttable = 3parttable.sty
-alias bibcheck = bibcheck.sty
-alias concrete = concrete.sty
-alias fncylab = fncylab.sty
-alias linsys = linsys.sty
-alias magaz = magaz.sty
-alias midpage = midpage.sty
-alias mitpress = mitpress.sty
-alias morefloats = morefloats.sty
-alias needspace = needspace.sty
-alias nextpage = nextpage.sty
-alias nolbreaks = nolbreaks.sty
-alias notoccite = notoccite.sty
-alias optional = optional.sty
-alias parskip = parskip.sty
-alias path = path.sty
-alias printlen = printlen.sty
-alias relsize = relsize.sty
-alias romanneg = romanneg.sty
-alias sansmath = sansmath.sty
-alias secdot = secdot.sty
-alias section = section.sty
-alias selectp = selectp.sty
-alias sepnum = sepnum.sty
-alias shadow = shadow.sty
-alias showtags = showtags.sty
-alias sphack = sphack.sty
-alias statex2 = statex2.sty
-alias statex = statex.sty
-alias subfigmat = subfigmat.sty
-alias texilikecover = texilikecover.sty
-alias thrmappendix = thrmappendix.sty
-alias titleref = titleref.sty
-alias topcapt = topcapt.sty
-alias truncate = truncate.sty
-alias underscore = underscore.sty
-alias varwidth = varwidth.sty
-alias verbasef = verbasef.sty
-alias version = version.sty
-alias vertbars = vertbars.sty
-alias vrbexin = vrbexin.sty
-alias vruler = vruler.sty
-alias wrapfig = wrapfig.sty
+# the score used is 4.1 because:
+# - it is less than 4.5, the default score of foobar/foobar.pdf for name foobar
+# - it is greater than the worse false positive here (.../VERSION for version)
+#
+# Anyway, this is a hopefully a temporary measure, since work is going on to
+# produce suitable documentation for all these packages (thanks to Philipp
+# Stephani and Robin Faribarns mostly).
+
+alias(4.1) 3parttable = 3parttable.sty
+alias(4.1) bibcheck = bibcheck.sty
+alias(4.1) concrete = concrete.sty
+alias(4.1) fncylab = fncylab.sty
+alias(4.1) linsys = linsys.sty
+alias(4.1) magaz = magaz.sty
+alias(4.1) midpage = midpage.sty
+alias(4.1) mitpress = mitpress.sty
+alias(4.1) morefloats = morefloats.sty
+alias(4.1) needspace = needspace.sty
+alias(4.1) nextpage = nextpage.sty
+alias(4.1) nolbreaks = nolbreaks.sty
+alias(4.1) notoccite = notoccite.sty
+alias(4.1) optional = optional.sty
+alias(4.1) parskip = parskip.sty
+alias(4.1) path = path.sty
+alias(4.1) printlen = printlen.sty
+alias(4.1) relsize = relsize.sty
+alias(4.1) romanneg = romanneg.sty
+alias(4.1) sansmath = sansmath.sty
+alias(4.1) secdot = secdot.sty
+alias(4.1) section = section.sty
+alias(4.1) selectp = selectp.sty
+alias(4.1) sepnum = sepnum.sty
+alias(4.1) shadow = shadow.sty
+alias(4.1) showtags = showtags.sty
+alias(4.1) sphack = sphack.sty
+alias(4.1) statex2 = statex2.sty
+alias(4.1) statex = statex.sty
+alias(4.1) subfigmat = subfigmat.sty
+alias(4.1) texilikecover = texilikecover.sty
+alias(4.1) thrmappendix = thrmappendix.sty
+alias(4.1) titleref = titleref.sty
+alias(4.1) topcapt = topcapt.sty
+alias(4.1) truncate = truncate.sty
+alias(4.1) underscore = underscore.sty
+alias(4.1) varwidth = varwidth.sty
+alias(4.1) verbasef = verbasef.sty
+alias(4.1) version = version.sty
+alias(4.1) vertbars = vertbars.sty
+alias(4.1) vrbexin = vrbexin.sty
+alias(4.1) vruler = vruler.sty
+alias(4.1) wrapfig = wrapfig.sty
 
 # The next line has no effect when this file is installed as the last
 # configuration file (default) but is useful when you install it as the "tricky"
