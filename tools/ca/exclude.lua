@@ -1,5 +1,4 @@
 return {
-    framed      = 'false positives',
     section     = 'false positives',
     wrapfig     = 'related result',
     varwidth    = 'FAQ',
