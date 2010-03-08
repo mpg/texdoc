@@ -22,7 +22,7 @@ end
 -- return true iff there is a sty in a and something good in b
 function sty_not_alone(a, b)
     if #b == 0 then return false end
-    if b[1].score < -1 then return false end
+    if b[1].score < 4.5 then return false end
     for _, df in ipairs(a) do
         if df.realpath:match('%.sty$') then
             return true
@@ -35,10 +35,6 @@ end
 setup_config_and_alias(arg)
 init_databases()
 
--- load an exclusion file for sty checks
-local exclude_file = assert(kpse.find_file('exclude.lua', 'texmfscripts'))
-local exclude_sty = dofile(exclude_file)
-
 -- check all aliased names
 local useless = {}
 local badsty = {}
@@ -48,7 +44,7 @@ for name in aliased_names() do
     if dl_equal(with, without) then
         table.insert(useless, name)
     end
-    if not exclude_sty[name] and sty_not_alone(with, without) then
+    if sty_not_alone(with, without) then
         table.insert(badsty, name)
     end
 end
