@@ -19,6 +19,10 @@ Ideas for later
 Not sure about that
 -------------------
 
+Information from the tlpdb isn't always as up-to-date as the catalogue, in case
+the catalogue has been fixed for a package that wasn't update. Should I generate
+Data.meta.lua directly from a fresh catalogue version?
+
 For non-original patterns (ie actual aliases), the kpse-like search routines
 should select only exact matches.
 

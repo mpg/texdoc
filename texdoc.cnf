@@ -254,7 +254,7 @@ alias xstring-fr = xstring_doc_fr
 alias isomath = isomath.sty.pdf
 alias elsarticle = elsdoc
 alias afoot = arabtex-doc
-
+alias vntex = vntex # umbrella document (manual comes first due to catalogue)
 
 ## a few easy patterns
 
