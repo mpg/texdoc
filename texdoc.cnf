@@ -78,13 +78,16 @@
 ### Score ###
 
 # Only results with positive scores are displayed (unless mode is 'showall').
-# Results with score <= 100 are never displayed.
+# Results with score <= -100 are never displayed.
 # 
 # You can adjust the score of results containing a pattern with adjscore,
 # either globally or only for specific keywords
 
-# Makefile's are never documentation, -1000 should be enough to kill them
+# Makefile's are never documentation, just as documents in src or source subdir
+# -1000 should be enough to kill them
 adjscore /Makefile = -1000
+adjscore /src/ = -1000
+adjscore /source/ = -1000
 
 # tex-virtual-academy provides a lot of fake matches
 adjscore /tex-virtual-academy-pl/ = -50
@@ -254,7 +257,8 @@ alias xstring-fr = xstring_doc_fr
 alias isomath = isomath.sty.pdf
 alias elsarticle = elsdoc
 alias afoot = arabtex-doc
-
+alias vntex = vntex # umbrella document (manual comes first due to catalogue)
+alias asymptote = asymptote # not mentioned in the catalogue currently
 
 ## a few easy patterns
 
@@ -343,7 +347,6 @@ alias(4.1) 3parttable = 3parttable.sty
 alias(4.1) bibcheck = bibcheck.sty
 alias(4.1) concrete = concrete.sty
 alias(4.1) linsys = linsys.sty
-alias(4.1) magaz = magaz.sty
 alias(4.1) midpage = midpage.sty
 alias(4.1) mitpress = mitpress.sty
 alias(4.1) morefloats = morefloats.sty
