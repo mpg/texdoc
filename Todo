@@ -1,6 +1,8 @@
 Stuff to do soon
 ================
 
+Should check for useless readme aliases in the same way as sty aliases.
+
 Use alt-getopt for options parsing.
 
 Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?

@@ -311,7 +311,6 @@ alias(5) xypic = xyrefer
 alias pbdiagram = pb-manual
 alias expressg = expeg
 alias arydshln = arydshln-man
-alias multirow = multirow/README
 alias natbib2 = natnotes
 alias tangles = t-angles/t-manual
 alias mathenv = mdwtab
