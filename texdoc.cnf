@@ -340,13 +340,12 @@ alias preprint = preprint/00readme.txt
 #
 # Anyway, this is a hopefully a temporary measure, since work is going on to
 # produce suitable documentation for all these packages (thanks to Philipp
-# Stephani and Robin Faribarns mostly).
+# Stephani and Robin Fairbairns mostly).
 
 alias(4.1) 3parttable = 3parttable.sty
 alias(4.1) bibcheck = bibcheck.sty
 alias(4.1) concrete = concrete.sty
 alias(4.1) linsys = linsys.sty
-alias(4.1) midpage = midpage.sty
 alias(4.1) mitpress = mitpress.sty
 alias(4.1) morefloats = morefloats.sty
 alias(4.1) needspace = needspace.sty
