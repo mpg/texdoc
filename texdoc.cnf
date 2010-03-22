@@ -331,6 +331,7 @@ alias ieee = IEEEtran_HOWTO
 alias kluwer = kluwer/usrman
 alias cv = curve/curve
 alias preprint = preprint/00readme.txt
+alias onrannual = onrannual/README
 
 ## packages from ctan/macros/latex/contrib/misc or with doc in .sty only
 
@@ -380,7 +381,6 @@ alias(4.1) verbasef = verbasef.sty
 alias(4.1) version = version.sty
 alias(4.1) vertbars = vertbars.sty
 alias(4.1) vrbexin = vrbexin.sty
-alias(4.1) vruler = vruler.sty
 alias(4.1) wrapfig = wrapfig.sty
 
 # The next line has no effect when this file is installed as the last
