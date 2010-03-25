@@ -245,6 +245,7 @@ alias caption = caption-eng
 alias caption-dev = caption.pdf
 
 # misc
+alias beamer = beameruserguide
 alias hyperref = hyperref/manual.pdf
 alias hyperref-dev = hyperref.pdf
 alias bibtex = btxdoc

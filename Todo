@@ -17,6 +17,8 @@ Maybe a problem in TL's infra: no meta for ec's readme.
 
 Meta missing with beebe's files.
 
+No comment for beameruserguide.
+
 Fixes in the catalogue are slow to propagate to TL.
 
 Should the shipped meta file be generated direclty from the catalogue to fix all
