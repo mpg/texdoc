@@ -1,6 +1,9 @@
 Stuff to do soon
 ================
 
+Check if some aliases suppressed after 0.6 would be useful again (such as doc,
+beamer). Can use check-aliases for that, by restoring all aliases.
+
 Should check for useless readme aliases in the same way as sty aliases.
 
 Use alt-getopt for options parsing.

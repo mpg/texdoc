@@ -186,6 +186,7 @@ alias(20) textcomp = encguide
 alias makeidx = makeindx
 alias showidx = makeindx
 alias shortvrb = base/doc
+alias doc = base/doc
 # TODO: try to avoid the huge amount of false positives for `doc' itself.
 
 # latex's required graphics bundle
