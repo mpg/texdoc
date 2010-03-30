@@ -261,6 +261,8 @@ alias elsarticle = elsdoc
 alias afoot = arabtex-doc
 alias vntex = vntex # umbrella document (manual comes first due to catalogue)
 alias asymptote = asymptote # not mentioned in the catalogue currently
+alias nonfloat = nonfloat-en
+alias nonfloat-de = nonfloat
 
 ## a few easy patterns
 
