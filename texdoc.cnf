@@ -92,6 +92,11 @@ adjscore /source/ = -1000
 # tex-virtual-academy provides a lot of fake matches
 adjscore /tex-virtual-academy-pl/ = -50
 
+# test and example files are not likely the best documentation
+adjscore test = -3
+adjscore example = -3
+adjscore sample = -3
+
 # Uncomment this to make the man pages have a greater priority
 #adjscore .man1. = 5
 #adjscore .man5. = 5
