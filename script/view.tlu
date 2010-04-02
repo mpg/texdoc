@@ -184,5 +184,6 @@ end
 
 -- finally export a few symbols
 export_symbols(L, {
+    'view_file',
     'deliver_results',
 })

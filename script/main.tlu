@@ -11,6 +11,7 @@ load_env(L, {
     'os', 'arg', 'print',
     'setup_config_and_alias', 'init_databases', 'print_usage',
     'get_doclist', 'deliver_results', 'aliased_names',
+    'config', 'view_file',
 })
 
 -- get started
@@ -21,6 +22,12 @@ init_databases()
 if not arg[1] then
     print_usage()
     os.exit(C.exit_usage)
+end
+
+-- special case for just view
+if config.just_view then
+    local ok = view_file(arg[1])
+    os.exit(ok and C.exit_ok or C.exit_error)
 end
 
 -- main loop
