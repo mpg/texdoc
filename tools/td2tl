@@ -71,9 +71,9 @@ if (open my $git_head_fh, '<', '.git/HEAD') {
     close $git_head_fh;
     my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
     $git_branch_name ||= '(no branch)';
-    ($git_branch_name eq 'texlive') or $::force_wrong_branch
+    ($git_branch_name eq 'texlive') or $force_wrong_branch
         or die "Current branch is $git_branch_name!\n";
-} elsif (not $::force_wrong_branch ) {
+} elsif (not $force_wrong_branch ) {
     die "Not updating from a git repository.\n";
 }
 
