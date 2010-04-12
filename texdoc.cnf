@@ -103,6 +103,10 @@ adjscore test = -3
 adjscore example = -3
 adjscore sample = -3
 
+# readme's usually deserve a negative score because they have a bad extension,
+# but they're still slightly better than other results with negative scores...
+adjscore readme = 0.1
+
 # Uncomment this to make the man pages have a greater priority
 #adjscore .man1. = 5
 #adjscore .man5. = 5
@@ -279,6 +283,10 @@ alias subdocs = bezos
 alias dotlessi = bezos
 alias checkend = bezos
 alias arabicfont = bezos
+alias cm-super = cm-super/README
+alias cmsuper = cm-super/README
+alias(5) cmsuper = cm-super/FAQ
+alias cyrillic = cyrillic/00readme.txt
 
 ## a few easy patterns
 
@@ -309,16 +317,12 @@ alias uktugfaq = newfaq
 alias datenumber-de = datenumber/docgerman
 alias index = ind
 alias psnfss = psnfss2e
-alias cmsuper = cm-super/README
 alias euro = eurosamp
 alias lmfonts = lm-info
-alias yfonts = yfonts/readme
 alias dutch = rapdoc
 alias montex = mlsquick
 alias(60) akademia = tex-virtual-academy-pl/index.html
-alias cyrillic = cyrillic/00readme.txt
 alias otibet = otibet/unidoc
-alias texsis = texsis/base/README
 alias startex = startex/base/guide
 alias overpic = opic-rel
 alias apmgraph = pmgraph
