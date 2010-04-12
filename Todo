@@ -1,9 +1,6 @@
 Stuff to do soon
 ================
 
-Check if some aliases suppressed after 0.6 would be useful again (such as doc,
-beamer). Can use check-aliases for that, by restoring all aliases.
-
 Should check for useless readme aliases in the same way as sty aliases.
 
 Use alt-getopt for options parsing.
@@ -31,7 +28,7 @@ Code cleanup
 ------------
 
 Adapt the alias structure to remember which one is the original. Then, the
-skpse-like search routine can select only exact matches for this one. Also, the
+kpse-like search routine can select only exact matches for this one. Also, the
 scoring routine wouldn't need the original keyword as an argument anymore. Then
 the Docfile object could have a .score virtual member.
 
