@@ -89,6 +89,12 @@ adjscore /Makefile = -1000
 adjscore /src/ = -1000
 adjscore /source/ = -1000
 
+# licence files aren't very likely to contain relevant documentation, but it
+# feels wrong to totally kill them...
+adjscore copying = -10
+adjscore license = -10
+adjscore gpl = -10
+
 # tex-virtual-academy provides a lot of fake matches
 adjscore /tex-virtual-academy-pl/ = -50
 
@@ -269,6 +275,10 @@ alias asymptote = asymptote # not mentioned in the catalogue currently
 alias nonfloat = nonfloat-en
 alias nonfloat-de = nonfloat
 alias showkeys = showkeys # avoid dlfltxbmarkup-showkeys
+alias subdocs = bezos
+alias dotlessi = bezos
+alias checkend = bezos
+alias arabicfont = bezos
 
 ## a few easy patterns
 
@@ -392,6 +402,8 @@ alias(4.1) version = version.sty
 alias(4.1) vertbars = vertbars.sty
 alias(4.1) vrbexin = vrbexin.sty
 alias(4.1) wrapfig = wrapfig.sty
+alias(0) theoremref = theoremref.sty
+alias(0) shadethm = shadethm.sty
 
 # The next line has no effect when this file is installed as the last
 # configuration file (default) but is useful when you install it as the "tricky"
