@@ -134,6 +134,7 @@ adjscore(latex) test_latex = -10
 adjscore(beamer) beamer-tut-pt = -10
 adjscore(beamer) beamer-tut-pt/tutorialbeamer = +10
 adjscore(beamer) presentations = -10
+adjscore(beamer) beamer-FUBerlin = -3
 
 # it is also possible to set the score directly in alias directives
 # eg, fontinstallationguide is related to fontinst:
@@ -261,7 +262,6 @@ alias caption = caption-eng
 alias caption-dev = caption.pdf
 
 # misc
-alias beamer = beameruserguide
 alias hyperref = hyperref/manual.pdf
 alias hyperref-dev = hyperref.pdf
 alias bibtex = btxdoc
@@ -278,7 +278,6 @@ alias vntex = vntex # umbrella document (manual comes first due to catalogue)
 alias asymptote = asymptote # not mentioned in the catalogue currently
 alias nonfloat = nonfloat-en
 alias nonfloat-de = nonfloat
-alias showkeys = showkeys # avoid dlfltxbmarkup-showkeys
 alias subdocs = bezos
 alias dotlessi = bezos
 alias checkend = bezos
