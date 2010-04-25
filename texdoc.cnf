@@ -156,12 +156,12 @@ alias faq = newfaq
 adjscore(symbols) /staves/ = -5
 
 # various lshort translations
-alias lshort = english/lshort           # original (english)
+alias lshort = lshort-english/lshort    # original (english)
 alias lshort-de = l2kurz                # german
-alias lshort-pl = polish/lshort2e       # polish
+alias lshort-pl = lshort-polish/lshort2e # polish
 alias lshort-pt = ptlshort              # portuguese
 alias lshort-sk = slshorte              # slovak
-alias lshort-es = -spanish/lshort       # spanish
+alias lshort-es = lshort-spanish/lshort # spanish
 
 # *TeX engines reference manuals, man pages and related
 alias e-tex-ref = etex_man
