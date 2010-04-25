@@ -153,8 +153,10 @@ alias latex = latex-doc-ptr
 # a few useful general documents
 alias faq-en = newfaq
 alias faq = newfaq
+adjscore(symbols) /staves/ = -5
 
 # various lshort translations
+alias lshort = english/lshort           # original (english)
 alias lshort-de = l2kurz                # german
 alias lshort-pl = polish/lshort2e       # polish
 alias lshort-pt = ptlshort              # portuguese
