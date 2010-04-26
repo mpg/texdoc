@@ -156,7 +156,7 @@ alias faq = newfaq
 adjscore(symbols) /staves/ = -5
 
 # various lshort translations
-alias lshort = lshort-english/lshort    # original (english)
+adjscore(lshort) /lshort-english/ = +3  # original
 alias lshort-de = l2kurz                # german
 alias lshort-pl = lshort-polish/lshort2e # polish
 alias lshort-pt = ptlshort              # portuguese
@@ -367,7 +367,6 @@ alias(4.1) concrete = concrete.sty
 alias(4.1) linsys = linsys.sty
 alias(4.1) mitpress = mitpress.sty
 alias(4.1) morefloats = morefloats.sty
-alias(4.1) needspace = needspace.sty
 alias(4.1) nextpage = nextpage.sty
 alias(4.1) nolbreaks = nolbreaks.sty
 alias(4.1) notoccite = notoccite.sty
@@ -377,7 +376,6 @@ alias(4.1) path = path.sty
 alias(4.1) printlen = printlen.sty
 alias(4.1) relsize = relsize.sty
 alias(4.1) romanneg = romanneg.sty
-alias(4.1) sansmath = sansmath.sty
 alias(4.1) secdot = secdot.sty
 alias(4.1) section = section.sty
 alias(4.1) selectp = selectp.sty
