@@ -325,7 +325,6 @@ alias montex = mlsquick
 alias(60) akademia = tex-virtual-academy-pl/index.html
 alias otibet = otibet/unidoc
 alias startex = startex/base/guide
-alias overpic = opic-rel
 alias apmgraph = pmgraph
 alias tikz = pgfmanual
 alias treetex = tree_doc
