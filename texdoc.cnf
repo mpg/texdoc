@@ -384,7 +384,6 @@ alias(4.1) statex = statex.sty
 alias(4.1) subfigmat = subfigmat.sty
 alias(4.1) texilikecover = texilikecover.sty
 alias(4.1) thrmappendix = thrmappendix.sty
-alias(4.1) titleref = titleref.sty
 alias(4.1) topcapt = topcapt.sty
 alias(4.1) truncate = truncate.sty
 alias(4.1) varwidth = varwidth.sty
