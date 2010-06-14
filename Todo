@@ -73,6 +73,14 @@ Do something with the description from the catalogue?
 Help maintainers standardise comments in order to allow for more accurate
 scoring/classification?
 
+Auto-generation of doc files
+----------------------------
+
+To allow installing TL without the doc trees (cuts of the size by 2).
+Suggested by Will.
+
+
+
 Port on MikTeX ???
 ------------------
 
