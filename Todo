@@ -7,6 +7,10 @@ Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
 
 Document --just-view.
 
+Before TL release: check if metadata are now OK in tlnet's tlpdb, and stop
+using the shipped cache if not needed any more. Regenerate the shipped cache
+as soon as TL packages are frozen.
+
 Metadata problems
 -----------------
 
@@ -73,6 +77,9 @@ Do something with the description from the catalogue?
 Help maintainers standardise comments in order to allow for more accurate
 scoring/classification?
 
+--apropos using Jim's keywords and categorization, see Karl's mail:
+http://tug.org/pipermail/texdoc/2010q3/000213.html
+
 Auto-generation of doc files
 ----------------------------
 
@@ -96,3 +103,9 @@ Adapt to the different tree layout in MikTeX (TEXMFHOME etc don't exist).
 
 May maintain two versions as branches???
 
+
+Notes and references
+--------------------
+
+Texdoc GUI project going on since early May 2010, see messages from Enrico
+Gregorio in my (mpg) inbox.
