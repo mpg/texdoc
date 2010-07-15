@@ -74,6 +74,7 @@
 #
 # ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
 # badext_list = txt,                    # Note: empty string at end
+# basename_list = readme
 
 ### Score ###
 

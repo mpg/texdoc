@@ -64,6 +64,7 @@ known_options = {
     'machine_switch',
     'alias_switch',
     'ext_list',
+    'basename_list',
     'badext_list',
     'verbosity_level',
     'debug_list',

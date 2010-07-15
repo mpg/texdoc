@@ -516,6 +516,7 @@ function setup_config_from_defaults()
         interact_switch     = 'true',
         machine_switch      = 'false',
         ext_list            = 'pdf, html, txt, ps, dvi, ',
+        basename_list       = 'readme',
         badext_list         = 'txt, ',
         verbosity_level     = C.def_verbosity,
         debug_list          = '',

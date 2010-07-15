@@ -332,7 +332,8 @@ function scan_db(patlist, code, lsr_db)
     end
 end
 
--- says if file has a 'good' extenstion according to ext_list
+-- says if file has a known extenstion according to ext_list
+-- (or known basename according to basename_list)
 function check_ext(file)
     file = string.lower(file)
     -- remove zipext if applicable
@@ -350,6 +351,12 @@ function check_ext(file)
             if string.sub(file, -string.len(dot_e)) == dot_e then
                 return true
             end
+        end
+    end
+    -- is the basename good?
+    for _, b in ipairs(config.basename_list) do
+        if file:find('^'..b..'$') or file:find('^'..b..'%.') then
+            return true
         end
     end
     return false
