@@ -1,9 +1,12 @@
 Stuff to do soon
 ================
 
-Use alt-getopt for options parsing.
-
 Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
+
+Make the list of bad comments from the catalogue configurable? (Currently,
+readme hardcoded.)
+
+Document (bad)basename_list.
 
 Document --just-view.
 
@@ -40,6 +43,9 @@ Syntax simplifictation in some places using object-oriented syntax for strings?
 
 Ideas for later
 ===============
+
+Use alt-getopt for options parsing (needs to be patched for error handling and
+optional arguments: write my own gnu_getopt_long?)
 
 Not sure about that
 -------------------

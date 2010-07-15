@@ -66,6 +66,7 @@ known_options = {
     'ext_list',
     'basename_list',
     'badext_list',
+    'badbasename_list',
     'verbosity_level',
     'debug_list',
     'lastfile_switch',

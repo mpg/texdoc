@@ -73,7 +73,7 @@ function set_score(df, original_kw)
         elseif is_exact(name, p) then
             s = pat.score or 10 -- default alias score
             deb_print('score', string.format(
-                "Matching alias '%s', score: %d", pat.name, s))
+                "Matching alias '%s', score: %g", pat.name, s))
         end
         if s > score then score = s end
     end
@@ -95,7 +95,7 @@ function set_score(df, original_kw)
             if val and is_subword('/'..name, pat) then
                 score = score + val
                 deb_print('score', string.format(
-                    "Adjust by '%d' from specific pattern '%s'", val, pat))
+                    "Adjust by %g from specific pattern '%s'", val, pat))
             end
         end
     end
@@ -105,7 +105,7 @@ function set_score(df, original_kw)
             if val and is_subword('/'..name, pat) then
                 if score > -10 or val < 0 then score = score + val end
                 deb_print('score', string.format(
-                    "Adjust by '%d' from global pattern '%s'", val, pat))
+                    "Adjust by %g from global pattern '%s'", val, pat))
             end
         end
     end
@@ -154,10 +154,14 @@ function heuristic_score(file, pat)
             end
         end
     end
-    -- if extension is bad, score is < 0
+    -- if extension is bad, score gets < 0
     local ext = config.ext_list[ext_pos(file)]
     if ext and config.badext_list_inv[ext] and score > 0 then
         upscore(-1, 'bad extension', true)
+    end
+    -- if basename is bad, score gets < 0
+    if has_bad_basename(file) and score > 0 then
+        upscore(-1, 'bad basename', true)
     end
     -- bonus for being in the right directory
     if string.find('/'..file, '/'..pat..'/', 1, true) and not slash then
@@ -194,6 +198,17 @@ end
 -- say if character i of str is a delimiter (ponctuation)
 function is_delim(str, i)
     return not not string.find(string.sub(str, i, i), '%p')
+end
+
+-- say if a filename has a bad basename
+function has_bad_basename(file)
+    file = file:gsub('.*/', '')
+    for _, b in ipairs(config.badbasename_list) do
+        if file:find('^'..b..'$') or file:find('^'..b..'%.') then
+            return true
+        end
+    end
+    return false
 end
 
 -- compare two docfile's: (see search.tlu for structure)

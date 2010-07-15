@@ -518,6 +518,7 @@ function setup_config_from_defaults()
         ext_list            = 'pdf, html, txt, ps, dvi, ',
         basename_list       = 'readme',
         badext_list         = 'txt, ',
+        badbasename_list    = 'readme',
         verbosity_level     = C.def_verbosity,
         debug_list          = '',
         max_lines           = '20',
