@@ -1,7 +1,7 @@
 Stuff to do soon
 ================
 
-Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
+Document suffix_list.
 
 Make the list of bad comments from the catalogue configurable? (Currently,
 readme hardcoded.)

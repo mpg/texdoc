@@ -113,17 +113,6 @@ function set_score(df, original_kw)
     df.score = score
 end
 
--- suffixes for heuristic match
-local suffixes = {
-    'doc', '-doc', '_doc', '.doc', '/doc',
-    'manual', '/manual', '-manual',
-    'userguide', '/user_guide',
-    '-guide',
-    '-user',
-    '-man',
-    'notes',
-}
-
 -- compute a heuristic score -10 <= s < 10
 function heuristic_score(file, pat)
     deb_print('score', 'Start heuristic scoring with pattern: '..pat)
@@ -145,7 +134,7 @@ function heuristic_score(file, pat)
     end
     -- try derivatives unless pat contains a slash
     if not slash then
-        for _, suffix in ipairs(suffixes) do
+        for _, suffix in ipairs(config.suffix_list) do
             local deriv = pat..suffix
             if is_exact(file, deriv) then
                 upscore(3, 'exact match for derived pattern: '..deriv)

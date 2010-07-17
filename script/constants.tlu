@@ -67,6 +67,7 @@ known_options = {
     'basename_list',
     'badext_list',
     'badbasename_list',
+    'suffix_list',
     'verbosity_level',
     'debug_list',
     'lastfile_switch',

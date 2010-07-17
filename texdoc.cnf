@@ -77,6 +77,9 @@
 # basename_list = readme
 # badbasename_list = readme
 
+## Known suffixes for documentation
+suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes
+
 ### Score ###
 
 # Only results with positive scores are displayed (unless mode is 'showall').
