@@ -467,7 +467,6 @@ local tlp_doclist -- { [tlp_name] = { relname1, relname2, ...}, ... }
 -- populate tlpinfo tables using the given texlive.tlpdb
 function get_tlpinfo_from_tlpdb(filename)
     s_meta, tlp_from_runfile, tlp_doclist = {}, {}, {}
-    get_meta_hack()
     local curr_tlp
     local state = 'none'
     for line in io.lines(filename) do

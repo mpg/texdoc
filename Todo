@@ -10,10 +10,6 @@ Document (bad)basename_list.
 
 Document --just-view.
 
-Before TL release: check if metadata are now OK in tlnet's tlpdb, and stop
-using the shipped cache if not needed any more. Regenerate the shipped cache
-as soon as TL packages are frozen.
-
 Metadata problems
 -----------------
 
@@ -22,8 +18,6 @@ Maybe a problem in TL's infra: no meta for ec's readme.
 Meta missing with beebe's files.
 
 Check meta with bezos package.
-
-No comment for beameruserguide.
 
 Fixes in the catalogue are slow to propagate to TL.  Should the shipped meta
 file be generated direclty from the catalogue?
