@@ -221,17 +221,17 @@ function init_texdocs_database()
         local recursion_allowed = (n == 1)
         local path, n = string.gsub (dir, '^!!', '')
         local index_mandatory = (n == 1)
-        deb_print(string.format(
+        deb_print('texdocs', string.format(
             'texdocs[%d] = %s (index_mandatory=%s, recursion_allowed=%s)',
             i, path, tostring(index_mandatory), tostring(recursion_allowed)))
         -- decide if we should use a ls-R index, the filesystem, or do nothing
         local root, shift = lsr_root(path)
         if root and shift and recursion_allowed then
-            deb_print(string.format(
+            deb_print('texdocs', string.format(
                 'texdocs[%d] using index: %s (shift=%s)', i, root, shift))
             db = init_lsr_db(root, shift)
         elseif not index_mandatory and lfs.isdir(path) then
-            deb_print(string.format(
+            deb_print('texdocs', string.format(
                 'texdocs[%d] using filesystem search', i))
             db = init_tree_db(path, recursion_allowed)
         end
@@ -432,12 +432,12 @@ function init_tlp_database()
     vanilla = lfs.isfile(texlive_tlpdb)
     if vanilla then
         if good_cache(cache_file, texlive_tlpdb) then
-            deb_print('Using cached data from '..cache_file)
+            deb_print('tlpdb', 'Using cached data from '..cache_file)
             get_tlpinfo_from_cache(cache_file)
         else
-            deb_print('Getting data from tlpdb file '..texlive_tlpdb)
+            deb_print('tlpdb', 'Getting data from tlpdb file '..texlive_tlpdb)
             get_tlpinfo_from_tlpdb(texlive_tlpdb)
-            deb_print('Writing data in cache file '..cache_file)
+            deb_print('tlpdb', 'Writing data in cache file '..cache_file)
             local ok, msg = mkdir_p(path_parent(cache_file))
             if not ok then
                 err_print('warning',
@@ -448,7 +448,7 @@ function init_tlp_database()
             end
         end
     else
-        deb_print('Using shipped tlpdb data.')
+        deb_print('tlpdb', 'Using shipped tlpdb data.')
         get_tlpinfo_from_dist()
     end
 end

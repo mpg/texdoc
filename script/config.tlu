@@ -8,8 +8,8 @@ See texdoc.tlu for details.
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
 load_env(L, {
-    'os', 'kpse', 'lfs', 'io', 'setmetatable', 'print', 'alt_getopt', 'pcall',
-    'w32_path', 'confline_to_alias', 'confline_to_score', 'print_usage',
+    'os', 'kpse', 'lfs', 'io', 'setmetatable', 'print',
+    'win32_hook', 'confline_to_alias', 'confline_to_score', 'print_usage',
     'config',
 })
 
@@ -99,11 +99,11 @@ function set_config_element (key, value, context)
     end
     -- special case: if we just set debug_list, print version info now
     if key == 'debug_list' then
-        deb_print(C.fullname..' version '..C.version)
+        deb_print('version', C.fullname..' version '..C.version)
     end
     -- now tell what we have just done, for debugging
-    deb_print("Setting '"..key.."="..value.."' "
-        ..context_to_string(context)..'.')
+    deb_print('config',
+        "Setting '"..key.."="..value.."' "..context_to_string(context)..'.')
 end
 
 -- a helper function for warning messages in the above
@@ -140,91 +140,117 @@ end
 
 ------------------------   options from command line   -------------------------
 
--- set config from the command line using alt_getopt
+-- set config from the command line
+-- Please make sure to update C.usage_msg accordingly
+-- and set a default value in setup_config_from_defaults() if relevant.
 function setup_config_from_cl(arg)
-    -- parse command-line and check for errors
-    local ok, options, arg_ind, opt_arg = pcall(
-        alt_getopt.get_ordered_opts, arg, C.short_cl_opts, C.long_cl_opts)
-    if not ok then
-        err_print('error', options)
-        err_print('error', C.error_msg)
-        os.exit(C.exit_usage)
-    end
-    -- set up for debugging
-    local curr_opt
+    local curr_arg
     local function set_config_elt(key, val)
-        set_config_element(key, val, {src='cl', name=curr_opt})
+        set_config_element(key, val, {src='cl', name=curr_arg})
     end
-    -- actually execute options
-    for ind, opt in ipairs(options) do
-        curr_opt = opt
-        -- special actions
-        if opt == 'h'  then
+    while arg[1] and string.match(arg[1],'^%-') do
+        curr_arg = table.remove(arg,1)
+        -- special options
+        if (curr_arg == '-h') or (curr_arg == '--help') then
             setup_config_from_files()
             setup_config_from_defaults()
             print_usage()
             os.exit(C.exit_ok)
-        elseif opt == 'V' then
-            print (C.progname..' '..C.version)
+        elseif (curr_arg == '-V') or (curr_arg == '--version') then
+            print (C.progname .. ' ' .. C.version )
             os.exit(C.exit_ok)
-        elseif opt == 'f' then
-            print (C.progname..' '..C.version)
-            setup_config_from_files()
-            show_config_files(print, true)
+        elseif (curr_arg == '-f') or (curr_arg == '--files') then
+            print (C.progname .. ' ' .. C.version )
+            setup_config_from_files ()
+            show_config_files (print, true)
             os.exit(C.exit_ok)
-        -- mode
-        elseif opt == 'w' then
+        -- options related to mode
+        elseif (curr_arg == '-w') or (curr_arg == '--view') then
             set_config_elt('mode', 'view')
-        elseif opt == 'm' then
+        elseif (curr_arg == '-m') or (curr_arg == '--mixed') then
             set_config_elt('mode', 'mixed')
-        elseif opt == 'l' then
+        elseif (curr_arg == '-l') or (curr_arg == '--list') then
             set_config_elt('mode', 'list')
-        elseif opt == 's' then
-            set_config_elt('mode', 'showall')
-        -- interaction and output format
-        elseif opt == 'i' then
-            set_config_elt('interact_switch', 'true')
-        elseif opt == 'I' then
+        elseif (curr_arg == '-s') or (curr_arg == '--showall') then
+            set_config_elt ('mode', 'showall')
+        elseif (curr_arg == '--search') then
+            set_config_elt ('mode', 'showall')
+            err_print('warning', '--search has been renamed to --showall')
+            err_print('warning', 'Please use the new name.')
+        elseif (curr_arg == '-r') or (curr_arg == '--regex') then
+            set_config_elt ('mode', 'regex')
+        -- interaction
+        elseif (curr_arg == '-I') or (curr_arg == '--nointeract') then
             set_config_elt('interact_switch', 'false')
-        elseif opt == 'M' then
+        elseif (curr_arg == '-i') or (curr_arg == '--interact') then
+            set_config_elt('interact_switch', 'true')
+        -- output format
+        elseif (curr_arg == '-M') or (curr_arg == '--machine') then
             set_config_elt('machine_switch', 'true')
-        -- verbosity options
-        elseif opt == 'd' then
-            set_config_elt('debug_switch', 'true')
-        elseif opt == 'q' then
-            set_config_elt('verbosity_level', C.min_verbosity)
-        elseif opt == 'v' then
-            set_config_elt('verbosity_level', C.max_verbosity)
-        -- deprecated options temporarly kept for compatibility
-        elseif opt == 'A' then -- alias_switch (warning later)
+        -- alias
+        elseif (curr_arg == '-A') or (curr_arg == '--noalias') then
             set_config_elt('alias_switch', 'false')
-        elseif opt == 'a' then
+        elseif (curr_arg == '-a') or (curr_arg == '--alias') then
             set_config_elt('alias_switch', 'true')
-        elseif opt == 'r' then -- mode = regex (warning later)
-            set_config_elt('mode', 'regex')
-        elseif opt == 'e' then -- extensions on command line
-            set_config_elt('ext_list', opt_arg[ind])
+        -- debug
+        elseif (curr_arg == '-d') or (curr_arg == '--debug') then
+            set_config_elt('debug_list', 'all')
+        elseif string.match(curr_arg, '^%-d=') then
+            local value = string.gsub(curr_arg, '^%-d=', '')
+            set_config_elt('debug_list', value)
+        elseif string.match(curr_arg, '^%-%-debug=') then
+            local value = string.gsub(curr_arg, '^%-%-debug=', '')
+            set_config_elt('debug_list', value)
+        -- quiet
+        elseif (curr_arg == '-q') or (curr_arg == '--quiet') then
+            set_config_elt('verbosity_level', C.min_verbosity)
+        -- verbose
+        elseif string.match(curr_arg, '^%-%-verbose') then
+            set_config_elt('verbosity_level', C.max_verbosity)
+        elseif string.match(curr_arg, '^%-v') then
+            local value = string.gsub(curr_arg, '^%-v=?', '')
+            if value == '' then
+                set_config_elt('verbosity_level', C.max_verbosity)
+            else -- compatibility syntax
+                err_print('warning',
+                'The -v option does not accept arguments any more.')
+                err_print('warning',
+                'Please use the new syntax -v, --verbose (without argument).')
+                set_config_elt('verbosity_level', value)
+            end
+        elseif string.match(curr_arg, '^%-%-verbosity') then
+            -- compatibility syntax
+            local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
+            err_print('warning',
+            '--verbosity is deprecated and will be removed soon.')
+            err_print('warning',
+            'Please use the new syntax -v, --verbose (without argument).')
+            set_config_elt('verbosity_level', value)
+        -- extensions list (deprecated)
+        elseif string.match(curr_arg, '^%-e') then
+            local value = string.gsub(curr_arg, '^%-e=?', '')
+            set_config_elt('ext_list', value)
             err_print('warning',
             '-e is deprecated and will likely be removed soon.')
             err_print('warning',
             'ext_list should be set in a configuration file instead.')
             err_print('warning',
             'Please protest on the texdoc mailing list if you need this.')
-        elseif opt == 'Y' then -- verbosity with level
+        elseif string.match(curr_arg, '^%-%-extensions') then
+            local value = string.gsub(curr_arg, '^%-%-extensions=?', '')
+            set_config_elt('ext_list', value)
             err_print('warning',
-            '--verbosity is deprecated and will be removed soon.')
+            '--extensions is deprecated and will likely be removed soon.')
             err_print('warning',
-            'Please use the new syntax -v, --verbose (without argument).')
-            set_config_elt('verbosity_level', opt_arg[ind])
+            'ext_list should be set in a configuration file instead.')
+            err_print('warning',
+            'Please protest on the texdoc mailing list if you need this.')
+        -- problem
+        else
+            err_print('error', "unknown option: "..curr_arg)
+            err_print('error', C.error_msg)
+            os.exit(C.exit_usage)
         end
-    end
-    -- remove options from arg and check for deprecated synonyms
-    for i = 1, arg_ind - 1 do
-        if arg[1] == '--search' then
-            err_print('warning', '--search has been renamed to --showall')
-            err_print('warning', 'Please use the new name.')
-        end
-        table.remove(arg, 1)
     end
 end
 
@@ -489,7 +515,7 @@ function setup_config_from_defaults()
         ext_list            = 'pdf, html, txt, ps, dvi, ',
         badext_list         = 'txt, ',
         verbosity_level     = C.def_verbosity,
-        debug_switch        = 'false',
+        debug_list          = '',
         max_lines           = '20',
     }
     -- must be set after mode!
@@ -532,11 +558,11 @@ function setup_config_and_alias(arg)
         real_set_config('interact_switch', false)
     end
     -- debug implies verbose
-    if config.debug_switch then
+    if table.maxn(config.debug_list) > 0 then
         real_set_config('verbosity_level', tonumber(C.max_verbosity))
     end
     -- we were waiting for config.debug_list to be known to do this
-    show_config_files(deb_print)
+    show_config_files(function(s) deb_print('files', s) end)
 end
 
 -- finally export a few symbols

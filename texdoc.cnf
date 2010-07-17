@@ -70,7 +70,7 @@
 # machine_switch = false
 #
 # verbosity_level = 2   # Print: 0 nothing, 1 errors, 2 warnings, 3: infos
-# debug_switch =          # the empty list
+# debug_list =          # the empty list
 #
 # ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
 # badext_list = txt,                    # Note: empty string at end
