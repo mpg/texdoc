@@ -31,7 +31,7 @@ use constant {
 
 # file sets and destination directories
 my %filesets = (
-    tlu => {    'script/*'        => TL_scr },
+    tlu => {    'script/*.lua script/*.tlu' => TL_scr },
     cnf => {    'texdoc.cnf'      => TL_cnf },
     doc => {    'doc/texdoc.tex'  => TL_doc,
                 'News'            => TL_doc,
