@@ -1,20 +1,28 @@
 Stuff to do soon
 ================
 
-Use alt-getopt for options parsing.
+Document suffix_list.
 
-Turn the suffixes list in score.tlu into a config item. Is a prefix list needed?
+Document (bad)basename_list.
 
-Use texlive/tlpdb.tlu for tlpdb reading.
+Document --just-view.
 
-Use language information from the catalogue/tlpdb. If no lang info from
-catalogue, might try guessing based on filename, but is it worth it?
+
+Metadata problems
+-----------------
+
+Maybe a problem in TL's infra: no meta for ec's readme.
+
+Meta missing with beebe's files.
+
+Check meta with bezos package.
+
 
 Code cleanup
 ------------
 
 Adapt the alias structure to remember which one is the original. Then, the
-skpse-like search routine can select only exact matches for this one. Also, the
+kpse-like search routine can select only exact matches for this one. Also, the
 scoring routine wouldn't need the original keyword as an argument anymore. Then
 the Docfile object could have a .score virtual member.
 
@@ -23,8 +31,20 @@ plus locals.
 
 Syntax simplifictation in some places using object-oriented syntax for strings?
 
+Use texlive/tlpdb.tlu for tlpdb reading.
+
+
+
 Ideas for later
 ===============
+
+Use alt-getopt for options parsing (needs to be patched for error handling and
+optional arguments: write my own gnu_getopt_long?) (Reinhard working on
+something, too.)
+
+Make the list of bad comments from the catalogue configurable? (Currently,
+readme hardcoded.)
+
 
 Not sure about that
 -------------------
@@ -35,6 +55,11 @@ Data.meta.lua directly from a fresh catalogue version?
 
 For non-original patterns (ie actual aliases), the kpse-like search routines
 should select only exact matches.
+
+Use language information from the catalogue/tlpdb. If no lang info from
+catalogue, might try guessing based on filename, but is it worth it? The problem
+is, how would it interact with the socring system? Would a +3 bonus for good
+language be OK?
 
 Write a coverage checking script? What would be its exact goals? May want to
 discuss this with Phlipp S.
@@ -52,6 +77,7 @@ Add support for shell-style globs (standard regex is probably too hard)
 Use the 2-links trick from kpse when exploring trees? Check how it works on
 windows.
 
+
 Using the catalogue
 -------------------
 
@@ -63,6 +89,17 @@ Do something with the description from the catalogue?
 
 Help maintainers standardise comments in order to allow for more accurate
 scoring/classification?
+
+--apropos using Jim's keywords and categorization, see Karl's mail:
+http://tug.org/pipermail/texdoc/2010q3/000213.html
+
+
+Auto-generation of doc files
+----------------------------
+
+To allow installing TL without the doc trees (cuts of the size by 2).
+Suggested by Will.
+
 
 Port on MikTeX ???
 ------------------
@@ -79,3 +116,9 @@ Adapt to the different tree layout in MikTeX (TEXMFHOME etc don't exist).
 
 May maintain two versions as branches???
 
+
+Notes and references
+--------------------
+
+Texdoc GUI project going on since early May 2010, see messages from Enrico
+Gregorio in my (mpg) inbox.

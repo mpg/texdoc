@@ -74,20 +74,43 @@
 #
 # ext_list = pdf, html, txt, ps, dvi,   # Note: empty string at end
 # badext_list = txt,                    # Note: empty string at end
+# basename_list = readme
+# badbasename_list = readme
+
+## Known suffixes for documentation
+suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes
 
 ### Score ###
 
 # Only results with positive scores are displayed (unless mode is 'showall').
-# Results with score <= 100 are never displayed.
+# Results with score <= -100 are never displayed.
 # 
 # You can adjust the score of results containing a pattern with adjscore,
 # either globally or only for specific keywords
 
-# Makefile's are never documentation, -1000 should be enough to kill them
+# Makefile's are never documentation, just as documents in src or source subdir
+# -1000 should be enough to kill them
 adjscore /Makefile = -1000
+adjscore /src/ = -1000
+adjscore /source/ = -1000
+
+# licence files aren't very likely to contain relevant documentation, but it
+# feels wrong to totally kill them...
+adjscore copying = -10
+adjscore license = -10
+adjscore gpl = -10
 
 # tex-virtual-academy provides a lot of fake matches
 adjscore /tex-virtual-academy-pl/ = -50
+
+# test and example files are not likely the best documentation
+adjscore test = -3
+adjscore example = -3
+adjscore sample = -3
+
+# readme's usually deserve a negative score because they have a bad extension,
+# but they're still slightly better than other results with negative scores...
+adjscore readme = 0.1
 
 # Uncomment this to make the man pages have a greater priority
 #adjscore .man1. = 5
@@ -116,6 +139,7 @@ adjscore(latex) test_latex = -10
 adjscore(beamer) beamer-tut-pt = -10
 adjscore(beamer) beamer-tut-pt/tutorialbeamer = +10
 adjscore(beamer) presentations = -10
+adjscore(beamer) beamer-FUBerlin = -3
 
 # it is also possible to set the score directly in alias directives
 # eg, fontinstallationguide is related to fontinst:
@@ -134,13 +158,15 @@ alias latex = latex-doc-ptr
 # a few useful general documents
 alias faq-en = newfaq
 alias faq = newfaq
+adjscore(symbols) /staves/ = -5
 
 # various lshort translations
+adjscore(lshort) /lshort-english/ = +3  # original
 alias lshort-de = l2kurz                # german
-alias lshort-pl = polish/lshort2e       # polish
+alias lshort-pl = lshort-polish/lshort2e # polish
 alias lshort-pt = ptlshort              # portuguese
 alias lshort-sk = slshorte              # slovak
-alias lshort-es = -spanish/lshort       # spanish
+alias lshort-es = lshort-spanish/lshort # spanish
 
 # *TeX engines reference manuals, man pages and related
 alias e-tex-ref = etex_man
@@ -183,6 +209,7 @@ alias(20) textcomp = encguide
 alias makeidx = makeindx
 alias showidx = makeindx
 alias shortvrb = base/doc
+alias doc = base/doc
 # TODO: try to avoid the huge amount of false positives for `doc' itself.
 
 # latex's required graphics bundle
@@ -255,6 +282,17 @@ alias isomath = isomath.sty.pdf
 alias elsarticle = elsdoc
 alias afoot = arabtex-doc
 alias vntex = vntex # umbrella document (manual comes first due to catalogue)
+alias asymptote = asymptote # not mentioned in the catalogue currently
+alias nonfloat = nonfloat-en
+alias nonfloat-de = nonfloat
+alias subdocs = bezos
+alias dotlessi = bezos
+alias checkend = bezos
+alias arabicfont = bezos
+alias cm-super = cm-super/README
+alias cmsuper = cm-super/README
+alias(5) cmsuper = cm-super/FAQ
+alias cyrillic = cyrillic/00readme.txt
 
 ## a few easy patterns
 
@@ -284,22 +322,14 @@ alias lehman = fontinstallationguide
 alias uktugfaq = newfaq
 alias datenumber-de = datenumber/docgerman
 alias index = ind
-alias genfont1 = fntguide
 alias psnfss = psnfss2e
-alias cmsuper = cm-super/README
 alias euro = eurosamp
 alias lmfonts = lm-info
-alias t1enc1 = fontsmpl
-alias yfonts = yfonts/readme
-alias mfpic1 = mfpguide
 alias dutch = rapdoc
 alias montex = mlsquick
 alias(60) akademia = tex-virtual-academy-pl/index.html
-alias cyrillic = cyrillic/00readme.txt
 alias otibet = otibet/unidoc
-alias texsis = texsis/base/README
 alias startex = startex/base/guide
-alias overpic = opic-rel
 alias apmgraph = pmgraph
 alias tikz = pgfmanual
 alias treetex = tree_doc
@@ -307,14 +337,11 @@ alias(5) xypic = xyrefer
 alias pbdiagram = pb-manual
 alias expressg = expeg
 alias arydshln = arydshln-man
-alias multirow = multirow/README
 alias natbib2 = natnotes
 alias tangles = t-angles/t-manual
 alias mathenv = mdwtab
 alias gnlogic = gn-logic14
-alias footnote1 = mdwtools/footnote
-alias footnote2 = yafoot/yafoot-man
-alias labels1 = envlab/elguide
+alias labels(1) = envlab/elguide
 alias lineno = ulineno
 alias akletter = akletter/lettereng
 alias mltex = mltex/mltex.txt
@@ -322,12 +349,11 @@ alias flcards = flashcards
 alias tex4ht = tex4ht/mn.html
 alias ppower4 = ppower4/report
 alias latex3 = ltx3info
-alias latex3p = expl3/expl3
 alias musictex = musicdoc
-alias ieee = IEEEtran_HOWTO
 alias kluwer = kluwer/usrman
 alias cv = curve/curve
 alias preprint = preprint/00readme.txt
+alias onrannual = onrannual/README
 
 ## packages from ctan/macros/latex/contrib/misc or with doc in .sty only
 
@@ -337,28 +363,20 @@ alias preprint = preprint/00readme.txt
 #
 # Anyway, this is a hopefully a temporary measure, since work is going on to
 # produce suitable documentation for all these packages (thanks to Philipp
-# Stephani and Robin Faribarns mostly).
+# Stephani and Robin Fairbairns mostly).
 
 alias(4.1) 3parttable = 3parttable.sty
 alias(4.1) bibcheck = bibcheck.sty
 alias(4.1) concrete = concrete.sty
-alias(4.1) fncylab = fncylab.sty
 alias(4.1) linsys = linsys.sty
-alias(4.1) magaz = magaz.sty
-alias(4.1) midpage = midpage.sty
 alias(4.1) mitpress = mitpress.sty
 alias(4.1) morefloats = morefloats.sty
-alias(4.1) needspace = needspace.sty
 alias(4.1) nextpage = nextpage.sty
-alias(4.1) nolbreaks = nolbreaks.sty
-alias(4.1) notoccite = notoccite.sty
-alias(4.1) optional = optional.sty
 alias(4.1) parskip = parskip.sty
 alias(4.1) path = path.sty
 alias(4.1) printlen = printlen.sty
 alias(4.1) relsize = relsize.sty
 alias(4.1) romanneg = romanneg.sty
-alias(4.1) sansmath = sansmath.sty
 alias(4.1) secdot = secdot.sty
 alias(4.1) section = section.sty
 alias(4.1) selectp = selectp.sty
@@ -371,17 +389,15 @@ alias(4.1) statex = statex.sty
 alias(4.1) subfigmat = subfigmat.sty
 alias(4.1) texilikecover = texilikecover.sty
 alias(4.1) thrmappendix = thrmappendix.sty
-alias(4.1) titleref = titleref.sty
 alias(4.1) topcapt = topcapt.sty
-alias(4.1) truncate = truncate.sty
-alias(4.1) underscore = underscore.sty
 alias(4.1) varwidth = varwidth.sty
 alias(4.1) verbasef = verbasef.sty
 alias(4.1) version = version.sty
 alias(4.1) vertbars = vertbars.sty
 alias(4.1) vrbexin = vrbexin.sty
-alias(4.1) vruler = vruler.sty
 alias(4.1) wrapfig = wrapfig.sty
+alias(0) theoremref = theoremref.sty
+alias(0) shadethm = shadethm.sty
 
 # The next line has no effect when this file is installed as the last
 # configuration file (default) but is useful when you install it as the "tricky"

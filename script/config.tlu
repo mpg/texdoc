@@ -245,6 +245,9 @@ function setup_config_from_cl(arg)
             'ext_list should be set in a configuration file instead.')
             err_print('warning',
             'Please protest on the texdoc mailing list if you need this.')
+        -- just view (undocumented option fur use with texdoctk)
+        elseif curr_arg == '--just-view' then
+            real_set_config('just_view', true)
         -- problem
         else
             err_print('error', "unknown option: "..curr_arg)
@@ -513,7 +516,10 @@ function setup_config_from_defaults()
         interact_switch     = 'true',
         machine_switch      = 'false',
         ext_list            = 'pdf, html, txt, ps, dvi, ',
+        basename_list       = 'readme',
         badext_list         = 'txt, ',
+        badbasename_list    = 'readme',
+        suffix_list         = '',
         verbosity_level     = C.def_verbosity,
         debug_list          = '',
         max_lines           = '20',

@@ -64,7 +64,10 @@ known_options = {
     'machine_switch',
     'alias_switch',
     'ext_list',
+    'basename_list',
     'badext_list',
+    'badbasename_list',
+    'suffix_list',
     'verbosity_level',
     'debug_list',
     'lastfile_switch',
@@ -93,7 +96,7 @@ max_verbosity='3'
 def_verbosity='2'
 
 exit_ok = 0
---exit_error = 1 -- apparently hard-coded in Lua
+exit_error = 1 -- apparently hard-coded in Lua
 exit_usage = 2
 
 known_debugs = {
