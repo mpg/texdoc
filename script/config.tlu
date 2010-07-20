@@ -9,7 +9,7 @@ See texdoc.tlu for details.
 local L = {}
 load_env(L, {
     'os', 'kpse', 'lfs', 'io', 'setmetatable', 'print',
-    'win32_hook', 'confline_to_alias', 'confline_to_score', 'print_usage',
+    'w32_path', 'confline_to_alias', 'confline_to_score', 'print_usage',
     'config',
 })
 
