@@ -4,8 +4,8 @@ AUX = texdoc.aux texdoc.log texdoc.out
 all: $(TARGETS)
 
 texdoc.pdf: texdoc.tex
-	pdflatex --interaction=batchmode $< >/dev/null
-	pdflatex --interaction=batchmode $< >/dev/null
+	xelatex --interaction=batchmode $< >/dev/null
+	xelatex --interaction=batchmode $< >/dev/null
 
 texdoc.1: texdoc ../script/constants.tlu Makefile
 	help2man -N -n"find & view documentation in TeX Live" ./$< > $@
