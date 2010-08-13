@@ -8,7 +8,6 @@
 \setlength\overfullrule{5pt}
 
 \documentclass[a4paper, oneside]{scrartcl}
-\usepackage{ted, ifxetex, trace}
 \usepackage{fontspec}
 \usepackage{xunicode}
 
@@ -17,15 +16,14 @@
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 \renewcommand\familydefault{\sfdefault} \normalfont
-\newcommand\otherfamily{\rmfamily}
 \newcommand\mylangle{$\langle$}
 \newcommand\myrangle{$\rangle$}
 
 \usepackage{xargs, xspace, fancyvrb, xcolor, pifont, calc, ifmtarg, mathstyle}
 
-\usepackage[rm, bf]{titlesec}
+\usepackage[sf, bf]{titlesec}
 \titlelabel{\makebox[0pt][r]{\thetitle\kern1pc}}
-\titleformat{\subsubsection}[runin]{\otherfamily\itshape}{%
+\titleformat{\subsubsection}[runin]{\itshape}{%
   \makebox[0pt][r]{\thetitle\kern1pc}}{%
   0pt}{}[\maybedot\space --- \kern0pt]
 \titlespacing{\subsubsection}{0pt}{0.5\baselineskip}{0pt}
@@ -35,7 +33,6 @@
 \setlist{noitemsep,topsep=\lssep,partopsep=\lssep}
 
 \usepackage[british]{babel}
-\usepackage[babel=true, expansion=false]{microtype}
 \usepackage[bookmarks=true]{hyperref}
 \hypersetup{%
   bookmarksnumbered=true, bookmarksopen=true, bookmarksopenlevel=2,
@@ -54,40 +51,26 @@
   \href{http://#1}{#1}}
 
 \newcommand\texlive{%
-  \TeX{}\thinspace Live\xspace}
+  \TeX\thinspace Live\xspace}
+\newcommand\tex{\TeX\xspace}
 
 \setlength\parindent{\baselineskip}
 
-\let\TeXori\TeX \def\TeX{\TeXori\xspace} % breaks the l2e logo
 \lastlinefit=500 % e-TeX powered
 
 \definecolor{links}{named}{violet}
 \definecolor{special}{rgb}{0,0.5,0}
 \definecolor{code}{rgb}{0,0,0.6}
 \definecolor{input}{rgb}{1.0,0,0}
-\newcommand\inputcolorname{red}
 \hypersetup{colorlinks=true, linkcolor=links, urlcolor=links, citecolor=links}
+
 \newcommand\cofont{% % code
   \color{code}\normalfont\ttfamily}
-\newcommand\textco[1]{{\cofont#1}}
-\newcommand\textme[1]{% % éléments meta
-  {\normalfont\color{special}\itshape #1\/}}
-\newcommand\epfont{% % épigraphes
-  \normalcolor\usefont{T1}{pzc}{m}{it}}
-\newcommand\textlmi[1]{% passage en lmodern italique pour voir
-  {\usefont{T1}{lmr}{m}{it}#1}}
-\newcommand\textcm[1]{% % passage en cm pour voir
-  {\fontencoding{T1}\fontfamily{cmr}\selectfont#1}}
-\newcommand\file{\nolinkurl}
+\newcommand\meta[1]{% % meta elements
+  {\normalfont\color{special}\mylangle\textit{#1}\myrangle}}
 
-% take care of nbsp
-\catcode`\ 10\relax
-
-\newcommand\meta[1]{% % variantes à remplacer
-  {\color{special}\mylangle\textme{#1}\myrangle}}
-\newcommand\commandline[1]{%
-  \prompt\space \textcolor{input}{#1}}
-\newcommand\prompt{\ding{229}}
+% take care of non-breakable spaces
+\catcode`\ 10\relax
 
 \fvset{%
   formatcom=\cofont,
@@ -158,14 +141,15 @@
 \setkomafont{subtitle}{\Large}
 \deffootnote[1.5em]{1.5em}{1em}{\textsuperscript{\thefootnotemark}\thinspace}
 
-\newcommand\texdoc{texdoc\xspace}
 \newcommand\tdml{\href{mailto:texdoc@tug.org}{texdoc mailing list}\xspace}
 
-\title{\texdoc}
-\subtitle{Find \& view documentation in \TeX\ Live}
-\author{\url{http://tug.org/texdoc/}\\
-  Manuel Pégourié-Gonnard}
-\date{v0.70 2010-02-28}
+\title{Texdoc}
+\subtitle{Find \& view documentation in \texlive\\
+  \href{http://tug.org/texdoc/}{http://tug.org/texdoc/}\\
+  \mailto{texdoc@tug.org}}
+\author{Manuel Pégourié-Gonnard\\
+  v0.70 2010-02-28}
+\date{}
 
 \begin{document}
 \VerbatimFootnotes
@@ -176,52 +160,50 @@
 
 \subsection{Basics}
 
-Open a command line\footnote{On windows, use ``Execute'' from the Start menu
-  and type ©cmd©.  On Mac OS X, use the ``terminal'' icon on Mac OS X.  If you
-  are using another flavour of Unix, you probably know what to do.} and type
-©texdoc «name»©: the documentation of the ©«name»© package will pop up. Of
-course, replace ©«name»© with the actual name of the package you want to learn
-about. You can also look for the documentation of more than one package at
-once: just give many names as arguments.
-
-The rest of this section describes the most usual options, like how to
-see all documentation related to a package or use a different viewer.
+Open a command line\footnote{On Windows, press Win-R and type ©cmd©.  On Mac
+  OS X, use the ``terminal'' application.  If you are using another flavour of
+  Unix, you probably know what to do.} and type ©texdoc «name»©: the
+documentation of the ©«name»© package will pop up. Of course, replace ©«name»©
+with the actual name of the package.  To look up the documentation of more
+than one package at once, just use many ©«name»©s as arguments.
 
 \subsection{Modes}\label{ss-modes}
 
-\texdoc has different modes that determine how results will be handled. The
-default mode, called ``view'' mode, is to open the first (supposedly the best)
-result in a viewer. It is rather handy when you know what you want to read,
-and want to access it quickly. On the other hand, there may be other relevant
-documents for the given ©«name»©, which are ignored in view mode.
+Texdoc has different modes that determine how results will be handled. The
+default mode, called ``view'' mode, is to open the best document found in an
+appropriate viewer. It is very handy for quick access to a precise document.
+On the other hand, there may be other relevant documents for the given
+©«name»©, which are ignored in view mode.
 
-The so-called ``list mode'' makes \texdoc list all relevant documentation and
+The so-called ``list mode'' makes texdoc list all relevant documentation and
 ask you which one you want to view. It is useful when there a other
 interesting sources of information besides the package's main documentation.
 
 There is also a ``mixed'' mode, intended to combine the best of view mode and
-list mode: if there is only one relevant result, then \texdoc opens it in a
+list mode: if there is only one relevant result, then texdoc opens it in a
 viewer, else it offers you a menu.
 
-Usually, \texdoc shows you only results it considers relevant. If there are no
+By default, texdoc hides the results it considers less relevant (unless it
+finds no relevant result at all). In ``showall'' mode, it always shows all
+results.
+
+Usually, texdoc shows you only results it considers relevant. If there are no
 ``good'' results, it falls back to less relevant results. You can force
-\texdoc to show you also ``bad'' results even when there are good ones by
-using the ``showall'' mode. (This implies using a menu rather than starting a
-viewer.)
+texdoc to show you also ``bad'' results even when there are good ones by
+using the ``showall'' mode.
 
-You can select the mode with command-line options: use 
-©texdoc «option» «name»© with
-one of the following options: ©-w© or ©--view© for view mode, ©-m© or
-©--mixed© for mixed mode, ©-l© or ©--list© for list mode, ©-s© or ©--showall©
-for showall mode.
+To select the mode on the command-line, use ©texdoc «option» «name»© with one
+of the following options: ©-w© or ©--view© for view mode, ©-m© or ©--mixed©
+for mixed mode, ©-l© or ©--list© for list mode, ©-s© or ©--showall© for
+showall mode.
 
-If you always (or mostly) use the same mode, it is probably easier to
-select it in a configuration file than to always use the command-line
-option. For this, see the next section.
+If you always (or mostly) use the same mode, you don't want to keep type the
+same option. The next section describes how to customize texdoc using
+configurations files.
 
 \subsection{Configuration files}\label{ss-quick-file}
 
-\texdoc use various configuration files, which you can see using the ©-f© or
+Texdoc use various configuration files, which you can see using the ©-f© or
 ©--files© options. The entry marked with a star ©(*)©
 is the file you should use for your personal preferences as a user; you may
 need to create it (and the parents directories).
@@ -230,13 +212,13 @@ In order to select you favorite mode, just insert a line ©mode = «yourmode»©
 in this files, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
 ©showall©.
 
-The configuration files can be used to tweak \texdoc in many ways, the most
+The configuration files can be used to tweak texdoc in many ways, the most
 useful of which is probably the selection of the viewers for various types of
 documents, explained in the next section.
 
 \subsection{Viewers}
 
-\texdoc's mechanism for choosing a viewer varies according to your platform.
+Texdoc's mechanism for choosing a viewer varies according to your platform.
 On Windows and MacOS, it uses your file associations like when you
 double-click files in the Explorer or the Finder (except for the text viewer,
 which is always a pager). On Unix, it tries to find a viewer in the path from
@@ -252,16 +234,12 @@ name of the file to view.
 \subsection{Conclusion}
 
 We have now covered the most common needs. The next part explains
-how \texdoc proceeds to find the best results.
+how texdoc proceeds to find the best results.
 The default configuration file tries hard to set appropriate values so that
 you have a good out-of-the-box experience, but you may want to understand the
 underlying mechanisms and adapt them to your needs. The final part is a full
 reference for configuration options, including points omitted in the present
 part.
-
-Your feedback is very welcome of the \tdml. Feel free to post comments, bug
-reports, suggestions for improvements (inc. new aliases), even without
-subscribing.
 
 \clearpage
 
@@ -282,7 +260,7 @@ extensions are listed, and some extensions get a lesser score. Also, there is
 some score adjustments based on keywords; by default, Makefile's get a very
 bad score since they are almost never documentation.\footnote{They often end
   up in the doc tree, since the source of documentation is often in the same
-  directory as the documentation itself in \TeX\ Live. Other source files are
+  directory as the documentation itself in \texlive. Other source files are
   discriminated by extension.}
 
 Then, depending on the mode, the file with the highest score is opened in a
@@ -297,8 +275,8 @@ However, this model works only if the documentation for ©«keyword»© has
 memoir class is in ©memman.pdf©, for example, but it will be found anyway
 since it is in a directory named memoir. But there are more complicated cases:
 the documentation for mathptmx is in ©psnfss2e.pdf©, which is quite more
-complicated to guess.\footnote{But not totally impossible: using the \TeX\
-  Live database, texdoc can know which documentation files are associated with
+complicated to guess.\footnote{But not totally impossible: using the \texlive
+  database, texdoc can know which documentation files are associated with
   a given ©.sty© file. Here, it could guess that the documentation is either
   ©psfonts.pdf© of ©psnfss2e.pdf©. This will probably be done in a future
   version.}
@@ -317,7 +295,7 @@ about how a file can match keyword first (all matching is case-insensitive):
   \item The keyword is a substring of the file name.
   \item The keyword is a ``subword'' of the file name; words are defined as a
     sequence of alphanumeric characters delimited by punctuation characters
-    (there is no space in file names in \TeX\ Live) and a subword is a
+    (there is no space in file names in \texlive) and a subword is a
     substring both ends of which are a word boundary.
   \item The keyword can match ``exactly'' the file name: that is, the file
     name is the keyword plus an extension.
@@ -330,7 +308,7 @@ about how a file can match keyword first (all matching is case-insensitive):
   alias(«score») «original keyword» = «name»
 \end{htcode}
 
-You can define your own aliases in \texdoc's configuration files
+You can define your own aliases in texdoc's configuration files
 (see~\ref{ss-quick-file} or \ref{ss-prec}). For example,
 insert\footnote{Actually, you don't need to do this, the default configuration
   file already includes this directive.}
@@ -391,7 +369,7 @@ who can read polish).
 
 The third directive gives a malus for results containing ©texdoc© only if the
 search keyword is ©tex©. Otherwise, such results would get a high score
-because the heuristic scoring would think ©texdoc© is the name of \TeX's
+because the heuristic scoring would think ©texdoc© is the name of \tex's
 documentation. The value -10 is enough to ensure that those results will have
 a negative score, so wil not be displayed unless ``showall'' mode is active.
 
@@ -440,7 +418,7 @@ machines with different architectures needing different settings. Their use is
 not recommended in any other situation.
 
 Finally, the special file ©texdoc-dist.cnf© allows you to install a newer
-version of \texdoc (including its default configuration file) in your home:
+version of texdoc (including its default configuration file) in your home:
 see \href{http://tug.org/texdoc/dev/}{the web page} for instructions on
 running the development version.
 
@@ -513,7 +491,7 @@ available debug items.
 
 They all correspond to some ©viewer_«ext»© setting, and the reader is referred
 to~\ref{cf-viewer_*} for details. Also, environment variables used by older
-versions of \texdoc are accepted. You can append ©_texdoc© to every name in
+versions of texdoc are accepted. You can append ©_texdoc© to every name in
 the first column: this wins over every other name.
 
 \begin{center}
@@ -577,7 +555,7 @@ have been presented in~\ref{ss-modes}.
 \end{cmdsubsub}
 
 Turn on or off interaction.  Default is on.  Turning interaction off prevents
-\texdoc to ask you to choose a file to view when there are multiple choices,
+texdoc to ask you to choose a file to view when there are multiple choices,
 so it just prints the list of files found.
 
 \begin{cmdsubsub}{alias}{cf-alias_switch}
@@ -606,7 +584,7 @@ recognised:
 \end{itemize}
 
 There is a very special case: if the searched ©«name»© has ©.sty© extension,
-\texdoc enters a special search mode for ©.sty© files (not located in the same
+texdoc enters a special search mode for ©.sty© files (not located in the same
 place as real documentation files) for this ©«name»©, indepandantly of the
 current value of ©ext_list© and ©mode©. In an ideal world, this wouldn't be
 necessary since every sty file would have a proper documentation in pdf, html
@@ -614,7 +592,7 @@ or plain text, but\dots
 
 For each ©«ext»© in ©ext_list© there should be a corresponding ©viewer_«ext»©
 value set.  Defaults are defined corresponding to the default ©ext_list©, but
-you can add values if you want.  For example, if you want \texdoc to be able
+you can add values if you want.  For example, if you want texdoc to be able
 to find man pages and display them with the ©man© command, you can use
 \begin{htcode}
   ext_list = pdf, html, 1, 5, txt, dvi, ps,
@@ -681,10 +659,10 @@ printed on stdout, except if a internal error occurs (in which case exit code
 will be 1). In the future, more tab-separated fields may be added at the end
 of the line, but the first 3 fields will remain unchanged.
 
-Currently, there are two additional fields: a two-letter language code, and
-an unstructured description, both taken from the CTAN catalogue (via the TeX
-Live database). These fields may be empty and they are not guaranteed to keep
-the same meaning in future versions of \texdoc.
+Currently, there are two additional fields: a two-letter language code, and an
+unstructured description, both taken from the CTAN catalogue (via the \texlive
+database). These fields may be empty and they are not guaranteed to keep the
+same meaning in future versions of texdoc.
 
 \begin{cmdsubsub}{zipext_list}{cf-zipext_list}
   zipext_list = «list»
@@ -701,8 +679,8 @@ make sure that you also set a corresponding ©unzip=«ext»© value for each
 ©«ext»© in the list. Also make sure you are using blocking (i.e. not returning
 immediately) viewers.
 
-\textit{Remark.} \TeX\ Live doesn't ship compressed documentation files, so
-this option is mainly useful with re-packaged version of \TeX\ Live that do,
+\textit{Remark.} \texlive doesn't ship compressed documentation files, so
+this option is mainly useful with re-packaged version of \texlive that do,
 for example in Linux distributions.
 
 \begin{cmdsubsub}{unzip_*}{cf-unzip_star}
@@ -725,9 +703,9 @@ Commands for removing files (resp. directories) on your system (defaults:
   lastfile_switch = «true, false»
 \end{cmdsubsub}
 
-If set to true, prevents \texdoc from reading any other configuration file
+If set to true, prevents texdoc from reading any other configuration file
 after this one (they will be reported as ``disabled'' by ©texdoc -f©).  Mainly
-useful for installing a newer version of \texdoc in your home and preventing
+useful for installing a newer version of texdoc in your home and preventing
 the default configuration file from older versions to be used (see the
 \href{http://tug.org/texdoc/}{web site} for instructions on how to do so).
 
@@ -742,7 +720,7 @@ The current exit codes are:
 
 \section{Licence}\label{s-licence}
 
-The current \texdoc program and its documentation are copyright 2008, 2009
+The current texdoc program and its documentation are copyright 2008, 2009
 Manuel Pégourié-Gonnard.
 
 They are free software: you can redistribute it and/or modify it under the
@@ -770,7 +748,7 @@ Previous work (texdoc program) in the public domain:
 
 \bigskip
 \begin{center}\Large\rmfamily\bfseries
-  Happy \TeX{}ing!
+  Happy \tex{}ing!
 \end{center}
 
 \end{document}
