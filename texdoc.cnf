@@ -293,6 +293,7 @@ alias cm-super = cm-super/README
 alias cmsuper = cm-super/README
 alias(5) cmsuper = cm-super/FAQ
 alias cyrillic = cyrillic/00readme.txt
+alias fullpage = fullpage # to beat context/fullpage-doc
 
 ## a few easy patterns
 
