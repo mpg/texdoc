@@ -7,6 +7,41 @@ Document (bad)basename_list.
 
 Document --just-view.
 
+Scoring
+-------
+
+With "texdoc todo",
+        todo/todo-spl.pdf
+should win over
+        todonotes/todonotes.pdf                Package documentation
+
+With "texdoc ean"
+        ean/Readme 
+should win over 
+        barcodes/eandoc = Package doc
+(probably)
+
+Idea: instead of a good directory bonus, first pre-scan all results found to
+see if one of them has a good directory. If so, all other results get a big
+malus (like -5) for non-alias scoring. (?)
+
+Should do: test suite with selected cases from real life (perhaps using fake
+tlpdb + ls-R) and assertions about the results, such as "this one should come
+before that one, this one should be first, that one should be <0, etc.  Would
+serve both as documentation for myself and regression testing tool.
+
+For non-original patterns (ie actual aliases), the kpse-like search routines
+should select only exact matches.
+
+The alias test script should test for essentially useless aliases, that is,
+those that don't change the list of results with score > 0.
+
+Files found using the tlpdb only should be scored heuristicly as if <pkgname>
+were asked for. (Make sure heurisitc scoring returns a higher score for
+names actually containing the string. Check the result with psnfss2e aliases.)
+
+Improve debug output (metadata scoring).
+
 
 Metadata problems
 -----------------
@@ -52,9 +87,6 @@ Not sure about that
 Information from the tlpdb isn't always as up-to-date as the catalogue, in case
 the catalogue has been fixed for a package that wasn't update. Should I generate
 Data.meta.lua directly from a fresh catalogue version?
-
-For non-original patterns (ie actual aliases), the kpse-like search routines
-should select only exact matches.
 
 Use language information from the catalogue/tlpdb. If no lang info from
 catalogue, might try guessing based on filename, but is it worth it? The problem
