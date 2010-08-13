@@ -456,7 +456,7 @@ running the development version.
 
 \subsection{Command-line options}\label{ss-cl}
 
-All command-line options (except the first three below) correspond to
+All command-line options (except the first four below) correspond to
 configuration item that can be set in the configuration files: we refer
 the reader to the corresponding section for the meaning of this configuration
 item.
@@ -481,6 +481,15 @@ Show the current version of the program and exit successfully.
 Show the list of configuration files for the current installation and
 platform, with their status (active, not found, or disabled
 (see~\ref{cf-lastfile_switch})) and exit successfully.
+
+\begin{cmdsubsub}{--just-view}{cl-just-view}
+  --just-view «file»
+\end{cmdsubsub}
+
+Open «file» in the usual viewer. The file should be given with full path,
+absolutely no searching is done. This option is not really meant for users,
+but rather intended to be used from another program, like a GUI front-end to
+texdoc.
 
 \begin{cmdsubsub}{-w, -l, -m, -s, --view, --list, --mixed, --showall}{cl-mode}
   -w, --view, -l, --list, -m, --mixed, -s, --showall
