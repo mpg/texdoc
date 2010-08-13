@@ -350,7 +350,7 @@ only aliases associated to the original keyword are used.
 
 \textbf{Warning.} Results found from aliases always have the score defined by
 the ©alias© directive (10 by default), regardless of the adjustments described
-in sections~\ref{ss-score} and~\ref{ss-ext}.
+in the next subsections.
 
 \subsection{Score directives}\label{ss-score}
 
@@ -387,11 +387,10 @@ a negative score, so wil not be displayed unless ``showall'' mode is active.
 
 \textbf{Warning}: Values of scores (like the default score for aliases, the
 range of heuristic scoring, etc.) may change in a future version of texdoc.
-Scoring is quite new and may need some adjustments. So, don't be surprised if
-you need to adapt your scoring directives after a future update of texdoc.
-This warning will disappear at some point.
+So, don't be surprised if you need to adapt your scoring directives after a
+future update of texdoc.  This warning will hopefully disappear at some point.
 
-\subsection{File extensions}\label{ss-ext}
+\subsection{File extensions and names}\label{ss-ext}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
 (default: pdf, html, txt, ps, dvi, no extension). You can configure it with
@@ -402,8 +401,29 @@ star means any extension.
 
 For scoring purposes, there is also a ©badext_list© parameter: files whose
 extension is ``bad'' according to this list will get a lesser score (currently
-0). This only affect heuristic scoring (results found from the original
-keyword, not from aliases).
+0).
+
+Unfortunately, sometimes what follows a dot in a file name is not a ``real''
+extension. This often happens with readme files, for example ©readme.fr© or
+©readme.texlive©. So, in addition to his list of known extensions, texdoc has
+a list of known basenames, by default just ©readme©.
+
+The corresponding settingis are ©basename_list© and ©badbasename_list©; both
+are similar to ©ext_list© and ©badext_list©. So, a file will be selected if
+either its extension or its base name is known, and get a lesser score if
+either is known to be ``bad.''
+
+\subsection{Variants}\label{ss-variants}
+
+The documentation for a given package is often found in a file named like
+©«package»-doc©. To handle this properlr, texdoc gives a special score files
+named ©«package»«suffix»© where ©«suffix»© is one element of the list given by
+the configuration setting ©suffix_list©.
+
+To customise this list, add a line with ©suffix_list = «your, list»© in a
+configuration files. Be warned, it will replace the default list, no expand
+it. You'll find the default list in the shipped configuration file; feel free
+to suggest additions on the \tdml (with a real-life example).
 
 \clearpage
 
@@ -570,6 +590,13 @@ Turn on or off interaction.  Default is on.  Turning interaction off prevents
 texdoc from asking you to choose a file to view when there are multiple
 choices, so it just prints the list of files found.
 
+\begin{cmdsubsub}{suffix_list}{cf-suffix_list}
+  suffix_list = «list»
+\end{cmdsubsub}
+
+Set the list of known suffixes to ©«list»© (see~\ref{ss-variants}). Default is
+the empty list, but see the shipped configuration file for more.
+
 \begin{cmdsubsub}{ext_list}{cf-ext_list}
   ext_list = «list»
 \end{cmdsubsub}
@@ -613,6 +640,21 @@ to find man pages and display them with the ©man© command, you can use
 Set the list of ``bad'' extensions to ©«list»©.  Default is ``©txt,©''. Files
 with those extensions get a heuristic score of 0.
 
+\begin{cmdsubsub}{basename_list}{cf-basename_list}
+  basename_list = «list»
+\end{cmdsubsub}
+
+Set the list of ``known'' base names to ©«list»©.  Default is ``©readme©''.
+Files with those base names are selected regardless of their extension. If the
+extension is unknown, the text viewer will be used to view the file.
+
+\begin{cmdsubsub}{badbasename_list}{cf-badbasename_list}
+  badbasename_list = «list»
+\end{cmdsubsub}
+
+Set the list of ``bad'' base names to ©«list»©.  Default is ``©readme©''. Files
+with those base names get a heuristic score of 0.
+
 \begin{cmdsubsub}{viewer_*}{cf-viewer_*}
   viewer_«ext» = «cmd»
 \end{cmdsubsub}
@@ -621,7 +663,7 @@ Set the viewer command for files with extension ©«ext»© to ©«cmd»©. For 
 without extension, ©viewer_txt© is used, and there's no ©viewer_© variable.
 In ©«cmd»©, ©%s© can be used as a placeholder for the file name, which is
 otherwise inserted at the end of the command.  The command can be a arbitrary
-shell construct. 
+shell construct.
 
 \begin{cmdsubsub}{verbosity_level}{cf-verbosity_level}
   verbosity_level = «n»
@@ -636,9 +678,9 @@ recommended).
   debug_list = «list»
 \end{cmdsubsub}
 
-Set the list of activated debug items (default: none; if the option is used
-without arguments, the list defaults to all known debug items). Implies
-©--verbose©. Debug information is printed on standard error.
+Set the list of activated debug items (default: none; if the command-line
+option is used without arguments, the list defaults to all known debug items).
+Implies ©--verbose©. Debug information is printed on standard error.
 
 \begin{cmdsubsub}{max_line}{cf-max_lines}
   max_lines = «number»
