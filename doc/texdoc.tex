@@ -53,6 +53,7 @@
 \newcommand\texlive{%
   \TeX\thinspace Live\xspace}
 \newcommand\tex{\TeX\xspace}
+\newcommand\latex{\LaTeX\xspace}
 
 \setlength\parindent{\baselineskip}
 
@@ -61,7 +62,7 @@
 \definecolor{links}{named}{violet}
 \definecolor{special}{rgb}{0,0.5,0}
 \definecolor{code}{rgb}{0,0,0.6}
-\definecolor{input}{rgb}{1.0,0,0}
+\definecolor{quick}{rgb}{1.0,0,0}
 \hypersetup{colorlinks=true, linkcolor=links, urlcolor=links, citecolor=links}
 
 \newcommand\cofont{% % code
@@ -70,7 +71,7 @@
   {\normalfont\color{special}\mylangle\textit{#1}\myrangle}}
 
 % take care of non-breakable spaces
-\catcode`\ 10\relax
+\catcode`\ 10\relax
 
 \fvset{%
   formatcom=\cofont,
@@ -158,6 +159,9 @@
 
 \section{Quick guide}
 
+\textcolor{quick}{
+  Good news: you only need to read this page and the next one!}
+
 \subsection{Basics}
 
 Open a command line\footnote{On Windows, press Win-R and type ©cmd©.  On Mac
@@ -170,10 +174,11 @@ than one package at once, just use many ©«name»©s as arguments.
 \subsection{Modes}\label{ss-modes}
 
 Texdoc has different modes that determine how results will be handled. The
-default mode, called ``view'' mode, is to open the best document found in an
-appropriate viewer. It is very handy for quick access to a precise document.
-On the other hand, there may be other relevant documents for the given
-©«name»©, which are ignored in view mode.
+default mode, called ``view'' mode, automatically opens the best document
+using an appropriate\footnote{See \ref{ss-viewer} below.} viewer. It is very
+handy for quick access to a precise document.  On the other hand, there may be
+other relevant documents for the given ©«name»©, which are ignored in view
+mode.
 
 The so-called ``list mode'' makes texdoc list all relevant documentation and
 ask you which one you want to view. It is useful when there a other
@@ -187,59 +192,55 @@ By default, texdoc hides the results it considers less relevant (unless it
 finds no relevant result at all). In ``showall'' mode, it always shows all
 results.
 
-Usually, texdoc shows you only results it considers relevant. If there are no
-``good'' results, it falls back to less relevant results. You can force
-texdoc to show you also ``bad'' results even when there are good ones by
-using the ``showall'' mode.
-
 To select the mode on the command-line, use ©texdoc «option» «name»© with one
 of the following options: ©-w© or ©--view© for view mode, ©-m© or ©--mixed©
 for mixed mode, ©-l© or ©--list© for list mode, ©-s© or ©--showall© for
 showall mode.
 
-If you always (or mostly) use the same mode, you don't want to keep type the
+If you always (or mostly) use the same mode, you don't want to keep typing the
 same option. The next section describes how to customize texdoc using
 configurations files.
 
 \subsection{Configuration files}\label{ss-quick-file}
 
-Texdoc use various configuration files, which you can see using the ©-f© or
-©--files© options. The entry marked with a star ©(*)©
-is the file you should use for your personal preferences as a user; you may
-need to create it (and the parents directories).
+Texdoc looks at many configuration files: to list them, use the ©-f© or
+©--files© option. The entry marked with a star ©(*)© is the file you should
+use for your personal preferences; you may need to create it (and parent
+directories).
 
 In order to select you favorite mode, just insert a line ©mode = «yourmode»©
-in this files, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
+in this file, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
 ©showall©.
 
 The configuration files can be used to tweak texdoc in many ways, the most
 useful of which is probably the selection of the viewers for various types of
 documents, explained in the next section.
 
-\subsection{Viewers}
+\subsection{Viewers}\label{ss-viewer}
 
 Texdoc's mechanism for choosing a viewer varies according to your platform.
-On Windows and MacOS, it uses your file associations like when you
+On Windows and Mac OS X, it uses your file associations like when you
 double-click files in the Explorer or the Finder (except for the text viewer,
-which is always a pager). On Unix, it tries to find a viewer in the path from
-a list of ``known' viewers.
+which is always a pager). On Unix, it does the same if you're running a known
+desktop environment (Gnome, KDE, XFCE) or tries to find a viewer in the path
+from a list of known viewers.
 
 You may want to select a different viewer for some kind of file. This is
-achieved by the various ©viewer_«ext»© configuration options, where ©«ext»© is
-the extension corresponding to the file type. For example, if you want to set
-xpdf as your default PDF viewer, and run it in the background, insert the line
-©viewer_pdf = xpdf %s &© in your configuration file. Here, ©%s© stands for the
-name of the file to view.
+achieved by setting the various ©viewer_«ext»© configuration options, where
+©«ext»© is the extension corresponding to the file type. For example, if you
+want to set xpdf as your default PDF viewer, and run it in the background,
+insert the line ©viewer_pdf = xpdf %s &© in your configuration file. Here,
+©%s© stands for the name of the file to view.
 
-\subsection{Conclusion}
+\subsection{You can stop reading now}
 
-We have now covered the most common needs. The next part explains
-how texdoc proceeds to find the best results.
-The default configuration file tries hard to set appropriate values so that
-you have a good out-of-the-box experience, but you may want to understand the
-underlying mechanisms and adapt them to your needs. The final part is a full
-reference for configuration options, including points omitted in the present
-part.
+The next part explains texdoc mechanisms for finding the best results and how
+to cutomize them. The default configuration file tries hard to set appropriate
+values so that you normally don't need to fiddle with that, but you may be
+curious or have special needs.
+
+The final part is a full reference including a few points omitted in the
+present part.
 
 \clearpage
 
@@ -247,54 +248,60 @@ part.
 
 \subsection{An overview of how texdoc works}
 
-When you type ©texdoc «keyword»©, texdoc browses the trees containing
-documentation (given by the \href{http://www.tug.org/kpathsea/} {kpathsea}
-variable ©TEXDOCS©), lists all files containing ©«keyword»© in their name
-(including the directory name) and give them a score based on some simple
-heuristics. For example, a file named ©«keyword».pdf©, will get a high score,
-©«keyword»-doc© will be preferred over ©«keyword»whatever©, files in a
-directory named exactly ©«keyword»© get a bonus, etc.
+When you type ©texdoc «keyword»©, texdoc first makes a list of files, from two
+sources:
+\begin{enumerate}
+  \item In the trees containing documentation (given by the
+    \href{http://www.tug.org/kpathsea/} {kpathsea} variable ©TEXDOCS©), it
+    selects all files containing ©«keyword»© in their name (including the
+    directory name);
+  \item In the \texlive Database, it looks for packages named
+    ©«keyword»© or containing a file ©«keyword».«ext»© where ©«ext»© may me
+    ©sty© or ©cls©, and selects all the documentation files from this package.
+\end{enumerate}
+Files are filtered by extension: only files with known extensions may be
+selected.
 
-There is also some filtering based on extensions: only files with known
-extensions are listed, and some extensions get a lesser score. Also, there is
-some score adjustments based on keywords; by default, Makefile's get a very
-bad score since they are almost never documentation.\footnote{They often end
-  up in the doc tree, since the source of documentation is often in the same
-  directory as the documentation itself in \texlive. Other source files are
-  discriminated by extension.}
+The selected files are then score according to some simple heuristics. For
+example, a file named ©«keyword».pdf©, will get a high score, ©«keyword»-doc©
+will be preferred over ©«keyword»whatever©, files in a directory named exactly
+©«keyword»© get a bonus, etc. Score may also be adjusted base on file
+extensions or known names (or subwords): for example, by default, ©Makefile©s
+get a very bad score since they are almost never documentation.\footnote{They
+  often end up in the doc tree, since the source of documentation is often in
+  the same directory as the documentation itself in \texlive. Other source
+  files are discriminated by extension.}
 
-Then, depending on the mode, the file with the highest score is opened in a
+Finally, depending on the mode, the file with the highest score is opened in a
 viewer, or the list of results is shown. Usually, only results with a positive
-score are displayed, except in showall mode. Result with very bad score (-100
-and below) are never displayed.
+score are displayed, except in showall mode. Results with very bad scores
+(-100 and below) are never displayed.
 
 \medskip
 
-However, this model works only if the documentation for ©«keyword»© has
-©«keyword»© in its name, which is not always true. The documentation of the
-memoir class is in ©memman.pdf©, for example, but it will be found anyway
-since it is in a directory named memoir. But there are more complicated cases:
-the documentation for mathptmx is in ©psnfss2e.pdf©, which is quite more
-complicated to guess.\footnote{But not totally impossible: using the \texlive
-  database, texdoc can know which documentation files are associated with
-  a given ©.sty© file. Here, it could guess that the documentation is either
-  ©psfonts.pdf© of ©psnfss2e.pdf©. This will probably be done in a future
-  version.}
+This model for searching and scoring is quite efficient, but is unfortunately
+not perfect: texdoc may sometimes need a hint, either to find a relevant file
+or, more likely, to recognize which of the files found is the most relevant.
+
+For example, assume you are looking for the documentation of the shortvrb
+\latex package. Texdoc will find ©shortvrb.sty© in the ©latex© \texlive
+package, but since this package contains a lot of documentation files, none of
+which contains the string ©shortverb©, it will sort them basically at random.
 
 Here comes the notion of \emph{alias}: in the default configuration file,
-mathptmx is aliased to psnfss2e, so that when you type ©texdoc mathptmx©,
-texdoc knows it has to look also for psnfss2e. Note that texdoc will also look
-for the original name, and that a name can be aliased to more than one new
-name (this is new in texdoc 0.60).
+©shortvrb© is aliased to ©base/doc©, so that when you type ©texdoc shortvrb©,
+texdoc knows it has to look primarily for ©base/doc©. Note that texdoc will
+also look for the original name, and that a name can be aliased to more than
+one new name.
 
 \medskip
 
 We will soon see how you can configure this, but let's give a few definitions
-about how a file can match keyword first (all matching is case-insensitive):
+about how a file can match a keyword first (all matching is case-insensitive):
 \begin{enumerate}
   \item The keyword is a substring of the file name.
-  \item The keyword is a ``subword'' of the file name; words are defined as a
-    sequence of alphanumeric characters delimited by punctuation characters
+  \item The keyword is a ``subword'' of the file name; words are defined as
+    sequences of alphanumeric characters delimited by punctuation characters
     (there is no space in file names in \texlive) and a subword is a
     substring both ends of which are a word boundary.
   \item The keyword can match ``exactly'' the file name: that is, the file
@@ -313,31 +320,37 @@ You can define your own aliases in texdoc's configuration files
 insert\footnote{Actually, you don't need to do this, the default configuration
   file already includes this directive.}
 \begin{htcode}
-  alias mathptmx = psnfss2e
+  alias shortvrb = base/doc
 \end{htcode}
-in order to alias mathptmx to psnfss2e. Precisely, it means that files
-matching exactly psnfss2e will be added to the result list when you look for
-mathptmx, and get a score of 10 (default score for alias results). This is
-greater than the results of heuristic scoring: it means that results found via
-aliases will always rank before results associated to the original keyword.
+in order to alias ©shortvrb© to ©base/doc©. Precisely, it means that files in
+the doc trees matching exactly ©base/doc© will be added to the result list
+when you look for ©shortvrb©, and get a score of 10 (default score for alias
+results). This is greater than the results of heuristic scoring: it means that
+results found via aliases will always rank before results associated to the
+original keyword.
 
 If you want the results associated to a particular alias to have a custom
 score instead of the default 10, you can use the optional argument to the
-alias directive. This can be usefull if you associate many aliases to
+alias directive. This can be useful if you associate many aliases to
 a keyword and want one of them to show up first.
 
 You can have a look at the configuration file provided (the last shown by
 ©texdoc -f©) for examples.  If you feel one of the aliases you defined locally
 should be added to the default configuration, please share it on the \tdml.
 
-Please note than aliasing is case-insensitive, and the aliases don't cascade:
-only aliases associated to the original keyword are used.
 Aliases are additive: if you define your own aliases for a keyword in your
 configuration file, and there are also aliases for the same keyword in the
-default configuration, they will add up. You can prevent the default aliases
-from begin applied for a particular keyword by saying ©stopalias «keyword»© in
-your personal configuration file. It will keep the aliases defined before
-this directive (if any) and prevent all further aliasing on this keyword.
+default configuration, they will add up. To prevent the default aliases
+from begin applied for a particular keyword, include ©stopalias «keyword»© in
+your personal configuration file. It will preserve the aliases defined before
+this directive (if any) but prevent all further aliasing on this keyword.
+
+\textit{Remark.} Aliasing is case-insensitive, and doesn't cascade:
+only aliases associated to the original keyword are used.
+
+\textbf{Warning.} Results found from aliases always have the score defined by
+the ©alias© directive (10 by default), regardless of the adjustments described
+in sections~\ref{ss-score} and~\ref{ss-ext}.
 
 \subsection{Score directives}\label{ss-score}
 
@@ -347,11 +360,10 @@ this directive (if any) and prevent all further aliasing on this keyword.
 \end{htcode}
 
 It is possible to adjust the score of results containing some pattern as a
-subword, either globally (for the result of all searches) or only 
-when searching with a particular keyword. This is done in the
-configuration file (\ref{ss-quick-file} or \ref{ss-prec}) using the 
-©adjustscore© directive. Here are a few examples from the default
-configuration file.
+subword, either globally (for the result of all searches) or only when
+searching with a particular keyword. This is done in a configuration file
+(\ref{ss-quick-file} or \ref{ss-prec}) using the ©adjustscore© directive. Here
+are a few examples from the default configuration file.
 
 \begin{htcode}
   adjscore /Makefile = -1000
@@ -359,8 +371,8 @@ configuration file.
   adjscore(tex) texdoc = -10
 \end{htcode}
 
-All files named ©Makefile© (and also files names ©Makefile-foo© if there are
-any): are ``killed'' : by adjusting their score with such a large negative
+All files named ©Makefile© (and also files named ©Makefile-foo© if there are
+any) are ``killed'' : by adjusting their score with such a large negative
 value, their final score will most probably be less than -100, so they will
 never be displayed. Files from the ©tex-virtual-academy-pl© directory, on the
 other hand, are not killed but just get a malus, since they are a common
@@ -379,7 +391,7 @@ Scoring is quite new and may need some adjustments. So, don't be surprised if
 you need to adapt your scoring directives after a future update of texdoc.
 This warning will disappear at some point.
 
-\subsection{File extensions}
+\subsection{File extensions}\label{ss-ext}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
 (default: pdf, html, txt, ps, dvi, no extension). You can configure it with
@@ -446,7 +458,7 @@ Show the current version of the program and exit successfully.
   -f, --files
 \end{cmdsubsub}
 
-Show the list of the configuration files for the current installation and
+Show the list of configuration files for the current installation and
 platform, with their status (active, not found, or disabled
 (see~\ref{cf-lastfile_switch})) and exit successfully.
 
@@ -484,7 +496,7 @@ Set ©verbosity_level© to maximum, see~\ref{cf-verbosity_level}.
   -d, -d=«list», --debug, --debug=«list»
 \end{cmdsubsub}
 
-Set ©debug_list©, see~\ref{cf-debug_list}. If not list is given, activates all
+Set ©debug_list©, see~\ref{cf-debug_list}. If no list is given, activates all
 available debug items.
 
 \subsection{Environment variables}\label{ss-envvar}
@@ -496,7 +508,7 @@ the first column: this wins over every other name.
 
 \begin{center}
   \begin{tabular}{*4l}
-    New name    & Old name 1        & Old name 2           & Config. item\\
+    New name    & Old name 1        & Old name 2           & Config. item  \\
     ©PAGER©     & ©TEXDOCVIEW_txt©  & ©TEXDOC_VIEWER_TXT©  & ©viewer_txt©  \\
     ©BROWSER©   & ©TEXDOCVIEW_html© & ©TEXDOC_VIEWER_HTML© & ©viewer_html© \\
     ©DVIVIEWER© & ©TEXDOCVIEW_dvi©  & ©TEXDOC_VIEWER_DVI©  & ©viewer_dvi©  \\
@@ -555,14 +567,8 @@ have been presented in~\ref{ss-modes}.
 \end{cmdsubsub}
 
 Turn on or off interaction.  Default is on.  Turning interaction off prevents
-texdoc to ask you to choose a file to view when there are multiple choices,
-so it just prints the list of files found.
-
-\begin{cmdsubsub}{alias}{cf-alias_switch}
-  alias_switch = «true, false»
-\end{cmdsubsub}
-
-Turn on or off aliasing.  Default is on.
+texdoc from asking you to choose a file to view when there are multiple
+choices, so it just prints the list of files found.
 
 \begin{cmdsubsub}{ext_list}{cf-ext_list}
   ext_list = «list»
@@ -585,7 +591,7 @@ recognised:
 
 There is a very special case: if the searched ©«name»© has ©.sty© extension,
 texdoc enters a special search mode for ©.sty© files (not located in the same
-place as real documentation files) for this ©«name»©, indepandantly of the
+place as real documentation files) for this ©«name»©, independently of the
 current value of ©ext_list© and ©mode©. In an ideal world, this wouldn't be
 necessary since every sty file would have a proper documentation in pdf, html
 or plain text, but\dots
@@ -621,8 +627,8 @@ shell construct.
   verbosity_level = «n»
 \end{cmdsubsub}
 
-Set the verbosity level to ©«n»© (default: 2). 3 means errors, warnings and
-informational messages will be printed (on stderr); 2 means only errors and
+Set the verbosity level to ©«n»© (default: 2). At level~3, errors, warnings and
+informational messages will be printed on stderr; 2 means only errors and
 warnings, 1 only errors and 0 nothing except internal errors (obviously not
 recommended).
 
@@ -670,7 +676,7 @@ same meaning in future versions of texdoc.
 
 List of supported extensions for zipped files (default: empty).  Allows
 compressed files with names like ©foobar.«zip»©, with ©«zip»© in the given
-©«list»©, to be found and unzipped before the viewer is launched (the
+©«list»©, to be found and unzipped before the viewer is started (the
 temporary file will be destroyed right after).
 
 \textbf{Warning.} Support for zipped documentation is not meant to work on
@@ -687,8 +693,8 @@ for example in Linux distributions.
   unzip_«zipext» = «command»
 \end{cmdsubsub}
 
-The unzipping command for zipped files with extension ©«zipext»© (default: no
-default). Define one for each item in ©zipext_list©. The command must print
+The unzipping command for compressed files with extension ©«zipext»© (default:
+none). Define one for each item in ©zipext_list©. The command must print
 the result on stdout, like ©gzip -d -c© does.
 
 \begin{cmdsubsub}{rm_file, rm_dir}{cf-rm_star}
