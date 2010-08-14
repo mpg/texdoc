@@ -31,21 +31,35 @@ function sty_not_alone(a, b)
     return false
 end
 
+-- removes elements with score < 0 from a doclist
+function cleanup(dl)
+    for i = 1, #dl do
+        if dl[i].score < 0 then dl[i] = nil end
+    end
+end
+
 -- get started
 setup_config_and_alias(arg)
 init_databases()
 
 -- check all aliased names
 local useless = {}
+local mostly_useless = {}
 local badsty = {}
 for name in aliased_names() do
     local with = get_doclist(name)
     local without = get_doclist(name, true)
     if dl_equal(with, without) then
         table.insert(useless, name)
-    end
-    if sty_not_alone(with, without) then
-        table.insert(badsty, name)
+    else
+        if sty_not_alone(with, without) then
+            table.insert(badsty, name)
+        end
+        cleanup(with)
+        cleanup(without)
+        if dl_equal(with, without) then
+            table.insert(mostly_useless, name)
+        end
     end
 end
 
@@ -53,6 +67,10 @@ end
 if #useless > 0 then
     print 'Useless aliases:'
     for _, a in ipairs(useless) do print('  '..a) end
+end
+if #mostly_useless > 0 then
+    print 'Mostly useless aliases:'
+    for _, a in ipairs(mostly_useless) do print('  '..a) end
 end
 if #badsty > 0 then
     print 'Bad sty aliases:'
