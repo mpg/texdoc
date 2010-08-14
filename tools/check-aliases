@@ -42,15 +42,16 @@ my $texdoc_scriptdir = "$texdoc_path/script";
 -d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
 
 # check that we are in the right branch
+my $hint = "use --force-wrong-branch if you mean it.";
 if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
     my $git_head = <$git_head_fh>;
     close $git_head_fh;
     my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
     $git_branch_name ||= '(no branch)';
     ($git_branch_name eq 'texlive') or $force_wrong_branch
-        or die "Current branch is $git_branch_name!\n";
+        or die "Bad branch `$git_branch_name'; $hint\n";
 } elsif (not $force_wrong_branch ) {
-    die "Not updating from a git repository.\n";
+    die "No a git repo; $hint\n";
 }
 
 # make sure the tools/files we want are used

@@ -166,7 +166,6 @@ alias lshort-de = l2kurz                # german
 alias lshort-pl = lshort-polish/lshort2e # polish
 alias lshort-pt = ptlshort              # portuguese
 alias lshort-sk = slshorte              # slovak
-alias lshort-es = lshort-spanish/lshort # spanish
 
 # *TeX engines reference manuals, man pages and related
 alias e-tex-ref = etex_man
@@ -298,7 +297,6 @@ alias fullpage = fullpage # to beat context/fullpage-doc
 ## a few easy patterns
 
 # egrep 'manual\.pdf\>'
-alias t-angles = t-manual
 alias tree-dvips = tree-manual
 
 # egrep 'user\.pdf\>'
@@ -311,8 +309,6 @@ alias jurabib-de = jbgerdoc
 alias ofs = ofsdoc-e
 alias ofs-cz = ofsdoc
 alias pst-geo = pst-map3d-doc
-alias german = gerdoc
-alias ngerman = gerdoc
 alias pst-eucl = pst-eucl/euclide_english
 alias pst-eucl-fr = pst-eucl/euclide
 
