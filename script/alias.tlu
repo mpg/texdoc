@@ -16,9 +16,10 @@ load_env(L, {
 alias = { name1 = aliasentry1, ... }
 
 aliasentry = {
-  name   = <string> pattern to be matched,
-  score  = <number or nil> associated score (may be nil),
-  original = <true or nil> is this the original keyword?,
+    name        = <string> pattern to be matched,
+    score       = <number or nil> associated score,
+    original    = <true or nil> is this the original keyword?,
+    stop        = <true or nil> prevent further aliasing?
 }
 score == nil means to use the default score (defined in score.tlu)
 --]]
@@ -47,7 +48,7 @@ function add_alias(key, value, score)
     table.insert(alias[k], make_alias(value, score))
 end
 
--- prevent a key from begin further aliased
+-- prevent a key from being further aliased
 function stop_alias(key)
     local k = string.lower(key)
     alias[k] = alias[k] or {}
