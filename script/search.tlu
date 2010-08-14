@@ -11,7 +11,7 @@ load_env(L, {
     'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
     'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
     'parse_zip', 'path_parent',
-    'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos',
+    'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos', 'is_exact',
     'config',
 })
 
@@ -362,13 +362,22 @@ function check_ext(file)
     return false
 end
 
+-- say if a file (with its path) matches a pattern
+function matches(pattern, file)
+    if pattern.original then
+        return string.find(file:lower(), pattern.name:lower(),
+        1, config.mode ~= 'regex')
+    else
+        return is_exact(file, pattern.name)
+    end
+end
+
 -- return a docfile object if file "matches", nil ortherwise
 function process_file(patlist, file, pathfile, code)
     local docfile
     local pattern
     for _, pattern in ipairs(patlist) do
-        if string.find(string.lower(pathfile), string.lower(pattern.name),
-                1, config.mode ~= 'regex') then
+        if matches(pattern, pathfile) then
             local info = {
                 name    = pathfile,
                 tree    = code,

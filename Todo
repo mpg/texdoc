@@ -21,9 +21,6 @@ tlpdb + ls-R) and assertions about the results, such as "this one should come
 before that one, this one should be first, that one should be <0, etc.  Would
 serve both as documentation for myself and regression testing tool.
 
-For non-original patterns (ie actual aliases), the kpse-like search routines
-should select only exact matches.
-
 The alias test script should test for essentially useless aliases, that is,
 those that don't change the list of results with score > 0.
 

@@ -264,5 +264,6 @@ export_symbols(L, {
     'sort_doclist',
     'docfile_quality',
     'ext_pos',
+    'is_exact',
     'confline_to_score',
 })
