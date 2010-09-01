@@ -1,3 +1,8 @@
+Next release
+------------
+
+Explicitly list all deprecated switches and options in News, for reference.
+
 Scoring
 -------
 
@@ -138,3 +143,6 @@ Notes and references
 
 Texdoc GUI project going on since early May 2010, see messages from Enrico
 Gregorio in my (mpg) inbox.
+
+Used by vim script #2945 (AutomaticTexPlugin) as F1 and :TexDoc.
+
