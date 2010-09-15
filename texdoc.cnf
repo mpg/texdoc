@@ -141,6 +141,9 @@ adjscore(beamer) beamer-tut-pt/tutorialbeamer = +10
 adjscore(beamer) presentations = -10
 adjscore(beamer) beamer-FUBerlin = -3
 
+# context
+adjscore(context) circuitikz = -10
+
 # it is also possible to set the score directly in alias directives
 # eg, fontinstallationguide is related to fontinst:
 alias(0.1) fontinst = fontinstallationguide
