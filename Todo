@@ -3,6 +3,10 @@ Next release
 
 Explicitly list all deprecated switches and options in News, for reference.
 
+Improve debug output (metadata scoring).
+
+--debug=score should also show which directives are ignored
+
 Scoring
 -------
 
@@ -29,8 +33,6 @@ serve both as documentation for myself and regression testing tool.
 Files found using the tlpdb only should be scored heuristicly as if <pkgname>
 were asked for. (Make sure heurisitc scoring returns a higher score for
 names actually containing the string. Check the result with psnfss2e aliases.)
-
-Improve debug output (metadata scoring).
 
 
 Metadata problems
