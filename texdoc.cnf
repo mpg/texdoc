@@ -211,6 +211,8 @@ alias(20) fontenc = encguide
 alias(20) textcomp = encguide
 alias makeidx = makeindx
 alias showidx = makeindx
+alias letter = base/letter
+alias slides = base/slides
 alias shortvrb = base/doc
 alias doc = base/doc
 # TODO: try to avoid the huge amount of false positives for `doc' itself.
