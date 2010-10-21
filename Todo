@@ -71,6 +71,11 @@ something, too.)
 Make the list of bad comments from the catalogue configurable? (Currently,
 readme hardcoded.)
 
+--html-lists options: output the lists as html (à la mthelp)
+
+--index-by-topic: build on the fly a local version of the catalogue's
+bytopic.html page (see also --apropos)
+
 
 Not sure about that
 -------------------
