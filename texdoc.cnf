@@ -84,7 +84,7 @@ suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, 
 
 # Only results with positive scores are displayed (unless mode is 'showall').
 # Results with score <= -100 are never displayed.
-# 
+#
 # You can adjust the score of results containing a pattern with adjscore,
 # either globally or only for specific keywords
 
@@ -222,6 +222,10 @@ alias graphics = grfguide
 alias graphicx = grfguide
 alias color = grfguide
 alias epsfig = grfguide
+alias graphics-dev = graphics
+alias graphicx-dev = graphicx
+alias color-dev = color
+alias epsfig-dev = epsfig
 
 # latex's required psnfss2e bundle
 alias mathpazo = psnfss2e
@@ -237,7 +241,7 @@ alias times = psnfss2e
 alias palatino = psnfss2e
 alias mathptm = psnfss2e
 alias mathpple = psnfss2e
-alias utopia = psnfss2e 
+alias utopia = psnfss2e
 
 # ams
 alias amsmath = amsldoc
