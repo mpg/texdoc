@@ -302,6 +302,7 @@ alias cm-super = cm-super/README
 alias cmsuper = cm-super/README
 alias(5) cmsuper = cm-super/FAQ
 alias cyrillic = cyrillic/00readme.txt
+alias lettrine = lettrine # to hide context/third/lettrine-doc.pdf
 
 ## a few easy patterns
 
