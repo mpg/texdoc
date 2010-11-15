@@ -1,11 +1,14 @@
 Next release
 ------------
 
+BUG: finds non-existing files in tl2010 (probably from another tlpdb?)
+ex: texdoc luasseq on my machine while tl10 is active
+
 Explicitly list all deprecated switches and options in News, for reference.
 
 Improve debug output (metadata scoring).
 
---debug=score should also show which directives are ignored
+--debug=config should also show which directives are ignored
 
 Scoring
 -------
@@ -16,8 +19,8 @@ should win over
         todonotes/todonotes.pdf                Package documentation
 
 With "texdoc ean"
-        ean/Readme 
-should win over 
+        ean/Readme
+should win over
         barcodes/eandoc = Package doc
 (probably)
 
@@ -29,11 +32,14 @@ Should do: test suite with selected cases from real life (perhaps using fake
 tlpdb + ls-R) and assertions about the results, such as "this one should come
 before that one, this one should be first, that one should be <0, etc.  Would
 serve both as documentation for myself and regression testing tool.
+    Easier: keep/retrieve deleted aliases and test than they are still
+    useless.
 
 Files found using the tlpdb only should be scored heuristicly as if <pkgname>
 were asked for. (Make sure heurisitc scoring returns a higher score for
 names actually containing the string. Check the result with psnfss2e aliases.)
 
+Try to guess which .tex files are examples and allow them?
 
 Metadata problems
 -----------------
@@ -76,6 +82,9 @@ readme hardcoded.)
 --index-by-topic: build on the fly a local version of the catalogue's
 bytopic.html page (see also --apropos)
 
+Searching by macro name???
+    - http://tug.org/pipermail/tex-live/2010-May/025832.html
+    - other ideas?
 
 Not sure about that
 -------------------
