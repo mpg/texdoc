@@ -287,7 +287,7 @@ function init_lsr_db(root, shift)
         local dir_line = maybe_dir and string.match(line, '^%./(.*):$')
         if dir_line then
             maybe_dir = false -- next line may not be a dir
-            if string.sub(dir_line, 1, l) == shift then
+            if string.sub(dir_line..'/', 1, l) == shift then
                 isdoc = true
                 current_dir = string.sub(dir_line, l+1)
                 db[current_dir] = nil
@@ -295,7 +295,7 @@ function init_lsr_db(root, shift)
                 break -- we're exiting the ./doc (or shift) dir, so it's over
             end
         elseif isdoc then
-            local file = current_dir..'/'..line
+            local file = (current_dir == '') and line or current_dir..'/'..line
             if check_ext(line) then db[file] = line end
         end
     end
