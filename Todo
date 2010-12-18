@@ -10,6 +10,8 @@ Improve debug output (metadata scoring).
 
 --debug=config should also show which directives are ignored
 
+make the list of config files into a separate file
+
 Scoring
 -------
 
