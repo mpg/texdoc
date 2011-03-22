@@ -330,6 +330,7 @@ alias nonfloat-de   = nonfloat
 alias nonfloat      = nonfloat-en
 alias pstricks      = pstricks-doc
 alias xstring-fr    = xstring_doc_fr
+alias arabic        = arabi/user_guide
 
 ## a few easy patterns
 
