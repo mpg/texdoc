@@ -309,6 +309,7 @@ alias caption     = caption-eng
 alias caption-dev = caption.pdf
 
 # misc
+alias autofe        = ucs
 alias afoot         = arabtex-doc
 alias asymptote     = asymptote # not mentioned in the catalogue currently
 alias arabicfont    = bezos
