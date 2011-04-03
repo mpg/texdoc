@@ -80,8 +80,8 @@
 
 # Built-in defaults (for reference):
 #
-# ext_list         = pdf, html, txt, ps, dvi, # Note: empty string at end
-# badext_list      = txt,                     # Note: empty string at end
+# ext_list    = pdf, htm, html, txt, ps, dvi,  # Note: empty string at end
+# badext_list = txt,                           # Note: empty string at end
 # basename_list    = readme
 # badbasename_list = readme
 

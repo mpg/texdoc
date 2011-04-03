@@ -65,6 +65,8 @@ function view_file (filename)
     local viewext = string.match(filename,'.*%.([^/]*)$') or 'txt'
     -- special case : sty files use txt viewer
     if viewext == 'sty' then viewext = 'txt' end
+    -- FIXME: hardcoding such cases this way is not very clean
+    if viewext == 'htm' then viewext = 'html' end
     if not config['viewer_'..viewext] then
         err_print('warning',
             "No viewer_"..viewext.." defined, using viewer_txt.")

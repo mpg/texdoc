@@ -515,7 +515,7 @@ function setup_config_from_defaults()
         mode                = 'view',
         interact_switch     = 'true',
         machine_switch      = 'false',
-        ext_list            = 'pdf, html, txt, ps, dvi, ',
+        ext_list            = 'pdf, htm, html, txt, ps, dvi, ',
         basename_list       = 'readme',
         badext_list         = 'txt, ',
         badbasename_list    = 'readme',
