@@ -332,6 +332,12 @@ alias nonfloat      = nonfloat-en
 alias pstricks      = pstricks-doc
 alias xstring-fr    = xstring_doc_fr
 alias arabic        = arabi/user_guide
+alias 3parttable    = threeparttable
+alias croatian      = babel
+alias letterspace   = microtype
+alias mls           = montex
+alias vrbexin       = verbasef
+
 
 ## a few easy patterns
 
