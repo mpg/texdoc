@@ -62,10 +62,11 @@ function view_file (filename)
         viewer_replacement = '"'..w32_path(filename)..'"'
     end
     -- files without extension are assumed to be text
-    local viewext = string.match(filename,'.*%.([^/]*)$') or 'txt'
+    local viewext = filename:match('.*%.([^/]*)$'):lower() or 'txt'
     -- special case : sty files use txt viewer
     if viewext == 'sty' then viewext = 'txt' end
     -- FIXME: hardcoding such cases this way is not very clean
+    if viewext == 'texlive' then viewext = 'txt' end
     if viewext == 'htm' then viewext = 'html' end
     if not config['viewer_'..viewext] then
         err_print('warning',
