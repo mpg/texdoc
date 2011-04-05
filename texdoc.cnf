@@ -308,6 +308,17 @@ alias tugboat = ltubguid
 alias caption     = caption-eng
 alias caption-dev = caption.pdf
 
+# metapost by various names
+alias    metapost = mpman
+alias(5) metapost = mpgraph
+alias(5) metapost = mpintro
+alias    mpost    = mpman
+alias(5) mpost    = mpgraph
+alias(5) mpost    = mpintro
+alias    mp       = mpman
+alias(5) mp       = mpgraph
+alias(5) mp       = mpintro
+
 # misc
 alias autofe        = ucs
 alias afoot         = arabtex-doc
@@ -324,9 +335,6 @@ alias hyperref      = hyperref/manual.pdf
 alias hyperref-dev  = hyperref.pdf
 alias iso           = isoman
 alias lettrine      = lettrine # to hide context/third/lettrine-doc.pdf
-alias(5) metapost   = mpgraph
-alias(5) metapost   = mpintro
-alias metapost      = mpman
 alias nonfloat-de   = nonfloat
 alias nonfloat      = nonfloat-en
 alias pstricks      = pstricks-doc
