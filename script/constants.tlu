@@ -76,6 +76,7 @@ known_options = {
     'unzip_.*',
     'zipext_list',
     'max_lines',
+    'lang',
 }
 
 error_msg = [[

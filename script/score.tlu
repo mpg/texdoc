@@ -127,7 +127,9 @@ function heuristic_score(file, pat)
     end
     local slash = not not string.find(pat, '/', 1, true)
     -- look for exact or subword match
-    if is_exact(file, pat) then
+    if is_exact_locale(file, pat) then
+        upscore(5, 'exact match with correct locale')
+    elseif is_exact(file, pat) then
         upscore(4, 'exact match')
     elseif is_subword(file, pat) then
         upscore(1, 'subword match')
@@ -172,6 +174,20 @@ function is_exact(file, pat)
         if ext ~= '' and ext ~= '*' and basename == pat..'.'..ext then
             return true
         end
+    end
+    return false
+end
+
+-- says if file is an exact match for pat and the current locale
+function is_exact_locale(file, pat)
+    if string.match(pat, '%-%l%l%l?$') then
+        -- don't match if the pattern appears to include a language code
+        return false
+    end
+    local lang = config.lang
+    if lang then
+        return is_exact(file, pat .. '-' .. lang)
+            or is_exact(file, lang .. '-' .. pat)
     end
     return false
 end
