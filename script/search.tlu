@@ -480,7 +480,8 @@ function get_tlpinfo_from_tlpdb(filename)
             else
                 local file = string.match(line, '^ ([^ ]*)')
                 local meta = string.match(line, '^ [^ ]* (.+)')
-                if check_ext(file) then
+                local basename = string.match(file, '.*/(.*)')
+                if check_ext(basename) then
                     -- we've got a docfile here, add it
                     table.insert(tlp_doclist[curr_tlp], file)
                     if meta then
