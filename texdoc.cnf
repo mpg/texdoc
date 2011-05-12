@@ -170,6 +170,9 @@ adjscore(beamer) presentations                = -10
 adjscore(context) circuitikz = -10
 adjscore(symbols) /staves/   = -5
 
+# catalogue info missing in the tlcontrib version of the package :-(
+adjscore(pgf) pgfmanual.pdf = +5
+
 
 # Aliases
 # =======
@@ -345,7 +348,8 @@ alias croatian      = babel
 alias letterspace   = microtype
 alias mls           = montex
 alias vrbexin       = verbasef
-
+alias dtk           = dtk/doc/beispiel.pdf
+alias musixtex      = musixdoc
 
 ## a few easy patterns
 
