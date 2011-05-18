@@ -62,7 +62,6 @@
 \definecolor{links}{named}{violet}
 \definecolor{special}{rgb}{0,0.5,0}
 \definecolor{code}{rgb}{0,0,0.6}
-\definecolor{quick}{rgb}{1.0,0,0}
 \hypersetup{colorlinks=true, linkcolor=links, urlcolor=links, citecolor=links}
 
 \newcommand\cofont{% % code
@@ -157,10 +156,7 @@
 
 \maketitle
 
-\section{Quick guide}
-
-\textcolor{quick}{
-  Good news: you only need to read this page and the next one!}
+\section{Quick guide (2 pages only)}
 
 \subsection{Basics}
 
@@ -173,12 +169,11 @@ than one package at once, just use many ©«name»©s as arguments.
 
 \subsection{Modes}\label{ss-modes}
 
-Texdoc has different modes that determine how results will be handled. The
-default mode, called ``view'' mode, automatically opens the best document
-using an appropriate\footnote{See \ref{ss-viewer} below.} viewer. It is very
-handy for quick access to a precise document.  On the other hand, there may be
-other relevant documents for the given ©«name»©, which are ignored in view
-mode.
+Texdoc has different modes that determine how results will be handled. In the
+default, ``view'' mode, it opens the first (supposedly the best) result in a
+viewer. It is rather handy when you know what you want to read, and want to
+access it quickly. On the other hand, there may be other relevant documents
+for the given ©«name»©, which are ignored in view mode.
 
 The so-called ``list mode'' makes texdoc list all relevant documentation and
 ask you which one you want to view. It is useful when there a other
@@ -210,20 +205,21 @@ directories).
 
 In order to select you favorite mode, just insert a line ©mode = «yourmode»©
 in this file, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
-©showall©.
+©showall©. To set your favorite language, use ©lang = «2-letter code»©, though
+it is usually detected automatically.
 
-The configuration files can be used to tweak texdoc in many ways, the most
+The configuration file can be used to tweak texdoc in many ways, the most
 useful of which is probably the selection of the viewers for various types of
 documents, explained in the next section.
 
 \subsection{Viewers}\label{ss-viewer}
 
 Texdoc's mechanism for choosing a viewer varies according to your platform.
-On Windows and Mac OS X, it uses your file associations like when you
-double-click files in the Explorer or the Finder (except for the text viewer,
-which is always a pager). On Unix, it does the same if you're running a known
-desktop environment (Gnome, KDE, XFCE) or tries to find a viewer in the path
-from a list of known viewers.
+On Windows, OS X, or Unix with KDE, Gnome or XFCE, it uses your file
+associations like when you double-click files in the Explorer, the Finder or
+your default file manager (except for the text viewer, which is always a
+pager). Otherwise, it tries to find a viewer in the path from a list of
+``known'' viewers.
 
 You may want to select a different viewer for some kind of file. This is
 achieved by setting the various ©viewer_«ext»© configuration options, where
@@ -240,7 +236,7 @@ values so that you normally don't need to fiddle with that, but you may be
 curious or have special needs.
 
 The final part is a full reference including a few points omitted in the
-present part.
+present and next part.
 
 \clearpage
 
@@ -262,15 +258,18 @@ sources:
 Files are filtered by extension: only files with known extensions may be
 selected.
 
-The selected files are then score according to some simple heuristics. For
-example, a file named ©«keyword».pdf©, will get a high score, ©«keyword»-doc©
-will be preferred over ©«keyword»whatever©, files in a directory named exactly
-©«keyword»© get a bonus, etc. Score may also be adjusted base on file
-extensions or known names (or subwords): for example, by default, ©Makefile©s
-get a very bad score since they are almost never documentation.\footnote{They
-  often end up in the doc tree, since the source of documentation is often in
-  the same directory as the documentation itself in \texlive. Other source
-  files are discriminated by extension.}
+The selected files are then score according to some simple heuristics.  For
+example, a file named ©«keyword».pdf©, is good, ©«keyword»-«lang».pdf© will
+score higher if your favorite language ©«lang»© is detected or configured,
+©«keyword»-doc© will be preferred over ©«keyword»whatever©, files in a
+directory named exactly ©«keyword»© get a bonus, etc.
+
+Score may also be adjusted base on file extensions or known names (or
+subwords): for example, by default, ©Makefile©s get a very bad score since
+they are almost never documentation.\footnote{They often end up in the doc
+  tree, since the source of documentation is often in the same directory as
+  the documentation itself in \texlive. Other source files are discriminated
+  by extension.}
 
 Finally, depending on the mode, the file with the highest score is opened in a
 viewer, or the list of results is shown. Usually, only results with a positive
@@ -296,16 +295,17 @@ one new name.
 
 \medskip
 
-We will soon see how you can configure this, but let's give a few definitions
-about how a file can match a keyword first (all matching is case-insensitive):
+We will soon see how you can configure this, but let's start with a few
+definitions about how a file can match keyword (all matching is
+case-insensitive):
 \begin{enumerate}
   \item The keyword is a substring of the file name.
   \item The keyword is a ``subword'' of the file name; words are defined as
     sequences of alphanumeric characters delimited by punctuation characters
     (there is no space in file names in \texlive) and a subword is a
     substring both ends of which are a word boundary.
-  \item The keyword can match ``exactly'' the file name: that is, the file
-    name is the keyword plus an extension.
+  \item The keyword matches ``exactly'' the file name: that is, the file
+    name is the keyword, possibly plus an extension.
 \end{enumerate}
 
 \subsection{Alias directives}\label{ss-alias}
@@ -333,6 +333,11 @@ If you want the results associated to a particular alias to have a custom
 score instead of the default 10, you can use the optional argument to the
 alias directive. This can be useful if you associate many aliases to
 a keyword and want one of them to show up first.
+
+Additionally, starting from version 0.80, aliases for ©«keyword»-«lang»©,
+where ©«lang»© is your preferred language's 2-letter code (as detected or
+configured, see the ©lang© option) are also used for ©«keyword»© and get a
+©+1© score upgrade.
 
 You can have a look at the configuration file provided (the last shown by
 ©texdoc -f©) for examples.  If you feel one of the aliases you defined locally
@@ -546,6 +551,9 @@ the first column: this wins over every other name.
   \end{tabular}
 \end{center}
 
+Also, on Unix systems, locale-related variables such as ©LANG© and ©LC_ALL©
+are used for the default value of ©lang©.
+
 \subsection{Configuration items}\label{ss-conf}
 
 \subsubsection{Structure of configuration files}\label{sss-sonf-struct}
@@ -673,6 +681,12 @@ without extension, ©viewer_txt© is used, and there's no ©viewer_© variable.
 In ©«cmd»©, ©%s© can be used as a placeholder for the file name, which is
 otherwise inserted at the end of the command.  The command can be a arbitrary
 shell construct.
+
+\begin{cmdsubsub}{lang}{cf-lang}
+  lang = «2-letter code»
+\end{cmdsubsub}
+
+Set you preferred language. Defaults to your system's locale.
 
 \begin{cmdsubsub}{verbosity_level}{cf-verbosity_level}
   verbosity_level = «n»
