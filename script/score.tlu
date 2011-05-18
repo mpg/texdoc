@@ -71,7 +71,7 @@ function set_score(df, original_kw)
         if pat.original then
             s = df.tree > -1 and heuristic_score(name, p) or 1
         elseif is_exact(name, p) then
-            s = pat.score or 10 -- default alias score
+            s = pat.score or (pat.locale and 11 or 10) -- default alias score
             deb_print('score', string.format(
                 "Matching alias '%s', score: %g", pat.name, s))
         end
