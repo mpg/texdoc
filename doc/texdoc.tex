@@ -170,12 +170,12 @@
 
 \maketitle
 
-\section{Quick guide}
+\section{Quick guide (2 pages only)}
 
 \subsection{Basics}
 
 Open a command line\footnote{On windows, use ``Execute'' from the Start menu
-  and type ©cmd©.  On Mac OS X, use the ``terminal'' icon on Mac OS X.  If you
+  and type ©cmd©.  On Mac OS X, use the ``terminal'' icon.  If you
   are using another flavour of Unix, you probably know what to do.} and type
 ©texdoc «name»©: the documentation of the ©«name»© package will pop up. Of
 course, replace ©«name»© with the actual name of the package you want to learn
@@ -187,11 +187,11 @@ see all documentation related to a package or use a different viewer.
 
 \subsection{Modes}\label{ss-modes}
 
-\texdoc has different modes that determine how results will be handled. The
-default mode, called ``view'' mode, is to open the first (supposedly the best)
-result in a viewer. It is rather handy when you know what you want to read,
-and want to access it quickly. On the other hand, there may be other relevant
-documents for the given ©«name»©, which are ignored in view mode.
+\texdoc has different modes that determine how results will be handled. In the
+default, ``view'' mode, it opens the first (supposedly the best) result in a
+viewer. It is rather handy when you know what you want to read, and want to
+access it quickly. On the other hand, there may be other relevant documents
+for the given ©«name»©, which are ignored in view mode.
 
 The so-called ``list mode'' makes \texdoc list all relevant documentation and
 ask you which one you want to view. It is useful when there a other
@@ -201,44 +201,47 @@ There is also a ``mixed'' mode, intended to combine the best of view mode and
 list mode: if there is only one relevant result, then \texdoc opens it in a
 viewer, else it offers you a menu.
 
-Usually, \texdoc shows you only results it considers relevant. If there are no
+Usually, \texdoc shows only the results it considers relevant. If there are no
 ``good'' results, it falls back to less relevant results. You can force
-\texdoc to show you also ``bad'' results even when there are good ones by
+it to show you also ``bad'' results even when there are good ones by
 using the ``showall'' mode. (This implies using a menu rather than starting a
 viewer.)
 
-You can select the mode with command-line options: use 
-©texdoc «option» «name»© with
-one of the following options: ©-w© or ©--view© for view mode, ©-m© or
-©--mixed© for mixed mode, ©-l© or ©--list© for list mode, ©-s© or ©--showall©
-for showall mode.
+You can select the mode with command-line options: use
+©texdoc «option» «name»© with one of the following options: ©-w© or ©--view©
+for view mode, ©-m© or ©--mixed© for mixed mode, ©-l© or ©--list© for list
+mode, ©-s© or ©--showall© for showall mode.
 
 If you always (or mostly) use the same mode, it is probably easier to
 select it in a configuration file than to always use the command-line
-option. For this, see the next section.
+option.
 
 \subsection{Configuration files}\label{ss-quick-file}
 
-\texdoc use various configuration files, which you can see using the ©-f© or
+\texdoc uses various configuration files, which you can see using the ©-f© or
 ©--files© options. The entry marked with a star ©(*)©
 is the file you should use for your personal preferences as a user; you may
 need to create it (and the parents directories).
 
 In order to select you favorite mode, just insert a line ©mode = «yourmode»©
-in this files, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
+in this file, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
 ©showall©.
+
+You can also set your favorite language with ©lang = «2-letter code»© here,
+though it is usually detected automatically.
 
 The configuration files can be used to tweak \texdoc in many ways, the most
 useful of which is probably the selection of the viewers for various types of
-documents, explained in the next section.
+documents.
 
 \subsection{Viewers}
 
 \texdoc's mechanism for choosing a viewer varies according to your platform.
-On Windows and MacOS, it uses your file associations like when you
-double-click files in the Explorer or the Finder (except for the text viewer,
-which is always a pager). On Unix, it tries to find a viewer in the path from
-a list of ``known' viewers.
+On Windows, OS X or Unix with KDE, Gnome or XFCE, it uses your file
+associations like when you double-click files in the Explorer, the Finder or
+your default file manager (except for the text viewer, which is always a
+pager). Otherwise, it tries to find a viewer in the path from a list of
+``known'' viewers.
 
 You may want to select a different viewer for some kind of file. This is
 achieved by the various ©viewer_«ext»© configuration options, where ©«ext»© is
@@ -249,13 +252,12 @@ name of the file to view.
 
 \subsection{Conclusion}
 
-We have now covered the most common needs. The next part explains
-how \texdoc proceeds to find the best results.
-The default configuration file tries hard to set appropriate values so that
-you have a good out-of-the-box experience, but you may want to understand the
-underlying mechanisms and adapt them to your needs. The final part is a full
-reference for configuration options, including points omitted in the present
-part.
+We have now covered the most common needs. The next part explains how \texdoc
+proceeds to find and sort results.  The default configuration file tries hard
+to set appropriate values so that you have a good out-of-the-box experience,
+but you may want to understand the underlying mechanisms and adapt them to
+your needs. The final part is a full reference for configuration options,
+including points omitted in the present part.
 
 Your feedback is very welcome of the \tdml. Feel free to post comments, bug
 reports, suggestions for improvements (inc. new aliases), even without
@@ -271,9 +273,11 @@ When you type ©texdoc «keyword»©, texdoc browses the trees containing
 documentation (given by the \href{http://www.tug.org/kpathsea/} {kpathsea}
 variable ©TEXDOCS©), lists all files containing ©«keyword»© in their name
 (including the directory name) and give them a score based on some simple
-heuristics. For example, a file named ©«keyword».pdf©, will get a high score,
-©«keyword»-doc© will be preferred over ©«keyword»whatever©, files in a
-directory named exactly ©«keyword»© get a bonus, etc.
+heuristics. For example, a file named ©«keyword».pdf©, is good,
+©«keyword»-«lang».pdf© will score higher if your favorite language
+©«lang»© is detected or configured, ©«keyword»-doc© will be preferred over
+©«keyword»whatever©, files in a directory named exactly ©«keyword»© get a
+bonus, etc.
 
 There is also some filtering based on extensions: only files with known
 extensions are listed, and some extensions get a lesser score. Also, there is
@@ -294,31 +298,38 @@ However, this model works only if the documentation for ©«keyword»© has
 ©«keyword»© in its name, which is not always true. The documentation of the
 memoir class is in ©memman.pdf©, for example, but it will be found anyway
 since it is in a directory named memoir. But there are more complicated cases:
-the documentation for mathptmx is in ©psnfss2e.pdf©, which is quite more
-complicated to guess.\footnote{But not totally impossible: using the \TeX\
-  Live database, texdoc can know which documentation files are associated with
-  a given ©.sty© file. Here, it could guess that the documentation is either
-  ©psfonts.pdf© of ©psnfss2e.pdf©. This will probably be done in a future
-  version.}
+the documentation for mathptmx is in ©psnfss2e.pdf©; how can \texdoc guess
+that? It looks for ©mathptmx.sty© in the \texlive package database and finds
+it in the ©psnfss© package, and then adds the documentation files for this
+package to the results. There are two PDF files: ©psfonts.pdf© and
+©psnfss2e.pdf©, but only the second has a comment from the CTAN
+catalogue\footnote{\url{http://texcatalogue.sarovar.org/} --- most relevant
+  information from the catalogue is included in the \texlive package
+  database.} so it is considered better.
 
-Here comes the notion of \emph{alias}: in the default configuration file,
-mathptmx is aliased to psnfss2e, so that when you type ©texdoc mathptmx©,
-texdoc knows it has to look also for psnfss2e. Note that texdoc will also look
-for the original name, and that a name can be aliased to more than one new
-name (this is new in texdoc 0.60).
+However, sometimes even this doesn't work. For example, suppose you're looking
+for documentation about the standard ©article© \LaTeX\ class. Unfortunately,
+the only file name ©article.pdf© is completely unrelated and the name of the
+real file, ©classes.pdf©, is hard to guess (there are plenty of other
+documentation files in the base ©latex© package). Here comes the notion of
+\emph{alias}: in the default configuration file, article is aliased to
+classes, so that when you type ©texdoc article©, texdoc knows it has to look
+also for classes. Note that texdoc will also look for the original name, and
+that a name can be aliased to more than one new name (since version 0.60).
 
 \medskip
 
-We will soon see how you can configure this, but let's give a few definitions
-about how a file can match keyword first (all matching is case-insensitive):
+We will soon see how you can configure this, but let's start with a few
+definitions about how a file can match keyword (all matching is
+case-insensitive):
 \begin{enumerate}
   \item The keyword is a substring of the file name.
   \item The keyword is a ``subword'' of the file name; words are defined as a
     sequence of alphanumeric characters delimited by punctuation characters
     (there is no space in file names in \TeX\ Live) and a subword is a
     substring both ends of which are a word boundary.
-  \item The keyword can match ``exactly'' the file name: that is, the file
-    name is the keyword plus an extension.
+  \item The keyword matches ``exactly'' the file name: that is, the file
+    name is the keyword, possibly plus an extension.
 \end{enumerate}
 
 \subsection{Alias directives}\label{ss-alias}
@@ -333,17 +344,17 @@ You can define your own aliases in \texdoc's configuration files
 insert\footnote{Actually, you don't need to do this, the default configuration
   file already includes this directive.}
 \begin{htcode}
-  alias mathptmx = psnfss2e
+  alias article = classes
 \end{htcode}
-in order to alias mathptmx to psnfss2e. Precisely, it means that files
-matching exactly psnfss2e will be added to the result list when you look for
-mathptmx, and get a score of 10 (default score for alias results). This is
+in order to alias article to classes. Precisely, it means that files
+matching exactly classes be added to the result list when you look for
+article, and get a score of 10 (default score for alias results). This is
 greater than the results of heuristic scoring: it means that results found via
 aliases will always rank before results associated to the original keyword.
 
 If you want the results associated to a particular alias to have a custom
 score instead of the default 10, you can use the optional argument to the
-alias directive. This can be usefull if you associate many aliases to
+alias directive. This can be useful if you associate many aliases to
 a keyword and want one of them to show up first.
 
 You can have a look at the configuration file provided (the last shown by
@@ -358,6 +369,11 @@ default configuration, they will add up. You can prevent the default aliases
 from begin applied for a particular keyword by saying ©stopalias «keyword»© in
 your personal configuration file. It will keep the aliases defined before
 this directive (if any) and prevent all further aliasing on this keyword.
+
+Additionally, starting from version 0.80, aliases for ©«keyword»-«lang»©,
+where ©«lang»© is your preferred language's 2-letter code (as detected or
+configured, see the ©lang© option) are also used for ©«keyword»© and get a
+©+1© score upgrade.
 
 \subsection{Score directives}\label{ss-score}
 
@@ -525,6 +541,9 @@ the first column: this wins over every other name.
   \end{tabular}
 \end{center}
 
+Also, on Unix systems, locale-related variables such as ©LANG© and ©LC_ALL©
+are used for the default value of ©lang©.
+
 \subsection{Configuration items}\label{ss-conf}
 
 \subsubsection{Structure of configuration files}\label{sss-sonf-struct}
@@ -605,7 +624,7 @@ recognised:
 
 There is a very special case: if the searched ©«name»© has ©.sty© extension,
 \texdoc enters a special search mode for ©.sty© files (not located in the same
-place as real documentation files) for this ©«name»©, indepandantly of the
+place as real documentation files) for this ©«name»©, independently of the
 current value of ©ext_list© and ©mode©. In an ideal world, this wouldn't be
 necessary since every sty file would have a proper documentation in pdf, html
 or plain text, but\dots
@@ -636,6 +655,12 @@ without extension, ©viewer_txt© is used, and there's no ©viewer_© variable.
 In ©«cmd»©, ©%s© can be used as a placeholder for the file name, which is
 otherwise inserted at the end of the command.  The command can be a arbitrary
 shell construct. 
+
+\begin{cmdsubsub}{lang}{cf-lang}
+  lang = «2-letter code»
+\end{cmdsubsub}
+
+Set you preferred language. Defaults to your system's locale.
 
 \begin{cmdsubsub}{verbosity_level}{cf-verbosity_level}
   verbosity_level = «n»
