@@ -61,6 +61,7 @@ function set_score(df, original_kw)
     if config.mode == 'regex' then df.score = 0 return end
     -- scoring is case-insenstitive (patterns are already lowercased)
     local name = string.lower(df.shortname)
+    deb_print('score', '----------')
     deb_print('score', 'Start scoring '..df.realpath)
     deb_print('score', 'Name used: '..name)
     -- get score from patterns
@@ -71,16 +72,28 @@ function set_score(df, original_kw)
         if pat.original then
             s = df.tree > -1 and heuristic_score(name, p) or 1
         elseif is_exact(name, p) then
-            s = pat.score or (pat.locale and 11 or 10) -- default alias score
+            local def_score, msg
+            if pat.locale then
+                def_score, msg = 11, ', (language-based)'
+            else
+                def_score, msg = 11, ''
+            end
+            s = pat.score or def_score
             deb_print('score', string.format(
-                "Matching alias '%s', score: %g", pat.name, s))
+                "Matching alias '%s', score: %g%s", pat.name, s, msg))
         end
         if s > score then score = s end
     end
     deb_print('score', 'Max pattern score: '..tostring(score))
     -- get score from tlp associations
-    if score == -10 and df.tlptodoc then score = -2 end
-    if score == -10 and df.runtodoc then score = -6 end
+    if score == -10 and df.tlptodoc then
+        score = -2
+        deb_print('score', 'New score: -2 from package name association')
+    end
+    if score == -10 and df.runtodoc then
+        score = -6
+        deb_print('score', 'New score: -6 from sty/cls association')
+    end
     -- bonus for metadata
     if df.details then
         if string.find(string.lower(df.details), 'readme') then
@@ -88,6 +101,7 @@ function set_score(df, original_kw)
         else
             score = score + 2.5
         end
+        deb_print('score', string.format('New score: %g from metadata', score))
     end
     -- adjust from keyword-specific tables
     if df.tree > -1 and spec_adjscore[original_kw] then
