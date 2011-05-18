@@ -413,9 +413,9 @@ a negative score, so wil not be displayed unless ``showall'' mode is active.
 range of heuristic scoring, etc.) may change in a future version of texdoc.
 Scoring is quite new and may need some adjustments. So, don't be surprised if
 you need to adapt your scoring directives after a future update of texdoc.
-This warning will disappear at some point.
+This warning should disappear at some point.
 
-\subsection{File extensions}
+\subsection{File extensions and base names}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
 (default: pdf, html, htm, txt, ps, dvi, no extension). You can configure it with
@@ -428,6 +428,11 @@ For scoring purposes, there is also a ©badext_list© parameter: files whose
 extension is ``bad'' according to this list will get a lesser score (currently
 0). This only affect heuristic scoring (results found from the original
 keyword, not from aliases).
+
+Similarly, there are ©basename_list© and ©badbasename_list© parameters: a file
+is selected only if its extension is in ©ext_list© or its base name in
+©basename_list©. This is for ©readme.«stuff»© files where ©«stuff»© doesn't
+mean anything about the file type.
 
 \clearpage
 
@@ -648,7 +653,22 @@ viewer is used and a warning is issued.
 \end{cmdsubsub}
 
 Set the list of ``bad'' extensions to ©«list»©.  Default is ``©txt,©''. Files
-with those extensions get a heuristic score of 0.
+with those extensions get a malus of ©1© on their heurisitc score if it was
+previously positive.
+
+\begin{cmdsubsub}{basename_list}{cf-basename_list}
+  basename_list = «list»
+\end{cmdsubsub}
+
+Set the list of allowed base names. Default is ©readme©.
+
+\begin{cmdsubsub}{badbasename_list}{cf-badbasename_list}
+  badbasename_list = «list»
+\end{cmdsubsub}
+
+Set the list of ``bad'' base names to ©«list»©.  Default is ©readme©. Files
+with those names get a malus of ©1© on their heurisitc score if it was
+previously positive.
 
 \begin{cmdsubsub}{viewer_*}{cf-viewer_*}
   viewer_«ext» = «cmd»
