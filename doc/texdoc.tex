@@ -418,7 +418,7 @@ This warning will disappear at some point.
 \subsection{File extensions}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
-(default: pdf, html, txt, ps, dvi, no extension). You can configure it with
+(default: pdf, html, htm, txt, ps, dvi, no extension). You can configure it with
 a line ©ext_list = «your, list»© in a configuration file. Be aware
 that it will completely override the default list, not add to it. An empty
 string in the list means files without extension (no dot in the name), while a
@@ -609,7 +609,7 @@ Turn on or off aliasing.  Default is on.
 
 Set the list of recognised extensions to ©«list»©.  Default is
 \begin{htcode}
-  pdf, html, txt, dvi, ps,
+  pdf, html, htm, txt, dvi, ps,
 \end{htcode}
 This list is used to filter and  sort the results that have the same
 score(with the default value: pdf first, etc).  Two special values are
@@ -634,10 +634,14 @@ value set.  Defaults are defined corresponding to the default ©ext_list©, but
 you can add values if you want.  For example, if you want \texdoc to be able
 to find man pages and display them with the ©man© command, you can use
 \begin{htcode}
-  ext_list = pdf, html, 1, 5, txt, dvi, ps,
+  ext_list = pdf, html, htm, 1, 5, txt, dvi, ps,
   viewer_1 = man
   viewer_5 = man
 \end{htcode}
+
+As a special case, if the extension is ©sty©, then the ©txt© viewer is used;
+similarly, if it is ©htm© the ©html© viewer is used. Otherwise, the ©txt©
+viewer is used and a warning is issued.
 
 \begin{cmdsubsub}{badext_list}{cf-badext_list}
   badext_list = «list»
