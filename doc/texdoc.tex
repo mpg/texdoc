@@ -148,7 +148,7 @@
   \href{http://tug.org/texdoc/}{http://tug.org/texdoc/}\\
   \mailto{texdoc@tug.org}}
 \author{Manuel Pégourié-Gonnard\\
-  v0.70 2010-02-28}
+  v0.80 2011-05-18}
 \date{}
 
 \begin{document}
@@ -334,8 +334,8 @@ score instead of the default 10, you can use the optional argument to the
 alias directive. This can be useful if you associate many aliases to
 a keyword and want one of them to show up first.
 
-Additionally, starting from version 0.80, aliases for ©«keyword»-«lang»©,
-where ©«lang»© is your preferred language's 2-letter code (as detected or
+Additionally, starting from with v0.80, aliases for ©«keyword»-«lang»©, where
+©«lang»© is your preferred language's 2-letter code (as detected or
 configured, see the ©lang© option) are also used for ©«keyword»© and get a
 ©+1© score upgrade.
 
@@ -398,8 +398,8 @@ future update of texdoc.  This warning will hopefully disappear at some point.
 \subsection{File extensions and names}\label{ss-ext}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
-(default: pdf, html, txt, ps, dvi, no extension). You can configure it with
-a line ©ext_list = «your, list»© in a configuration file. Be aware
+(default: pdf, html, htm, txt, ps, dvi, no extension). You can configure it
+with a line ©ext_list = «your, list»© in a configuration file. Be aware
 that it will completely override the default list, not add to it. An empty
 string in the list means files without extension (no dot in the name), while a
 star means any extension.
@@ -413,7 +413,7 @@ extension. This often happens with readme files, for example ©readme.fr© or
 ©readme.texlive©. So, in addition to his list of known extensions, texdoc has
 a list of known basenames, by default just ©readme©.
 
-The corresponding settingis are ©basename_list© and ©badbasename_list©; both
+The corresponding settings are ©basename_list© and ©badbasename_list©; both
 are similar to ©ext_list© and ©badext_list©. So, a file will be selected if
 either its extension or its base name is known, and get a lesser score if
 either is known to be ``bad.''
@@ -620,7 +620,7 @@ the empty list, but see the shipped configuration file for more.
 
 Set the list of recognised extensions to ©«list»©.  Default is
 \begin{htcode}
-  pdf, html, txt, dvi, ps,
+  pdf, html, htm, txt, dvi, ps,
 \end{htcode}
 This list is used to filter and  sort the results that have the same
 score(with the default value: pdf first, etc).  Two special values are
@@ -645,17 +645,22 @@ value set.  Defaults are defined corresponding to the default ©ext_list©, but
 you can add values if you want.  For example, if you want texdoc to be able
 to find man pages and display them with the ©man© command, you can use
 \begin{htcode}
-  ext_list = pdf, html, 1, 5, txt, dvi, ps,
+  ext_list = pdf, html, htm, 1, 5, txt, dvi, ps,
   viewer_1 = man
   viewer_5 = man
 \end{htcode}
+
+As a special case, if the extension is ©sty©, then the ©txt© viewer is used;
+similarly, if it is ©htm© the ©html© viewer is used. Otherwise, the ©txt©
+viewer is used and a warning is issued.
 
 \begin{cmdsubsub}{badext_list}{cf-badext_list}
   badext_list = «list»
 \end{cmdsubsub}
 
 Set the list of ``bad'' extensions to ©«list»©.  Default is ``©txt,©''. Files
-with those extensions get a heuristic score of 0.
+with those extensions get a malus of ©1© on their heurisitc score if it was
+previously positive.
 
 \begin{cmdsubsub}{basename_list}{cf-basename_list}
   basename_list = «list»
@@ -670,7 +675,8 @@ extension is unknown, the text viewer will be used to view the file.
 \end{cmdsubsub}
 
 Set the list of ``bad'' base names to ©«list»©.  Default is ``©readme©''. Files
-with those base names get a heuristic score of 0.
+with those names get a malus of ©1© on their heurisitc score if it was
+previously positive.
 
 \begin{cmdsubsub}{viewer_*}{cf-viewer_*}
   viewer_«ext» = «cmd»
