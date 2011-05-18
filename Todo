@@ -8,6 +8,8 @@ Good package (either from the tlpdb or directory name) should be much more
 important for scoring. Eg, spie/article.pdf should never get such a high score
 for article.
 
+lang: use info from the catalogue?
+
 Metadata problems
 -----------------
 

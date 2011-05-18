@@ -1,3 +1,26 @@
+Version 0.80
+============
+
+New 'lang' configuration option (defaults on system locale): now <name>-de.pdf
+wins over <name>.pdf if German is preferred. Patch kindly provided by Philipp
+Stephani. Also works with aliases (eg koma-de = scrguide wins over koma =
+scrguien).
+
+Document the previously undocumented options from 0.72-tl2010.
+
+Accept htm as a valid extension, synonym for html. Emit less warnings about
+viewers.
+
+Version 0.72 as in TeX Live 2010
+--------------------------------
+
+New (undocumented) settings (bad)basenme_list, parallel to (bad)ext_list.
+
+New (undocumented) setting item suffix_list for known documentation suffixes,
+previously hardcoded.
+
+New (undocumented) option --just-view for use by front-end programs.
+
 Version 0.72
 ------------
 
@@ -11,7 +34,7 @@ Fix bug introduced in 0.70: some results were duplicated on windows. (Reported
 by Uwe Siart.)
 
 Version 0.70
-------------
+============
 
 Use information from the TeX Live package database (some of it coming from the
 CTAN catalogue) to improve search results. Display some of this information.
