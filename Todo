@@ -1,5 +1,5 @@
-Next release
-------------
+Stuff to do soon
+================
 
 BUG: finds non-existing files in tl2010 (probably from another tlpdb?)
 ex: texdoc luasseq on my machine while tl10 is active
@@ -17,6 +17,12 @@ search the files exclusively within texdoc/ dir (see various kpse.find calls)
 
 Scoring
 -------
+
+lang: use info from the catalogue?
+
+Good package (either from the tlpdb or directory name) should be much more
+important for scoring. Eg, spie/article.pdf should never get such a high score
+for article.
 
 With "texdoc todo",
         todo/todo-spl.pdf
@@ -55,6 +61,10 @@ Meta missing with beebe's files.
 
 Check meta with bezos package.
 
+vntex, see Reinhard's msg, 2011/01/24
+
+Fixes in the catalogue are slow to propagate to TL.  Should the shipped meta
+file be generated direclty from the catalogue?
 
 Code cleanup
 ------------
@@ -90,6 +100,9 @@ bytopic.html page (see also --apropos)
 Searching by macro name???
     - http://tug.org/pipermail/tex-live/2010-May/025832.html
     - other ideas?
+
+Make liste of "better" comments from the catalogue, for example
+"documentation" might get a bonus.
 
 Not sure about that
 -------------------

@@ -61,6 +61,7 @@ function set_score(df, original_kw)
     if config.mode == 'regex' then df.score = 0 return end
     -- scoring is case-insenstitive (patterns are already lowercased)
     local name = string.lower(df.shortname)
+    deb_print('score', '----------')
     deb_print('score', 'Start scoring '..df.realpath)
     deb_print('score', 'Name used: '..name)
     -- get score from patterns
@@ -71,16 +72,26 @@ function set_score(df, original_kw)
         if pat.original then
             s = df.tree > -1 and heuristic_score(name, p) or 1
         elseif is_exact(name, p) then
-            s = pat.score or 10 -- default alias score
+            local bonus, msg = 0, ''
+            if pat.locale then
+                bonus, msg = 5, ', (language-based)'
+            end
+            s = (pat.score or 10) + bonus -- default alias score is 10
             deb_print('score', string.format(
-                "Matching alias '%s', score: %g", pat.name, s))
+                "Matching alias '%s', score: %g%s", pat.name, s, msg))
         end
         if s > score then score = s end
     end
     deb_print('score', 'Max pattern score: '..tostring(score))
     -- get score from tlp associations
-    if score == -10 and df.tlptodoc then score = -2 end
-    if score == -10 and df.runtodoc then score = -6 end
+    if score == -10 and df.tlptodoc then
+        score = -2
+        deb_print('score', 'New score: -2 from package name association')
+    end
+    if score == -10 and df.runtodoc then
+        score = -6
+        deb_print('score', 'New score: -6 from sty/cls association')
+    end
     -- bonus for metadata
     if df.details then
         if string.find(string.lower(df.details), 'readme') then
@@ -88,6 +99,7 @@ function set_score(df, original_kw)
         else
             score = score + 2.5
         end
+        deb_print('score', string.format('New score: %g from metadata', score))
     end
     -- adjust from keyword-specific tables
     if df.tree > -1 and spec_adjscore[original_kw] then
@@ -127,7 +139,9 @@ function heuristic_score(file, pat)
     end
     local slash = not not string.find(pat, '/', 1, true)
     -- look for exact or subword match
-    if is_exact(file, pat) then
+    if is_exact_locale(file, pat) then
+        upscore(5, 'exact match with correct locale')
+    elseif is_exact(file, pat) then
         upscore(4, 'exact match')
     elseif is_subword(file, pat) then
         upscore(1, 'subword match')
@@ -172,6 +186,20 @@ function is_exact(file, pat)
         if ext ~= '' and ext ~= '*' and basename == pat..'.'..ext then
             return true
         end
+    end
+    return false
+end
+
+-- says if file is an exact match for pat and the current locale
+function is_exact_locale(file, pat)
+    if string.match(pat, '%-%l%l%l?$') then
+        -- don't match if the pattern appears to include a language code
+        return false
+    end
+    local lang = config.lang
+    if lang then
+        return is_exact(file, pat .. '-' .. lang)
+            or is_exact(file, lang .. '-' .. pat)
     end
     return false
 end

@@ -80,8 +80,8 @@
 
 # Built-in defaults (for reference):
 #
-# ext_list         = pdf, html, txt, ps, dvi, # Note: empty string at end
-# badext_list      = txt,                     # Note: empty string at end
+# ext_list    = pdf, htm, html, txt, ps, dvi,  # Note: empty string at end
+# badext_list = txt,                           # Note: empty string at end
 # basename_list    = readme
 # badbasename_list = readme
 
@@ -170,6 +170,9 @@ adjscore(beamer) presentations                = -10
 adjscore(context) circuitikz = -10
 adjscore(symbols) /staves/   = -5
 
+# catalogue info missing in the tlcontrib version of the package :-(
+adjscore(pgf) pgfmanual.pdf = +5
+
 
 # Aliases
 # =======
@@ -194,7 +197,7 @@ alias faq    = newfaq
 alias latex  = latex-doc-ptr
 
 # various lshort translations
-adjscore(lshort) /lshort-english/ = +3                     # original
+adjscore(lshort) /lshort-english/ = +0.5                   # original
 alias lshort-de                   = l2kurz                 # german
 alias lshort-pl                   = lshort-polish/lshort2e # polish
 alias lshort-pt                   = ptlshort               # portuguese
@@ -307,7 +310,19 @@ alias tugboat = ltubguid
 alias caption     = caption-eng
 alias caption-dev = caption.pdf
 
+# metapost by various names
+alias    metapost = mpman
+alias(5) metapost = mpgraph
+alias(5) metapost = mpintro
+alias    mpost    = mpman
+alias(5) mpost    = mpgraph
+alias(5) mpost    = mpintro
+alias    mp       = mpman
+alias(5) mp       = mpgraph
+alias(5) mp       = mpintro
+
 # misc
+alias autofe        = ucs
 alias afoot         = arabtex-doc
 alias asymptote     = asymptote # not mentioned in the catalogue currently
 alias arabicfont    = bezos
@@ -322,13 +337,18 @@ alias hyperref      = hyperref/manual.pdf
 alias hyperref-dev  = hyperref.pdf
 alias iso           = isoman
 alias lettrine      = lettrine # to hide context/third/lettrine-doc.pdf
-alias(5) metapost   = mpgraph
-alias(5) metapost   = mpintro
-alias metapost      = mpman
 alias nonfloat-de   = nonfloat
 alias nonfloat      = nonfloat-en
 alias pstricks      = pstricks-doc
 alias xstring-fr    = xstring_doc_fr
+alias arabic        = arabi/user_guide
+alias 3parttable    = threeparttable
+alias croatian      = babel
+alias letterspace   = microtype
+alias mls           = montex
+alias vrbexin       = verbasef
+alias dtk           = dtk/doc/beispiel.pdf
+alias musixtex      = musixdoc
 
 ## a few easy patterns
 
@@ -408,10 +428,7 @@ alias(4.1) statex        = statex.sty
 alias(4.1) texilikecover = texilikecover.sty
 alias(4.1) thrmappendix  = thrmappendix.sty
 alias(4.1) topcapt       = topcapt.sty
-alias(4.1) verbasef      = verbasef.sty
-alias(4.1) version       = version.sty
 alias(4.1) vrbexin       = vrbexin.sty
-alias(4.1) wrapfig       = wrapfig.sty
 
 
 # Final hack

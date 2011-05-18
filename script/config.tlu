@@ -122,6 +122,8 @@ function context_to_string(context)
         return 'from command line option "'..context.name..'"'
     elseif  context.src == 'env' then
         return 'from environment variable "'..context.name..'"'
+    elseif  context.src == 'loc' then
+        return 'from operating system locale'
     elseif  context.src == 'file' then
         return 'in file "'..context.file..'" on line '..context.line
     elseif  context.src == 'def' then
@@ -373,6 +375,19 @@ end
 
 end -- scope of config_files
 
+----------------------   config from locale settings   -------------------------
+
+function setup_config_from_locale()
+    local current = os.setlocale(nil, "all")
+    os.setlocale("", "all")
+    local native = os.setlocale(nil, "time")
+    os.setlocale(current, "all")
+    local lang = string.match(native, "^[a-z][a-z]")
+    if lang then
+        set_config_element("lang", lang, {src="loc"})
+    end
+end
+
 ----------------------   options from built-in defaults   ----------------------
 
 -- for default viewer on general Unix, we have a list; the following two
@@ -515,7 +530,7 @@ function setup_config_from_defaults()
         mode                = 'view',
         interact_switch     = 'true',
         machine_switch      = 'false',
-        ext_list            = 'pdf, html, txt, ps, dvi, ',
+        ext_list            = 'pdf, htm, html, txt, ps, dvi, ',
         basename_list       = 'readme',
         badext_list         = 'txt, ',
         badbasename_list    = 'readme',
@@ -551,6 +566,7 @@ function setup_config_and_alias(arg)
     setup_config_from_cl(arg)
     setup_config_from_env()
     setup_config_from_files()
+    setup_config_from_locale()
     setup_config_from_defaults()
     -- regex mode is deprecated
     if config.mode == 'regex' then 
