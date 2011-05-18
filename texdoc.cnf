@@ -197,7 +197,7 @@ alias faq    = newfaq
 alias latex  = latex-doc-ptr
 
 # various lshort translations
-adjscore(lshort) /lshort-english/ = +3                     # original
+adjscore(lshort) /lshort-english/ = +0.5                   # original
 alias lshort-de                   = l2kurz                 # german
 alias lshort-pl                   = lshort-polish/lshort2e # polish
 alias lshort-pt                   = ptlshort               # portuguese
