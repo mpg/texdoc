@@ -528,6 +528,17 @@ Set ©verbosity_level© to maximum, see~\ref{cf-verbosity_level}.
 Set ©debug_list©, see~\ref{cf-debug_list}. If not list is given, activates all
 available debug items.
 
+\begin{cmdsubsub}{--just-view}{cl-just-view}
+  --just-view
+\end{cmdsubsub}
+
+This is a very special switch: when it is used, texdoc accepts only one
+argument which must be the a file name with full path (absolute or relative to
+current directory) and starts a viewer for this file according to its usual
+viewer rules. Absolutely no search is done. It is unlikely you'll want to use
+this option directly; it may however be useful when texdoc is used as a
+back-end by other programs (such as texdoctk).
+
 \subsection{Environment variables}\label{ss-envvar}
 
 They all correspond to some ©viewer_«ext»© setting, and the reader is referred
