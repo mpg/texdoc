@@ -432,7 +432,6 @@ alias(4.1) texilikecover = texilikecover.sty
 alias(4.1) thrmappendix  = thrmappendix.sty
 alias(4.1) topcapt       = topcapt.sty
 alias(4.1) vrbexin       = vrbexin.sty
-alias(4.1) wrapfig       = wrapfig.sty
 
 
 # Final hack
