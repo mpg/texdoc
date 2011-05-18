@@ -418,8 +418,8 @@ This warning should disappear at some point.
 \subsection{File extensions and base names}
 
 The allowed file extensions are defined by the configuration item ©ext_list©
-(default: pdf, html, htm, txt, ps, dvi, no extension). You can configure it with
-a line ©ext_list = «your, list»© in a configuration file. Be aware
+(default: pdf, html, htm, txt, ps, dvi, no extension). You can configure it
+with ©ext_list = «your, list»© in a configuration file. Be aware
 that it will completely override the default list, not add to it. An empty
 string in the list means files without extension (no dot in the name), while a
 star means any extension.
@@ -669,6 +669,25 @@ Set the list of allowed base names. Default is ©readme©.
 Set the list of ``bad'' base names to ©«list»©.  Default is ©readme©. Files
 with those names get a malus of ©1© on their heurisitc score if it was
 previously positive.
+
+\begin{cmdsubsub}{suffix_list}{cf-suffix_list}
+  suffix_list = «list»
+\end{cmdsubsub}
+
+Set the list of know documentation suffixes to ©«list»©. Default is
+\begin{Verbatim}
+   doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide,
+   /user_guide, -guide, -user, -man, notes
+ \end{Verbatim}
+When searching for ©«keyword»©, results (found directly with ©«keyword»© as
+opposed to aliases) are scored in this order (from worse to best):
+\begin{enumerate}
+  \item Substring match for ©«keyword»©.
+  \item Substring match for ©«keyword»«suffix»© for a listed ©«suffix»©.
+  \item Exact match for ©«keyword»«suffix»© for a listed ©«suffix»©.
+  \item Exact match for ©«keyword»©.
+\end{enumerate}
+(Adjustements may be done later based on other informations and settings.)
 
 \begin{cmdsubsub}{viewer_*}{cf-viewer_*}
   viewer_«ext» = «cmd»
