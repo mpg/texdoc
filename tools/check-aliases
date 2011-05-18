@@ -53,9 +53,10 @@ if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
     die "Not updating from a git repository.\n";
 }
 
-# make sure the tools/files we want are used
+# make sure the tools/files/settings we want are used
 $ENV{PATH} = "$texlive_path:$ENV{PATH}"; # use texlive svn
 $ENV{TEXMFHOME} = $texdoc_path; # use texdoc.cnf from the repo
+$ENV{LC_ALL} = 'C'; # for lang setting
 
 # use texdoc from the repo, plus a hacked main.tlu
 my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu";
