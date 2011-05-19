@@ -126,9 +126,12 @@ adjscore gpl     = -10
 adjscore /tex-virtual-academy-pl/ = -50
 
 # test and example files are not likely the best documentation
-adjscore test    = -3
-adjscore example = -3
-adjscore sample  = -3
+adjscore test     = -3
+adjscore tests    = -3
+adjscore example  = -3
+adjscore examples = -3
+adjscore sample   = -3
+adjscore samples  = -3
 
 # readme's usually get a negative score because they have a bad extension,
 # but they're still slightly better than other results with negative scores
@@ -350,6 +353,8 @@ alias mls           = montex
 alias vrbexin       = verbasef
 alias dtk           = dtk/doc/beispiel.pdf
 alias musixtex      = musixdoc
+alias mychemistry   = mychemistry_en
+alias mychemistry-de = mychemistry_de
 
 ## a few easy patterns
 
