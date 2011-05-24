@@ -355,6 +355,8 @@ alias dtk           = dtk/doc/beispiel.pdf
 alias musixtex      = musixdoc
 alias mychemistry   = mychemistry_en
 alias mychemistry-de = mychemistry_de
+alias vntex         = vntex.pdf
+alias vntex-vi      = vntex-man.pdf
 
 ## a few easy patterns
 
