@@ -10,10 +10,7 @@ Improve debug output (metadata scoring).
 
 --debug=config should also show which directives are ignored
 
-make the list of config files into a separate file (see files.tlu).
-Allow for configuration dirs, eg texdoc/conf.d/
-
-search the files exclusively within texdoc/ dir (see various kpse.find calls)
+make the list of config files into a separate file
 
 Scoring
 -------
