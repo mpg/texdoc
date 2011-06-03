@@ -82,8 +82,8 @@
 #
 # ext_list    = pdf, htm, html, txt, ps, dvi,  # Note: empty string at end
 # badext_list = txt,                           # Note: empty string at end
-# basename_list    = readme
-# badbasename_list = readme
+# basename_list    = readme, 00readme
+# badbasename_list = readme, 00readme
 
 # Known suffixes for documentation
 suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes

@@ -10,15 +10,6 @@ for article.
 
 lang: use info from the catalogue?
 
-Metadata problems
------------------
-
-Maybe a problem in TL's infra: no meta for ec's readme.
-
-Meta missing with beebe's files.
-
-Check meta with bezos package.
-
 Code cleanup
 ------------
 
@@ -31,6 +22,8 @@ Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
 plus locals.
 
 Syntax simplifictation in some places using object-oriented syntax for strings?
+
+Make a texdoclib?
 
 Ideas for later
 ===============
