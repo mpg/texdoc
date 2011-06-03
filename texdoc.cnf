@@ -82,8 +82,8 @@
 #
 # ext_list    = pdf, htm, html, txt, ps, dvi,  # Note: empty string at end
 # badext_list = txt,                           # Note: empty string at end
-# basename_list    = readme
-# badbasename_list = readme
+# basename_list    = readme, 00readme
+# badbasename_list = readme, 00readme
 
 # Known suffixes for documentation
 suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes
@@ -126,9 +126,13 @@ adjscore gpl     = -10
 adjscore /tex-virtual-academy-pl/ = -50
 
 # test and example files are not likely the best documentation
-adjscore test    = -3
-adjscore example = -3
-adjscore sample  = -3
+adjscore test     = -3
+adjscore tests    = -3
+adjscore example  = -3
+adjscore examples = -3
+adjscore sample   = -3
+adjscore samples  = -3
+adjscore /images/ = -3
 
 # readme's usually get a negative score because they have a bad extension,
 # but they're still slightly better than other results with negative scores
@@ -349,6 +353,8 @@ alias mls           = montex
 alias vrbexin       = verbasef
 alias dtk           = dtk/doc/beispiel.pdf
 alias musixtex      = musixdoc
+alias mychemistry   = mychemistry_en
+alias mychemistry-de = mychemistry_de
 
 ## a few easy patterns
 

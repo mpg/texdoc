@@ -52,20 +52,6 @@ names actually containing the string. Check the result with psnfss2e aliases.)
 
 Try to guess which .tex files are examples and allow them?
 
-Metadata problems
------------------
-
-Maybe a problem in TL's infra: no meta for ec's readme.
-
-Meta missing with beebe's files.
-
-Check meta with bezos package.
-
-vntex, see Reinhard's msg, 2011/01/24
-
-Fixes in the catalogue are slow to propagate to TL.  Should the shipped meta
-file be generated direclty from the catalogue?
-
 Code cleanup
 ------------
 
@@ -80,6 +66,7 @@ Syntax simplifictation in some places using object-oriented syntax for strings?
 
 Use texlive/tlpdb.tlu for tlpdb reading.
 
+Make a texdoclib?
 
 
 Ideas for later
