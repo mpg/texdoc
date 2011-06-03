@@ -19,11 +19,6 @@ Meta missing with beebe's files.
 
 Check meta with bezos package.
 
-vntex, see Reinhard's msg, 2011/01/24
-
-Fixes in the catalogue are slow to propagate to TL.  Should the shipped meta
-file be generated direclty from the catalogue?
-
 Code cleanup
 ------------
 
