@@ -178,8 +178,7 @@ function deliver_results(name, doclist, many)
     end
 end
 
--- finally export a few symbols
-export_symbols(getfenv(), {
-    'view_file',
-    'deliver_results',
-})
+return {
+    view_file       = view_file,
+    deliver_results = deliver_results,
+}

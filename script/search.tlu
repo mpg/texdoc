@@ -644,8 +644,7 @@ function normal_vs_sty(list)
     return normal, sty
 end
 
--- finally export a few symbols
-export_symbols(getfenv(), {
-    'init_databases',
-    'get_doclist',
-})
+return {
+    init_databases = init_databases,
+    get_doclist    = get_doclist,
+}

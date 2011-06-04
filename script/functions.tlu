@@ -115,12 +115,11 @@ function print_usage()
     print(usage_msg)
 end
 
--- finally export a few symbols
-export_symbols(getfenv(), {
-    'err_print',
-    'deb_print',
-    'w32_path',
-    'parse_zip',
-    'print_usage',
-    'path_parent',
-})
+return {
+    err_print   = err_print,
+    deb_print   = deb_print,
+    w32_path    = w32_path,
+    parse_zip   = parse_zip,
+    print_usage = print_usage,
+    path_parent = path_parent,
+}

@@ -113,9 +113,8 @@ function aliased_names()
     end
 end
 
--- finally export a few symbols
-export_symbols(getfenv(), {
-    'confline_to_alias',
-    'get_patterns',
-    'aliased_names',
-})
+return {
+    confline_to_alias = confline_to_alias,
+    get_patterns      = get_patterns,
+    aliased_names     = aliased_names,
+}

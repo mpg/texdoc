@@ -37,26 +37,26 @@ local function get_env()
     return env
 end
 
--- export symbols from a local environment to (this fonction's) _G
+-- import symbols from a table to (this fonction's) _G
 -- usage: export_symbols(getfenv(), {'sym1', 'sym2', ... })
-function export_symbols(l, symbols)
-    local _, symb
-    for _, symb in ipairs(symbols) do
-        assert(l[symb] ~= nil,
-            'Internal error: trying to export undefined symbol '..symb..'.')
-        assert(_G[symb] == nil,
-            'Internal error: trying to export existing symbol '..symb..'.')
-        _G[symb] = l[symb]
+local function import_symbols(symbols)
+    for sym, val in pairs(symbols) do
+        assert(val ~= nil,
+            'Internal error: trying to export undefined symbol '..sym..'.')
+        assert(_G[sym] == nil,
+            'Internal error: trying to export existing symbol '..sym..'.')
+        _G[sym] = val
     end
 end
 
 -- execute a submodule of texdoc
 local function texdoc_do(name)
     local pathname = kpse.find_file(name..'.tlu', 'texmfscripts')
-    assert(pathname, 'Internal error: miising submodule: '..name)
+    assert(pathname, 'Internal error: missing submodule: '..name)
     local submod = loadfile (pathname)
     setfenv(submod, get_env())
-    submod()
+    local symbols = submod()
+    if symbols then import_symbols(symbols) end
 end
 
 ------------------------   initilisation & main code   -------------------------

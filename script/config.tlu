@@ -579,7 +579,6 @@ function setup_config_and_alias(arg)
     show_config_files(function(s) deb_print('files', s) end)
 end
 
--- finally export a few symbols
-export_symbols(getfenv(), {
-    'setup_config_and_alias',
-})
+return {
+    setup_config_and_alias = setup_config_and_alias,
+}

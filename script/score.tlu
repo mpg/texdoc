@@ -282,11 +282,10 @@ function sort_doclist(dl, original_kw)
     table.sort(dl, docfile_order)
 end
 
--- export a few symbols
-export_symbols(getfenv(), {
-    'sort_doclist',
-    'docfile_quality',
-    'ext_pos',
-    'is_exact',
-    'confline_to_score',
-})
+return {
+    sort_doclist      = sort_doclist,
+    docfile_quality   = docfile_quality,
+    ext_pos           = ext_pos,
+    is_exact          = is_exact,
+    confline_to_score = confline_to_score,
+}
