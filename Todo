@@ -14,9 +14,6 @@ The scoring routine shouldn't need the original keyword as an argument since
 it can pick it up from the pattern list. Then the Docfile object could have a
 .score virtual member.
 
-Get rid of my load_env/export_symbols paranoia. Use standard module() thing,
-plus locals. (Really?)
-
 Syntax simplifictation in some places using object-oriented syntax for strings?
 
 Use texlive/tlpdb.tlu for tlpdb reading.
