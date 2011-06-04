@@ -5,10 +5,6 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
--- Load a private environment.
--- A name 'foo' defined here will be globally visible as 'C.foo', see EOF.
-setfenv(1, get_env())
-
 -- progname and version
 fullname    = arg[0]
 progname    = 'texdoc'

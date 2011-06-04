@@ -29,8 +29,7 @@ Previous work in the public domain:
 -- the local environments.
 
 -- load a local environment, importing symbols from (this function's) _G
--- usage: setfenv(1, get_env())
-function get_env()
+local function get_env()
     local env = {}
     for sym, val in pairs(_G) do
         env[sym] = val
@@ -52,10 +51,12 @@ function export_symbols(l, symbols)
 end
 
 -- execute a submodule of texdoc
-function texdoc_do(name)
-    local f = kpse.find_file(name..'.tlu', 'texmfscripts')
-    assert(f, 'Internal error: unable to find texdoc module '..name..'.')
-    dofile(f)
+local function texdoc_do(name)
+    local pathname = kpse.find_file(name..'.tlu', 'texmfscripts')
+    assert(pathname, 'Internal error: miising submodule: '..name)
+    local submod = loadfile (pathname)
+    setfenv(submod, get_env())
+    submod()
 end
 
 ------------------------   initilisation & main code   -------------------------

@@ -5,9 +5,6 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
--- Load a private environment for this submodule (see texdoc.tlu).
-setfenv(1, get_env())
-
 -- change '/' to '\' on windows
 -- Use: internal representation of files always use forward slashes.
 -- This function should be called only before displaying a file name.

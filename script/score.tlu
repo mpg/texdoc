@@ -5,9 +5,6 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
--- Load a local environment. See texdoc.tlu for details.
-setfenv(1, get_env())
-
 -- shared variables
 local global_adjscore, spec_adjscore = {}, {}
 

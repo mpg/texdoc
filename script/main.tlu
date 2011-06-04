@@ -5,9 +5,6 @@ Distributed under the terms of the GNU GPL version 3 or later.
 See texdoc.tlu for details.
 --]]
 
--- Load a private environment for this submodule (see texdoc.tlu).
-setfenv(1, get_env())
-
 -- get started
 setup_config_and_alias(arg)
 init_databases()
