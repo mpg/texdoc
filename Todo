@@ -3,8 +3,6 @@ For next release
 
 Explicitly list all deprecated switches and options in News, for reference.
 
-Improve debug output (metadata scoring).
-
 --debug=config should also show which directives are ignored
 
 make the list of config files into a separate file

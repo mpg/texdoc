@@ -96,10 +96,11 @@ function set_score(df, original_kw)
     if df.details then
         if string.find(string.lower(df.details), 'readme') then
             score = score + 0.1
+            deb_print('score', 'Catalogue "readme" bonus: +0.1')
         else
             score = score + 2.5
+            deb_print('score', 'Catalogue details bonus: +2.5')
         end
-        deb_print('score', string.format('New score: %g from metadata', score))
     end
     -- adjust from keyword-specific tables
     if df.tree > -1 and spec_adjscore[original_kw] then
