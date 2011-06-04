@@ -6,8 +6,7 @@ See texdoc.tlu for details.
 --]]
 
 -- Load a private environment for this submodule (see texdoc.tlu).
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 -- get started
 setup_config_and_alias(arg)

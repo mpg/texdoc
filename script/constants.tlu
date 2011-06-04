@@ -7,8 +7,7 @@ See texdoc.tlu for details.
 
 -- Load a private environment.
 -- A name 'foo' defined here will be globally visible as 'C.foo', see EOF.
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 -- progname and version
 fullname    = arg[0]
@@ -121,7 +120,7 @@ place_holder = '%%s' -- used for viewer commands
 assert(next(C) == nil,
     'Internal error: table of constants should be empty at this point')
 setmetatable(C, {
-    __index = L,
+    __index = getfenv(),
     __newindew = function ()
         error('Internal error: attempt to modify a constant.')
     end

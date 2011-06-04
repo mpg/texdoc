@@ -29,15 +29,17 @@ Previous work in the public domain:
 -- the local environments.
 
 -- load a local environment, importing symbols from (this function's) _G
--- usage: local L = {} load_env(L)
-function load_env(l)
-    for symb, val in pairs(_G) do
-        l[symb] = val
+-- usage: setfenv(1, get_env())
+function get_env()
+    local env = {}
+    for sym, val in pairs(_G) do
+        env[sym] = val
     end
-    setfenv(2, l)
+    return env
 end
 
 -- export symbols from a local environment to (this fonction's) _G
+-- usage: export_symbols(getfenv(), {'sym1', 'sym2', ... })
 function export_symbols(l, symbols)
     local _, symb
     for _, symb in ipairs(symbols) do

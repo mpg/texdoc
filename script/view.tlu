@@ -6,8 +6,7 @@ See texdoc.tlu for details.
 --]]
 
 -- Load a private environment for this submodule (see texdoc.tlu).
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 -----------------------------   view a document   ------------------------------
 
@@ -183,7 +182,7 @@ function deliver_results(name, doclist, many)
 end
 
 -- finally export a few symbols
-export_symbols(L, {
+export_symbols(getfenv(), {
     'view_file',
     'deliver_results',
 })

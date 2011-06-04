@@ -6,8 +6,7 @@ See texdoc.tlu for details.
 --]]
 
 -- Load a private environment for this submodule (see texdoc.tlu).
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 -- change '/' to '\' on windows
 -- Use: internal representation of files always use forward slashes.
@@ -120,7 +119,7 @@ function print_usage()
 end
 
 -- finally export a few symbols
-export_symbols(L, {
+export_symbols(getfenv(), {
     'err_print',
     'deb_print',
     'w32_path',

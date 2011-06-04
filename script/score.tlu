@@ -6,8 +6,7 @@ See texdoc.tlu for details.
 --]]
 
 -- Load a local environment. See texdoc.tlu for details.
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 -- shared variables
 local global_adjscore, spec_adjscore = {}, {}
@@ -287,7 +286,7 @@ function sort_doclist(dl, original_kw)
 end
 
 -- export a few symbols
-export_symbols(L, {
+export_symbols(getfenv(), {
     'sort_doclist',
     'docfile_quality',
     'ext_pos',

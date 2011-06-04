@@ -6,8 +6,7 @@ See texdoc.tlu for details.
 --]]
 
 -- Load a private environment for this submodule (see texdoc.tlu).
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 --[[ structure of the alias table
 
@@ -118,7 +117,7 @@ function aliased_names()
 end
 
 -- finally export a few symbols
-export_symbols(L, {
+export_symbols(getfenv(), {
     'confline_to_alias',
     'get_patterns',
     'aliased_names',

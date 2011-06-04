@@ -6,8 +6,7 @@ See texdoc.tlu for details.
 --]]
 
 -- Load a private environment for this submodule (see texdoc.tlu).
-local L = {}
-load_env(L)
+setfenv(1, get_env())
 
 -- Warning: every single function here assumes init_databases() has been called.
 
@@ -649,7 +648,7 @@ function normal_vs_sty(list)
 end
 
 -- finally export a few symbols
-export_symbols(L, {
+export_symbols(getfenv(), {
     'init_databases',
     'get_doclist',
 })
