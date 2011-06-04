@@ -7,9 +7,7 @@ See texdoc.tlu for details.
 
 -- Load a local environment. See texdoc.tlu for details.
 local L = {}
-load_env(L, {
-    'config', 'parse_zip',
-})
+load_env(L)
 
 -- shared variables
 local global_adjscore, spec_adjscore = {}, {}

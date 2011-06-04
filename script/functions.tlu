@@ -7,10 +7,7 @@ See texdoc.tlu for details.
 
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
-load_env(L, {
-    'io', 'os', 'print',
-    'config',
-})
+load_env(L)
 
 -- change '/' to '\' on windows
 -- Use: internal representation of files always use forward slashes.

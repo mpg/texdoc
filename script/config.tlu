@@ -7,11 +7,7 @@ See texdoc.tlu for details.
 
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
-load_env(L, {
-    'os', 'kpse', 'lfs', 'io', 'setmetatable', 'print',
-    'w32_path', 'confline_to_alias', 'confline_to_score', 'print_usage',
-    'config',
-})
+load_env(L)
 
 --------------------------   hide the config table   ---------------------------
 

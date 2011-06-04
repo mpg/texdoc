@@ -7,12 +7,7 @@ See texdoc.tlu for details.
 
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
-load_env(L, {
-    'os', 'arg', 'print',
-    'setup_config_and_alias', 'init_databases', 'print_usage',
-    'get_doclist', 'deliver_results', 'aliased_names',
-    'config', 'view_file',
-})
+load_env(L)
 
 -- get started
 setup_config_and_alias(arg)

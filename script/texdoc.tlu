@@ -25,28 +25,14 @@ Previous work in the public domain:
 -- texdoc is divided in submodules (files).
 -- Most submodules use a private environment: that is, the functions and
 -- variables defined in a file won't be globally visible, unless explicitly
--- exported at the end of the file.
--- Also, symbols from the global environment (hence from other submodules)
--- aren't imported in the local environment, except if explicitly requested and
--- a few default symbols.
+-- exported at the end of the file. However, global symbols will be visible in
+-- the local environments.
 
 -- load a local environment, importing symbols from (this function's) _G
--- usage: local L = {} load_env(L, {'a', 'b'})
-function load_env(l, symbols)
-    local default = {
-        'export_symbols',
-        'string', 'table', 'pairs', 'ipairs', 'tonumber', 'tostring', 'next',
-        'assert', 'error', 'err_print', 'deb_print',
-        'C',
-    }
-    for _, symb in ipairs(default) do
-        l[symb] = _G[symb]
-    end
-    local _, symb
-    for _, symb in ipairs(symbols) do
-        assert(_G[symb] ~= nil,
-            'Internal error: trying to import undefined symbol '..symb..'.')
-        l[symb] = _G[symb]
+-- usage: local L = {} load_env(L)
+function load_env(l)
+    for symb, val in pairs(_G) do
+        l[symb] = val
     end
     setfenv(2, l)
 end

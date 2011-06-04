@@ -7,13 +7,7 @@ See texdoc.tlu for details.
 
 -- Load a private environment for this submodule (see texdoc.tlu).
 local L = {}
-load_env(L, {
-    'os', 'lfs', 'kpse', 'io', 'setmetatable', 'print',
-    'dofile', 'loadfile', 'setfenv', 'rawget', 'rawset',
-    'parse_zip', 'path_parent',
-    'get_patterns', 'sort_doclist', 'docfile_quality', 'ext_pos', 'is_exact',
-    'config',
-})
+load_env(L)
 
 -- Warning: every single function here assumes init_databases() has been called.
 
