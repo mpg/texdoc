@@ -204,8 +204,9 @@ alias latex  = latex-doc-ptr
 adjscore(lshort) /lshort-english/ = +0.5                   # original
 alias lshort-de                   = l2kurz                 # german
 alias lshort-pl                   = lshort-polish/lshort2e # polish
-alias lshort-pt                   = ptlshort               # portuguese
+alias lshort-pt                   = pt-lshort              # portuguese
 alias lshort-sk                   = slshorte               # slovak
+alias lshort-es                   = lshort-spanish/lshort  # spanish
 
 # *TeX engines reference manuals, man pages and related
 alias e-tex-ref  = etex_man
@@ -371,8 +372,6 @@ alias ngerman     = gerdoc
 alias jurabib-de  = jbgerdoc
 alias ofs-cz      = ofsdoc
 alias ofs         = ofsdoc-e
-alias pst-eucl-fr = pst-eucl/euclide
-alias pst-eucl    = pst-eucl/euclide_english
 alias pst-geo     = pst-map3d-doc
 
 ## aliases basically borrowed from texdoctk.dat with some adaptations
