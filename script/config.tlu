@@ -141,22 +141,8 @@ function setup_config_from_cl(arg)
     end
     while arg[1] and string.match(arg[1],'^%-') do
         curr_arg = table.remove(arg,1)
-        -- special options
-        if (curr_arg == '-h') or (curr_arg == '--help') then
-            setup_config_from_files()
-            setup_config_from_defaults()
-            print_usage()
-            os.exit(C.exit_ok)
-        elseif (curr_arg == '-V') or (curr_arg == '--version') then
-            print (C.progname .. ' ' .. C.version )
-            os.exit(C.exit_ok)
-        elseif (curr_arg == '-f') or (curr_arg == '--files') then
-            print (C.progname .. ' ' .. C.version )
-            setup_config_from_files ()
-            show_config_files (print, true)
-            os.exit(C.exit_ok)
-        -- options related to mode
-        elseif (curr_arg == '-w') or (curr_arg == '--view') then
+        -- mode
+        if (curr_arg == '-w') or (curr_arg == '--view') then
             set_config_elt('mode', 'view')
         elseif (curr_arg == '-m') or (curr_arg == '--mixed') then
             set_config_elt('mode', 'mixed')
@@ -236,16 +222,14 @@ function setup_config_from_cl(arg)
             'ext_list should be set in a configuration file instead.')
             err_print('warning',
             'Please protest on the texdoc mailing list if you need this.')
-        -- just view (undocumented option fur use with texdoctk)
-        elseif curr_arg == '--just-view' then
-            real_set_config('just_view', true)
         -- problem
         else
             err_print('error', "unknown option: "..curr_arg)
             err_print('error', C.error_msg)
-            os.exit(C.exit_usage)
+            return false
         end
     end
+    return true
 end
 
 -------------------------   config from environment   --------------------------
@@ -552,7 +536,7 @@ end
 -- populate the config and alias arrays
 function setup_config_and_alias(arg)
     -- setup config from all sources
-    setup_config_from_cl(arg)
+    local ret = setup_config_from_cl(arg)
     setup_config_from_env()
     setup_config_from_files()
     setup_config_from_locale()
@@ -574,8 +558,11 @@ function setup_config_and_alias(arg)
     end
     -- we were waiting for config.debug_list to be known to do this
     show_config_files(function(s) deb_print('files', s) end)
+    -- propagated return value of _from_cl()
+    return ret
 end
 
 return {
     setup_config_and_alias = setup_config_and_alias,
+    show_config_files      = show_config_files,
 }

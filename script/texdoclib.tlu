@@ -83,6 +83,7 @@ return {
     get_doclist            = get_doclist,
     deliver_results        = deliver_results,
     aliased_names          = aliased_names,
+    show_config_files      = show_config_files,
     config                 = config,
     view_file              = view_file,
     const                  = C,

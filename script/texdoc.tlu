@@ -10,9 +10,44 @@ kpse.set_program_name(arg[-1], 'texdoc')
 -- load texdoclib
 texdoc = require('texdoc.texdoclib')
 
--- get started
-texdoc.setup_config_and_alias(arg)
-texdoc.init_databases()
+-- special command-line options, not treated by setup_config_and_alias
+local special_opts = {
+    ['-h']          = 'help',
+    ['--help']      = 'help',
+    ['-V']          = 'version',
+    ['--version']   = 'version',
+    ['-f']          = 'files',
+    ['--files']     = 'files',
+    ['--just-view'] = 'view',
+}
+
+-- detect special options, but do not act now (some need setup_config)
+local special
+if arg[1] then
+    special = special_opts[arg[1]]
+    if special then table.remove(arg, 1) end
+end
+
+-- get configuration
+if not texdoc.setup_config_and_alias(arg) then
+    os.exit(texdoc.const.exit_usage)
+end
+
+-- handle special options
+if special == 'help' then
+    texdoc.print_usage()
+    os.exit(texdoc.const.exit_ok)
+elseif special == 'version' then
+    print(texdoc.const.progname .. ' ' .. texdoc.const.version)
+    os.exit(texdoc.const.exit_ok)
+elseif special =='files' then
+    print(texdoc.const.progname .. ' ' .. texdoc.const.version)
+    texdoc.show_config_files(print, true)
+    os.exit(texdoc.const.exit_ok)
+elseif special == 'view' then
+    local ok = texdoc.view_file(arg[1])
+    os.exit(ok and texdoc.const.exit_ok or texdoc.const.exit_error)
+end
 
 -- make sure we actually have argument(s)
 if not arg[1] then
@@ -20,11 +55,8 @@ if not arg[1] then
     os.exit(texdoc.const.exit_usage)
 end
 
--- special case for just view
-if texdoc.config.just_view then
-    local ok = texdoc.view_file(arg[1])
-    os.exit(ok and texdoc.const.exit_ok or texdoc.const.exit_error)
-end
+-- initialise databases
+texdoc.init_databases()
 
 -- main loop
 local docname
