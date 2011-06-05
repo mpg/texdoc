@@ -149,14 +149,14 @@ function heuristic_score(file, pat)
             end
         end
     end
-    -- if extension is bad, score gets < 0
+    -- if extension is bad, score becomes an epsilon
     local ext = config.ext_list[ext_pos(file)]
     if ext and config.badext_list_inv[ext] and score > 0 then
-        upscore(-1, 'bad extension', true)
+        upscore(0.1, 'bad extension', true)
     end
     -- if basename is bad, score gets < 0
     if has_bad_basename(file) and score > 0 then
-        upscore(-1, 'bad basename', true)
+        upscore(0.1, 'bad basename', true)
     end
     -- bonus for being in the right directory
     if string.find('/'..file, '/'..pat..'/', 1, true) and not slash then
