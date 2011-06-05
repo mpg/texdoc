@@ -53,7 +53,7 @@ end
 
 -- load a submodule of texdoc
 local function texdoc_do(name)
-    local pathname = kpse.find_file(name..'.tlu', 'texmfscripts')
+    local pathname = kpse.find_file('texdoc/'..name, 'lua')
     assert(pathname, 'Internal error: missing submodule: '..name)
     local submod = loadfile (pathname)
     setfenv(submod, simple_copy(prv_env))

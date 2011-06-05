@@ -8,7 +8,7 @@
 kpse.set_program_name(arg[-1], 'texdoc')
 
 -- load texdoclib
-texdoc = require('texdoclib')
+texdoc = require('texdoc.texdoclib')
 
 -- get started
 texdoc.setup_config_and_alias(arg)
