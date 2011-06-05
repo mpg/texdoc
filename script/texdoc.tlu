@@ -8,7 +8,12 @@
 kpse.set_program_name(arg[-1], 'texdoc')
 
 -- load texdoclib
-texdoc = require('texdoc.texdoclib')
+local texdoc = require('texdoc.texdoclib')
+
+-- exit codes
+local exit_ok = 0
+local exit_error = 1 -- apparently hard-coded in Lua
+local exit_usage = 2
 
 -- special command-line options, not treated by setup_config_and_alias
 local special_opts = {
@@ -30,29 +35,29 @@ end
 
 -- get configuration
 if not texdoc.setup_config_and_alias(arg) then
-    os.exit(texdoc.const.exit_usage)
+    os.exit(exit_usage)
 end
 
 -- handle special options
 if special == 'help' then
     texdoc.print_usage()
-    os.exit(texdoc.const.exit_ok)
+    os.exit(exit_ok)
 elseif special == 'version' then
     print(texdoc.const.progname .. ' ' .. texdoc.const.version)
-    os.exit(texdoc.const.exit_ok)
+    os.exit(exit_ok)
 elseif special =='files' then
     print(texdoc.const.progname .. ' ' .. texdoc.const.version)
     texdoc.show_config_files(print, true)
-    os.exit(texdoc.const.exit_ok)
+    os.exit(exit_ok)
 elseif special == 'view' then
     local ok = texdoc.view_file(arg[1])
-    os.exit(ok and texdoc.const.exit_ok or texdoc.const.exit_error)
+    os.exit(ok and exit_ok or exit_error)
 end
 
 -- make sure we actually have argument(s)
 if not arg[1] then
     texdoc.print_usage()
-    os.exit(texdoc.const.exit_usage)
+    os.exit(exit_usage)
 end
 
 -- initialise databases
@@ -70,4 +75,4 @@ for _, docname in ipairs(arg) do
 end
 
 -- the end
-os.exit(texdoc.const.exit_ok)
+os.exit(exit_ok)
