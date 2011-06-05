@@ -7,37 +7,15 @@
 #
 # Manuel Pégourié-Gonnard, 2010. WTFPL v2.
 
-my $usage = <<USAGE;
-Usage: $0 [--td=texdoc-path] [--tl=texlive_path]
-USAGE
+my $usage = "Usage: $0 [--td=texdoc-path] [--tl=texlive_path]";
 
 use warnings 'FATAL' => 'all';
 use strict;
 use utf8;
 use open qw(:std utf8);
-use Getopt::Long;
+use TdTools;
 
-# defaults
-my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : $ENV{TEXDOCDEV};
-my $texlive_path = "$ENV{TLROOT}/bin/x86_64-linux";
-
-# get options
-GetOptions(
-    'td=s' => \$texdoc_path,
-    'tl=s' => \$texlive_path,
-) or die "Unkown option.\n$usage";
-
-# check the paths
-my $texdoc_scriptdir = "$texdoc_path/script";
-my $texdoc_toolsdir  = "$texdoc_path/tools";
--d $texdoc_scriptdir or die "Bad texdoc_path";
--d $texdoc_toolsdir  or die "Bad texdoc_path";
--d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
-
-# use a controled environment
-$ENV{PATH} = "$texlive_path:$ENV{PATH}";    # use the right texlive
-$ENV{TEXMFHOME} = "$texdoc_toolsdir/texmf"; # use the right texdoc
-$ENV{LC_ALL} = 'C';                         # neutral lang setting
+my $td_path = TdTools::setup($usage, 0);
 
 # various command lines and associated exit status
 my %cl_exit = (
@@ -50,7 +28,7 @@ my %cl_exit = (
 );
 
 # check that the command lines return the right exit code
-my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu";
+my $texdoc = "texlua $td_path/script/texdoc.tlu";
 while (my ($cl, $status) = each(%cl_exit)) {
     system("$texdoc $cl >/dev/null 2>&1");
     my $code = $? >> 8;
