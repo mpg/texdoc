@@ -564,12 +564,6 @@ function get_tlpinfo_from_cache(filename)
     s_meta, tlp_from_runfile, tlp_doclist = dofile(filename)
 end
 
--- get pre-hashed meta from a file
-function get_meta_hack()
-    local f = assert(kpse.find_file(C.data_meta_name, 'texmfscripts'))
-    s_meta = dofile(f)
-end
-
 -- get pre-hashed tlpdb info from a pseudo-cache file
 function get_tlpinfo_from_dist()
     local f = assert(kpse.find_file(C.data_tlpdb_name, 'texmfscripts'))

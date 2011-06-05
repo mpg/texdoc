@@ -9,12 +9,6 @@ look for config files in $TEXMF/texdoc
     - adapt -f
     - adapt tools/td2tl
 
-Code cleanup
-------------
-
-The scoring routine shouldn't need the original keyword as an argument since
-it can pick it up from the pattern list. Then the Docfile object could have a
-.score virtual member.
 
 Ideas for later
 ===============

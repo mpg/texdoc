@@ -25,7 +25,6 @@ my $conf = TdTools::setup($usage, 1);
 
 # texdoc constants, see constants.tlu
 my $cache_name      = 'texdoc/cache-tlpdb.lua'; # relative to TEXMFVAR
-my $data_meta_name  = 'Data.meta.lua';
 my $data_tlpdb_name = 'Data.tlpdb.lua';
 
 # some derived path
@@ -40,7 +39,6 @@ $ENV{TEXMFVAR} = $tmp_dir;
 
 # have texdoc regenerate a fresh cache
 unlink("$tmp_dir/$cache_name");
-system("echo 'return {}' > $texdoc_scriptdir/$data_meta_name");
 system("svn revert $texlive_tlpdb >/dev/null"); die "Svn revert failed: $!" if $?;
 system("svn up $texlive_tlpdb >/dev/null"); die "Svn up failed: $!" if $?;
 system("$texdoc texlive-en >/dev/null"); die "Texdoc is broken: $!" if $?;
@@ -49,19 +47,7 @@ system("$texdoc texlive-en >/dev/null"); die "Texdoc is broken: $!" if $?;
 system("mv $tmp_dir/$cache_name $texdoc_scriptdir/$data_tlpdb_name");
 die("Failed to move file: $!") if $?;
 
-# Data.meta needs a bit of filtering
-open my $tlpdb, '<', "$texdoc_scriptdir/$data_tlpdb_name" or die "$!";
-open my $meta,  '>', "$texdoc_scriptdir/$data_meta_name" or die "$!";
-while (<$tlpdb>) {
-    print $meta $_;
-    last if /^}$/;
-}
-print $meta "return s_meta";
-close $meta;
-close $tlpdb;
-
-# now test the two files
-system("$texdoc texlive-en >/dev/null"); die "Data.meta borken: $!" if $?;
+# now test the file
 unlink $texlive_tlpdb; # to make sure Data.tlpdb is used
 system("$texdoc texlive-en >/dev/null"); die "Data.tlpdb broken: $!" if $?;
 system("svn revert $texlive_tlpdb >/dev/null"); die "Svn revert failed: $!" if $?
