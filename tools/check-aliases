@@ -34,10 +34,9 @@ GetOptions(
     'force-wrong-branch' => \$force_wrong_branch,
 ) or die "Unkown option.\n$usage";
 
-# some more derived path
-my $texdoc_toolsdir = "$texdoc_path/tools";
 
 # check the paths
+my $texdoc_toolsdir = "$texdoc_path/tools";
 -d $texdoc_toolsdir or die "Bad texdoc_path";
 -d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
 
@@ -54,7 +53,7 @@ if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
     die "No a git repo; $hint\n";
 }
 
-# make sure the tools/files/settings we want are used
+# use a controled environment
 $ENV{PATH} = "$texlive_path:$ENV{PATH}";    # use the right texlive
 $ENV{TEXMFHOME} = "$texdoc_toolsdir/texmf"; # use the right texdoc
 $ENV{LC_ALL} = 'C'; # neutral lang setting

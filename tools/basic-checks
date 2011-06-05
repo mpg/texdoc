@@ -29,14 +29,15 @@ GetOptions(
 
 # check the paths
 my $texdoc_scriptdir = "$texdoc_path/script";
+my $texdoc_toolsdir  = "$texdoc_path/tools";
 -d $texdoc_scriptdir or die "Bad texdoc_path";
+-d $texdoc_toolsdir  or die "Bad texdoc_path";
 -d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
 
-# make sure the path we want are used
-$ENV{PATH} = "$texlive_path:$ENV{PATH}"; # use texlive svn
-$ENV{TEXMFHOME} = $texdoc_path; # use texdoc.cnf from the repo
-$ENV{TEXMFSCRIPTS} = "$texdoc_scriptdir:"; # use texdoc git
-my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu"; #same
+# use a controled environment
+$ENV{PATH} = "$texlive_path:$ENV{PATH}";    # use the right texlive
+$ENV{TEXMFHOME} = "$texdoc_toolsdir/texmf"; # use the right texdoc
+$ENV{LC_ALL} = 'C';                         # neutral lang setting
 
 # various command lines and associated exit status
 my %cl_exit = (
@@ -49,6 +50,7 @@ my %cl_exit = (
 );
 
 # check that the command lines return the right exit code
+my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu";
 while (my ($cl, $status) = each(%cl_exit)) {
     system("$texdoc $cl >/dev/null 2>&1");
     my $code = $? >> 8;
