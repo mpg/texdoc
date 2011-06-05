@@ -1,14 +1,13 @@
--- tricky main() in order to check the aliases using texdoc itself
+-- check-aliases.tlu: alias checking for texdoc
+-- Usage: use the Perl wrapper
 --
 -- Manuel Pégourié-Gonnard, 2010. WTFPL v2.
+--
+-- initialize kpathsea
+kpse.set_program_name(arg[-1], 'texdoc')
 
--- Load a private environment for this submodule (see texdoc.tlu).
-local L = {}
-load_env(L, {
-    'os', 'arg', 'print', 'kpse', 'dofile',
-    'setup_config_and_alias', 'init_databases',
-    'get_doclist', 'deliver_results', 'aliased_names',
-})
+-- load texdoclib
+local texdoc = require('texdoc.texdoclib')
 
 -- return true iff the two doclists are essentially equal
 function dl_equal(a, b)

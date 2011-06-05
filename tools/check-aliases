@@ -8,7 +8,7 @@
 #
 # This script manipulates the environment to make sure the right versions of the
 # varsious tools an configuration files are used, but the real job is done by
-# texdoc/main.tlu.
+# check-aliases.tlu
 #
 # Manuel Pégourié-Gonnard, 2010. WTFPL v2.
 
@@ -35,10 +35,10 @@ GetOptions(
 ) or die "Unkown option.\n$usage";
 
 # some more derived path
-my $texdoc_scriptdir = "$texdoc_path/script";
+my $texdoc_toolsdir = "$texdoc_path/tools";
 
 # check the paths
--d $texdoc_scriptdir or die "Bad texdoc_path";
+-d $texdoc_toolsdir or die "Bad texdoc_path";
 -d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
 
 # check that we are in the right branch
@@ -55,15 +55,11 @@ if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
 }
 
 # make sure the tools/files/settings we want are used
-$ENV{PATH} = "$texlive_path:$ENV{PATH}"; # use texlive svn
-$ENV{TEXMFHOME} = $texdoc_path; # use texdoc.cnf from the repo
-$ENV{LC_ALL} = 'C'; # for lang setting
+$ENV{PATH} = "$texlive_path:$ENV{PATH}";    # use the right texlive
+$ENV{TEXMFHOME} = "$texdoc_toolsdir/texmf"; # use the right texdoc
+$ENV{LC_ALL} = 'C'; # neutral lang setting
 
-# use texdoc from the repo, plus a hacked main.tlu
-my $texdoc = "texlua $texdoc_scriptdir/texdoc.tlu";
-$ENV{TEXMFSCRIPTS} = "$texdoc_path/tools/ca:$texdoc_scriptdir:";
-
-# call the tricked texdoc to do the actual job
-exec $texdoc;
+# the lua script does the actual job
+exec "texlua $texdoc_toolsdir/check-aliases.tlu";
 
 __END__
