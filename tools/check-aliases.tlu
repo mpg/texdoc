@@ -10,7 +10,7 @@ kpse.set_program_name(arg[-1], 'texdoc')
 local texdoc = require('texdoc.texdoclib')
 
 -- return true iff the two doclists are essentially equal
-function dl_equal(a, b)
+local function dl_equal(a, b)
     if #a ~= #b then return false end
     for i = 1, #a do
         if a[i].realpath ~= b[i].realpath then return false end
@@ -19,7 +19,7 @@ function dl_equal(a, b)
 end
 
 -- return true iff there is a sty in a and something good in b
-function sty_not_alone(a, b)
+local function sty_not_alone(a, b)
     if #b == 0 then return false end
     if b[1].score < 4.5 then return false end
     for _, df in ipairs(a) do
@@ -31,23 +31,23 @@ function sty_not_alone(a, b)
 end
 
 -- removes elements with score < 0 from a doclist
-function cleanup(dl)
+local function cleanup(dl)
     for i = 1, #dl do
         if dl[i].score < 0 then dl[i] = nil end
     end
 end
 
 -- get started
-setup_config_and_alias(arg)
-init_databases()
+texdoc.setup_config_and_alias({})
+texdoc.init_databases()
 
 -- check all aliased names
 local useless = {}
 local mostly_useless = {}
 local badsty = {}
-for name in aliased_names() do
-    local with = get_doclist(name)
-    local without = get_doclist(name, true)
+for name in texdoc.aliased_names() do
+    local with = texdoc.get_doclist(name)
+    local without = texdoc.get_doclist(name, true)
     if dl_equal(with, without) then
         table.insert(useless, name)
     else
