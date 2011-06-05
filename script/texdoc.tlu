@@ -37,14 +37,15 @@ end
 
 -- initialise the shared environment with a copy of the global environment
 local prv_env = simple_copy(_G)
+setfenv(1, prv_env)
 
 -- import symbols from a table to the share environment
-local function import_symbols(symbols)
+local function import_symbols(symbols, name)
     for sym, val in pairs(symbols) do
         assert(val ~= nil,
-            'Internal error: trying to export undefined symbol '..sym..'.')
+            'Internal error: '..name..'exporting undefined symbol '..sym..'.')
         assert(prv_env[sym] == nil,
-            'Internal error: trying to export existing symbol '..sym..'.')
+            'Internal error: '..name..'exporting existing symbol '..sym..'.')
         prv_env[sym] = val
     end
 end
@@ -66,8 +67,8 @@ kpse.set_program_name(arg[-1], 'texdoc')
 
 -- pre-declare variables in the shared environment
 -- they will be made read-only as soon as they are set
-prv_env.C = {}      -- constants
-prv_env.config = {} -- configuration settings
+C = {}      -- constants
+config = {} -- configuration settings
 
 -- actually load the submodules now
 texdoc_do('constants')
@@ -82,4 +83,4 @@ texdoc_do('view')
 texdoc_do('main')
 
 -- the end
-os.exit(prv_env.C.exit_ok)
+os.exit(C.exit_ok)
