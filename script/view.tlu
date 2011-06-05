@@ -1,9 +1,6 @@
--- view a document and/or display the list of results in texdoc
---[[ 
-Copyright 2008, 2009 Manuel Pégourié-Gonnard
-Distributed under the terms of the GNU GPL version 3 or later.
-See texdoc.tlu for details.
---]]
+-- view.tlu view a document and/or display the list of results in texdoc
+--
+-- Manuel Pégourié-Gonnard, GPLv3, see texdoclib.tlu for details
 
 -----------------------------   view a document   ------------------------------
 

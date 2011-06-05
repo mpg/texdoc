@@ -1,9 +1,6 @@
--- General use functions for texdoc
---[[ 
-Copyright 2008, 2009 Manuel Pégourié-Gonnard
-Distributed under the terms of the GNU GPL version 3 or later.
-See texdoc.tlu for details.
---]]
+-- functions.tlu: general-use functions for texdoc
+--
+-- Manuel Pégourié-Gonnard, GPLv3, see texdoclib.tlu for details
 
 -- change '/' to '\' on windows
 -- Use: internal representation of files always use forward slashes.

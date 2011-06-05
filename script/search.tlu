@@ -1,9 +1,6 @@
--- File searching functions for texdoc.
---[[ 
-Copyright 2008, 2009 Manuel Pégourié-Gonnard
-Distributed under the terms of the GNU GPL version 3 or later.
-See texdoc.tlu for details.
---]]
+-- search.tlu: file searching functions for texdoc.
+--
+-- Manuel Pégourié-Gonnard, GPLv3, see texdoclib.tlu for details
 
 -- Warning: every single function here assumes init_databases() has been called.
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env texlua
 
+-- texdoc.tlu: default command-line interface of texdoc
+--
+-- Manuel Pégourié-Gonnard, GPLv3, see texdoclib.tlu for details
+
 -- initialize kpathsea
 kpse.set_program_name(arg[-1], 'texdoc')
 

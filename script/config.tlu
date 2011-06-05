@@ -1,9 +1,6 @@
--- configuration handling for texdoc
---[[ 
-Copyright 2008, 2009 Manuel Pégourié-Gonnard
-Distributed under the terms of the GNU GPL version 3 or later.
-See texdoc.tlu for details.
---]]
+-- config.tlu: configuration handling for texdoc
+--
+-- Manuel Pégourié-Gonnard, GPLv3, see texdoclib.tlu for details
 
 --------------------------   hide the config table   ---------------------------
 
