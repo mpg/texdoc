@@ -41,7 +41,10 @@ sub setup {
     $ENV{TEXMFHOME} = "$texdoc_toolsdir/texmf"; # use the right texdoc
     $ENV{LC_ALL} = 'C';                         # neutral lang setting
 
-    return $texdoc_path;
+    return {
+        texdoc_path     => $texdoc_path,
+        texlive_path    => $texlive_path,
+    }
 }
 
 # call this to make sure we are in the right branch

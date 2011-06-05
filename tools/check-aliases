@@ -5,7 +5,7 @@
 # Manuel Pégourié-Gonnard, 2010. WTFPL v2.
 
 my $usage = <<USAGE;
-Usage: $0 [--td=texdoc-path] [--tl=texlive_path] [--force-wrong-branch]
+Usage: $0 [--td=texdoc-path] [--tl=texlive_path] [--dont-check--branch]
 USAGE
 
 use warnings;
@@ -14,8 +14,8 @@ use utf8;
 use open qw(:std utf8);
 use TdTools;
 
-my $td_path = TdTools::setup($usage, 1);
+my $conf = TdTools::setup($usage, 1);
 
-exec "texlua $td_path/tools/check-aliases.tlu";
+exec "texlua $conf->{texdoc_path}/tools/check-aliases.tlu";
 
 __END__

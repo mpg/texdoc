@@ -15,7 +15,8 @@ use utf8;
 use open qw(:std utf8);
 use TdTools;
 
-my $td_path = TdTools::setup($usage, 0);
+my $conf = TdTools::setup($usage, 0);
+my $td_path = $conf->{texdoc_path};
 
 # various command lines and associated exit status
 my %cl_exit = (
