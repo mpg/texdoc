@@ -1,8 +1,13 @@
--- check-aliases.tlu: alias checking for texdoc
+-- check-aliases.tlu: check aliases in texdoc.cnf
+--
+-- Two points are checked:
+-- 1. Aliases should modify the (ordered) list of results or they are useless.
+-- 2. A sty file should always be alone in the list of results.
+--
 -- Usage: use the Perl wrapper
 --
 -- Manuel Pégourié-Gonnard, 2010. WTFPL v2.
---
+
 -- initialize kpathsea
 kpse.set_program_name(arg[-1], 'texdoc')
 

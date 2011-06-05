@@ -1,14 +1,6 @@
 #!/usr/bin/perl
 
-# Check aliases in texdoc configuration.
-#
-# Two points are checked:
-# 1. Aliases should modify the (ordered) list of results or they are useless.
-# 2. A sty file should always be alone in the list of results.
-#
-# This script manipulates the environment to make sure the right versions of the
-# varsious tools an configuration files are used, but the real job is done by
-# check-aliases.tlu
+# Wrap check-aliases.tlu
 #
 # Manuel Pégourié-Gonnard, 2010. WTFPL v2.
 
@@ -16,49 +8,14 @@ my $usage = <<USAGE;
 Usage: $0 [--td=texdoc-path] [--tl=texlive_path] [--force-wrong-branch]
 USAGE
 
-use warnings 'FATAL' => 'all';
+use warnings;
 use strict;
 use utf8;
 use open qw(:std utf8);
-use Getopt::Long;
+use TdTools;
 
-# defaults
-my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : $ENV{TEXDOCDEV};
-my $texlive_path = $ENV{TLROOT} ? "$ENV{TLROOT}/bin/x86_64-linux" : undef;
-my $force_wrong_branch = 0;
+my $td_path = TdTools::setup($usage, 1);
 
-# get options
-GetOptions(
-    'td=s' => \$texdoc_path,
-    'tl=s' => \$texlive_path,
-    'force-wrong-branch' => \$force_wrong_branch,
-) or die "Unkown option.\n$usage";
-
-
-# check the paths
-my $texdoc_toolsdir = "$texdoc_path/tools";
--d $texdoc_toolsdir or die "Bad texdoc_path";
--d $texlive_path and -x "$texlive_path/texlua" or die "Bad texlive_path";
-
-# check that we are in the right branch
-my $hint = "use --force-wrong-branch if you mean it.";
-if (open my $git_head_fh, '<', "$texdoc_path/.git/HEAD") {
-    my $git_head = <$git_head_fh>;
-    close $git_head_fh;
-    my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
-    $git_branch_name ||= '(no branch)';
-    ($git_branch_name eq 'texlive') or $force_wrong_branch
-        or die "Bad branch `$git_branch_name'; $hint\n";
-} elsif (not $force_wrong_branch ) {
-    die "No a git repo; $hint\n";
-}
-
-# use a controled environment
-$ENV{PATH} = "$texlive_path:$ENV{PATH}";    # use the right texlive
-$ENV{TEXMFHOME} = "$texdoc_toolsdir/texmf"; # use the right texdoc
-$ENV{LC_ALL} = 'C'; # neutral lang setting
-
-# the lua script does the actual job
-exec "texlua $texdoc_toolsdir/check-aliases.tlu";
+exec "texlua $td_path/tools/check-aliases.tlu";
 
 __END__
