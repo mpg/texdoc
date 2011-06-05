@@ -28,11 +28,6 @@ Alternatively, perform the given ACTION and exit.
 Current settings:
 
 Actions:
-  -h, --help            Print this help message.
-  -V, --version         Print the version number.
-  -f, --files           Print the list of configuration files used.
-  --just-view file      Display file, given with full path (no searching).
-
 Options:
   -w, --view            Use view mode: start a viewer. (default)
   -m, --mixed           Use mixed mode (view or list).
@@ -56,6 +51,8 @@ copyright_msg = [[
 Copyright (C) 2008-2011 Manuel P'egouri'e-Gonnard.
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
 This is free software: you are free to change and redistribute it.]]
+
+actions_ph = 'Actions:\n'
 
 usage_settings_ph = 'Current settings:' -- keep ../doc/texdoc wrapper in sync!
 usage_settings = {
