@@ -19,7 +19,6 @@ it can pick it up from the pattern list. Then the Docfile object could have a
 Syntax simplifictation in some places using object-oriented syntax for strings?
 
 texdoclib:
-- adapt checkaliases and other tests
 - part of usage_msg in texdoclib describes stuff outside texdoclib...
 
 Ideas for later

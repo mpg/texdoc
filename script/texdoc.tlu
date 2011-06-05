@@ -44,9 +44,10 @@ if special == 'help' then
     os.exit(exit_ok)
 elseif special == 'version' then
     print(texdoc.const.progname .. ' ' .. texdoc.const.version)
+    print('\n' .. texdoc.const.copyright_msg)
     os.exit(exit_ok)
 elseif special =='files' then
-    print(texdoc.const.progname .. ' ' .. texdoc.const.version)
+    print(texdoc.const.fullname .. ' ' .. texdoc.const.version)
     texdoc.show_config_files(print, true)
     os.exit(exit_ok)
 elseif special == 'view' then

@@ -19,17 +19,21 @@ version     = '0.80'
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant
 usage_msg = [[
-Usage: texdoc [OPTION]... [NAME]...
+Usage: texdoc [OPTION]... NAME...
+  or:  texdoc ACTION
 
 Try to find appropriate TeX documentation for the specified NAME(s).
-With no NAME, print information about texdoc (--help, --version, --files).
+Alternatively, perform the given ACTION and exit.
 
 Current settings:
 
+Actions:
   -h, --help            Print this help message.
   -V, --version         Print the version number.
   -f, --files           Print the list of configuration files used.
+  --just-view file      Display file, given with full path (no searching).
 
+Options:
   -w, --view            Use view mode: start a viewer. (default)
   -m, --mixed           Use mixed mode (view or list).
   -l, --list            Use list mode: show a list of results.
@@ -41,12 +45,17 @@ Current settings:
 
   -q, --quiet           Suppress warnings and most error messages.
   -v, --verbose         Print additional information (eg, viewer command).
-  -d, --debug[=list]    Print debug info for selected items (default: all).
+  -d, --debug[=list]    Activate debug output (restricted to list).
 
 Environment: PAGER, BROWSER, PDFVIEWER, PSVIEWER, DVIVIEWER.
 Files: <texmf>/texdoc/texdoc.cnf, see output of the --files option.
-Homepage: http://tug.org/texdoc/
-Manual: displayed by `texdoc texdoc'.]]
+Report bugs to <texdoc@tug.org>.
+Full manual available via `texdoc texdoc'.]]
+
+copyright_msg = [[
+Copyright (C) 2008-2011 Manuel P'egouri'e-Gonnard.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.]]
 
 usage_settings_ph = 'Current settings:' -- keep ../doc/texdoc wrapper in sync!
 usage_settings = {
