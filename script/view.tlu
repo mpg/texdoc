@@ -58,6 +58,11 @@ function view_file (filename)
     -- FIXME: hardcoding such cases this way is not very clean
     if viewext == 'texlive' then viewext = 'txt' end
     if viewext == 'htm' then viewext = 'html' end
+    -- get a viewer from built-in defaults if not already set
+    if not config['viewer_'..viewext] then
+        get_default_viewers()
+    end
+    -- still no viewers? use txt as a fallback
     if not config['viewer_'..viewext] then
         err_print('warning',
             "No viewer_"..viewext.." defined, using viewer_txt.")

@@ -417,12 +417,9 @@ function desktop_environment_viewer()
     end
 end
 
--- set some fall-back default values if no previous value is set
-function setup_config_from_defaults()
+-- set viewers from defaults (done only if necessary)
+function get_default_viewers()
     local function set_config_ls(ls) set_config_list(ls, {src='def'}) end
-    local function set_config_elt(key, val)
-        set_config_element(key, val, {src='def'})
-    end
     if (os.type == "windows") then
         set_config_ls {
             -- Use 'start' to get file associations.
@@ -498,7 +495,15 @@ function setup_config_from_defaults()
             }
         }
     end
-    -- then various, platform independant, stuff
+end
+
+-- set some fall-back default values if no previous value is set
+function setup_config_from_defaults()
+    local function set_config_ls(ls) set_config_list(ls, {src='def'}) end
+    local function set_config_elt(key, val)
+        set_config_element(key, val, {src='def'})
+    end
+    -- various, platform independant, stuff
     set_config_ls {
         mode                = 'view',
         interact_switch     = 'true',
@@ -564,5 +569,6 @@ end
 
 return {
     setup_config_and_alias = setup_config_and_alias,
+    get_default_viewers    = get_default_viewers,
     show_config_files      = show_config_files,
 }
