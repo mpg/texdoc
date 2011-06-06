@@ -55,7 +55,7 @@ end
 local function texdoc_do(name)
     local pathname = kpse.find_file('texdoc/'..name, 'lua')
     assert(pathname, 'Internal error: missing submodule: '..name)
-    local submod = loadfile (pathname)
+    local submod = assert(loadfile (pathname))
     setfenv(submod, simple_copy(prv_env))
     local symbols = submod()
     if symbols then import_symbols(symbols, name) end
