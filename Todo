@@ -3,8 +3,6 @@ For next release
 
 Explicitly list all deprecated switches and options in News, for reference.
 
---debug=config should also show which directives are ignored
-
 look for config files in $TEXMF/texdoc
     - adapt -f
     - adapt tools/td2tl

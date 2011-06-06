@@ -33,7 +33,13 @@ function set_config_element (key, value, context)
     -- warn and exit if key is not a known option
     if not is_known then config_warn(key, nil, context, true) return end
     -- exit if key is already set (/!\ must test for nil, not false)
-    if not (config[key] == nil) then return nil end
+    if not (config[key] == nil) then
+        if context.src ~= 'def' then
+            deb_print('config', "Ignoring '"..key.."="..value.."' "
+                ..context_to_string(context)..'.')
+        end
+        return nil
+    end
     -- record the source of the setting
     real_set_config(key..'_src', context.src)
     -- detect the type of the key
