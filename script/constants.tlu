@@ -67,7 +67,6 @@ known_options = {
     'mode',
     'interact_switch',
     'machine_switch',
-    'alias_switch',
     'ext_list',
     'basename_list',
     'badext_list',

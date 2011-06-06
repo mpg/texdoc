@@ -56,8 +56,7 @@ function get_patterns(name, no_alias)
     local n = string.lower(name)
     -- get normal aliases
     local res
-    if config.mode ~= 'regex' and config.alias_switch
-        and not no_alias and alias[n] then
+    if config.mode ~= 'regex' and not no_alias and alias[n] then
         res = alias[n]
     else
         res = { make_alias(name, false) }
