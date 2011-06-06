@@ -240,18 +240,28 @@ end
 
 -- return the list of configuration files and the index of the recommended file
 function get_config_files ()
+    -- get names
     local platform = string.match (kpse.var_value ('SELFAUTOLOC'), '.*/(.*)$')
-    local TEXMFHOME  = kpse.var_value ('TEXMFHOME')
-    local TEXMFLOCAL = kpse.var_value ('TEXMFLOCAL')
-    local TEXMFMAIN  = kpse.var_value ('TEXMFMAIN')
-    return {
-        TEXMFHOME  .. '/texdoc/texdoc-'..platform..'.cnf',
-        TEXMFHOME  .. '/texdoc/texdoc.cnf',
-        TEXMFHOME  .. '/texdoc/texdoc-dist.cnf',
-        TEXMFLOCAL .. '/texdoc/texdoc-'..platform..'.cnf',
-        TEXMFLOCAL .. '/texdoc/texdoc.cnf',
-        TEXMFMAIN  .. '/texdoc/texdoc.cnf',
-    }, 2
+    local names = {
+        'texdoc-'..platform..'.cnf',
+        'texdoc.cnf',
+        'texdoc-dist.cnf',
+    }
+    -- get dirs
+    local sep = (os.type == 'windows') and ';' or ':'
+    local texmf_texdoc = kpse.expand_path('$TEXMF/texdoc')
+    local dirs = texmf_texdoc:explode(sep)
+    -- merge them
+    local ret = {}
+    for _, dir in ipairs(dirs) do
+        for _, name in ipairs(names) do
+            local pathname = dir .. '/' .. name
+            if lfs.isfile(pathname) then
+                table.insert(ret, pathname)
+            end
+        end
+    end
+    return ret, 1
 end
 
 -- the config_files table is shared by the next two functions

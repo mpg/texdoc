@@ -1,8 +1,6 @@
 For next release
 ================
 
-Explicitly list all deprecated switches and options in News, for reference.
-
 look for config files in $TEXMF/texdoc
     - adapt -f
     - adapt tools/td2tl
