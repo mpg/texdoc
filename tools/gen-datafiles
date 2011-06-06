@@ -19,6 +19,8 @@ use warnings 'FATAL' => 'all';
 use strict;
 use utf8;
 use open qw(:std utf8);
+
+BEGIN { (my $dir = $0) =~ s!(.*)/.*!$1!; unshift @INC, $dir; }
 use TdTools;
 
 my $conf = TdTools::setup($usage, 1);
