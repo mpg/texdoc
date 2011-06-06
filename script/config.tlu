@@ -149,8 +149,6 @@ function setup_config_from_cl(arg)
             set_config_elt ('mode', 'showall')
             err_print('warning', '--search has been renamed to --showall')
             err_print('warning', 'Please use the new name.')
-        elseif (curr_arg == '-r') or (curr_arg == '--regex') then
-            set_config_elt ('mode', 'regex')
         -- interaction
         elseif (curr_arg == '-I') or (curr_arg == '--nointeract') then
             set_config_elt('interact_switch', 'false')
@@ -525,13 +523,6 @@ function setup_config_and_alias(arg)
     setup_config_from_files()
     setup_config_from_locale()
     setup_config_from_defaults()
-    -- regex mode is deprecated
-    if config.mode == 'regex' then 
-        err_print('warning', 
-        'Regex mode is deprecated and will likely be removed soon.')
-        err_print('warning', 
-        'Please protest on the texdoc mailing list if you disagree.')
-    end
     -- machine mode implies no interaction
     if config.machine_switch == true then
         real_set_config('interact_switch', false)

@@ -352,8 +352,7 @@ end
 -- say if a file (with its path) matches a pattern
 function matches(pattern, file)
     if pattern.original then
-        return string.find(file:lower(), pattern.name:lower(),
-        1, config.mode ~= 'regex')
+        return string.find(file:lower(), pattern.name:lower(), 1, true)
     else
         return is_exact(file, pattern.name)
     end
@@ -623,7 +622,6 @@ end
 
 -- separate sty patterns from the rest
 function normal_vs_sty(list)
-    if config.mode == 'regex' then return list, {} end
     local normal, sty = {}, {}
     for _, p in ipairs(list) do
         if string.match(string.lower(p.name), '%.([^/.]*)$') == 'sty' then

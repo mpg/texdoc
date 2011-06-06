@@ -162,7 +162,7 @@ function deliver_results(name, doclist, many)
         return
     end
     -- shall we show all of them or only the "good" ones?
-    local showall = (config.mode == 'regex') or (config.mode == 'showall')
+    local showall = (config.mode == 'showall')
     if not showall and doclist[1].quality ~= 'good' then
         showall = true
         err_print('info', 'No good result found, showing all results.')
