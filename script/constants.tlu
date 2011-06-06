@@ -14,7 +14,7 @@ setfenv(1, constants)
 -- progname and version
 fullname    = kpse.find_file('texdoc/texdoclib', 'lua')
 progname    = 'texdoc'
-version     = '0.80'
+version     = '0.81'
 
 -- make sure to update setup_config_from_cl() accordingly
 -- and set a default value in setup_config_from_defaults() if relevant

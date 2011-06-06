@@ -1,3 +1,19 @@
+Version 0.81
+------------
+
+Allow configuration files to be found in all TEXMF trees.
+The default one should now be installed in TEXMFDIST.
+
+Delay default viewer detection, see:
+http://tug.org/pipermail/tex-live/2011-May/029150.html
+
+Drop long-deprecated things:
+- --search (-> --showall), --verbosity-level and old syntax of -v
+- alias_switch, -a, -A, --alias, --noalias
+- 'regex' mode,
+
+Various internal cleanups and rearrangements.
+
 Version 0.80
 ============
 
