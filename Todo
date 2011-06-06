@@ -1,12 +1,13 @@
 For next release
 ================
 
-look for config files in $TEXMF/texdoc
-    - adapt -f
+new config files location
     - adapt tools/td2tl
+    - document
 
-Ideas for later
-===============
+
+For later
+=========
 
 Internal
 --------

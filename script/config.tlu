@@ -238,7 +238,7 @@ function confline_to_config(line, file, pos)
     return false
 end
 
--- return the list of configuration files and the index of the recommended file
+-- return the list of configuration files
 function get_config_files ()
     -- get names
     local platform = string.match (kpse.var_value ('SELFAUTOLOC'), '.*/(.*)$')
@@ -261,7 +261,7 @@ function get_config_files ()
             end
         end
     end
-    return ret, 1
+    return ret
 end
 
 -- the config_files table is shared by the next two functions
@@ -270,15 +270,12 @@ local config_files = {}
 
 -- set config/aliases from all config files
 function setup_config_from_files ()
-    local file_list, good_index = get_config_files()
+    local file_list = get_config_files()
     for i, file in ipairs (file_list) do
-        local found = lfs.isfile(file)
-        local status = found and (config.lastfile_switch
-            and 'disabled' or 'active') or 'absent'
+        local status = config.lastfile_switch and 'disabled' or 'active'
         config_files[i] = {
             path = file,
             status = status,
-            good = (i == good_index),
         }
         if status == 'active' then
             read_config_file (file)
@@ -287,17 +284,16 @@ function setup_config_from_files ()
 end
 
 -- now a special information function (see -f,--file option)
-function show_config_files (print_fun, prefix)
+function show_config_files (print_fun, verbose)
+    local pref = verbose and '    ' or ''
     print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
-        local home = prefix
-            and (file.good and "(*) " or "    ")
-            or ''
-        print_fun (home..file.status..'\t'..w32_path(file.path))
+        print_fun(pref..file.status..'\t'..w32_path(file.path))
     end
-    if prefix then
-        print("(*) This is the recommended configuration file "
-        .. "for your personal preferences.")
+    if verbose then
+        local texmfhome = kpse.var_value('TEXMFHOME')
+        print_fun('Recommended file for personal settings:')
+        print_fun(pref..texmfhome..'/texdoc/texdoc.cnf')
     end
 end
 
