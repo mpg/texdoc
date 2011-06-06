@@ -73,10 +73,10 @@ if (grep /doc\//, keys %files) {
 # says if f1 and f2 differ, after applying subs to each line
 sub files_diff (&$$) {
     my ($subs, $f1, $f2) = @_;
-    open my $fh1, '<', $f1;
+    open my $fh1, '<:bytes', $f1;
     my @lines1 = <$fh1>;
     close $fh1;
-    open my $fh2, '<', $f2;
+    open my $fh2, '<:bytes', $f2;
     my @lines2 = <$fh2>;
     close $fh2;
     return 1 if @lines1 != @lines2;
@@ -111,9 +111,10 @@ while (my ($s, $d) = each %files) {
     die "Could not copy $s to $dest: $!\n" if $?;
 }
 
-# print some information
+# commit
 chdir $texlive_root or die "Failed to chdir $texlive_root: $!\n";
 my $svn_cl = "svn ci " . join(' ', keys %touched_dir);
+$ENV{LC_ALL} = undef; # vim doesn't like LC_ALL=C from TdTools
 exec $svn_cl or die "boo";
 
 __END__
