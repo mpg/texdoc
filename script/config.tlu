@@ -145,10 +145,6 @@ function setup_config_from_cl(arg)
             set_config_elt('mode', 'list')
         elseif (curr_arg == '-s') or (curr_arg == '--showall') then
             set_config_elt ('mode', 'showall')
-        elseif (curr_arg == '--search') then
-            set_config_elt ('mode', 'showall')
-            err_print('warning', '--search has been renamed to --showall')
-            err_print('warning', 'Please use the new name.')
         -- interaction
         elseif (curr_arg == '-I') or (curr_arg == '--nointeract') then
             set_config_elt('interact_switch', 'false')
@@ -166,50 +162,11 @@ function setup_config_from_cl(arg)
         elseif string.match(curr_arg, '^%-%-debug=') then
             local value = string.gsub(curr_arg, '^%-%-debug=', '')
             set_config_elt('debug_list', value)
-        -- quiet
+        -- verbosity
         elseif (curr_arg == '-q') or (curr_arg == '--quiet') then
             set_config_elt('verbosity_level', C.min_verbosity)
-        -- verbose
-        elseif string.match(curr_arg, '^%-%-verbose') then
+        elseif (curr_arg == '-v') or (curr_arg == '--verbose') then
             set_config_elt('verbosity_level', C.max_verbosity)
-        elseif string.match(curr_arg, '^%-v') then
-            local value = string.gsub(curr_arg, '^%-v=?', '')
-            if value == '' then
-                set_config_elt('verbosity_level', C.max_verbosity)
-            else -- compatibility syntax
-                err_print('warning',
-                'The -v option does not accept arguments any more.')
-                err_print('warning',
-                'Please use the new syntax -v, --verbose (without argument).')
-                set_config_elt('verbosity_level', value)
-            end
-        elseif string.match(curr_arg, '^%-%-verbosity') then
-            -- compatibility syntax
-            local value = string.gsub(curr_arg, '^%-%-verbosity=?', '')
-            err_print('warning',
-            '--verbosity is deprecated and will be removed soon.')
-            err_print('warning',
-            'Please use the new syntax -v, --verbose (without argument).')
-            set_config_elt('verbosity_level', value)
-        -- extensions list (deprecated)
-        elseif string.match(curr_arg, '^%-e') then
-            local value = string.gsub(curr_arg, '^%-e=?', '')
-            set_config_elt('ext_list', value)
-            err_print('warning',
-            '-e is deprecated and will likely be removed soon.')
-            err_print('warning',
-            'ext_list should be set in a configuration file instead.')
-            err_print('warning',
-            'Please protest on the texdoc mailing list if you need this.')
-        elseif string.match(curr_arg, '^%-%-extensions') then
-            local value = string.gsub(curr_arg, '^%-%-extensions=?', '')
-            set_config_elt('ext_list', value)
-            err_print('warning',
-            '--extensions is deprecated and will likely be removed soon.')
-            err_print('warning',
-            'ext_list should be set in a configuration file instead.')
-            err_print('warning',
-            'Please protest on the texdoc mailing list if you need this.')
         -- problem
         else
             err_print('error', "unknown option: "..curr_arg)
