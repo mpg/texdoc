@@ -198,10 +198,10 @@ configurations files.
 
 \subsection{Configuration files}\label{ss-quick-file}
 
-Texdoc looks at many configuration files: to list them, use the ©-f© or
-©--files© option. The entry marked with a star ©(*)© is the file you should
-use for your personal preferences; you may need to create it (and parent
-directories).
+Use ©texdoc --files© to know where to put your personal configuration file;
+you'll need to create this file (an possibly some directories) the first time.
+(If you want to know the full list of possible configuration files,
+see~\ref{ss-prec}.)
 
 In order to select you favorite mode, just insert a line ©mode = «yourmode»©
 in this file, where ©«yourmode»© is one of ©view©, ©mixed©, ©list© or
@@ -436,28 +436,33 @@ to suggest additions on the \tdml (with a real-life example).
 
 \subsection{Precedence of configuration sources}\label{ss-prec}
 
-Values for a particular setting can come from several sources. They are treated
-in the following order, where first value found is always used:
+Values for a particular setting can come from several sources. The sources are
+treated in the following order and the first value found is always used:
 \begin{enumerate}
   \item Command-line options.
   \item Environment variables ending with ©_texdoc©.
   \item Other environment variables.
-  \item Values from configuration files, read in the same order as they are
-    printed by ©texdoc --files©.
-  \item Hard-coded defaults that may depend on the current platform or the
-    current value of another setting.
+  \item Values from configuration files (see below).
+  \item Hard-coded defaults that may depend on the current machine.
 \end{enumerate}
 
-The list of configuration files may include entries which depend on the
-current platform, like ©texdoc-x86-64-linux.cnf© for instance. Those files are
-meant to be used in when a single \texlive installation is shared across
-machines with different architectures needing different settings. Their use is
-not recommended in any other situation.
-
-Finally, the special file ©texdoc-dist.cnf© allows you to install a newer
-version of texdoc (including its default configuration file) in your home:
-see \href{http://tug.org/texdoc/dev/}{the web page} for instructions on
-running the development version.
+The configuration files are found in the directories ©TEXMF/texdoc©, where
+©TEXMF© is the kpathsea variable, in the order given by this variable. Inside
+each directory, three files are recognized, in this order:
+\begin{enumerate}
+  \item ©texdoc-«platform».cnf© where ©«platform»© is the name of the current
+    platform (defined as the name of the directories where the \texlive
+    binaries are located, for example ©x86-64-linux©). This may be useful when
+    an installation is shared across machines with different architectures
+    needing different settings, for example for viewers. Their use is not
+    recommended in any other situation.
+  \item ©texdoc.cnf© is the recommended file for normal use.
+  \item ©texdoc-dist.cnf© is useful for installing a newer version of texdoc
+    (including its default configuration file) in your home while retaining
+    the use of the previous file for your personal setting;  see
+    \href{http://tug.org/texdoc/dev/}{the web page} for instructions on
+    running the development version.
+\end{enumerate}
 
 \subsection{Command-line options}\label{ss-cl}
 
