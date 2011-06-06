@@ -4,7 +4,7 @@
 
 -- use an empty environment that will become texdoc_env.C (see EOF)
 local constants = {}
-local arg = arg
+local kpse = kpse
 local setfenv = setfenv
 local texdoc_env = getfenv()
 setfenv(1, constants)
@@ -12,7 +12,7 @@ setfenv(1, constants)
 -- BEGIN constants
 
 -- progname and version
-fullname    = arg[0]
+fullname    = kpse.find_file('texdoc/texdoclib', 'lua')
 progname    = 'texdoc'
 version     = '0.80'
 
