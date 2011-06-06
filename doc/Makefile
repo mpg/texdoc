@@ -12,7 +12,7 @@ texdoc.pdf: texdoc.tex
 	xelatex --interaction=batchmode $< >/dev/null
 
 texdoc.1: texdoc Makefile $(H2M_INC) $(H2M_SOURCES)
-	help2man -N -n$(H2M_NAME) --include $(H2M_INC) ./$< > $@
+	../tools/sh -- help2man -N -n$(H2M_NAME) --include $(H2M_INC) ./$< > $@
 
 texdoc.man1.html: texdoc.1
 	groff -man -Thtml $< > $@
