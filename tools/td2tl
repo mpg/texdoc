@@ -27,7 +27,7 @@ my $texlive_root = "$texlive_path/../..";
 # TL directories
 use constant {
     TL_scr      => 'texmf/scripts/texdoc',
-    TL_cnf      => 'texmf/texdoc',
+    TL_cnf      => 'texmf-dist/texdoc',
     TL_doc      => 'texmf/doc/texdoc',
     TL_man      => 'texmf/doc/man/man1',
     TD_man      => 'doc/texdoc.1',
