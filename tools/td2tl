@@ -1,22 +1,28 @@
 #!/usr/bin/perl
 
+# Update various texdoc files from a texdoc git repo to a texlive repo.
+#
 # Manuel Pégourié-Gonnard, 2009. WTFPL v2.
 
+my $usage = <<USAGE;
+Usage: $0 [option...] [fileset...]
+Options: --td=texdoc-path --tl=texlive-path --dont-check-branch
+Filesets: all (default), doc, cnf, tlu
+USAGE
+
 use warnings 'FATAL' => 'all';
-use Fatal qw(:void open close opendir closedir chdir);
 use strict;
 use utf8;
 use open qw(:std utf8);
 use File::Basename;
+use TdTools;
 
-# Update various texdoc files from a texdoc git repo to a texlive repo.
-# Use '.' or '..' as the default texdoc repo and $TLROO for texlive.
-# Default set of files is 'all'.
-my $usage = <<USAGE;
-Usage: $0 <option> <fileset> [...]
-Options: --td=texdoc-path --tl=texlive-path --force-wrong-branch
-Filesets: all, doc, cnf, tlu
-USAGE
+# get configuration and a secure environment
+my $conf = TdTools::setup($usage, 1);
+
+my $texdoc_path  = $conf->{texdoc_path};
+my $texlive_path = $conf->{texlive_path};
+my $texlive_root = "$texlive_path/../..";
 
 # TL directories
 use constant {
@@ -41,41 +47,12 @@ my %filesets = (
     });
 @{$filesets{all}}{keys %$_} = values %$_ for (values %filesets);
 
-# defaults
-my $texdoc_path = -d '.git' ? '.' : -d '../.git' ? '..' : undef;
-my $texlive_path = $ENV{TLROOT} ? "$ENV{TLROOT}/bin/x86_64-linux" : undef;
-my $force_wrong_branch = 0;
-
-# get options
-use Getopt::Long;
-GetOptions(
-    'td=s' => \$texdoc_path,
-    'tl=s' => \$texlive_path,
-    'force-wrong-branch' => \$force_wrong_branch,
-) or die "Unkown option.\n$usage";
-
-# additional paths
-my $texlive_root = "$texlive_path/../..";
-
-# chdir to source directory 
-$texdoc_path or die "Option --td is mandatory if cwd is not a texdoc repo.\n";
+# cd the texdoc's repo root
 chdir($texdoc_path) or die "chdir $texdoc_path failed.\n";
 
 # check that texdoc basically doesn't crash too much
 system("tools/basic-checks --tl=$texlive_path");
 die "texdoc is broken, aborting upload" if $?;
-
-# check that we are in the right branch
-if (open my $git_head_fh, '<', '.git/HEAD') {
-    my $git_head = <$git_head_fh>;
-    close $git_head_fh;
-    my ($git_branch_name) = $git_head =~ m"^ref: refs/heads/(.*)";
-    $git_branch_name ||= '(no branch)';
-    ($git_branch_name eq 'texlive') or $force_wrong_branch
-        or die "Current branch is $git_branch_name!\n";
-} elsif (not $force_wrong_branch ) {
-    die "Not updating from a git repository.\n";
-}
 
 # get the file set
 my %files;
