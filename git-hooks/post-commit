@@ -9,7 +9,8 @@ git add .
 git stash
 
 # do the actual sync
-rsync -rz --delete ./ tug.org:texdoc_html/
+rsync -rz --delete --exclude '.git*' --exclude-from .gitignore \
+    ./ tug.org:texdoc_html/
 
 # get the working copy back
 git stash pop
