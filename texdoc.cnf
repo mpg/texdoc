@@ -206,7 +206,7 @@ alias lshort-de                   = l2kurz                 # german
 alias lshort-pl                   = lshort-polish/lshort2e # polish
 alias lshort-pt                   = pt-lshort              # portuguese
 alias lshort-sk                   = slshorte               # slovak
-alias lshort-es                   = lshort-spanish/lshort  # spanish
+alias lshort-es                   = lshort-spanish/lshort-a4 # spanish
 
 # *TeX engines reference manuals, man pages and related
 alias e-tex-ref  = etex_man
@@ -349,7 +349,6 @@ alias xstring-fr    = xstring_doc_fr
 alias arabic        = arabi/user_guide
 alias 3parttable    = threeparttable
 alias croatian      = babel
-alias letterspace   = microtype
 alias mls           = montex
 alias vrbexin       = verbasef
 alias dtk           = dtk/doc/beispiel.pdf
