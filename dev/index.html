@@ -23,63 +23,43 @@
   <p><code>git clone git://github.com/mpg/texdoc.git</code> (first time)
   <br><code>git pull</code> (later, in the directory created first time) </p>
 
-  <p>If you don't have git installed, you can get the current 'master' branch
-  from github as an archive in <a
-   href="http://github.com/mpg/texdoc/zipball/master" >zip</a> or <a
-   href="http://github.com/mpg/texdoc/tarball/master" >tar.gz</a> format.</p>
+  <p>Alternatively, without git:
+  current <em>master</em> (<a
+   href="http://github.com/mpg/texdoc/zipball/master">zip</a>, <a
+   href="http://github.com/mpg/texdoc/tarball/master">tar.gz</a>)
+  current texlive branch (<a
+   href="http://github.com/mpg/texdoc/zipball/texlive">zip</a>, <a
+   href="http://github.com/mpg/texdoc/tarball/texlive">tar.gz</a>).
+  </p>
 
   <h2>Installation</h2>
 
-  <p>On Unix, you may want to use the <code>td-switch</code> script (see below)
-  to avoid these installation steps and switch easily from your system's texdoc
-  to the development version, once you got a copy of the repository.</p>
-
-  <p>The following explanations use <code>TdDev</code> to denote the path to the
-  directory holding the development version of texdoc. Names in all caps like
-  <code>VARIABLE</code> are <a href="../kpathsea">kpse</a> variables; you can
-  get their values using <code>kpsewhich --var-value VARIABLE</code>.</p>
+  <p>Here, <code>TEXDOC</code> means the path to texdoc sources (either the
+  git repo or an extracted archive), and <code>TEXMFHOME</code> denotes your
+  personal texmf tree (you can get its location with <code>kpsewhich
+   --var-value TEXMFHOME</code>).</p>
 
   <ul>
+   <li><strong>The command.</strong>
+   Symlink or copy <code>TEXDOC/script</code> as
+   <code>TEXMFHOME/scripts/texdoc</code>.
+   </li>
 
-   <li><em>The command.</em> This step is platform-dependant.
-
-   <ul>
-    <li> <em>Unix.</em> Symlink <code>TdDev/script</code> to
-    <code>TEXMFHOME/scripts/texdoc</code>. Then symlink <code>texdoc.tlu</code>
-    from this directory to <code>texdoc</code> in a directory that comes early
-    in your path. On a typical machine, the following commands do the trick.
-    <pre><code>mkdir -p TEXMFHOME/scripts/; rm -rf TEXMFHOME/scripts/texdoc
-ln -s TdDev/script TEXMFHOME/scripts/texdoc
-ln -s TEXMFHOME/scripts/texdoc/texdoc.tlu ~/bin/texdoc</code></pre>
-    </li>
-
-    <li><em>Windows.</em> Just copy the contents of <code>TdDev/script</code> to
-    <code>TEXMFHOME/scripts/texdoc</code>.</li>
-   </ul>
-
-   <li><em>The configuration file.</em> Install a copy (or symlink) of
-   <code>TdDev/texdoc.cnf</code> as
-   <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the <code>-dist</code>
-   part). It will completely override the configuration files in
-   <code>TEXMFDIST</code> and <code>TEXMFLOCAL</code>.</li>
-
+   <li><strong>The configuration file.</strong>
+   Symlink or copy <code>TEXDOC/texdoc.cnf</code> as
+   <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the
+   <code>-dist</code> part). It will completely override the other
+   configuration files except <code>TEXMFHOME/texdoc/texdoc.cnf</code> which
+   you can still use for you personal settings.
+   </li>
   </ul>
 
-  <h2 id="td-switch">Texdoc switcher (Unix only)</h2>
-
-  <p>Alternatively, you can skip the installation instructions above and use the
-  <a href="td-switch"><code>td-switch</code></a> script after installing this <a
-   href="texdoc">wrapper</a> as your texdoc program (typically in
-  <code>~/bin</code>). This is the setup I use; don't forget to adapt the
-  <code>git_repo</code> variable to your local configuration. Installation
-  advice:</p>
-  <pre><code>cd ~/bin
-wget http://tug.org/texdoc/dev/td-switch
-# edit git_repo
-wget http://tug.org/texdoc/dev/texdoc
-chmod +x td-switch texdoc</code></pre>
-  <p><code>td-switch git</code> activates the development version of texdoc,
-  <code>td-switch sys</code> switches back to you system's version.</p>
+  <p>These instructions hold when your system ships <strong>texdoc 0.81 or
+   newer</strong> (first dstributed with TeX Live 2011), which will
+  automatically find and use the script in <code>TEXMFHOME</code>. For older
+  versions on Unix, you had to override the texdoc executalbe which linked
+  directly to the script in <code>TEXMFMAIN</code>. If you're in this case,
+  please consult the <a href="pre-0.81">pre-0.81 instructions</a>.</p>
 
  </body>
 </html>

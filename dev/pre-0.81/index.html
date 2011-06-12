@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html dir="ltr" lang="en">
+
+ <head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <meta http-equiv="content-Language" content="en">
+  <link href="../../style.css" title="style" rel="stylesheet" type="text/css">
+  <meta name="author" content="Manuel Pégourié-Gonnard">
+
+  <title>Texdoc - development version - pre-0.81 instructions</title>
+  <meta name="description" content="texdoc svn page">
+  <meta name="keywords" content="texdoc, tex, documentation, texlive, git">
+ </head>
+
+ <body>
+
+  <h1>Texdoc - development version - pre-0.81 instructions </h1>
+
+  <h2>Installation</h2>
+
+  <p>On Unix, you may want to use the <code>td-switch</code> script (see below)
+  to avoid these installation steps and switch easily from your system's texdoc
+  to the development version, once you got a copy of the repository.</p>
+
+  <p>The following explanations use <code>TdDev</code> to denote the path to the
+  directory holding the development version of texdoc. Names in all caps like
+  <code>VARIABLE</code> are <a href="../kpathsea">kpse</a> variables; you can
+  get their values using <code>kpsewhich --var-value VARIABLE</code>.</p>
+
+  <ul>
+
+   <li><em>The command.</em> This step is platform-dependant.
+
+   <ul>
+    <li> <em>Unix.</em> Symlink <code>TdDev/script</code> to
+    <code>TEXMFHOME/scripts/texdoc</code>. Then symlink <code>texdoc.tlu</code>
+    from this directory to <code>texdoc</code> in a directory that comes early
+    in your path. On a typical machine, the following commands do the trick.
+    <pre><code>mkdir -p TEXMFHOME/scripts/; rm -rf TEXMFHOME/scripts/texdoc
+ln -s TdDev/script TEXMFHOME/scripts/texdoc
+ln -s TEXMFHOME/scripts/texdoc/texdoc.tlu ~/bin/texdoc</code></pre>
+    </li>
+
+    <li><em>Windows.</em> Just copy the contents of <code>TdDev/script</code> to
+    <code>TEXMFHOME/scripts/texdoc</code>.</li>
+   </ul>
+
+   <li><em>The configuration file.</em> Install a copy (or symlink) of
+   <code>TdDev/texdoc.cnf</code> as
+   <code>TEXMFHOME/texdoc/texdoc-dist.cnf</code> (notice the <code>-dist</code>
+   part). It will completely override the configuration files in
+   <code>TEXMFDIST</code> and <code>TEXMFLOCAL</code>.</li>
+
+  </ul>
+
+  <h2 id="td-switch">Texdoc switcher (Unix only)</h2>
+
+  <p>Alternatively, you can skip the installation instructions above and use the
+  <a href="td-switch"><code>td-switch</code></a> script after installing this <a
+   href="texdoc">wrapper</a> as your texdoc program (typically in
+  <code>~/bin</code>). This is the setup I use; don't forget to adapt the
+  <code>git_repo</code> variable to your local configuration. Installation
+  advice:</p>
+  <pre><code>cd ~/bin
+wget http://tug.org/texdoc/dev/pre-0.81/td-switch
+# edit git_repo
+wget http://tug.org/texdoc/dev/pre-0.81/texdoc
+chmod +x td-switch texdoc</code></pre>
+  <p><code>td-switch git</code> activates the development version of texdoc,
+  <code>td-switch sys</code> switches back to you system's version.</p>
+
+ </body>
+</html>
