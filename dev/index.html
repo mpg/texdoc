@@ -54,12 +54,17 @@
    </li>
   </ul>
 
-  <p>These instructions hold when your system ships <strong>texdoc 0.81 or
-   newer</strong> (first dstributed with TeX Live 2011), which will
-  automatically find and use the script in <code>TEXMFHOME</code>. For older
-  versions on Unix, you had to override the texdoc executalbe which linked
-  directly to the script in <code>TEXMFMAIN</code>. If you're in this case,
-  please consult the <a href="pre-0.81">pre-0.81 instructions</a>.</p>
+  <p>You can make sure that the right files are used by running <code>texdoc
+   --files</code>: the first line contains the full path to the version of
+  <code>texdoclib</code> used, and the rest lists the configuration files in
+  use.</p>
+
+  <p><em>Warning.</em> The above instructions hold only if your system ships
+  <strong>texdoc 0.81 or newer</strong> (first distributed with TeX Live 2011),
+  which will automatically find and use the script in <code>TEXMFHOME</code>.
+  For older versions on Unix, you had to override the texdoc executable which
+  linked directly to the script in <code>TEXMFMAIN</code>. If you're in this
+  case, please consult the <a href="pre-0.81">pre-0.81 instructions</a>.</p>
 
  </body>
 </html>
