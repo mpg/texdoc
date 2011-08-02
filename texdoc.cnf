@@ -355,6 +355,7 @@ alias dtk           = dtk/doc/beispiel.pdf
 alias musixtex      = musixdoc
 alias mychemistry   = mychemistry_en
 alias mychemistry-de = mychemistry_de
+alias layout        = layout # in order to win over pst-layout (catalogue)
 
 ## a few easy patterns
 
