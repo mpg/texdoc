@@ -329,13 +329,18 @@ function is_in_path(name)
 end
 end
 
--- guess a viewer from a list: 
+-- guess a viewer from a list:
+-- - xdg-open from freedesktop if available
 -- - try detecting desktop environments
 -- - or return the first element of "list" whose name is found in path
 -- - or nil
 -- caches results of desktop environment detection
 do local de_viewer
 function guess_viewer(cmds)
+    -- try the freedesktop method
+    if is_in_path('xdg-open') then
+        return '(xdg-open %s) &'
+    end
     -- try desktop environment
     if not de_viewer then de_viewer = desktop_environment_viewer() end
     if de_viewer then return de_viewer end
