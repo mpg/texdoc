@@ -1,3 +1,12 @@
+Version 0.82
+------------
+
+Fixes to the default viewer/destkop environment detection:
+- try gvfs-open with Gnome
+- always try xdg-open first (usually more up-to-date)
+Thanks to Axel E. Retif for informing me that newer versions of Ubuntu don't
+ship gnome-open by default any more.
+
 Version 0.81
 ------------
 
