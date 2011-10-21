@@ -357,7 +357,8 @@ function desktop_environment_viewer()
         return '(kfmclient exec %s) &'              -- kde < 4
     end
     if os.getenv('GNOME_DESKTOP_SESSION_ID') then   -- gnome
-        return '(gnome-open %s) &'
+        if is_in_path('gvfs-open') then return '(gvfs-open %s) &' end
+        if is_in_path('gnome-open') then return '(gnome-open %s) &' end
     end
     if not is_in_path('xprop') then return end
     local xprop_fh = io.popen('xprop -root _DT_SAVE_MODE 2>/dev/null')
