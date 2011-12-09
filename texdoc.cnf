@@ -86,7 +86,7 @@
 # badbasename_list = readme, 00readme
 
 # Known suffixes for documentation
-suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes, -info
+suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes, -info, ref
 
 
 # Score adjustments
@@ -172,6 +172,8 @@ adjscore(beamer) presentations                = -10
 
 # misc
 adjscore(context) circuitikz = -10
+adjscore(context) /gnuplot/  = -3
+adjscore(context) context.man1 = +2
 adjscore(symbols) /staves/   = -5
 
 # catalogue info missing in the tlcontrib version of the package :-(
