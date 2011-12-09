@@ -74,11 +74,11 @@ function set_score(df, original_kw)
     deb_print('score', 'Max pattern score: '..tostring(score))
     -- get score from tlp associations
     if score == -10 and df.tlptodoc then
-        score = -2
+        score = -1
         deb_print('score', 'New score: -2 from package name association')
     end
     if score == -10 and df.runtodoc then
-        score = -6
+        score = -5
         deb_print('score', 'New score: -6 from sty/cls association')
     end
     -- bonus for metadata
@@ -87,8 +87,8 @@ function set_score(df, original_kw)
             score = score + 0.1
             deb_print('score', 'Catalogue "readme" bonus: +0.1')
         else
-            score = score + 2.5
-            deb_print('score', 'Catalogue details bonus: +2.5')
+            score = score + 1.5
+            deb_print('score', 'Catalogue details bonus: +1.5')
         end
     end
     -- adjust from keyword-specific tables
@@ -158,7 +158,7 @@ function heuristic_score(file, pat)
     end
     -- bonus for being in the right directory
     if string.find('/'..file, '/'..pat..'/', 1, true) and not slash then
-        upscore(score + 0.5, 'directory bonus')
+        upscore(score + 1.5, 'directory bonus')
     end
     -- done
     deb_print('score', 'Final heuristic score: '..tostring(score))

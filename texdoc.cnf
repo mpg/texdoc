@@ -86,7 +86,7 @@
 # badbasename_list = readme, 00readme
 
 # Known suffixes for documentation
-suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes
+suffix_list = doc, -doc, _doc, .doc, /doc, manual, /manual, -manual, userguide, /user_guide, -guide, -user, -man, notes, -info
 
 
 # Score adjustments
