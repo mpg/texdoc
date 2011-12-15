@@ -1,5 +1,4 @@
 TARGETS = texdoc.pdf texdoc.1 texdoc.man1.pdf
-AUX = texdoc.aux texdoc.log texdoc.out
 
 H2M_NAME = "find & view documentation in TeX Live"
 H2M_INC = include.h2m
@@ -8,8 +7,7 @@ H2M_SOURCES = ../script/constants.tlu ../script/texdoc.tlu
 all: $(TARGETS)
 
 texdoc.pdf: texdoc.tex
-	xelatex --interaction=batchmode $< >/dev/null
-	xelatex --interaction=batchmode $< >/dev/null
+	latexmk -quiet --pdflatex=xelatex $< >/dev/null
 
 texdoc.1: texdoc Makefile $(H2M_INC) $(H2M_SOURCES)
 	../tools/sh -- help2man -N -n$(H2M_NAME) --include $(H2M_INC) ./$< > $@
@@ -24,6 +22,6 @@ mrproper: clean
 	@rm -f -- $(TARGETS)
 
 clean: 
-	@rm -f -- $(AUX)
+	@latexmk -c -quiet >/dev/null
 
 .PHONY: clean mrproper

@@ -9,5 +9,5 @@ script/tags
 
 # temporary files
 doc/texdoc.aux
-doc/texdoc.out
 doc/texdoc.log
+doc/texdoc.fdb_latexmk
