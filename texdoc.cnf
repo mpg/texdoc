@@ -398,7 +398,6 @@ alias otibet        = otibet/unidoc
 alias pbdiagram     = pb-manual
 alias tikz          = pgfmanual
 alias apmgraph      = pmgraph
-alias ppower4       = ppower4/report
 alias preprint      = preprint/00readme.txt
 alias dutch         = rapdoc
 alias startex       = startex/base/guide
