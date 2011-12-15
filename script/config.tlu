@@ -331,7 +331,7 @@ function show_config_files (print_fun, verbose)
     local pref = verbose and '    ' or ''
     print_fun("Configuration files are:")
     for i, file in ipairs (config_files) do
-        print_fun(pref..file.status..'\t'..w32_path(file.path))
+        print_fun(pref..file.status..'\t'..win32_hook(file.path))
     end
     if verbose then
         local texmfhome = kpse.var_value('TEXMFHOME')
