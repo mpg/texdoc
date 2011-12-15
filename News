@@ -12,11 +12,12 @@ Fixes to the default viewer/destkop environment detection:
 Thanks to Axel E. Retif for informing me that newer versions of Ubuntu don't
 ship gnome-open by default any more.
 
-Version 0.81
-------------
+Version 0.81 (TeX Live 2011)
+============================
 
 Allow configuration files to be found in all TEXMF trees.
-The default one should now be installed in TEXMFDIST.
+The default one should now be installed in TEXMFDIST (in upstream TeX Live) or
+in a tree search after TEXMFLOCAL (in downstream distros).
 
 Delay default viewer detection, see:
 http://tug.org/pipermail/tex-live/2011-May/029150.html
