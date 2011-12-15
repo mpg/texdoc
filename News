@@ -1,6 +1,11 @@
 Version 0.82
 ------------
 
+Minor adjustments in the scoring system.
+
+Version 0.82
+------------
+
 Fixes to the default viewer/destkop environment detection:
 - try gvfs-open with Gnome
 - always try xdg-open first (usually more up-to-date)
