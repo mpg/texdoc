@@ -5,22 +5,10 @@ alias fixme = latex/fixme/fixme doesn't work (see Dan's report 2011-10-08)
 
 aliases for *cite.sty? see cite/README
 
-For later
-=========
-
-Internal
---------
-
-Use texlive/tlpdb.tlu for tlpdb reading.
-
-Get ready for Lua 5.2?
+fix FIXME in texdoc.cnf (alias cjk.txt not working, maybe a case issue)
 
 Scoring overhaul
 ----------------
-
-Brainstrom...
-
-lang: use info from the catalogue?
 
 Good package (either from the tlpdb or directory name) should be much more
 important for scoring. Eg, spie/article.pdf should never get such a high score
@@ -37,21 +25,21 @@ should win over
         barcodes/eandoc = Package doc
 (probably)
 
-Idea: instead of a good directory bonus, first pre-scan all results found to
-see if one of them has a good directory. If so, all other results get a big
-malus (like -5) for non-alias scoring. (?)
-
-Should do: test suite with selected cases from real life (perhaps using fake
-tlpdb + ls-R) and assertions about the results, such as "this one should come
-before that one, this one should be first, that one should be <0, etc.  Would
-serve both as documentation for myself and regression testing tool.
-    Easier: keep/retrieve deleted aliases and test than they are still
-    useless.
-
 Files found using the tlpdb only should be scored heuristicly as if <pkgname>
 were asked for. (Make sure heurisitc scoring returns a higher score for
 names actually containing the string. Check the result with psnfss2e aliases.)
 
+see aliases marked XXX in texdoc.cnf
+
+For later
+=========
+
+Internal
+--------
+
+Use texlive/tlpdb.tlu for tlpdb reading.
+
+Get ready for Lua 5.2?
 
 Misc
 ----
@@ -86,13 +74,9 @@ the catalogue has been fixed for a package that wasn't update. Should I generate
 Data.meta.lua directly from a fresh catalogue version?
     For now, just force update of the packages in TL when I notice.
 
-Use language information from the catalogue/tlpdb. If no lang info from
-catalogue, might try guessing based on filename, but is it worth it? The problem
-is, how would it interact with the socring system? Would a +3 bonus for good
-language be OK?
+Try guessin lang from file name when there is no info in the catalogue?
 
-Write a coverage checking script? What would be its exact goals? May want to
-discuss this with Phlipp S.
+What to do with tools/coverage? May want to discuss this with Phlipp S.
 
 tlpdb cache should check if ext_list has changed, in theory.
     Is it worth it in practice? I'll do it if someone complains...
@@ -100,7 +84,7 @@ tlpdb cache should check if ext_list has changed, in theory.
 BUG: finds non-existing files in tl2010 (probably from another tlpdb?)
 ex: texdoc luasseq on my machine while tl10 is active
     Ok, got it: tlpdb cache is not invalidated when switching to an older
-    tlpdb files fonr the same release. I wonder if it's worth fixing.
+    tlpdb files from the same release. I wonder if it's worth fixing.
 
 Caching: now used only for tlpdb. Is it worth using it for ls-R files?
 Configuration files?
