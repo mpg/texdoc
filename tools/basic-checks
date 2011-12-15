@@ -14,7 +14,7 @@ use open qw(:std utf8);
 BEGIN { (my $dir = $0) =~ s!(.*)/.*!$1!; unshift @INC, $dir; }
 use TdTools;
 
-my $conf = TdTools::setup($usage, 0);
+my $conf = TdTools::setup($usage);
 my $texdoc = "texlua $conf->{texdoc_path}/script/texdoc.tlu";
 
 # various command lines and associated exit status

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Wrap check-aliases.tlu
+# Wrap regression.tlu
 #
 # Manuel Pégourié-Gonnard, 2010. WTFPL v2.
 
@@ -18,6 +18,6 @@ use TdTools;
 
 my $conf = TdTools::setup($usage);
 
-exec "texlua $conf->{texdoc_path}/tools/check-aliases.tlu";
+exec "texlua $conf->{texdoc_path}/tools/regression.tlu";
 
 __END__

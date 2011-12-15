@@ -14,7 +14,7 @@ kpse.set_program_name(arg[-1], 'texdoc')
 -- load texdoclib
 local texdoc = require('texdoc.texdoclib')
 
--- return true iff the two doclists are essentially equal
+-- return true iff the two doclists are equal
 local function dl_equal(a, b)
     if #a ~= #b then return false end
     for i = 1, #a do

@@ -78,6 +78,7 @@ texdoc_do('view')
 
 return {
     setup_config_and_alias = setup_config_and_alias,
+    read_config_file       = read_config_file,
     init_databases         = init_databases,
     print_usage            = print_usage,
     get_doclist            = get_doclist,
