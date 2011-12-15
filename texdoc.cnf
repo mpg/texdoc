@@ -214,17 +214,20 @@ alias lshort-es                   = lshort-spanish/lshort-a4 # spanish
 alias e-tex-ref  = etex_man
 alias etex-ref   = etex_man
 alias pdftex-ref = pdftex-a
+#alias xetex-ref  = XeTeX-reference # OK
 alias luatex-ref = luatexref-t
 
 # by default, <engine> = <engine>-ref (duplicated: no alias cascading)
 alias e-tex      = etex_man
 alias etex       = etex_man
-#alias xetex      = XeTeX-reference
+alias pdftex     = pdftex-a
+#alias xetex      = XeTeX-reference # OK
 alias luatex     = luatexref-t
 
+alias e-tex-man  = etex.man1
 alias etex-man   = etex.man1
 alias pdftex-man = pdftex.man1
-#alias xetex-man = xetex.man1 # XXX
+#alias xetex-man = xetex.man1 # missing
 alias luatex-man = luatex.man1
 
 alias luatex-pkg = oberdiek/luatex.pdf
@@ -233,8 +236,8 @@ alias luatex-pkg = oberdiek/luatex.pdf
 alias article   = classes
 alias book      = classes
 alias report    = classes
-#alias ltxguide  = XXX
-#alias minimal   = XXX
+#alias ltxguide  = ? # missing
+#alias minimal   = ? # missing
 adjscore(minimal) europecv = -1000 # false positive
 
 # latex/basic packages, sorted by dtx
@@ -290,11 +293,15 @@ alias amslatex2   = technote
 alias amsmath     = amsldoc
 alias amsrefs     = amsrdoc
 alias amsthm      = amsthdoc
+alias amsart      = instr-l
+alias amsbook     = instr-l
+alias amscls      = instr-l
+alias amsproc     = instr-l
 alias amsart-dev  = amsclass
 alias amsbook-dev = amsclass
 alias amscls-dev  = amsclass
-alias amsmath-dev = amsmath
 alias amsproc-dev = amsclass
+alias amsmath-dev = amsmath
 
 # koma-script
 alias koma           = scrguien
@@ -355,6 +362,12 @@ alias dtk           = dtk/doc/beispiel.pdf
 alias musixtex      = musixdoc
 alias mychemistry   = mychemistry_en
 alias mychemistry-de = mychemistry_de
+alias cjk           = cjk.txt # FIXME: doesn't work
+alias ieee          = IEEEtran_HOWTO
+alias layouts       = layman
+alias plnfss        = plnfss.txt # XXX
+alias teubner       = teubner-doc
+alias xypic         = xyguide
 
 ## a few easy patterns
 
