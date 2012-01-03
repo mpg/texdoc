@@ -368,6 +368,7 @@ alias layouts       = layman
 alias plnfss        = plnfss.txt # XXX
 alias teubner       = teubner-doc
 alias xypic         = xyguide
+alias kvoptions-patch = kvoptions # XXX?
 
 ## a few easy patterns
 
