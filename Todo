@@ -10,6 +10,8 @@ fix FIXME in texdoc.cnf (alias cjk.txt not working, maybe a case issue)
 Scoring overhaul
 ----------------
 
+keyword.txt should be better than somethingelse.txt (currently it isn't)
+
 Good package (either from the tlpdb or directory name) should be much more
 important for scoring. Eg, spie/article.pdf should never get such a high score
 for article.
