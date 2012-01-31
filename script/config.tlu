@@ -291,9 +291,12 @@ function show_config_files (print_fun, verbose)
         print_fun(pref..file.status..'\t'..w32_path(file.path))
     end
     if verbose then
-        local texmfhome = kpse.var_value('TEXMFHOME')
-        print_fun('Recommended file for personal settings:')
-        print_fun(pref..texmfhome..'/texdoc/texdoc.cnf')
+        print_fun('Recommended file(s) for personal settings:')
+        local sep = (os.type == 'windows') and ';' or ':'
+        local texmfhomes = string.explode(kpse.var_value('TEXMFHOME'), sep)
+        for _, home in ipairs(texmfhomes) do
+            print_fun(pref..home..'/texdoc/texdoc.cnf')
+        end
     end
 end
 
