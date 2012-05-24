@@ -336,6 +336,21 @@ alias    mp       = mpman
 alias(5) mp       = mpgraph
 alias(5) mp       = mpintro
 
+# latex3 and friends
+alias latex3    = ltx3info
+alias l3clist   = interface3
+alias l3token   = interface3
+alias l3prop    = interface3
+alias l3msg     = interface3
+alias l3file    = interface3
+alias l3skip    = interface3
+alias l3keys    = interface3
+alias l3fp      = interface3
+alias l3box     = interface3
+alias l3coffins = interface3
+alias l3color   = interface3
+alias l3luatex  = interface3
+
 # misc
 alias autofe        = ucs
 alias afoot         = arabtex-doc
@@ -401,7 +416,6 @@ alias lehman        = fontinstallationguide
 alias gnlogic       = gn-logic14
 alias kluwer        = kluwer/usrman
 alias lmfonts       = lm-info
-alias latex3        = ltx3info
 alias mathenv       = mdwtab
 alias montex        = mlsquick
 alias mltex         = mltex/mltex.txt
