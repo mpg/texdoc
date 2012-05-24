@@ -194,6 +194,7 @@ adjscore(pgf) pgfmanual.pdf = +5
 
 alias live    = texlive-en
 alias texlive = texlive-en
+alias tex-live = texlive-en
 
 ## various stuff
 
