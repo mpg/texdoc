@@ -386,6 +386,7 @@ alias teubner       = teubner-doc
 alias xypic         = xyguide
 alias kvoptions-patch = kvoptions # XXX?
 alias cweb          = cwebman # XXX: is in 'cweb' dir, should win
+alias einfuehrung   = einfuehrung/README # tl should get "readme" tag
 
 ## a few easy patterns
 
