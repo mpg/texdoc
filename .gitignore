@@ -11,3 +11,4 @@ script/tags
 doc/texdoc.aux
 doc/texdoc.log
 doc/texdoc.fdb_latexmk
+doc/texdoc.fls
